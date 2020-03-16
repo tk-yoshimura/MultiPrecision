@@ -1,58 +1,58 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> {
+    internal sealed partial class Accumulator<N> {
 
-        public static MantissaBuffer<N> operator +(MantissaBuffer<N> a, MantissaBuffer<N> b) {
+        public static Accumulator<N> operator +(Accumulator<N> a, Accumulator<N> b) {
             return Add(a, b);
         }
 
-        public static MantissaBuffer<N> operator -(MantissaBuffer<N> a, MantissaBuffer<N> b) {
+        public static Accumulator<N> operator -(Accumulator<N> a, Accumulator<N> b) {
             return Sub(a, b);
         }
 
-        public static MantissaBuffer<N> operator *(MantissaBuffer<N> a, MantissaBuffer<N> b) {
+        public static Accumulator<N> operator *(Accumulator<N> a, Accumulator<N> b) {
             return Mul(a, b);
         }
 
-        public static MantissaBuffer<N> operator /(MantissaBuffer<N> a, MantissaBuffer<N> b) {
+        public static Accumulator<N> operator /(Accumulator<N> a, Accumulator<N> b) {
             return Div(a, b).div;
         }
 
-        public static MantissaBuffer<N> operator %(MantissaBuffer<N> a, MantissaBuffer<N> b) {
+        public static Accumulator<N> operator %(Accumulator<N> a, Accumulator<N> b) {
             return Div(a, b).rem;
         }
 
-        private void Add(MantissaBuffer<N> v) {
+        private void Add(Accumulator<N> v) {
             for (uint dig = 0; dig < Length; dig++) {
                 CarryAdd(dig, v.arr[dig]);
             }
         }
 
-        private void Sub(MantissaBuffer<N> v) {
+        private void Sub(Accumulator<N> v) {
             for (uint dig = 0; dig < Length; dig++) {
                 CarrySub(dig, v.arr[dig]);
             }
         }
 
-        public static MantissaBuffer<N> Add(MantissaBuffer<N> v1, MantissaBuffer<N> v2) {
-            MantissaBuffer<N> ret = v1.Copy();
+        public static Accumulator<N> Add(Accumulator<N> v1, Accumulator<N> v2) {
+            Accumulator<N> ret = v1.Copy();
             
             ret.Add(v2);
 
             return ret;
         }
 
-        public static MantissaBuffer<N> Sub(MantissaBuffer<N> v1, MantissaBuffer<N> v2) {
-            MantissaBuffer<N> ret = v1.Copy();
+        public static Accumulator<N> Sub(Accumulator<N> v1, Accumulator<N> v2) {
+            Accumulator<N> ret = v1.Copy();
 
             ret.Sub(v2);
 
             return ret;
         }
 
-        public static MantissaBuffer<N> Mul(MantissaBuffer<N> v1, MantissaBuffer<N> v2) {
-            MantissaBuffer<N> ret = Zero;
+        public static Accumulator<N> Mul(Accumulator<N> v1, Accumulator<N> v2) {
+            Accumulator<N> ret = Zero;
 
             uint v1_digits = v1.Digits, v2_digits = v2.Digits;
 
@@ -76,7 +76,7 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static (MantissaBuffer<N> div, MantissaBuffer<N> rem) Div(MantissaBuffer<N> v1, MantissaBuffer<N> v2) {
+        public static (Accumulator<N> div, Accumulator<N> rem) Div(Accumulator<N> v1, Accumulator<N> v2) {
             if (v2.IsZero) {
                 throw new DivideByZeroException();
             }
@@ -87,7 +87,7 @@ namespace MultiPrecision {
             v1 = LeftShift(v1, sft);
             v2 = LeftShift(v2, sft);
 
-            MantissaBuffer<N> div = Zero, rem = v1;
+            Accumulator<N> div = Zero, rem = v1;
 
             UInt64 denom = 0;
             uint denom_digits = v2.Digits;
@@ -111,7 +111,7 @@ namespace MultiPrecision {
                 div.CarryAdd(i - denom_digits + 1, nh);
                 div.CarryAdd(i - denom_digits, nl);
 
-                MantissaBuffer<N> sub = Mul(new MantissaBuffer<N>(n), v2);
+                Accumulator<N> sub = Mul(new Accumulator<N>(n), v2);
                 sub.LeftShiftArray(i - denom_digits);
 
                 rem.Sub(sub);
@@ -129,7 +129,7 @@ namespace MultiPrecision {
                 div.CarryAdd(1, nh);
                 div.CarryAdd(0, nl);
 
-                MantissaBuffer<N> sub = Mul(new MantissaBuffer<N>(n), v2);
+                Accumulator<N> sub = Mul(new Accumulator<N>(n), v2);
                 rem.Sub(sub);
 
                 if (n == 0) {

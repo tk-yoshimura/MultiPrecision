@@ -6,21 +6,21 @@ using System.Numerics;
 
 namespace MultiPrecisionTest {
     [TestClass]
-    public class MantissaBufferTest {
+    public class AccumulatorTest {
         [TestMethod]
         public void CreateTest() {
-            UInt32[] mantissa_one = (new UInt32[] { 0x80000000u }).Concat(new UInt32[MantissaBuffer<Pow2.N16>.Length - 1]).ToArray();
+            UInt32[] mantissa_one = (new UInt32[] { 0x80000000u }).Concat(new UInt32[Accumulator<Pow2.N16>.Length - 1]).ToArray();
 
-            Console.WriteLine(new MantissaBuffer<Pow2.N16>());
-            Console.WriteLine(new MantissaBuffer<Pow2.N16>(mantissa_one));
-            Console.WriteLine(new MantissaBuffer<Pow2.N16>(2));
+            Console.WriteLine(new Accumulator<Pow2.N16>());
+            Console.WriteLine(new Accumulator<Pow2.N16>(mantissa_one));
+            Console.WriteLine(new Accumulator<Pow2.N16>(2));
 
-            Assert.AreEqual(Mantissa<Pow2.N16>.Length * 2, MantissaBuffer<Pow2.N16>.Length);
+            Assert.AreEqual(Mantissa<Pow2.N16>.Length * 2, Accumulator<Pow2.N16>.Length);
         }
 
         [TestMethod]
         public void CarryAddTest() {
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(2);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(2);
             BigInteger bi = (BigInteger)v;
 
             v.CarryAdd(3, 0xFFFFFFFFu);
@@ -56,9 +56,9 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void CarrySubTest() {
-            UInt32[] mantissa_full = Enumerable.Repeat(0xFFFFFFFFu, MantissaBuffer<Pow2.N16>.Length).ToArray();
+            UInt32[] mantissa_full = Enumerable.Repeat(0xFFFFFFFFu, Accumulator<Pow2.N16>.Length).ToArray();
 
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(mantissa_full);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(mantissa_full);
             BigInteger bi = (BigInteger)v;
 
             v.CarrySub(3, 0xFFFFFFFFu);
@@ -94,7 +94,7 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void CarryAddSubTest() {
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(2);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(2);
             BigInteger bi = (BigInteger)v;
 
             v.CarryAdd(3, 0xFFFFFFFFu);
@@ -140,16 +140,16 @@ namespace MultiPrecisionTest {
         public void LeftShiftTest() {
             Random random = new Random(1234);
 
-            UInt32[] mantissa = (new UInt32[MantissaBuffer<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
+            UInt32[] mantissa = (new UInt32[Accumulator<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
             
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(mantissa);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(mantissa);
             BigInteger bi = (BigInteger)v;
 
-            MantissaBuffer<Pow2.N16> v_full = MantissaBuffer<Pow2.N16>.Full;
+            Accumulator<Pow2.N16> v_full = Accumulator<Pow2.N16>.Full;
             BigInteger bi_full = (BigInteger)v_full;
 
             for(int sft = 0; sft <= 2500; sft++) { 
-                MantissaBuffer<Pow2.N16> v_sft = v << sft;
+                Accumulator<Pow2.N16> v_sft = v << sft;
                 BigInteger bi_sft = (bi << sft) & bi_full;
 
                 Console.WriteLine(sft);
@@ -162,13 +162,13 @@ namespace MultiPrecisionTest {
         public void RightShiftTest() {
             Random random = new Random(1234);
 
-            UInt32[] mantissa = (new UInt32[MantissaBuffer<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
+            UInt32[] mantissa = (new UInt32[Accumulator<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
 
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(mantissa);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(mantissa);
             BigInteger bi = (BigInteger)v;
 
             for(int sft = 0; sft <= 2500; sft++) { 
-                MantissaBuffer<Pow2.N16> v_sft = v >> sft;
+                Accumulator<Pow2.N16> v_sft = v >> sft;
                 BigInteger bi_sft = bi >> sft;
 
                 Console.WriteLine(sft);
@@ -181,16 +181,16 @@ namespace MultiPrecisionTest {
         public void LeftShiftArrayTest() {
             Random random = new Random(1234);
 
-            UInt32[] mantissa = (new UInt32[MantissaBuffer<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
+            UInt32[] mantissa = (new UInt32[Accumulator<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
             
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(mantissa);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(mantissa);
             BigInteger bi = (BigInteger)v;
 
-            MantissaBuffer<Pow2.N16> v_full = MantissaBuffer<Pow2.N16>.Full;
+            Accumulator<Pow2.N16> v_full = Accumulator<Pow2.N16>.Full;
             BigInteger bi_full = (BigInteger)v_full;
 
             for(uint sft = 0; sft <= 100; sft++) { 
-                MantissaBuffer<Pow2.N16> v_sft = v.Copy();
+                Accumulator<Pow2.N16> v_sft = v.Copy();
                 v_sft.LeftShiftArray(sft);
                 BigInteger bi_sft = (bi << ((int)sft * 32)) & bi_full;
 
@@ -204,13 +204,13 @@ namespace MultiPrecisionTest {
         public void RightShiftArrayTest() {
             Random random = new Random(1234);
 
-            UInt32[] mantissa = (new UInt32[MantissaBuffer<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
+            UInt32[] mantissa = (new UInt32[Accumulator<Pow2.N16>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
 
-            MantissaBuffer<Pow2.N16> v = new MantissaBuffer<Pow2.N16>(mantissa);
+            Accumulator<Pow2.N16> v = new Accumulator<Pow2.N16>(mantissa);
             BigInteger bi = (BigInteger)v;
 
             for(uint sft = 0; sft <= 100; sft++) {
-                MantissaBuffer<Pow2.N16> v_sft = v.Copy();
+                Accumulator<Pow2.N16> v_sft = v.Copy();
                 v_sft.RightShiftArray(sft);
                 BigInteger bi_sft = bi >> ((int)sft * 32);
 
@@ -225,21 +225,21 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 50000; i++) {
-                int digits2 = random.Next(MantissaBuffer<Pow2.N16>.Length / 2);
-                int digits1 = random.Next(MantissaBuffer<Pow2.N16>.Length - digits2);
+                int digits2 = random.Next(Accumulator<Pow2.N16>.Length / 2);
+                int digits1 = random.Next(Accumulator<Pow2.N16>.Length - digits2);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
-                MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Add(v1, v2);
+                Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Add(v1, v2);
                 BigInteger bi = bi1 + bi2;
 
                 Console.WriteLine(bi);
@@ -253,22 +253,22 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 50000; i++) { 
-                int digits2 = random.Next(MantissaBuffer<Pow2.N16>.Length / 2 - 2);
-                int digits1 = random.Next(digits2 + 1, digits2 + MantissaBuffer<Pow2.N16>.Length / 2);
+                int digits2 = random.Next(Accumulator<Pow2.N16>.Length / 2 - 2);
+                int digits1 = random.Next(digits2 + 1, digits2 + Accumulator<Pow2.N16>.Length / 2);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
                 try {
-                    MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Sub(v1, v2);
+                    Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Sub(v1, v2);
                     BigInteger bi = bi1 - bi2;
 
                     Console.WriteLine(bi);
@@ -288,21 +288,21 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 50000; i++) { 
-                int digits2 = random.Next(MantissaBuffer<Pow2.N16>.Length / 2);
-                int digits1 = random.Next(MantissaBuffer<Pow2.N16>.Length - digits2);
+                int digits2 = random.Next(Accumulator<Pow2.N16>.Length / 2);
+                int digits1 = random.Next(Accumulator<Pow2.N16>.Length - digits2);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
-                MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Mul(v1, v2);
+                Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Mul(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -313,18 +313,18 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void MulFullTest() {
-            UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
-                .Select((_, idx) => idx < MantissaBuffer<Pow2.N16>.Length / 2 ? 0xFFFFFFFFu : 0
+            UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
+                .Select((_, idx) => idx < Accumulator<Pow2.N16>.Length / 2 ? 0xFFFFFFFFu : 0
             ).ToArray();
-            UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
-                .Select((_, idx) => idx < MantissaBuffer<Pow2.N16>.Length / 2 ? 0xFFFFFFFFu : 0
+            UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
+                .Select((_, idx) => idx < Accumulator<Pow2.N16>.Length / 2 ? 0xFFFFFFFFu : 0
             ).ToArray();
                 
-            MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1);
-            MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2);
+            Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1);
+            Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2);
             BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
-            MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Mul(v1, v2);
+            Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Mul(v1, v2);
             BigInteger bi = bi1 * bi2;
 
             Console.WriteLine(bi);
@@ -337,26 +337,26 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 50000; i++) { 
-                int digits2 = random.Next(1, MantissaBuffer<Pow2.N16>.Length);
-                int digits1 = random.Next(digits2, MantissaBuffer<Pow2.N16>.Length);
+                int digits2 = random.Next(1, Accumulator<Pow2.N16>.Length);
+                int digits1 = random.Next(digits2, Accumulator<Pow2.N16>.Length);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
                 if (v2.IsZero) {
                     continue;
                 }
 
-                (MantissaBuffer<Pow2.N16> vdiv, MantissaBuffer<Pow2.N16> vrem)
-                    = MantissaBuffer<Pow2.N16>.Div(v1, v2);
+                (Accumulator<Pow2.N16> vdiv, Accumulator<Pow2.N16> vrem)
+                    = Accumulator<Pow2.N16>.Div(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
                 
                 Assert.IsTrue(vrem < v2);
@@ -364,23 +364,23 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(birem, (BigInteger)vrem, "rem");
                 Assert.AreEqual(bidiv, (BigInteger)vdiv, "div");
 
-                Assert.AreEqual(v1, MantissaBuffer<Pow2.N16>.Add(MantissaBuffer<Pow2.N16>.Mul(vdiv, v2), vrem));
+                Assert.AreEqual(v1, Accumulator<Pow2.N16>.Add(Accumulator<Pow2.N16>.Mul(vdiv, v2), vrem));
             }
         }
 
         [TestMethod]
         public void DivFullTest() {
 
-            for (int sft1 = 0; sft1 < MantissaBuffer<Pow2.N8>.Bits; sft1++) {
+            for (int sft1 = 0; sft1 < Accumulator<Pow2.N8>.Bits; sft1++) {
 
-                for (int sft2 = 0; sft2 < MantissaBuffer<Pow2.N8>.Bits; sft2++) {
+                for (int sft2 = 0; sft2 < Accumulator<Pow2.N8>.Bits; sft2++) {
 
-                    MantissaBuffer<Pow2.N8> v1 = MantissaBuffer<Pow2.N8>.Full >> sft1;
-                    MantissaBuffer<Pow2.N8> v2 = MantissaBuffer<Pow2.N8>.Full >> sft2;
+                    Accumulator<Pow2.N8> v1 = Accumulator<Pow2.N8>.Full >> sft1;
+                    Accumulator<Pow2.N8> v2 = Accumulator<Pow2.N8>.Full >> sft2;
                     BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
-                    (MantissaBuffer<Pow2.N8> vdiv, MantissaBuffer<Pow2.N8> vrem)
-                        = MantissaBuffer<Pow2.N8>.Div(v1, v2);
+                    (Accumulator<Pow2.N8> vdiv, Accumulator<Pow2.N8> vrem)
+                        = Accumulator<Pow2.N8>.Div(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -388,7 +388,7 @@ namespace MultiPrecisionTest {
                     Assert.AreEqual(birem, (BigInteger)vrem, "rem");
                     Assert.AreEqual(bidiv, (BigInteger)vdiv, "div");
 
-                    Assert.AreEqual(v1, MantissaBuffer<Pow2.N8>.Add(MantissaBuffer<Pow2.N8>.Mul(vdiv, v2), vrem));
+                    Assert.AreEqual(v1, Accumulator<Pow2.N8>.Add(Accumulator<Pow2.N8>.Mul(vdiv, v2), vrem));
 
                 }
             }
@@ -399,33 +399,33 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 50000; i++) { 
-                int digits2 = random.Next(2, MantissaBuffer<Pow2.N16>.Length / 2);
-                int digits1 = random.Next(1, MantissaBuffer<Pow2.N16>.Length - digits2 - 1);
+                int digits2 = random.Next(2, Accumulator<Pow2.N16>.Length / 2);
+                int digits1 = random.Next(1, Accumulator<Pow2.N16>.Length - digits2 - 1);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v3 = new MantissaBuffer<Pow2.N16>((UInt32)random.Next(4));
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v3 = new Accumulator<Pow2.N16>((UInt32)random.Next(4));
 
                 if (random.Next(3) < 2 || v1.IsZero || v2.IsZero || v3.IsZero) {
-                    (MantissaBuffer<Pow2.N16> vdiv, MantissaBuffer<Pow2.N16> vrem) =
-                        MantissaBuffer<Pow2.N16>.Div(MantissaBuffer<Pow2.N16>.Add(MantissaBuffer<Pow2.N16>.Mul(v1, v2), v3), v2);
+                    (Accumulator<Pow2.N16> vdiv, Accumulator<Pow2.N16> vrem) =
+                        Accumulator<Pow2.N16>.Div(Accumulator<Pow2.N16>.Add(Accumulator<Pow2.N16>.Mul(v1, v2), v3), v2);
 
                     Assert.AreEqual(v1, vdiv);
                     Assert.AreEqual(v3, vrem);
                 }
                 else{
                     try {
-                        (MantissaBuffer<Pow2.N16> vdiv, MantissaBuffer<Pow2.N16> vrem) =
-                            MantissaBuffer<Pow2.N16>.Div(MantissaBuffer<Pow2.N16>.Sub(MantissaBuffer<Pow2.N16>.Mul(v1, v2), v3), v2);
+                        (Accumulator<Pow2.N16> vdiv, Accumulator<Pow2.N16> vrem) =
+                            Accumulator<Pow2.N16>.Div(Accumulator<Pow2.N16>.Sub(Accumulator<Pow2.N16>.Mul(v1, v2), v3), v2);
 
-                        Assert.AreEqual(v1 - new MantissaBuffer<Pow2.N16>(1), vdiv);
+                        Assert.AreEqual(v1 - new Accumulator<Pow2.N16>(1), vdiv);
                         Assert.AreEqual(v2 - v3, vrem);
                     }
                     catch (OverflowException) {
@@ -443,19 +443,19 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 2500; i++) { 
-                int digits1 = random.Next(MantissaBuffer<Pow2.N16>.Length);
-                int digits2 = random.Next(MantissaBuffer<Pow2.N16>.Length);
+                int digits1 = random.Next(Accumulator<Pow2.N16>.Length);
+                int digits2 = random.Next(Accumulator<Pow2.N16>.Length);
 
-                UInt32[] mantissa1 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa1 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits1 && random.Next(2) < 1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                UInt32[] mantissa2 = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa2 = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits2 && random.Next(2) < 1 ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v1 = new MantissaBuffer<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
-                MantissaBuffer<Pow2.N16> v2 = random.Next(8) < 7
-                                        ? new MantissaBuffer<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits)
+                Accumulator<Pow2.N16> v1 = new Accumulator<Pow2.N16>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
+                Accumulator<Pow2.N16> v2 = random.Next(8) < 7
+                                        ? new Accumulator<Pow2.N16>(mantissa2) >> random.Next(UIntUtil.UInt32Bits)
                                         : v1.Copy();
                 BigInteger bi1 = (BigInteger)v1, bi2 = (BigInteger)v2;
 
@@ -478,16 +478,16 @@ namespace MultiPrecisionTest {
         public void LeadingZeroCountTest() {
             Random random = new Random(1234);
             
-            MantissaBuffer<Pow2.N16> one = new MantissaBuffer<Pow2.N16>(1);
-            MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Zero;
+            Accumulator<Pow2.N16> one = new Accumulator<Pow2.N16>(1);
+            Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Zero;
 
-            for(int i = 0; i <= MantissaBuffer<Pow2.N16>.Bits + 100; i++) { 
+            for(int i = 0; i <= Accumulator<Pow2.N16>.Bits + 100; i++) { 
                 Console.WriteLine($"{v.LeadingZeroCount}, {v}");
                 
                 v.LeftShift(1);
 
                 if(random.Next(2) < 1) { 
-                    v = MantissaBuffer<Pow2.N16>.Add(v, one);
+                    v = Accumulator<Pow2.N16>.Add(v, one);
                 }
             }
         }
@@ -496,10 +496,10 @@ namespace MultiPrecisionTest {
         public void MantissaShiftTest() {
             Random random = new Random(1234);
             
-            MantissaBuffer<Pow2.N8> one = new MantissaBuffer<Pow2.N8>(1);
-            MantissaBuffer<Pow2.N8> v = MantissaBuffer<Pow2.N8>.Zero;
+            Accumulator<Pow2.N8> one = new Accumulator<Pow2.N8>(1);
+            Accumulator<Pow2.N8> v = Accumulator<Pow2.N8>.Zero;
 
-            for(int i = 0; i <= MantissaBuffer<Pow2.N8>.Bits + 10; i++) {
+            for(int i = 0; i <= Accumulator<Pow2.N8>.Bits + 10; i++) {
                 (Mantissa<Pow2.N8> n, int sft) = v.MantissaShift; 
                 
                 Console.WriteLine($"{n.LeadingZeroCount}, {sft}, {n}, {v}");
@@ -507,7 +507,7 @@ namespace MultiPrecisionTest {
                 v.LeftShift(1);
 
                 if(random.Next(2) < 1) { 
-                    v = MantissaBuffer<Pow2.N8>.Add(v, one);
+                    v = Accumulator<Pow2.N8>.Add(v, one);
                 }
             }
         }
@@ -561,7 +561,7 @@ namespace MultiPrecisionTest {
             };
 
             for(uint i = 0; i < vs.Length; i++) { 
-                MantissaBuffer<Pow2.N4> v = new MantissaBuffer<Pow2.N4>(vs[i].Reverse().ToArray());
+                Accumulator<Pow2.N4> v = new Accumulator<Pow2.N4>(vs[i].Reverse().ToArray());
 
                 (Mantissa<Pow2.N4> n, int sft) = v.MantissaShift; 
                 
@@ -574,13 +574,13 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             for(int i = 0; i <= 2500; i++) { 
-                int digits = random.Next(MantissaBuffer<Pow2.N16>.Length);
+                int digits = random.Next(Accumulator<Pow2.N16>.Length);
 
-                UInt32[] mantissa = (new UInt32[MantissaBuffer<Pow2.N16>.Length])
+                UInt32[] mantissa = (new UInt32[Accumulator<Pow2.N16>.Length])
                     .Select((_, idx) => idx < digits ? (UInt32)random.Next() : 0
                 ).ToArray();
                 
-                MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.RightShift(new MantissaBuffer<Pow2.N16>(mantissa), (uint)random.Next(UIntUtil.UInt32Bits));
+                Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.RightShift(new Accumulator<Pow2.N16>(mantissa), (uint)random.Next(UIntUtil.UInt32Bits));
                 BigInteger bi = (BigInteger)v;
 
                 Assert.AreEqual(bi.ToString(), v.ToString());
@@ -591,7 +591,7 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void ToStringFullTest() {
-            MantissaBuffer<Pow2.N16> v = MantissaBuffer<Pow2.N16>.Full;
+            Accumulator<Pow2.N16> v = Accumulator<Pow2.N16>.Full;
             BigInteger bi = (BigInteger)v;
 
             Assert.AreEqual(bi.ToString(), v.ToString());

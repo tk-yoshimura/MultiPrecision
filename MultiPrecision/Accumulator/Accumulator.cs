@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> : ICloneable where N : struct, IConstant {
+    internal sealed partial class Accumulator<N> : ICloneable where N : struct, IConstant {
 
         internal readonly UInt32[] arr;
 
@@ -10,19 +10,19 @@ namespace MultiPrecision {
         public static int Bits => Length * sizeof(float) * 8;
         public UInt32[] Value => (UInt32[])arr.Clone();
 
-        public MantissaBuffer() {
+        public Accumulator() {
             this.arr = new UInt32[Length];
         }
 
-        public MantissaBuffer(UInt32 v) : this() {
+        public Accumulator(UInt32 v) : this() {
             this.arr[0] = v;
         }
 
-        public MantissaBuffer(UInt64 v) : this() {
+        public Accumulator(UInt64 v) : this() {
             (this.arr[1], this.arr[0]) = UIntUtil.Unpack(v);
         }
 
-        public MantissaBuffer(UInt32[] arr) {
+        public Accumulator(UInt32[] arr) {
             if (arr == null || arr.Length != Length) {
                 throw new ArgumentException();
             }
@@ -30,11 +30,11 @@ namespace MultiPrecision {
             this.arr = (UInt32[])arr.Clone();
         }
 
-        public MantissaBuffer(Mantissa<N> n) : this() {
+        public Accumulator(Mantissa<N> n) : this() {
             Array.Copy(n.arr, 0, arr, 0, Mantissa<N>.Length);
         }
 
-        public MantissaBuffer(Mantissa<N> n, int sft) : this(n) {
+        public Accumulator(Mantissa<N> n, int sft) : this(n) {
             if (sft > 0) {
                 LeftShift((uint)sft);
             }
@@ -77,12 +77,12 @@ namespace MultiPrecision {
             return Copy();
         }
 
-        public MantissaBuffer<N> Copy() {
-            return new MantissaBuffer<N>(arr);
+        public Accumulator<N> Copy() {
+            return new Accumulator<N>(arr);
         }
 
         public override bool Equals(object obj) {
-            return (obj is MantissaBuffer<N> n) && (n == this);
+            return (obj is Accumulator<N> n) && (n == this);
         }
 
         public override int GetHashCode() {

@@ -2,9 +2,9 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> {
+    internal sealed partial class Accumulator<N> {
 
-        public static MantissaBuffer<N> operator<<(MantissaBuffer<N> a, int sft) {
+        public static Accumulator<N> operator<<(Accumulator<N> a, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -12,7 +12,7 @@ namespace MultiPrecision {
             return LeftShift(a, (uint)sft);
         }
 
-        public static MantissaBuffer<N> operator>>(MantissaBuffer<N> a, int sft) {
+        public static Accumulator<N> operator>>(Accumulator<N> a, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -91,32 +91,32 @@ namespace MultiPrecision {
             }
         }
 
-        public static MantissaBuffer<N> LeftShift(MantissaBuffer<N> n, uint sft) {
-            MantissaBuffer<N> ret = n.Copy();
+        public static Accumulator<N> LeftShift(Accumulator<N> n, uint sft) {
+            Accumulator<N> ret = n.Copy();
 
             ret.LeftShift(sft);
 
             return ret;
         }
 
-        public static MantissaBuffer<N> RightShift(MantissaBuffer<N> n, uint sft) {
-            MantissaBuffer<N> ret = n.Copy();
+        public static Accumulator<N> RightShift(Accumulator<N> n, uint sft) {
+            Accumulator<N> ret = n.Copy();
 
             ret.RightShift(sft);
 
             return ret;
         }
 
-        public static MantissaBuffer<N> LeftShiftArray(MantissaBuffer<N> n, uint sft) {
-            MantissaBuffer<N> ret = n.Copy();
+        public static Accumulator<N> LeftShiftArray(Accumulator<N> n, uint sft) {
+            Accumulator<N> ret = n.Copy();
 
             ret.LeftShiftArray(sft);
 
             return ret;
         }        
 
-        public static MantissaBuffer<N> RightShiftArray(MantissaBuffer<N> n, uint sft) {
-            MantissaBuffer<N> ret = n.Copy();
+        public static Accumulator<N> RightShiftArray(Accumulator<N> n, uint sft) {
+            Accumulator<N> ret = n.Copy();
 
             ret.RightShiftArray(sft);
 

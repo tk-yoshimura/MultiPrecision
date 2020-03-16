@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> {
+    internal sealed partial class Accumulator<N> {
 
         public (Mantissa<N> n, int sft) MantissaShift{
             get {
@@ -12,7 +12,7 @@ namespace MultiPrecision {
                 }
 
                 Mantissa<N> n = new Mantissa<N>();
-                MantissaBuffer<N> n_sft = Copy();
+                Accumulator<N> n_sft = Copy();
 
                 uint lzc = LeadingZeroCount;
                 n_sft.LeftShift(lzc);
@@ -21,13 +21,13 @@ namespace MultiPrecision {
 
                 if(n_sft.arr[Mantissa<N>.Length - 1] > round) { 
                     int i = Mantissa<N>.Length;
-                    for(; i < MantissaBuffer<N>.Length; i++) { 
+                    for(; i < Accumulator<N>.Length; i++) { 
                         if(n_sft.arr[i] < UInt32.MaxValue) {
                             n_sft.CarryAdd((uint)Mantissa<N>.Length, 1);
                             break;
                         }
                     }
-                    if(i == MantissaBuffer<N>.Length) { 
+                    if(i == Accumulator<N>.Length) { 
                        return (Mantissa<N>.One, sft - 1); 
                     }
                 }

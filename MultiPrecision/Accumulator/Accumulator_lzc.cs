@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Intrinsics.X86;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> {
+    internal sealed partial class Accumulator<N> {
 
         public uint LeadingZeroCount {
             get {
