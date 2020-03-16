@@ -25,6 +25,13 @@ namespace MultiPrecision {
                 return NaN;
             }
 
+            if (a.IsZero) {
+                return b.Copy();
+            }
+            if (b.IsZero) {
+                return a.Copy();
+            }
+
             if(a.sign == b.sign) { 
                 (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
@@ -42,15 +49,38 @@ namespace MultiPrecision {
                 return NaN;
             }
 
-            if(a.sign != b.sign) { 
-                (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+            if (a.IsZero) {
+                MultiPrecision<N> ret = b.Copy();
+                ret.sign = 1 - ret.sign;
+                return ret;
+            }
+            if (b.IsZero) {
+                return a.Copy();
+            }
 
-                return new MultiPrecision<N>(a.sign, exponent, mantissa);
+            if(a.sign == Sign.Plus){
+                if(b.sign == Sign.Plus){
+                    (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+
+                    return new MultiPrecision<N>((a > b) ? Sign.Plus : Sign.Minus, exponent, mantissa);
+                }
+                else{
+                    (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+
+                    return new MultiPrecision<N>(Sign.Plus, exponent, mantissa);
+                }
             }
             else {
-                (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+                if(b.sign == Sign.Plus){
+                    (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa);
+                    return new MultiPrecision<N>(Sign.Minus, exponent, mantissa);
+                }
+                else{
+                    (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+
+                    return new MultiPrecision<N>((a > b) ? Sign.Plus : Sign.Minus, exponent, mantissa);
+                }
             }
         }
 
