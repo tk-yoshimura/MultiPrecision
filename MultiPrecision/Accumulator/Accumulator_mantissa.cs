@@ -17,8 +17,6 @@ namespace MultiPrecision {
                 uint lzc = LeadingZeroCount;
                 n_sft.LeftShift(lzc);
                 
-                int sft = (int)lzc - Mantissa<N>.Bits;
-
                 if(n_sft.arr[Mantissa<N>.Length - 1] > round) { 
                     int i = Mantissa<N>.Length;
                     for(; i < Accumulator<N>.Length; i++) { 
@@ -28,13 +26,13 @@ namespace MultiPrecision {
                         }
                     }
                     if(i == Accumulator<N>.Length) { 
-                       return (Mantissa<N>.One, sft - 1); 
+                       return (Mantissa<N>.One, (int)lzc - 1); 
                     }
                 }
 
                 Array.Copy(n_sft.arr, Mantissa<N>.Length, n.arr, 0, Mantissa<N>.Length);
 
-                return (n, sft);
+                return (n, (int)lzc);
             }
         }
     }
