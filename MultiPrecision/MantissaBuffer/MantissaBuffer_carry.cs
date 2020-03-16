@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void CarryAdd(uint dig, UInt32 v) {

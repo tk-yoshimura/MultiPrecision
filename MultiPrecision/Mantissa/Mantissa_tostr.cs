@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> {
 
         public override string ToString() {
             const UInt64 dec_base = 1000000000u;

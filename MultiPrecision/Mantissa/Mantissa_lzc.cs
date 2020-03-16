@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Intrinsics.X86;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> {
 
         public uint LeadingZeroCount {
             get {

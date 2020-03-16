@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> {
 
         public static Mantissa<N> operator<<(Mantissa<N> a, int sft) {
             if (sft < 0) {

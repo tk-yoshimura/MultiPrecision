@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {
 
         internal readonly UInt32[] arr;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         public (Mantissa<N> n, int sft) MantissaShift{
             get {

@@ -2,7 +2,7 @@
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         public override string ToString() {
             const UInt64 dec_base = 1000000000u;

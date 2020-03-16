@@ -2,7 +2,7 @@
 using System.Numerics;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         public static implicit operator BigInteger(MantissaBuffer<N> n){
             byte[] b = new byte[Length * 4 + 1];

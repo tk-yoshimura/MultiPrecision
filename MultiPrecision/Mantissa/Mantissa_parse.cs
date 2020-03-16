@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> {
 
         public Mantissa(string s) : this() {
             if (!(new Regex("[0-9]+").IsMatch(s))) {

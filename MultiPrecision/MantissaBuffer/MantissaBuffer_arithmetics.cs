@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         public static MantissaBuffer<N> operator +(MantissaBuffer<N> a, MantissaBuffer<N> b) {
             return Add(a, b);

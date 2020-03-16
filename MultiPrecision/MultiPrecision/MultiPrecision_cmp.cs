@@ -1,5 +1,8 @@
-﻿namespace MultiPrecision {
-    public sealed partial class MultiPrecision<N> where N : struct, IConstant {
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+
+namespace MultiPrecision {
+    public sealed partial class MultiPrecision<N> : IComparable<MultiPrecision<N>> {
 
         public static bool operator ==(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (a.IsNaN || b.IsNaN) return false;
@@ -67,6 +70,22 @@
             if (a.IsNaN || b.IsNaN) return false;
 
             return !(a <= b);
+        }
+
+        public int CompareTo([AllowNull] MultiPrecision<N> other) {
+            if(other is null) { 
+                return 1;
+            }
+
+            if(this < other) { 
+                return -1;
+            }
+
+            if(this == other) { 
+                return 0;
+            }
+
+            return 1;
         }
     }
 }

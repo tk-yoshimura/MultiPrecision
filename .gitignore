@@ -3,6 +3,6 @@
 /packages
 /**/bin
 /**/obj
-/*.png
-/*.jpg
+/**/*.png
+/**/*.jpg
 /TestResults

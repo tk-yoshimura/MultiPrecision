@@ -19,7 +19,7 @@ namespace MultiPrecision {
             this.mantissa = Mantissa<N>.Zero;
         }
 
-        public MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
+        internal MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
             this.sign = sign;
             this.exponent = exponent;
             this.mantissa = mantissa.Copy();

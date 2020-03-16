@@ -15,7 +15,7 @@ namespace MultiPrecisionTest {
             Console.WriteLine(new MantissaBuffer<Pow2.N16>(mantissa_one));
             Console.WriteLine(new MantissaBuffer<Pow2.N16>(2));
 
-            Assert.AreEqual(Mantissa<Pow2.N16>.Length
+            Assert.AreEqual(Mantissa<Pow2.N16>.Length * 2, MantissaBuffer<Pow2.N16>.Length);
         }
 
         [TestMethod]

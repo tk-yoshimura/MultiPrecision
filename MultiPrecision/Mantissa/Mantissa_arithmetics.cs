@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    public sealed partial class Mantissa<N> where N : struct, IConstant {
+    internal sealed partial class Mantissa<N> {
 
         public static Mantissa<N> operator +(Mantissa<N> a, Mantissa<N> b) {
             return Add(a, b);

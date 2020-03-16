@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    internal sealed partial class MantissaBuffer<N> where N : struct, IConstant {
+    internal sealed partial class MantissaBuffer<N> {
 
         public static MantissaBuffer<N> operator<<(MantissaBuffer<N> a, int sft) {
             if (sft < 0) {
