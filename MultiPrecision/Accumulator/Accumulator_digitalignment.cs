@@ -3,7 +3,7 @@
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
-        public (Mantissa<N> n, int sft) MantissaShift{
+        public (Mantissa<N> n, int sft) Mantissa {
             get {
                 const UInt32 round = UInt32.MaxValue / 2;
 
@@ -14,25 +14,25 @@ namespace MultiPrecision {
                 Mantissa<N> n = new Mantissa<N>();
                 Accumulator<N> n_sft = Copy();
 
-                uint lzc = LeadingZeroCount;
+                int lzc = LeadingZeroCount;
                 n_sft.LeftShift(lzc);
-                
-                if(n_sft.arr[Mantissa<N>.Length - 1] > round) { 
+
+                if (n_sft.arr[Mantissa<N>.Length - 1] > round) {
                     int i = Mantissa<N>.Length;
-                    for(; i < Accumulator<N>.Length; i++) { 
-                        if(n_sft.arr[i] < UInt32.MaxValue) {
-                            n_sft.CarryAdd((uint)Mantissa<N>.Length, 1);
+                    for (; i < Accumulator<N>.Length; i++) {
+                        if (n_sft.arr[i] < UInt32.MaxValue) {
+                            n_sft.CarryAdd(Mantissa<N>.Length, 1);
                             break;
                         }
                     }
-                    if(i == Accumulator<N>.Length) { 
-                       return (Mantissa<N>.One, (int)lzc - 1); 
+                    if (i == Accumulator<N>.Length) {
+                        return (Mantissa<N>.One, lzc - 1);
                     }
                 }
 
                 Array.Copy(n_sft.arr, Mantissa<N>.Length, n.arr, 0, Mantissa<N>.Length);
 
-                return (n, (int)lzc);
+                return (n, lzc);
             }
         }
     }

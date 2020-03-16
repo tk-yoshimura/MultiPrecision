@@ -14,7 +14,7 @@ namespace MultiPrecision {
 
                     Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
 
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = a.exponent - sft + 1;
 
@@ -33,7 +33,7 @@ namespace MultiPrecision {
 
                     Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
 
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = b.exponent - sft + 1;
 
@@ -55,7 +55,7 @@ namespace MultiPrecision {
 
                     Accumulator<N> c_acc = Accumulator<N>.Sub(a_acc, b_acc);
 
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = a.exponent - sft + 1;
 
@@ -74,7 +74,7 @@ namespace MultiPrecision {
 
                     Accumulator<N> c_acc = Accumulator<N>.Sub(b_acc, a_acc);
 
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = b.exponent - sft + 1;
 
@@ -94,7 +94,7 @@ namespace MultiPrecision {
                     return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax);
                 }
                 else {
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = a.exponent - sft + 1;
 
@@ -109,7 +109,7 @@ namespace MultiPrecision {
 
             Accumulator<N> c_acc = Accumulator<N>.Mul(a_acc, b_acc);
 
-            (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+            (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
             Int64 exponent = a.exponent + b.exponent - sft + 1;
 
@@ -122,7 +122,7 @@ namespace MultiPrecision {
 
             Accumulator<N> c_acc = Accumulator<N>.Div(a_acc, b_acc).div;
 
-            (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+            (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
             Int64 exponent = a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1;
 

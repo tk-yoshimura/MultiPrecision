@@ -35,42 +35,20 @@ namespace MultiPrecision {
 
         public Accumulator(Mantissa<N> n, int sft) : this(n) {
             if (sft > 0) {
-                LeftShift((uint)sft);
+                LeftShift(sft);
             }
             else if (sft < 0) {
-                RightShift((uint)sft);
+                RightShift(-sft);
             }
         }
 
-        public bool IsZero {
-            get {
-                for (int i = 0; i < Length; i++) {
-                    if (arr[i] != 0) {
-                        return false;
-                    }
-                }
-                 
-                return true;
-            }
-        }
+        public bool IsZero => UIntUtil.IsZero(arr);
 
         public void Zeroset() {
-            for (int i = 0; i < Length; i++) {
-                arr[i] = 0;
-            }
+            UIntUtil.Zeroset(arr);
         }
 
-        public uint Digits {
-            get {
-                for (int i = Length - 1; i >= 0; i--) {
-                    if (arr[i] != 0) {
-                        return (uint)(i + 1);
-                    }
-                }
-        
-                return 1;
-            }
-        }
+        public int Digits => UIntUtil.Digits(arr);
 
         public object Clone() {
             return Copy();

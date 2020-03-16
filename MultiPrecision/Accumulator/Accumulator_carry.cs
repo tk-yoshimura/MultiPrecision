@@ -5,9 +5,9 @@ namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void CarryAdd(uint dig, UInt32 v) {
+        internal void CarryAdd(int dig, UInt32 v) {
                 
-            for (uint i = dig; i < Length && v > 0; i++) {
+            for (int i = dig; i < Length && v > 0; i++) {
                 (v, arr[i]) = UIntUtil.Unpack((UInt64)arr[i] + (UInt64)v);
             }
 
@@ -17,9 +17,9 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal void CarrySub(uint dig, UInt32 v) {
+        internal void CarrySub(int dig, UInt32 v) {
                 
-            for (uint i = dig; i < Length && v > 0; i++) {
+            for (int i = dig; i < Length && v > 0; i++) {
                 if (arr[i] >= v) {
                     arr[i] -= v;
                     v = 0;

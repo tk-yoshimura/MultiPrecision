@@ -24,13 +24,13 @@ namespace MultiPrecision {
         }
 
         private void Add(Accumulator<N> v) {
-            for (uint dig = 0; dig < Length; dig++) {
+            for (int dig = 0; dig < Length; dig++) {
                 CarryAdd(dig, v.arr[dig]);
             }
         }
 
         private void Sub(Accumulator<N> v) {
-            for (uint dig = 0; dig < Length; dig++) {
+            for (int dig = 0; dig < Length; dig++) {
                 CarrySub(dig, v.arr[dig]);
             }
         }
@@ -54,14 +54,14 @@ namespace MultiPrecision {
         public static Accumulator<N> Mul(Accumulator<N> v1, Accumulator<N> v2) {
             Accumulator<N> ret = Zero;
 
-            uint v1_digits = v1.Digits, v2_digits = v2.Digits;
+            int v1_digits = v1.Digits, v2_digits = v2.Digits;
 
-            for (uint dig1 = 0; dig1 < v1_digits; dig1++) {
+            for (int dig1 = 0; dig1 < v1_digits; dig1++) {
                 if (v1.arr[dig1] == 0) {
                     continue;
                 }
 
-                for (uint dig2 = 0; dig2 < v2_digits; dig2++) {
+                for (int dig2 = 0; dig2 < v2_digits; dig2++) {
                     if (v2.arr[dig2] == 0) {
                         continue;
                     }
@@ -81,8 +81,8 @@ namespace MultiPrecision {
                 throw new DivideByZeroException();
             }
 
-            uint lzc_v1 = v1.LeadingZeroCount, lzc_v2 = v2.LeadingZeroCount;
-            uint sft = Math.Min(lzc_v1, lzc_v2 - lzc_v2 / UIntUtil.UInt32Bits * UIntUtil.UInt32Bits);
+            int lzc_v1 = v1.LeadingZeroCount, lzc_v2 = v2.LeadingZeroCount;
+            int sft = Math.Min(lzc_v1, lzc_v2 - lzc_v2 / UIntUtil.UInt32Bits * UIntUtil.UInt32Bits);
 
             v1 = LeftShift(v1, sft);
             v2 = LeftShift(v2, sft);
@@ -90,7 +90,7 @@ namespace MultiPrecision {
             Accumulator<N> div = Zero, rem = v1;
 
             UInt64 denom = 0;
-            uint denom_digits = v2.Digits;
+            int denom_digits = v2.Digits;
 
             for (int i = Length - 1; i >= 0; i--) {
                 if (denom == 0 && v2.arr[i] != 0) {
@@ -103,7 +103,7 @@ namespace MultiPrecision {
                 }
             }
 
-            for (uint i = (uint)Length - 1; i >= denom_digits;) {
+            for (int i = Length - 1; i >= denom_digits;) {
                 UInt64 numer = UIntUtil.Pack(rem.arr[i], rem.arr[i - 1]);
 
                 UInt64 n = numer / denom;
@@ -112,7 +112,7 @@ namespace MultiPrecision {
                 div.CarryAdd(i - denom_digits, nl);
 
                 Accumulator<N> sub = Mul(new Accumulator<N>(n), v2);
-                sub.LeftShiftArray(i - denom_digits);
+                sub.LeftBlockShift(i - denom_digits);
 
                 rem.Sub(sub);
 

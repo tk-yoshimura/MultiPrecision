@@ -2,7 +2,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MultiPrecisionTest {
     public partial class MultiPrecisionTest {
