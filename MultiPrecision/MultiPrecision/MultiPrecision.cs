@@ -24,13 +24,17 @@ namespace MultiPrecision {
 
             this.sign = sign;
 
-            if(exponent_zerosft <= ExponentMin || mantissa.IsZero) { 
-                this.exponent = ExponentMin;
-                this.mantissa = mantissa >> (int)Math.Min(Mantissa<N>.Bits, -exponent_zerosft);
-            }
-            else if(exponent_zerosft >= ExponentMax) { 
+            if(exponent_zerosft >= ExponentMax) { 
                 this.exponent = ExponentMax;
                 this.mantissa = Mantissa<N>.Zero;
+            }
+            else if (mantissa.IsZero) { 
+                this.exponent = ExponentMin;
+                this.mantissa = Mantissa<N>.Zero;
+            }
+            else if(exponent_zerosft <= ExponentMin) { 
+                this.exponent = ExponentMin;
+                this.mantissa = mantissa >> (int)Math.Min(Mantissa<N>.Bits, -exponent_zerosft);
             }
             else{ 
                 this.exponent = unchecked((UInt32)exponent_zerosft);

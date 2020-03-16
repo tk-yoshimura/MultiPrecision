@@ -91,7 +91,7 @@ namespace MultiPrecision {
                 Accumulator<N> c_acc = (a.n > b.n) ? Accumulator<N>.Sub(a_acc, b_acc) : Accumulator<N>.Sub(b_acc, a_acc);
 
                 if (c_acc.IsZero) { 
-                    return (Mantissa<N>.Zero, long.MinValue);
+                    return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax);
                 }
                 else {
                     (Mantissa<N> n, int sft) = c_acc.MantissaShift;

@@ -1,7 +1,7 @@
 ﻿namespace MultiPrecision {    
     public sealed partial class MultiPrecision<N> {
 
-        private static MultiPrecision<N> zero = null, one = null, minus_one = null, nan = null;
+        private static MultiPrecision<N> zero = null, minus_zero = null, one = null, minus_one = null, nan = null;
         private static MultiPrecision<N> max_value = null, min_value = null, positive_inf = null, negative_inf = null;
         private static MultiPrecision<N> epsilon = null;
 
@@ -12,6 +12,16 @@
                 }
 
                 return zero.Copy();
+            }
+        }
+
+        public static MultiPrecision<N> MinusZero {
+            get {
+                if (minus_zero is null) {
+                    minus_zero = Create(Sign.Minus, ExponentMin, Mantissa<N>.Zero);
+                }
+
+                return minus_zero.Copy();
             }
         }
 
