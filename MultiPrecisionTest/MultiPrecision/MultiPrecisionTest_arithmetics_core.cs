@@ -2,11 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 using System.Linq;
-using System.Numerics;
 
 namespace MultiPrecisionTest {
     [TestClass]
-    public class MultiPrecisionTest {
+    public partial class MultiPrecisionTest {
         [TestMethod]
         public void AccumulatorAddTest() {
             Mantissa<Pow2.N4> a = new Mantissa<Pow2.N4>(new UInt32[4] { 0x80000000u, 0x00000000u, 0x00000000u, 0x00000000u }.Reverse().ToArray());

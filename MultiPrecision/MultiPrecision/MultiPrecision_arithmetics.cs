@@ -1,132 +1,77 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace MultiPrecision {
+
     public sealed partial class MultiPrecision<N> {
 
-        internal static (Mantissa<N> n, Int64 exponent) Add((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            if(a.exponent > b.exponent) { 
-                Int64 d = a.exponent - b.exponent; 
+        public static MultiPrecision<N> operator +(MultiPrecision<N> a, MultiPrecision<N> b) {
+            return Add(a, b);
+        }
 
-                if(d < Accumulator<N>.Bits) { 
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1 - (int)d);
+        public static MultiPrecision<N> operator -(MultiPrecision<N> a, MultiPrecision<N> b) {
+            return Sub(a, b);
+        }
 
-                    Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
+        public static MultiPrecision<N> operator *(MultiPrecision<N> a, MultiPrecision<N> b) {
+            return Mul(a, b);
+        }
 
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
+        public static MultiPrecision<N> operator /(MultiPrecision<N> a, MultiPrecision<N> b) {
+            return Div(a, b);
+        }
 
-                    Int64 exponent = a.exponent - sft + 1;
+        public static MultiPrecision<N> Add(MultiPrecision<N> a, MultiPrecision<N> b) { 
+            if(a.IsNaN || b.IsNaN) { 
+                return NaN;
+            }
 
-                    return (n, exponent);
-                }
-                else {
-                    return (a.n.Copy(), a.exponent);
-                }
+            if(a.sign == b.sign) { 
+                (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+
+                return new MultiPrecision<N>(a.sign, exponent, mantissa);
             }
             else {
-                Int64 d = b.exponent - a.exponent; 
+                (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                if(d < Accumulator<N>.Bits) { 
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-                    Int64 exponent = b.exponent - sft + 1;
-
-                    return (n, exponent);
-                }
-                else {
-                    return (b.n.Copy(), b.exponent);
-                }
+                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa);
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Diff((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            if(a.exponent > b.exponent) { 
-                Int64 d = a.exponent - b.exponent; 
-
-                if(d < Accumulator<N>.Bits) { 
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1 - (int)d);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Sub(a_acc, b_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-                    Int64 exponent = a.exponent - sft + 1;
-
-                    return (n, exponent);
-                }
-                else {
-                    return (a.n.Copy(), a.exponent);
-                }
+        public static MultiPrecision<N> Sub(MultiPrecision<N> a, MultiPrecision<N> b) { 
+            if(a.IsNaN || b.IsNaN) { 
+                return NaN;
             }
-            else if(a.exponent < b.exponent) {
-                Int64 d = b.exponent - a.exponent; 
 
-                if(d < Accumulator<N>.Bits) { 
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
+            if(a.sign != b.sign) { 
+                (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                    Accumulator<N> c_acc = Accumulator<N>.Sub(b_acc, a_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-                    Int64 exponent = b.exponent - sft + 1;
-
-                    return (n, exponent);
-                }
-                else {
-                    return (b.n.Copy(), b.exponent);
-                }
+                return new MultiPrecision<N>(a.sign, exponent, mantissa);
             }
             else {
-                Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
+                (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                Accumulator<N> c_acc = (a.n > b.n) ? Accumulator<N>.Sub(a_acc, b_acc) : Accumulator<N>.Sub(b_acc, a_acc);
-
-                if (c_acc.IsZero) { 
-                    return (Mantissa<N>.Zero, long.MinValue);
-                }
-                else {
-                    (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-                    Int64 exponent = a.exponent - sft + 1;
-
-                    return (n, exponent);
-                }
+                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa);
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Mul((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> a_acc = new Accumulator<N>(a.n);
-            Accumulator<N> b_acc = new Accumulator<N>(b.n);
+        public static MultiPrecision<N> Mul(MultiPrecision<N> a, MultiPrecision<N> b) { 
+            if(a.IsNaN || b.IsNaN) { 
+                return NaN;
+            }
 
-            Accumulator<N> c_acc = Accumulator<N>.Mul(a_acc, b_acc);
-
-            (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-            Int64 exponent = a.exponent + b.exponent - sft + 1;
-
-            return (n, exponent);
+            (Mantissa<N> mantissa, Int64 exponent) = Mul((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+            
+            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits);
-            Accumulator<N> b_acc = new Accumulator<N>(b.n);
+        public static MultiPrecision<N> Div(MultiPrecision<N> a, MultiPrecision<N> b) { 
+            if(a.IsNaN || b.IsNaN) { 
+                return NaN;
+            }
 
-            Accumulator<N> c_acc = Accumulator<N>.Div(a_acc, b_acc).div;
-
-            (Mantissa<N> n, int sft) = c_acc.MantissaShift;
-
-            Int64 exponent = a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1;
-
-            return (n, exponent);
+            (Mantissa<N> mantissa, Int64 exponent) = Div((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+            
+            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa);
         }
     }
 }

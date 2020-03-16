@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {

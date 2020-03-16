@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Numerics;
 
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
