@@ -5,6 +5,8 @@ namespace MultiPrecision {
 
         public (Mantissa<N> n, int sft) MantissaShift{
             get {
+                const UInt32 round = UInt32.MaxValue / 2;
+
                 if (IsZero) {
                     return (Mantissa<N>.Zero, 0);
                 }
@@ -13,16 +15,24 @@ namespace MultiPrecision {
                 MantissaBuffer<N> n_sft = Copy();
 
                 uint lzc = LeadingZeroCount;
+                n_sft.LeftShift(lzc);
+                
                 int sft = (int)lzc - Mantissa<N>.Bits;
 
-                if (sft > 0) {
-                    n_sft.LeftShift((uint)sft);
-                }
-                else if (sft < 0) {
-                    n_sft.RightShift((uint)(-sft));
+                if(n_sft.arr[Mantissa<N>.Length - 1] > round) { 
+                    int i = Mantissa<N>.Length;
+                    for(; i < MantissaBuffer<N>.Length; i++) { 
+                        if(n_sft.arr[i] < UInt32.MaxValue) {
+                            n_sft.CarryAdd((uint)Mantissa<N>.Length, 1);
+                            break;
+                        }
+                    }
+                    if(i == MantissaBuffer<N>.Length) { 
+                       return (Mantissa<N>.One, sft - 1); 
+                    }
                 }
 
-                Array.Copy(n_sft.arr, 0, n.arr, 0, Mantissa<N>.Length);
+                Array.Copy(n_sft.arr, Mantissa<N>.Length, n.arr, 0, Mantissa<N>.Length);
 
                 return (n, sft);
             }

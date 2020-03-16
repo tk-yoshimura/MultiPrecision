@@ -3,6 +3,8 @@
         int Value { get; }
     }
     public static class Pow2 {
+
+        public struct N4 : IConstant{ public int Value => 4; }
         public struct N8 : IConstant{ public int Value => 8; }
         public struct N16 : IConstant{ public int Value => 16; }
         public struct N32 : IConstant{ public int Value => 32; }
