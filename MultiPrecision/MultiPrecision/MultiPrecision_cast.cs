@@ -14,7 +14,7 @@ namespace MultiPrecision {
             if (IsFinite) { 
                 UInt64 n = UIntUtil.Pack(mantissa.arr[MultiPrecision<N>.Length - 1], mantissa.arr[MultiPrecision<N>.Length - 2]);
 
-                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt32Bits * 2 + 1)) * ((sign == Sign.Plus) ? 1 : -1);
+                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((sign == Sign.Plus) ? 1 : -1);
             }
             else if (mantissa.IsZero){
                 return (sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
