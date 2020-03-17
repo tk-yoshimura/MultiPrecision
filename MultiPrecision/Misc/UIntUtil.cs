@@ -18,7 +18,7 @@ namespace MultiPrecision {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 Pack(UInt32 high, UInt32 low) {            
-            return (((UInt64)high) << UInt32Bits) | ((UInt64)low);
+            return (((UInt64)high) << UInt32Bits) | low;
         } 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -158,8 +158,8 @@ namespace MultiPrecision {
                 return;
             }
 
-            int sftdev = (int)sft / UInt32Bits;
-            int sftrem = (int)sft % UInt32Bits;
+            int sftdev = sft / UInt32Bits;
+            int sftrem = sft % UInt32Bits;
 
             if (sftrem == 0) {
                 LeftBlockShift(v, sftdev);
