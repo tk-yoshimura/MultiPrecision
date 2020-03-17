@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> : ICloneable where N : struct, IConstant {
 
-        internal readonly UInt32[] arr;
+        private readonly UInt32[] arr;
 
         public static int Length => default(N).Value * 2;
-        public static int Bits => Length * sizeof(float) * 8;
-        public UInt32[] Value => (UInt32[])arr.Clone();
+        public static int Bits => Length * UIntUtil.UInt32Bits;
+        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(arr);
 
         public Accumulator() {
             this.arr = new UInt32[Length];
@@ -30,7 +31,11 @@ namespace MultiPrecision {
         }
 
         public Accumulator(Mantissa<N> n) : this() {
-            Array.Copy(n.arr, 0, arr, 0, Mantissa<N>.Length);
+            ReadOnlyCollection<UInt32> m = n.Value;
+
+            for(int i = 0; i < Mantissa<N>.Length; i++) { 
+                arr[i] = m[i];
+            }
         }
 
         public Accumulator(Mantissa<N> n, int sft) : this(n) {
@@ -43,11 +48,7 @@ namespace MultiPrecision {
         }
 
         public bool IsZero => UIntUtil.IsZero(arr);
-
-        public void Zeroset() {
-            UIntUtil.Zeroset(arr);
-        }
-
+        
         public int Digits => UIntUtil.Digits(arr);
 
         public object Clone() {

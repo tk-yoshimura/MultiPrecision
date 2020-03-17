@@ -61,8 +61,7 @@ namespace MultiPrecisionTest {
             BigInteger bi_full = v_full;
 
             for(int sft = 0; sft <= 100; sft++) { 
-                Mantissa<Pow2.N32> v_sft = v.Copy();
-                v_sft.LeftBlockShift(sft);
+                Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.LeftBlockShift(v, sft);
                 BigInteger bi_sft = (bi << (sft * 32)) & bi_full;
 
                 Console.WriteLine(sft);
@@ -81,8 +80,7 @@ namespace MultiPrecisionTest {
             BigInteger bi = v;
 
             for(int sft = 0; sft <= 100; sft++) {
-                Mantissa<Pow2.N32> v_sft = v.Copy();
-                v_sft.RightBlockShift(sft);
+                Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.RightBlockShift(v, sft);
                 BigInteger bi_sft = bi >> (sft * 32);
 
                 Console.WriteLine(sft);

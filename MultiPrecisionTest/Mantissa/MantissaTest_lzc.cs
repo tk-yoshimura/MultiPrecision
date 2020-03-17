@@ -15,7 +15,7 @@ namespace MultiPrecisionTest {
             for(int i = 0; i <= Mantissa<Pow2.N32>.Bits + 100; i++) { 
                 Console.WriteLine($"{v.LeadingZeroCount}, {v}");
                 
-                v.LeftShift(1);
+                v <<= 1;
 
                 if(random.Next(2) < 1) { 
                     v = Mantissa<Pow2.N32>.Add(v, one);

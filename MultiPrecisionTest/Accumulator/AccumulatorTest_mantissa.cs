@@ -19,7 +19,7 @@ namespace MultiPrecisionTest {
                 
                 Console.WriteLine($"{n.LeadingZeroCount}, {sft}, {n}, {v}");
                 
-                v.LeftShift(1);
+                v <<= 1;
 
                 if(random.Next(2) < 1) { 
                     v = Accumulator<Pow2.N8>.Add(v, one);

@@ -11,11 +11,9 @@ namespace MultiPrecision {
                     return (Mantissa<N>.Zero, 0);
                 }
 
-                Mantissa<N> n = new Mantissa<N>();
-                Accumulator<N> n_sft = Copy();
-
                 int lzc = LeadingZeroCount;
-                n_sft.LeftShift(lzc);
+
+                Accumulator<N> n_sft = LeftShift(this, lzc);
 
                 if (n_sft.arr[Mantissa<N>.Length - 1] > round) {
                     int i = Mantissa<N>.Length;
@@ -30,7 +28,7 @@ namespace MultiPrecision {
                     }
                 }
 
-                Array.Copy(n_sft.arr, Mantissa<N>.Length, n.arr, 0, Mantissa<N>.Length);
+                Mantissa<N> n = new Mantissa<N>(n_sft.arr, Mantissa<N>.Length);
 
                 return (n, lzc);
             }

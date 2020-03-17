@@ -20,27 +20,35 @@ namespace MultiPrecision {
             return Div(a, b);
         }
 
+        public static MultiPrecision<N> operator +(MultiPrecision<N> v) {
+            return v;
+        }
+
+        public static MultiPrecision<N> operator -(MultiPrecision<N> v) {
+            return Neg(v);
+        }
+
         public static MultiPrecision<N> Add(MultiPrecision<N> a, MultiPrecision<N> b) { 
             if(a.IsNaN || b.IsNaN) { 
                 return NaN;
             }
 
             if (a.IsZero) {
-                return b.Copy();
+                return b;
             }
             if (b.IsZero) {
-                return a.Copy();
+                return a;
             }
 
             if(a.sign == b.sign) { 
                 (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>(a.sign, exponent, mantissa);
+                return new MultiPrecision<N>(a.sign, exponent, mantissa, denormal_flush: false);
             }
             else {
                 (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa);
+                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa, denormal_flush: false);
             }
         }
 
@@ -50,23 +58,21 @@ namespace MultiPrecision {
             }
 
             if (a.IsZero) {
-                MultiPrecision<N> ret = b.Copy();
-                ret.sign = 1 - ret.sign;
-                return ret;
+                return Neg(b);
             }
             if (b.IsZero) {
-                return a.Copy();
+                return a;
             }
 
             if(a.sign == b.sign){
                 (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((a > b) ? Sign.Plus : Sign.Minus, exponent, mantissa);
+                return new MultiPrecision<N>((a > b) ? Sign.Plus : Sign.Minus, exponent, mantissa, denormal_flush: false);
             }
             else {
                 (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>(a.sign, exponent, mantissa);
+                return new MultiPrecision<N>(a.sign, exponent, mantissa, denormal_flush: false);
             }
         }
 
@@ -81,7 +87,7 @@ namespace MultiPrecision {
 
             (Mantissa<N> mantissa, Int64 exponent) = Mul((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
             
-            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa);
+            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa, denormal_flush: false);
         }
 
         public static MultiPrecision<N> Div(MultiPrecision<N> a, MultiPrecision<N> b) { 
@@ -100,7 +106,11 @@ namespace MultiPrecision {
 
             (Mantissa<N> mantissa, Int64 exponent) = Div((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
             
-            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa);
+            return new MultiPrecision<N>((a.sign == b.sign) ? Sign.Plus : Sign.Minus, exponent, mantissa, denormal_flush: false);
+        }
+
+        public static MultiPrecision<N> Neg(MultiPrecision<N> v) { 
+            return new MultiPrecision<N>((v.sign == Sign.Plus) ? Sign.Minus : Sign.Plus, v.exponent, v.mantissa);
         }
     }
 }

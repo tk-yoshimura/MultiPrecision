@@ -12,7 +12,7 @@ namespace MultiPrecision {
                     zero = new Accumulator<N>();
                 }
 
-                return zero.Copy();
+                return zero;
             }
         }
 
@@ -22,7 +22,7 @@ namespace MultiPrecision {
                     one = new Accumulator<N>(Enumerable.Repeat(0x00000000u, Length - 1).Concat(new UInt32[] { 0x40000000u }).ToArray());
                 }
 
-                return one.Copy();
+                return one;
             }
         }
 
@@ -32,7 +32,7 @@ namespace MultiPrecision {
                     full = new Accumulator<N>(Enumerable.Repeat(0xFFFFFFFFu, Length).ToArray());
                 }
 
-                return full.Copy();
+                return full;
             }
         }
     }

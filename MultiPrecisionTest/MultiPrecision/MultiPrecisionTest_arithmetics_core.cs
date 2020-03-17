@@ -15,9 +15,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Add((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -27,9 +27,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -130; a_exponent <= 130; a_exponent += 10) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Add((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -38,8 +38,8 @@ namespace MultiPrecisionTest {
             for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                 (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Add((a, a_exponent), (a, a_exponent));
 
-                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                 Console.Write("\n");
             }
@@ -48,9 +48,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Add((a, a_exponent), (a, a2_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -60,9 +60,9 @@ namespace MultiPrecisionTest {
                 for(int f_exponent = -10; f_exponent <= 10; f_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Add((Mantissa<Pow2.N4>.Full, f_exponent), (Mantissa<Pow2.N4>.Full, f2_exponent));
 
-                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -78,9 +78,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Diff((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -90,9 +90,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -130; a_exponent <= 130; a_exponent += 10) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Diff((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -101,8 +101,8 @@ namespace MultiPrecisionTest {
             for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                 (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Diff((a, a_exponent), (a, a_exponent));
 
-                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                 Console.Write("\n");
             }
@@ -111,9 +111,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Diff((a, a_exponent), (a, a2_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -123,9 +123,9 @@ namespace MultiPrecisionTest {
                 for(int f_exponent = -10; f_exponent <= 10; f_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Diff((Mantissa<Pow2.N4>.Full, f_exponent), (Mantissa<Pow2.N4>.Full, f2_exponent));
 
-                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -141,9 +141,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Mul((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -153,9 +153,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -130; a_exponent <= 130; a_exponent += 10) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Mul((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -164,8 +164,8 @@ namespace MultiPrecisionTest {
             for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                 (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Mul((a, a_exponent), (a, a_exponent));
 
-                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                 Console.Write("\n");
             }
@@ -174,9 +174,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Mul((a, a_exponent), (a, a2_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -186,9 +186,9 @@ namespace MultiPrecisionTest {
                 for(int f_exponent = -10; f_exponent <= 10; f_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Mul((Mantissa<Pow2.N4>.Full, f_exponent), (Mantissa<Pow2.N4>.Full, f2_exponent));
 
-                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -204,9 +204,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Div((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -216,9 +216,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -130; a_exponent <= 130; a_exponent += 10) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Div((a, a_exponent), (b, b_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{b_exponent} : {string.Join(' ', b.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -227,8 +227,8 @@ namespace MultiPrecisionTest {
             for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                 (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Div((a, a_exponent), (a, a_exponent));
 
-                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                 Console.Write("\n");
             }
@@ -237,9 +237,9 @@ namespace MultiPrecisionTest {
                 for(int a_exponent = -10; a_exponent <= 10; a_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Div((a, a_exponent), (a, a2_exponent));
 
-                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{a2_exponent} : {string.Join(' ', a.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }
@@ -249,9 +249,9 @@ namespace MultiPrecisionTest {
                 for(int f_exponent = -10; f_exponent <= 10; f_exponent++) { 
                     (Mantissa<Pow2.N4> c, Int64 c_exponent) = MultiPrecision<Pow2.N4>.Div((Mantissa<Pow2.N4>.Full, f_exponent), (Mantissa<Pow2.N4>.Full, f2_exponent));
 
-                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.arr.Reverse().Select((n) => $"{n:X8}"))}");
-                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.arr.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{f2_exponent} : {string.Join(' ', Mantissa<Pow2.N4>.Full.Value.Reverse().Select((n) => $"{n:X8}"))}");
+                    Console.WriteLine($"{c_exponent} : {string.Join(' ', c.Value.Reverse().Select((n) => $"{n:X8}"))}");
 
                     Console.Write("\n");
                 }

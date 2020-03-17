@@ -8,17 +8,21 @@ namespace MultiPrecision {
         public const UInt32 ExponentMax = UInt32.MaxValue;
         public const UInt32 ExponentZero = UInt32.MaxValue / 2 + 1;
 
-        private Sign sign;
-        private UInt32 exponent;
-        private Mantissa<N> mantissa;
+        private readonly Sign sign;
+        private readonly UInt32 exponent;
+        private readonly Mantissa<N> mantissa;
 
         public static int Length => Mantissa<N>.Length;
-        public static int Bits => Length * sizeof(float) * 8;
+        public static int Bits => Mantissa<N>.Bits;
         public static int Digits => Bits * 30103 / 100000;
         
-        private MultiPrecision() {}
+        private MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
+            this.sign = sign;
+            this.exponent = exponent;
+            this.mantissa = mantissa;
+        }
 
-        internal MultiPrecision(Sign sign, Int64 exponent, Mantissa<N> mantissa) {
+        internal MultiPrecision(Sign sign, Int64 exponent, Mantissa<N> mantissa, bool denormal_flush) {
             Int64 exponent_zerosft = exponent + ExponentZero;
 
             this.sign = sign;
@@ -33,21 +37,18 @@ namespace MultiPrecision {
             }
             else if(exponent_zerosft <= ExponentMin) { 
                 this.exponent = ExponentMin;
-                this.mantissa = mantissa >> (int)Math.Min(Mantissa<N>.Bits, -exponent_zerosft);
+
+                if (denormal_flush) { 
+                    this.mantissa = Mantissa<N>.Zero;
+                }
+                else { 
+                    this.mantissa = mantissa >> (int)Math.Min(Mantissa<N>.Bits, -exponent_zerosft);
+                }
             }
             else{ 
                 this.exponent = unchecked((UInt32)exponent_zerosft);
-                this.mantissa = mantissa.Copy();
+                this.mantissa = mantissa;
             }
-        }
-
-        internal static MultiPrecision<N> Create(Sign sign, UInt32 exponent, Mantissa<N> mantissa) { 
-            MultiPrecision<N> ret = new MultiPrecision<N>();
-            ret.sign = sign;
-            ret.exponent = exponent;
-            ret.mantissa = mantissa.Copy();
-
-            return ret;
         }
 
         public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;
@@ -65,7 +66,7 @@ namespace MultiPrecision {
         }
 
         public MultiPrecision<N> Copy() {
-            return Create(sign, exponent, mantissa);
+            return new MultiPrecision<N>(sign, exponent, mantissa);
         }
 
         public override bool Equals(object obj) {

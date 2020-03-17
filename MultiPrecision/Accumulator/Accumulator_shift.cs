@@ -19,22 +19,6 @@ namespace MultiPrecision {
             return RightShift(a, sft);
         }
 
-        internal void LeftShift(int sft) {
-            UIntUtil.LeftShift(arr, sft);
-        }
-
-        internal void RightShift(int sft) {
-            UIntUtil.RightShift(arr, sft);
-        }
-
-        internal void LeftBlockShift(int sft) {
-            UIntUtil.LeftBlockShift(arr, sft);
-        }
-
-        internal void RightBlockShift(int sft) {
-            UIntUtil.RightBlockShift(arr, sft);
-        }
-
         public static Accumulator<N> LeftShift(Accumulator<N> n, int sft) {
             Accumulator<N> ret = n.Copy();
 
@@ -65,6 +49,22 @@ namespace MultiPrecision {
             ret.RightBlockShift(sft);
 
             return ret;
+        }
+
+        private void LeftShift(int sft) {
+            UIntUtil.LeftShift(arr, sft);
+        }
+
+        private void RightShift(int sft) {
+            UIntUtil.RightShift(arr, sft);
+        }
+
+        private void LeftBlockShift(int sft) {
+            UIntUtil.LeftBlockShift(arr, sft);
+        }
+
+        private void RightBlockShift(int sft) {
+            UIntUtil.RightBlockShift(arr, sft);
         }
     }
 }

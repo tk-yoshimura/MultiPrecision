@@ -61,8 +61,7 @@ namespace MultiPrecisionTest {
             BigInteger bi_full = (BigInteger)v_full;
 
             for(int sft = 0; sft <= 100; sft++) { 
-                Accumulator<Pow2.N16> v_sft = v.Copy();
-                v_sft.LeftBlockShift(sft);
+                Accumulator<Pow2.N16> v_sft = Accumulator<Pow2.N16>.LeftBlockShift(v, sft);
                 BigInteger bi_sft = (bi << ((int)sft * 32)) & bi_full;
 
                 Console.WriteLine(sft);
@@ -81,8 +80,7 @@ namespace MultiPrecisionTest {
             BigInteger bi = (BigInteger)v;
 
             for(int sft = 0; sft <= 100; sft++) {
-                Accumulator<Pow2.N16> v_sft = v.Copy();
-                v_sft.RightBlockShift(sft);
+                Accumulator<Pow2.N16> v_sft = Accumulator<Pow2.N16>.RightBlockShift(v, sft);
                 BigInteger bi_sft = bi >> ((int)sft * 32);
 
                 Console.WriteLine(sft);

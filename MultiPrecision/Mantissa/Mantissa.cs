@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {
 
-        internal readonly UInt32[] arr;
+        private readonly UInt32[] arr;
 
         public static int Length => default(N).Value;
-        public static int Bits => Length * sizeof(float) * 8;
-        public UInt32[] Value => (UInt32[])arr.Clone();
+        public static int Bits => Length * UIntUtil.UInt32Bits;
+        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(arr);
 
         public Mantissa() {
             this.arr = new UInt32[Length];
@@ -29,13 +30,20 @@ namespace MultiPrecision {
             this.arr = (UInt32[])arr.Clone();
         }
 
-        public bool IsZero => UIntUtil.IsZero(arr);
+        public Mantissa(UInt32[] arr, int src_index) {
+            if (arr == null || arr.Length - src_index != Length) {
+                throw new ArgumentException();
+            }
 
-        public void Zeroset() {
-            UIntUtil.Zeroset(arr);
+            this.arr = new UInt32[Length];
+            Array.Copy(arr, src_index, this.arr, 0, Length);
         }
 
+        public bool IsZero => UIntUtil.IsZero(arr);
+        
         public int Digits => UIntUtil.Digits(arr);
+
+        public UInt64 MostSignificantDigits => UIntUtil.Pack(arr[Length - 1], arr[Length - 2]);
 
         public object Clone() {
             return Copy();

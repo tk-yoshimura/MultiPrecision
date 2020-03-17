@@ -12,7 +12,7 @@ namespace MultiPrecision {
 
         public double ToDouble(){
             if (IsFinite) { 
-                UInt64 n = UIntUtil.Pack(mantissa.arr[MultiPrecision<N>.Length - 1], mantissa.arr[MultiPrecision<N>.Length - 2]);
+                UInt64 n = mantissa.MostSignificantDigits;
 
                 return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((sign == Sign.Plus) ? 1 : -1);
             }

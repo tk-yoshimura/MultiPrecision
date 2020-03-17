@@ -52,7 +52,7 @@ namespace MultiPrecision {
         }
 
         public static Accumulator<N> Mul(Accumulator<N> v1, Accumulator<N> v2) {
-            Accumulator<N> ret = Zero;
+            Accumulator<N> ret = Zero.Copy();
 
             int v1_digits = v1.Digits, v2_digits = v2.Digits;
 
@@ -87,7 +87,7 @@ namespace MultiPrecision {
             v1 = LeftShift(v1, sft);
             v2 = LeftShift(v2, sft);
 
-            Accumulator<N> div = Zero, rem = v1;
+            Accumulator<N> div = Zero.Copy(), rem = v1;
 
             UInt64 denom = 0;
             int denom_digits = v2.Digits;

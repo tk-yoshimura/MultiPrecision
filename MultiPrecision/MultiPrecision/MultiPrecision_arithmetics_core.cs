@@ -21,7 +21,7 @@ namespace MultiPrecision {
                     return (n, exponent);
                 }
                 else {
-                    return (a.n.Copy(), a.exponent);
+                    return (a.n, a.exponent);
                 }
             }
             else {
@@ -40,7 +40,7 @@ namespace MultiPrecision {
                     return (n, exponent);
                 }
                 else {
-                    return (b.n.Copy(), b.exponent);
+                    return (b.n, b.exponent);
                 }
             }
         }
@@ -62,7 +62,7 @@ namespace MultiPrecision {
                     return (n, exponent);
                 }
                 else {
-                    return (a.n.Copy(), a.exponent);
+                    return (a.n, a.exponent);
                 }
             }
             else if(a.exponent < b.exponent) {
@@ -81,7 +81,7 @@ namespace MultiPrecision {
                     return (n, exponent);
                 }
                 else {
-                    return (b.n.Copy(), b.exponent);
+                    return (b.n, b.exponent);
                 }
             }
             else {

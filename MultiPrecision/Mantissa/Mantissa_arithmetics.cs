@@ -52,7 +52,7 @@ namespace MultiPrecision {
         }
 
         public static Mantissa<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {
-            Mantissa<N> ret = Zero;
+            Mantissa<N> ret = Zero.Copy();
 
             int v1_digits = v1.Digits, v2_digits = v2.Digits;
 
@@ -87,7 +87,7 @@ namespace MultiPrecision {
             v1 = LeftShift(v1, sft);
             v2 = LeftShift(v2, sft);
 
-            Mantissa<N> div = Zero, rem = v1;
+            Mantissa<N> div = Zero.Copy(), rem = v1;
 
             UInt64 denom = 0;
             int denom_digits = v2.Digits;

@@ -8,100 +8,100 @@
         public static MultiPrecision<N> Zero {
             get {
                 if (zero is null) {
-                    zero = Create(Sign.Plus, ExponentMin, Mantissa<N>.Zero);
+                    zero = new MultiPrecision<N>(Sign.Plus, ExponentMin, Mantissa<N>.Zero);
                 }
 
-                return zero.Copy();
+                return zero;
             }
         }
 
         public static MultiPrecision<N> MinusZero {
             get {
                 if (minus_zero is null) {
-                    minus_zero = Create(Sign.Minus, ExponentMin, Mantissa<N>.Zero);
+                    minus_zero = new MultiPrecision<N>(Sign.Minus, ExponentMin, Mantissa<N>.Zero);
                 }
 
-                return minus_zero.Copy();
+                return minus_zero;
             }
         }
 
         public static MultiPrecision<N> One {
             get {
                 if (one is null) {
-                    one = Create(Sign.Plus, ExponentZero, Mantissa<N>.One);
+                    one = new MultiPrecision<N>(Sign.Plus, ExponentZero, Mantissa<N>.One);
                 }
 
-                return one.Copy();
+                return one;
             }
         }
 
         public static MultiPrecision<N> MinusOne {
             get {
                 if (minus_one is null) {
-                    minus_one = Create(Sign.Minus, ExponentZero, Mantissa<N>.One);
+                    minus_one = new MultiPrecision<N>(Sign.Minus, ExponentZero, Mantissa<N>.One);
                 }
 
-                return minus_one.Copy();
+                return minus_one;
             }
         }
 
         public static MultiPrecision<N> NaN {
             get {
                 if (nan is null) {
-                    nan = Create(Sign.Plus, ExponentMax, Mantissa<N>.Full);
+                    nan = new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Full);
                 }
 
-                return nan.Copy();
+                return nan;
             }
         }
 
         public static MultiPrecision<N> MaxValue {
             get {
                 if (max_value is null) {
-                    max_value = Create(Sign.Plus, ExponentMax - 1, Mantissa<N>.Full);
+                    max_value = new MultiPrecision<N>(Sign.Plus, ExponentMax - 1, Mantissa<N>.Full);
                 }
 
-                return max_value.Copy();
+                return max_value;
             }
         }
 
         public static MultiPrecision<N> MinValue {
             get {
                 if (min_value is null) {
-                    min_value = Create(Sign.Minus, ExponentMax - 1, Mantissa<N>.Full);
+                    min_value = new MultiPrecision<N>(Sign.Minus, ExponentMax - 1, Mantissa<N>.Full);
                 }
 
-                return min_value.Copy();
+                return min_value;
             }
         }
 
         public static MultiPrecision<N> PositiveInfinity {
             get {
                 if (positive_inf is null) {
-                    positive_inf = Create(Sign.Plus, ExponentMax, Mantissa<N>.Zero);
+                    positive_inf = new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Zero);
                 }
 
-                return positive_inf.Copy();
+                return positive_inf;
             }
         }
 
         public static MultiPrecision<N> NegativeInfinity {
             get {
                 if (negative_inf is null) {
-                    negative_inf = Create(Sign.Minus, ExponentMax, Mantissa<N>.Zero);
+                    negative_inf = new MultiPrecision<N>(Sign.Minus, ExponentMax, Mantissa<N>.Zero);
                 }
 
-                return negative_inf.Copy();
+                return negative_inf;
             }
         }
 
         public static MultiPrecision<N> Epsilon {
             get {
                 if (epsilon is null) {
-                    epsilon = Create(Sign.Plus, 1, Mantissa<N>.One);
+                    epsilon = new MultiPrecision<N>(Sign.Plus, 1, Mantissa<N>.One);
                 }
 
-                return epsilon.Copy();
+                return epsilon;
             }
         }
     }
