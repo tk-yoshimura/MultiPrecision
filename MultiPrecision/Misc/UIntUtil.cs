@@ -39,6 +39,17 @@ namespace MultiPrecision {
             return true;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool IsFull([DisallowNull] UInt32[] v) {
+            for (int i = 0; i < v.Length; i++) {
+                if (v[i] != UInt32.MaxValue) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>Comparate uint32 array a == b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
@@ -228,6 +239,28 @@ namespace MultiPrecision {
             UInt32 mask = 1u << (UInt32Bits - posrem - 1);
 
             v[v.Length - posdev - 1] &= ~mask;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UInt32 GetBit([DisallowNull] UInt32[] v, int pos) {
+            int posdev = pos / UInt32Bits;
+            int posrem = pos % UInt32Bits;
+
+            return (v[v.Length - posdev - 1] >> (UInt32Bits - posrem - 1)) & 1;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void FlushBit([DisallowNull] UInt32[] v, int pos) {
+            int posdev = pos / UInt32Bits;
+            int posrem = pos % UInt32Bits;
+
+            int mask_index = v.Length - posdev - 1;
+
+            v[mask_index] = (v[mask_index] >> (UInt32Bits - posrem - 1)) << (UInt32Bits - posrem - 1);
+
+            for(int i = 0; i < mask_index; i++) { 
+                v[i] = 0u;
+            }
         }
     }
 }
