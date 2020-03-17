@@ -4,14 +4,16 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
-        private static MultiPrecision<N> const_rcp_log2_e = null;
+        private static partial class Consts {
+            public static MultiPrecision<N> rcp_log2_e = null;
+        }
 
         public static MultiPrecision<N> Log(MultiPrecision<N> x) {
-            if (const_rcp_log2_e is null) {
-                const_rcp_log2_e = One / Log2(E);
+            if (Consts.rcp_log2_e is null) {
+                Consts.rcp_log2_e = One / Log2(E);
             }
 
-            MultiPrecision<N> y = Log2(x) * const_rcp_log2_e;
+            MultiPrecision<N> y = Log2(x) * Consts.rcp_log2_e;
 
             return y;
         }

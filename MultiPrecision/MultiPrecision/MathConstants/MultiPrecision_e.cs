@@ -1,15 +1,17 @@
 ﻿namespace MultiPrecision {    
     public sealed partial class MultiPrecision<N> {
 
-        private static MultiPrecision<N> const_e = null;
+        private static partial class Consts {
+            public static MultiPrecision<N> e = null;
+        }
 
         public static MultiPrecision<N> E {
             get {
-                if (const_e is null) {
-                    const_e = GenerateE();
+                if (Consts.e is null) {
+                    Consts.e = GenerateE();
                 }
 
-                return const_e;
+                return Consts.e;
             }
         }
 
