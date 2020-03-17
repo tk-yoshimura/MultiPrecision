@@ -23,5 +23,22 @@ namespace MultiPrecision {
                 return double.NaN;
             }
         }
+
+        public static implicit operator MultiPrecision<N>(Int64 v){
+            if(v >= 0) { 
+                UInt64 v_pos = unchecked((UInt64)v);
+
+                (Mantissa<N> n, int sft) = new Accumulator<N>(v_pos).Mantissa;
+
+                return new MultiPrecision<N>(Sign.Plus, Accumulator<N>.Bits - sft - 1, n, denormal_flush: false);
+            }
+            else { 
+                UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
+
+                (Mantissa<N> n, int sft) = new Accumulator<N>(v_neg).Mantissa;
+
+                return new MultiPrecision<N>(Sign.Minus, Accumulator<N>.Bits - sft - 1, n, denormal_flush: false);
+            }
+        }
     }
 }

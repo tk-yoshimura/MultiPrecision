@@ -18,7 +18,7 @@ namespace MultiPrecision {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt64 Pack(UInt32 high, UInt32 low) {            
-            return (((UInt64)high) << UInt32Bits) | low;
+            return (((UInt64)high) << UInt32Bits) | ((UInt64)low);
         } 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -208,6 +208,26 @@ namespace MultiPrecision {
             }
 
             Array.Copy(v_sft, 0, v, 0, length);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SetBit([DisallowNull] UInt32[] v, int pos) {
+            int posdev = pos / UInt32Bits;
+            int posrem = pos % UInt32Bits;
+
+            UInt32 mask = 1u << (UInt32Bits - posrem - 1);
+
+            v[v.Length - posdev - 1] |= mask;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ResetBit([DisallowNull] UInt32[] v, int pos) {
+            int posdev = pos / UInt32Bits;
+            int posrem = pos % UInt32Bits;
+
+            UInt32 mask = 1u << (UInt32Bits - posrem - 1);
+
+            v[v.Length - posdev - 1] &= ~mask;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace MultiPrecision {
             if (sft > 0) {
                 LeftShift(sft);
             }
-            else if (sft < 0) {
+            else if (sft < 0 && -sft >= 0) {
                 RightShift(-sft);
             }
         }

@@ -20,12 +20,12 @@ namespace MultiPrecision {
             return Div(a, b);
         }
 
-        public static MultiPrecision<N> operator +(MultiPrecision<N> v) {
-            return v;
+        public static MultiPrecision<N> operator +(MultiPrecision<N> x) {
+            return x;
         }
 
-        public static MultiPrecision<N> operator -(MultiPrecision<N> v) {
-            return Neg(v);
+        public static MultiPrecision<N> operator -(MultiPrecision<N> x) {
+            return Neg(x);
         }
 
         public static MultiPrecision<N> Add(MultiPrecision<N> a, MultiPrecision<N> b) { 
@@ -45,10 +45,10 @@ namespace MultiPrecision {
 
                 return new MultiPrecision<N>(a.sign, exponent, mantissa, denormal_flush: false);
             }
-            else {
+            else{
                 (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((a > b) ? a.sign : b.sign, exponent, mantissa, denormal_flush: false);
+                return new MultiPrecision<N>((Abs(a) > Abs(b)) ? a.sign : b.sign, exponent, mantissa, denormal_flush: false);
             }
         }
 
