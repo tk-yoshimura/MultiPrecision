@@ -23,12 +23,7 @@ namespace MultiPrecision {
             }
 
             MultiPrecision<N> intpart = exponent;
-            MultiPrecision<N> decpart = new MultiPrecision<N>(
-                sign: Sign.Plus, 
-                exponent: -1, 
-                mantissa: new Mantissa<N>(mantissa), 
-                denormal_flush: false
-            );
+            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, -1, new Mantissa<N>(mantissa), denormal_flush: false);
 
             MultiPrecision<N> y = intpart + decpart;
 

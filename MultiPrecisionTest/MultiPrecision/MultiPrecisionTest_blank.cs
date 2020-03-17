@@ -3,9 +3,9 @@ using MultiPrecision;
 using System;
 
 namespace MultiPrecisionTest {
-    public partial class MultiPrecisionTest {
-        [TestMethod]
-        public void Test() {
-        }
-    }
+    //public partial class MultiPrecisionTest {
+    //    [TestMethod]
+    //    public void Test() {
+    //    }
+    //}
 }
