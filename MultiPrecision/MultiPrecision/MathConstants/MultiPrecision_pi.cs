@@ -1,37 +1,41 @@
-﻿//namespace MultiPrecision {    
-//    public sealed partial class MultiPrecision<N> {
+﻿using System;
 
-//        private static partial class Consts {
-//            public static MultiPrecision<N> pi = null;
-//        }
+namespace MultiPrecision {
+    public sealed partial class MultiPrecision<N> {
 
-//        public static MultiPrecision<N> PI {
-//            get {
-//                if (Consts.sqrt2 is null) {
-//                    Consts.sqrt2 = GeneratePI();
-//                }
+        private static partial class Consts {
+            public static MultiPrecision<N> pi = null;
+        }
 
-//                return Consts.sqrt2;
-//            }
-//        }
+        public static MultiPrecision<N> PI {
+            get {
+                if (Consts.sqrt2 is null) {
+                    Consts.sqrt2 = GeneratePI();
+                }
 
-//        private static MultiPrecision<N> GeneratePI() { 
-//            MultiPrecision<N> a = One, b = Sqrt2 / 2, t = Ldexp(Mantissa<N>.One, -2), p = One;
+                return Consts.sqrt2;
+            }
+        }
 
-//            while(x.LeadingZeroCount >= 2) { 
-//                Accumulator<N> x_next = x + (y << 1);
-//                Accumulator<N> y_next = x + y;
+        private static MultiPrecision<N> GeneratePI() {
+            MultiPrecision<N> a = One, b = Sqrt2 / 2, t = Ldexp(One, -2), p = One;
 
-//                x = x_next;
-//                y = y_next;
-//            }
+            for(long i = 1; i < Bits; i *= 2) {
+                MultiPrecision<N> a_next = Ldexp(a + b, -1);
+                MultiPrecision<N> b_next = Sqrt(a * b);
+                MultiPrecision<N> t_next = t - p * (a - a_next) * (a - a_next);
+                MultiPrecision<N> p_next = Ldexp(p, 1);
 
-//            y >>= Mantissa<N>.Bits;
+                a = a_next;
+                b = b_next;
+                t = t_next;
+                p = p_next;
+            }
 
-//            Accumulator<N> acc = x / y;
-//            (Mantissa<N> n, int _) = acc.Mantissa;
+            MultiPrecision<N> c = a + b;
+            MultiPrecision<N> y = c * c / Ldexp(t, 2);
 
-//            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, denormal_flush: false);
-//        }
-//    }
-//}
+            return y;
+        }
+    }
+}
