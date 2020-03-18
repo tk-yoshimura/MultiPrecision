@@ -55,9 +55,6 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = a.Mantissa;
 
-            Console.WriteLine(exponent);
-            Console.WriteLine(sft);
-
             MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, exponent - sft + 1, n, denormal_flush: false);
 
             return y;
