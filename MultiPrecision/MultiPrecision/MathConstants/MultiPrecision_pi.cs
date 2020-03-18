@@ -9,11 +9,11 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> PI {
             get {
-                if (Consts.sqrt2 is null) {
-                    Consts.sqrt2 = GeneratePI();
+                if (Consts.pi is null) {
+                    Consts.pi = GeneratePI();
                 }
 
-                return Consts.sqrt2;
+                return Consts.pi;
             }
         }
 
