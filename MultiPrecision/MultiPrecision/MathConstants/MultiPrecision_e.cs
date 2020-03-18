@@ -28,7 +28,7 @@
 
             (Mantissa<N> n, int _) = m.Mantissa;
 
-            return new MultiPrecision<N>(Sign.Plus, exponent: 1, n, denormal_flush: false);
+            return new MultiPrecision<N>(Sign.Plus, exponent: 1, n, round: false);
         }
     }
 }

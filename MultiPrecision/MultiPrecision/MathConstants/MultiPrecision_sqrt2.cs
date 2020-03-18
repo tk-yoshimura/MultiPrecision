@@ -28,10 +28,11 @@
 
             y >>= Mantissa<N>.Bits;
 
-            Accumulator<N> acc = x / y;
-            (Mantissa<N> n, int _) = acc.Mantissa;
+            (Accumulator<N> acc_div, Accumulator<N> acc_rem) = Accumulator<N>.Div(x, y);
+            (Mantissa<N> n, int _) = acc_div.Mantissa;
+            bool round = acc_rem >= (y >> 1);
 
-            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, denormal_flush: false);
+            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, round);
         }
     }
 }

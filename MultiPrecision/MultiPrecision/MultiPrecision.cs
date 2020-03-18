@@ -22,7 +22,17 @@ namespace MultiPrecision {
             this.mantissa = mantissa;
         }
 
-        internal MultiPrecision(Sign sign, Int64 exponent, Mantissa<N> mantissa, bool denormal_flush) {
+        internal MultiPrecision(Sign sign, Int64 exponent, Mantissa<N> mantissa, bool round) {
+            if (round) {
+                if (mantissa.IsFull) { 
+                    mantissa = Mantissa<N>.One;
+                    exponent = exponent < Int64.MaxValue ? exponent + 1 : Int64.MaxValue;
+                }
+                else {
+                    mantissa += 1;
+                }
+            }
+
             Int64 exponent_zerosft = exponent + ExponentZero;
 
             this.sign = sign;
@@ -31,19 +41,9 @@ namespace MultiPrecision {
                 this.exponent = ExponentMax;
                 this.mantissa = Mantissa<N>.Zero;
             }
-            else if (mantissa.IsZero) { 
+            else if (mantissa.IsZero || exponent_zerosft <= ExponentMin) { 
                 this.exponent = ExponentMin;
                 this.mantissa = Mantissa<N>.Zero;
-            }
-            else if(exponent_zerosft <= ExponentMin) { 
-                this.exponent = ExponentMin;
-
-                if (denormal_flush) { 
-                    this.mantissa = Mantissa<N>.Zero;
-                }
-                else { 
-                    this.mantissa = mantissa >> (int)Math.Min(Mantissa<N>.Bits, -exponent_zerosft);
-                }
             }
             else{ 
                 this.exponent = unchecked((UInt32)exponent_zerosft);

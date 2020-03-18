@@ -22,8 +22,11 @@ namespace MultiPrecision {
                 }
             }
 
+            v *= v;
+            bool round = v.exponent > ExponentZero;
+
             MultiPrecision<N> intpart = exponent;
-            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, -1, new Mantissa<N>(mantissa), denormal_flush: false);
+            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, -1, new Mantissa<N>(mantissa), round);
 
             MultiPrecision<N> y = intpart + decpart;
 

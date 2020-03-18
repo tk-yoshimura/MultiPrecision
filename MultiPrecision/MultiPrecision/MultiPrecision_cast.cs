@@ -30,14 +30,14 @@ namespace MultiPrecision {
 
                 (Mantissa<N> n, int sft) = new Accumulator<N>(v_pos).Mantissa;
 
-                return new MultiPrecision<N>(Sign.Plus, Accumulator<N>.Bits - sft - 1, n, denormal_flush: false);
+                return new MultiPrecision<N>(Sign.Plus, Accumulator<N>.Bits - sft - 1, n, round: false);
             }
             else { 
                 UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
 
                 (Mantissa<N> n, int sft) = new Accumulator<N>(v_neg).Mantissa;
 
-                return new MultiPrecision<N>(Sign.Minus, Accumulator<N>.Bits - sft - 1, n, denormal_flush: false);
+                return new MultiPrecision<N>(Sign.Minus, Accumulator<N>.Bits - sft - 1, n, round: false);
             }
         }
     }

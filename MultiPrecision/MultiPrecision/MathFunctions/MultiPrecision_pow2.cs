@@ -38,7 +38,7 @@ namespace MultiPrecision {
             MultiPrecision<N> v = Consts.log2 * x_frac;
 
             if (v.IsZero || v.Exponent < int.MinValue) { 
-                return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, denormal_flush: false);;
+                return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
             Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(v.mantissa, (int)v.Exponent), w = m;
@@ -55,7 +55,7 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = a.Mantissa;
 
-            MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, exponent - sft + 1, n, denormal_flush: false);
+            MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, exponent - sft + 1, n, round: false);
 
             return y;
         }
