@@ -16,7 +16,7 @@
 //        }
 
 //        private static MultiPrecision<N> GeneratePI() { 
-//            MultiPrecision<N> a = One, b = Sqrt2 / 2, t = new MultiPrecision<N>(Sign.Plus, ExponentZero - 2, Mantissa<N>.One), p = One;
+//            MultiPrecision<N> a = One, b = Sqrt2 / 2, t = Ldexp(Mantissa<N>.One, -2), p = One;
 
 //            while(x.LeadingZeroCount >= 2) { 
 //                Accumulator<N> x_next = x + (y << 1);
