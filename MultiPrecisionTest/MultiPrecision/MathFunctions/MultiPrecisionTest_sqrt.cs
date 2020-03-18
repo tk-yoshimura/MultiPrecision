@@ -58,6 +58,15 @@ namespace MultiPrecisionTest {
 
                 n2 /= 2;
             }
+
+            for(int i = 0; i <= 1024; i++) { 
+                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 512;
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sqrt(x);
+
+                Console.WriteLine((double)x);
+                Console.WriteLine((double)y);
+                Assert.AreEqual(Math.Sqrt((double)x), (double)y, 1e-5);
+            }
         }
     }
 }
