@@ -40,6 +40,8 @@ namespace MultiPrecision {
         }
 
         public bool IsZero => UIntUtil.IsZero(arr);
+
+        public bool IsFull => UIntUtil.IsFull(arr);
         
         public int Digits => UIntUtil.Digits(arr);
 
