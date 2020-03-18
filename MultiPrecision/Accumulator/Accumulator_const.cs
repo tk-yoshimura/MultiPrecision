@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
@@ -19,7 +18,7 @@ namespace MultiPrecision {
         public static Accumulator<N> One{
             get {
                 if(one is null) { 
-                    one = new Accumulator<N>(Enumerable.Repeat(0x00000000u, Length - 1).Concat(new UInt32[] { 0x40000000u }).ToArray());
+                    one = new Accumulator<N>(Mantissa<N>.One) * new Accumulator<N>(Mantissa<N>.One);
                 }
 
                 return one;

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -18,7 +17,7 @@ namespace MultiPrecision {
             }
         }
 
-        public static int TaylorTableShift => (Mantissa<N>.Length - 1) * UIntUtil.UInt32Bits;
+        public static int TaylorTableShift => Mantissa<N>.Bits - 1;
 
         private static ReadOnlyCollection<Accumulator<N>> GenerateTaylorTable(){
             List<Accumulator<N>> table = new List<Accumulator<N>>();

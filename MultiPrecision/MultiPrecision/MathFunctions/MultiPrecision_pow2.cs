@@ -5,12 +5,12 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
         private static partial class Consts {
-            public static MultiPrecision<N> rcp_log2 = null;
+            public static MultiPrecision<N> log2 = null;
         }
 
         public static MultiPrecision<N> Pow2(MultiPrecision<N> x) {
-            if (Consts.rcp_log2 is null) {
-                Consts.rcp_log2 = Log(2);
+            if (Consts.log2 is null) {
+                Consts.log2 = Log(2);
             }
 
             if (x.IsNaN) {
@@ -28,22 +28,37 @@ namespace MultiPrecision {
                 }
             }
 
-            Int64 exp = x_int.mantissa.Value.Last() >> (UIntUtil.UInt32Bits - (int)x_int.Exponent);
+            Int64 exponent = x_int.mantissa.Value.Last() >> (UIntUtil.UInt32Bits - (int)x_int.Exponent - 1);
+            if(x_int.sign == Sign.Minus) { 
+                exponent = -exponent;
+            }
 
             MultiPrecision<N> x_frac = x - x_int;
 
-            MultiPrecision<N> v = Consts.rcp_log2 * x_frac;
-            MultiPrecision<N> w = v;
-            MultiPrecision<N> m = 1;
-            MultiPrecision<N> i = 1;
+            MultiPrecision<N> v = Consts.log2 * x_frac;
 
-            while(w.Exponent >= -Length) {
-                m += w;
-                i += 1;
-                w *= v / i;
+            if (v.IsZero || v.Exponent < int.MinValue) { 
+                return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, denormal_flush: false);;
             }
 
-            MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, m.Exponent + exp, m.mantissa, denormal_flush: false);
+            Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(v.mantissa, (int)v.Exponent), w = m;
+
+            foreach(var t in Accumulator<N>.TaylorTable){
+                Accumulator<N> d = w * t;
+                if (d.IsZero) { 
+                    break;
+                }
+
+                a += d;
+                w = (w * m) >> (Mantissa<N>.Bits - 1);
+            }
+
+            (Mantissa<N> n, int sft) = a.Mantissa;
+
+            Console.WriteLine(exponent);
+            Console.WriteLine(sft);
+
+            MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, exponent - sft + 1, n, denormal_flush: false);
 
             return y;
         }

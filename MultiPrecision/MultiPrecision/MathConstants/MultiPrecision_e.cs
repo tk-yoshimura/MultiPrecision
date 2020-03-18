@@ -15,16 +15,20 @@
             }
         }
 
-        private static MultiPrecision<N> GenerateE() {
-            Accumulator<N> v = Accumulator<N>.One >> Accumulator<N>.TaylorTableShift;
+        private static MultiPrecision<N> GenerateE() { 
+            Accumulator<N> v = new Accumulator<N>(Mantissa<N>.One, UIntUtil.UInt32Bits - 1);
+            Accumulator<N> m = v;
+            Accumulator<N> i = 2;
 
-            foreach (Accumulator<N> u in Accumulator<N>.TaylorTable) {
-                v += u;
+            while (!v.IsZero) { 
+                m += v;
+                v /= i;
+                i += 1;
             }
 
-            (Mantissa<N> n, int sft) = v.Mantissa;
+            (Mantissa<N> n, int _) = m.Mantissa;
 
-            return new MultiPrecision<N>(Sign.Plus, Accumulator<N>.TaylorTableShift - sft + 1, n, denormal_flush: false);
+            return new MultiPrecision<N>(Sign.Plus, exponent: 1, n, denormal_flush: false);
         }
     }
 }

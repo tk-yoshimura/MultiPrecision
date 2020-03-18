@@ -12,7 +12,7 @@ namespace MultiPrecisionTest {
 
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Pow(2, (double)x), (double)y, 1e-5);
+                Assert.AreEqual(Math.Pow(2, (double)x), (double)y, Math.Pow(2, (double)x) * 1e-5);
             }
 
             MultiPrecision<Pow2.N8> p = 1;
@@ -21,7 +21,7 @@ namespace MultiPrecisionTest {
 
                 Console.WriteLine((double)p);
                 Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Pow(2, (double)p), (double)y, 1e-5);
+                Assert.AreEqual(Math.Pow(2, (double)p), (double)y, Math.Pow(2, (double)p) * 1e-5);
 
                 p *= 2;
             }
@@ -32,7 +32,7 @@ namespace MultiPrecisionTest {
 
                 Console.WriteLine((double)n);
                 Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Pow(2, (double)n), (double)y, 1e-5);
+                Assert.AreEqual(Math.Pow(2, (double)n), (double)y, Math.Pow(2, (double)n) * 1e-5);
 
                 n /= 2;
             }
@@ -43,20 +43,39 @@ namespace MultiPrecisionTest {
 
                 Console.WriteLine((double)p2);
                 Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Pow(2, (double)p2), (double)y, 1e-5);
+                Assert.AreEqual(Math.Pow(2, (double)p2), (double)y, Math.Pow(2, (double)p2) * 1e-5);
 
                 p2 *= 2;
             }
 
-            MultiPrecision<Pow2.N8> n2 = 3;
+            MultiPrecision<Pow2.N8> n2 = 255;
             for(int i = 0; i < 32; i++) { 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(n2);
 
                 Console.WriteLine((double)n2);
                 Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Pow(2, (double)n2), (double)y, 1e-5);
+                Assert.AreEqual(Math.Pow(2, (double)n2), (double)y, Math.Pow(2, (double)n2) * 1e-5);
 
                 n2 /= 2;
+            }
+
+            MultiPrecision<Pow2.N8> p1 = (MultiPrecision<Pow2.N8>)(1) / 10;
+            for(Int64 i = 1; i <= 1000; i *= 10) { 
+                MultiPrecision<Pow2.N8> x = p1 + i;
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(x);
+
+                Console.WriteLine((double)x);
+                Console.WriteLine((double)y);
+                Assert.AreEqual(Math.Pow(2, (double)x), (double)y, Math.Pow(2, (double)x) * 1e-5);
+            }
+
+            for(Int64 i = -1; i >= -1000; i *= 10) { 
+                MultiPrecision<Pow2.N8> x = p1 + i;
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(x);
+
+                Console.WriteLine((double)x);
+                Console.WriteLine((double)y);
+                Assert.AreEqual(Math.Pow(2, (double)x), (double)y, Math.Pow(2, (double)x) * 1e-5);
             }
         }
     }
