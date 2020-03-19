@@ -1,70 +1,28 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
-        public static Accumulator<N> operator<<(Accumulator<N> a, int sft) {
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-
-            return LeftShift(a, sft);
+        public static Accumulator<N> operator<<(Accumulator<N> n, int sft) {
+            return new Accumulator<N>(n.value << sft);
         }
 
-        public static Accumulator<N> operator>>(Accumulator<N> a, int sft) {
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-
-            return RightShift(a, sft);
+        public static Accumulator<N> operator>>(Accumulator<N> n, int sft) {
+            return new Accumulator<N>(n.value >> sft);
         }
 
         public static Accumulator<N> LeftShift(Accumulator<N> n, int sft) {
-            Accumulator<N> ret = n.Copy();
-
-            ret.LeftShift(sft);
-
-            return ret;
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.LeftShift(n.value, sft));
         }
 
         public static Accumulator<N> RightShift(Accumulator<N> n, int sft) {
-            Accumulator<N> ret = n.Copy();
-
-            ret.RightShift(sft);
-
-            return ret;
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.RightShift(n.value, sft));
         }
 
         public static Accumulator<N> LeftBlockShift(Accumulator<N> n, int sft) {
-            Accumulator<N> ret = n.Copy();
-
-            ret.LeftBlockShift(sft);
-
-            return ret;
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.LeftBlockShift(n.value, sft));
         }        
 
         public static Accumulator<N> RightBlockShift(Accumulator<N> n, int sft) {
-            Accumulator<N> ret = n.Copy();
-
-            ret.RightBlockShift(sft);
-
-            return ret;
-        }
-
-        private void LeftShift(int sft) {
-            UIntUtil.LeftShift(arr, sft);
-        }
-
-        private void RightShift(int sft) {
-            UIntUtil.RightShift(arr, sft);
-        }
-
-        private void LeftBlockShift(int sft) {
-            UIntUtil.LeftBlockShift(arr, sft);
-        }
-
-        private void RightBlockShift(int sft) {
-            UIntUtil.RightBlockShift(arr, sft);
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.RightBlockShift(n.value, sft));
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class Mantissa<N> {
+
+    [DebuggerDisplay("{ToHexcode()}")]
+    internal sealed partial class BigUInt<N, K> {
 
         public override string ToString() {
             const UInt64 dec_base = 1000000000u;
@@ -13,9 +16,9 @@ namespace MultiPrecision {
             UInt32[] dec = new UInt32[checked(bin_digits * 10 / 9 + 2)]; 
 
             for (int j = bin_digits - 1; j >= 0; j--) {
-                UInt32 carry = arr[j];
+                UInt32 carry = Value[j];
                 for (int i = 0; i < dec_digits; i++) {
-                    UInt64 res = UIntUtil.Pack(dec[i], carry);
+                    UInt64 res = Pack(dec[i], carry);
 
                     dec[i] = (UInt32)(res % dec_base);
                     carry = (UInt32)(res / dec_base);
@@ -42,6 +45,10 @@ namespace MultiPrecision {
             string str = string.Join(string.Empty, dec.Select((d) => $"{d:D9}").Reverse()).TrimStart('0');
 
             return (str != string.Empty) ? str : "0";
+        }
+
+        public string ToHexcode() { 
+            return string.Join(' ', Value.Reverse().Select((u) => $"{u:X8}"));
         }
     }
 }

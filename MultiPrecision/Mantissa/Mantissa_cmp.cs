@@ -5,27 +5,27 @@ namespace MultiPrecision {
     internal sealed partial class Mantissa<N> : IComparable<Mantissa<N>> {
 
         public static bool operator ==(Mantissa<N> a, Mantissa<N> b) {
-            return UIntUtil.Equal(Length, a.arr, b.arr);
+            return a.value == b.value;
         }
 
         public static bool operator !=(Mantissa<N> a, Mantissa<N> b) {
-            return !(a == b);
+            return a.value != b.value;
         }
 
         public static bool operator <=(Mantissa<N> a, Mantissa<N> b) {
-            return UIntUtil.LessThanOrEqual(Length, a.arr, b.arr);
+            return a.value <= b.value;
         }
 
         public static bool operator >=(Mantissa<N> a, Mantissa<N> b) {
-            return UIntUtil.GreaterThanOrEqual(Length, a.arr, b.arr);
+            return a.value >= b.value;
         }
 
         public static bool operator <(Mantissa<N> a, Mantissa<N> b) {
-            return !(a >= b);
+            return a.value < b.value;
         }
 
         public static bool operator >(Mantissa<N> a, Mantissa<N> b) {
-            return !(a <= b);
+            return a.value > b.value;
         }
 
         public int CompareTo([AllowNull] Mantissa<N> other) {

@@ -4,36 +4,10 @@ using System.Linq;
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
-        private static Mantissa<N> zero = null, one = null, full = null;
+        public static Mantissa<N> Zero { get; } = new Mantissa<N>(BigUInt<N, Pow2.N1>.Zero);
 
-        public static Mantissa<N> Zero{
-            get {
-                if(zero is null) { 
-                    zero = new Mantissa<N>();
-                }
+        public static Mantissa<N> One { get; } = new Mantissa<N>(Enumerable.Repeat(0x00000000u, Length - 1).Concat(new UInt32[] { 0x80000000u }).ToArray());
 
-                return zero;
-            }
-        }
-
-        public static Mantissa<N> One{
-            get {
-                if(one is null) { 
-                    one = new Mantissa<N>(Enumerable.Repeat(0x00000000u, Length - 1).Concat(new UInt32[] { 0x80000000u }).ToArray());
-                }
-
-                return one;
-            }
-        }
-
-        public static Mantissa<N> Full{
-            get {
-                if(full is null) { 
-                    full = new Mantissa<N>(Enumerable.Repeat(0xFFFFFFFFu, Length).ToArray());
-                }
-
-                return full;
-            }
-        }
+        public static Mantissa<N> Full { get; } = new Mantissa<N>(BigUInt<N, Pow2.N1>.Full);
     }
 }

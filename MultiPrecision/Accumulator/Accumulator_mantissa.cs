@@ -15,11 +15,11 @@ namespace MultiPrecision {
 
                 Accumulator<N> n_sft = LeftShift(this, lzc);
 
-                if (n_sft.arr[Mantissa<N>.Length - 1] > round) {
+                if (n_sft.value[Mantissa<N>.Length - 1] > round) {
                     int i = Mantissa<N>.Length;
                     for (; i < Accumulator<N>.Length; i++) {
-                        if (n_sft.arr[i] < UInt32.MaxValue) {
-                            n_sft.CarryAdd(Mantissa<N>.Length, 1);
+                        if (n_sft.value[i] < UInt32.MaxValue) {
+                            n_sft.value.CarryAdd(Mantissa<N>.Length, 1);
                             break;
                         }
                     }
@@ -28,7 +28,7 @@ namespace MultiPrecision {
                     }
                 }
 
-                Mantissa<N> n = new Mantissa<N>(n_sft.arr, Mantissa<N>.Length);
+                Mantissa<N> n = new Mantissa<N>(n_sft.value.Value, Mantissa<N>.Length);
 
                 return (n, lzc);
             }

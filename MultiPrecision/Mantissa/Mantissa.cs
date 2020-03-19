@@ -1,58 +1,58 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MultiPrecision {
+
+    [DebuggerDisplay("{ToHexcode()}")]
     internal sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {
 
-        private readonly UInt32[] arr;
+        private readonly BigUInt<N, Pow2.N1> value;
 
-        public static int Length => default(N).Value;
-        public static int Bits => Length * UIntUtil.UInt32Bits;
-        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(arr);
+        public static int Length { get; } = BigUInt<N, Pow2.N1>.Length;
+        public static int Bits { get; } = BigUInt<N, Pow2.N1>.Bits;
+        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value.Value);
 
         public Mantissa() {
-            this.arr = new UInt32[Length];
+            this.value = new BigUInt<N, Pow2.N1>();
         }
 
-        public Mantissa(UInt32 v) : this() {
-            this.arr[0] = v;
+        public Mantissa(UInt32 v) { 
+            this.value = new BigUInt<N, Pow2.N1>(v);
         }
 
-        public Mantissa(UInt64 v) : this() {
-            (this.arr[1], this.arr[0]) = UIntUtil.Unpack(v);
+        public Mantissa(UInt64 v) {
+            this.value = new BigUInt<N, Pow2.N1>(v);
         }
 
         public Mantissa(UInt32[] arr) {
-            if (arr == null || arr.Length != Length) {
-                throw new ArgumentException();
-            }
+            this.value = new BigUInt<N, Pow2.N1>(arr);
+        }
 
-            this.arr = (UInt32[])arr.Clone();
+        public Mantissa(BigUInt<N, Pow2.N1> value) {
+            this.value = value;
         }
 
         public Mantissa(UInt32[] arr, int src_index) {
-            if (arr == null || arr.Length - src_index != Length) {
-                throw new ArgumentException();
-            }
-
-            this.arr = new UInt32[Length];
-            Array.Copy(arr, src_index, this.arr, 0, Length);
+            this.value = new BigUInt<N, Pow2.N1>(arr, src_index);
         }
 
-        public bool IsZero => UIntUtil.IsZero(arr);
+        public bool IsZero => value.IsZero;
 
-        public bool IsFull => UIntUtil.IsFull(arr);
+        public bool IsFull => value.IsFull;
         
-        public int Digits => UIntUtil.Digits(arr);
+        public int Digits => value.Digits;
 
-        public UInt64 MostSignificantDigits => UIntUtil.Pack(arr[Length - 1], arr[Length - 2]);
+        public int LeadingZeroCount => value.LeadingZeroCount;
+
+        public UInt64 MostSignificantDigits => value.MostSignificantDigits;
 
         public object Clone() {
             return Copy();
         }
 
         public Mantissa<N> Copy() {
-            return new Mantissa<N>(arr);
+            return new Mantissa<N>(value.Copy());
         }
 
         public override bool Equals(object obj) {
@@ -60,7 +60,15 @@ namespace MultiPrecision {
         }
 
         public override int GetHashCode() {
-            return arr[0].GetHashCode();
+            return HashCode.Combine(this.value);
+        }
+
+        public override string ToString() {
+            return value.ToString();
+        }
+
+        public string ToHexcode() {
+            return value.ToHexcode();
         }
     }
 }

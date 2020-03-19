@@ -1,70 +1,28 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
-        public static Mantissa<N> operator<<(Mantissa<N> a, int sft) {
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-
-            return LeftShift(a, sft);
+        public static Mantissa<N> operator<<(Mantissa<N> n, int sft) {
+            return new Mantissa<N>(n.value << sft);
         }
 
-        public static Mantissa<N> operator>>(Mantissa<N> a, int sft) {
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-
-            return RightShift(a, sft);
+        public static Mantissa<N> operator>>(Mantissa<N> n, int sft) {
+            return new Mantissa<N>(n.value >> sft);
         }
 
         public static Mantissa<N> LeftShift(Mantissa<N> n, int sft) {
-            Mantissa<N> ret = n.Copy();
-
-            ret.LeftShift(sft);
-
-            return ret;
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.LeftShift(n.value, sft));
         }
 
         public static Mantissa<N> RightShift(Mantissa<N> n, int sft) {
-            Mantissa<N> ret = n.Copy();
-
-            ret.RightShift(sft);
-
-            return ret;
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightShift(n.value, sft));
         }
 
         public static Mantissa<N> LeftBlockShift(Mantissa<N> n, int sft) {
-            Mantissa<N> ret = n.Copy();
-
-            ret.LeftBlockShift(sft);
-
-            return ret;
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.LeftBlockShift(n.value, sft));
         }        
 
         public static Mantissa<N> RightBlockShift(Mantissa<N> n, int sft) {
-            Mantissa<N> ret = n.Copy();
-
-            ret.RightBlockShift(sft);
-
-            return ret;
-        }
-
-        private void LeftShift(int sft) {
-            UIntUtil.LeftShift(arr, sft);
-        }
-
-        private void RightShift(int sft) {
-            UIntUtil.RightShift(arr, sft);
-        }
-
-        private void LeftBlockShift(int sft) {
-            UIntUtil.LeftBlockShift(arr, sft);
-        }
-
-        private void RightBlockShift(int sft) {
-            UIntUtil.RightBlockShift(arr, sft);
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightBlockShift(n.value, sft));
         }
     }
 }

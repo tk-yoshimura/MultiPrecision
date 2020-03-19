@@ -5,27 +5,27 @@ namespace MultiPrecision {
     internal sealed partial class Accumulator<N> : IComparable<Accumulator<N>> {
 
         public static bool operator ==(Accumulator<N> a, Accumulator<N> b) {
-            return UIntUtil.Equal(Length, a.arr, b.arr);
+            return a.value == b.value;
         }
 
         public static bool operator !=(Accumulator<N> a, Accumulator<N> b) {
-            return !(a == b);
+            return a.value != b.value;
         }
 
         public static bool operator <=(Accumulator<N> a, Accumulator<N> b) {
-            return UIntUtil.LessThanOrEqual(Length, a.arr, b.arr);
+            return a.value <= b.value;
         }
 
         public static bool operator >=(Accumulator<N> a, Accumulator<N> b) {
-            return UIntUtil.GreaterThanOrEqual(Length, a.arr, b.arr);
+            return a.value >= b.value;
         }
 
         public static bool operator <(Accumulator<N> a, Accumulator<N> b) {
-            return !(a >= b);
+            return a.value < b.value;
         }
 
         public static bool operator >(Accumulator<N> a, Accumulator<N> b) {
-            return !(a <= b);
+            return a.value > b.value;
         }
 
         public int CompareTo([AllowNull] Accumulator<N> other) {

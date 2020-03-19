@@ -1,62 +1,73 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MultiPrecision {
+
+    [DebuggerDisplay("{ToHexcode()}")]
     internal sealed partial class Accumulator<N> : ICloneable where N : struct, IConstant {
 
-        private readonly UInt32[] arr;
+        private readonly BigUInt<N, Pow2.N2> value;
 
-        public static int Length => default(N).Value * 2;
-        public static int Bits => Length * UIntUtil.UInt32Bits;
-        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(arr);
+        public static int Length { get; } = BigUInt<N, Pow2.N2>.Length;
+        public static int Bits { get; } = BigUInt<N, Pow2.N2>.Bits;
+        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value.Value);
 
         public Accumulator() {
-            this.arr = new UInt32[Length];
+            this.value = new BigUInt<N, Pow2.N2>();
         }
 
         public Accumulator(UInt32 v) : this() {
-            this.arr[0] = v;
+            this.value = new BigUInt<N, Pow2.N2>(v);
         }
 
         public Accumulator(UInt64 v) : this() {
-            (this.arr[1], this.arr[0]) = UIntUtil.Unpack(v);
+            this.value = new BigUInt<N, Pow2.N2>(v);
         }
 
         public Accumulator(UInt32[] arr) {
-            if (arr == null || arr.Length != Length) {
-                throw new ArgumentException();
-            }
+            this.value = new BigUInt<N, Pow2.N2>(arr);
+        }
 
-            this.arr = (UInt32[])arr.Clone();
+        public Accumulator(BigUInt<N, Pow2.N2> value) {
+            this.value = value;
         }
 
         public Accumulator(Mantissa<N> n) : this() {
             ReadOnlyCollection<UInt32> m = n.Value;
 
+            UInt32[] vs = value.Value;
+
             for(int i = 0; i < Mantissa<N>.Length; i++) { 
-                arr[i] = m[i];
+                vs[i] = m[i];
             }
         }
 
         public Accumulator(Mantissa<N> n, int sft) : this(n) {
             if (sft > 0) {
-                LeftShift(sft);
+                value.LeftShift(sft);
             }
             else if (sft < 0 && -sft >= 0) {
-                RightShift(-sft);
+                value.RightShift(-sft);
             }
         }
 
-        public bool IsZero => UIntUtil.IsZero(arr);
+        public bool IsZero => value.IsZero;
+
+        public bool IsFull => value.IsFull;
         
-        public int Digits => UIntUtil.Digits(arr);
+        public int Digits => value.Digits;
+
+        public int LeadingZeroCount => value.LeadingZeroCount;
+
+        public UInt64 MostSignificantDigits => value.MostSignificantDigits;
 
         public object Clone() {
             return Copy();
         }
 
         public Accumulator<N> Copy() {
-            return new Accumulator<N>(arr);
+            return new Accumulator<N>(value.Copy());
         }
 
         public override bool Equals(object obj) {
@@ -64,7 +75,15 @@ namespace MultiPrecision {
         }
 
         public override int GetHashCode() {
-            return arr[0].GetHashCode();
+            return HashCode.Combine(this.value);
+        }
+
+        public override string ToString() {
+            return value.ToString();
+        }
+
+        public string ToHexcode() {
+            return value.ToHexcode();
         }
     }
 }

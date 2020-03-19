@@ -4,6 +4,8 @@
     }
     public static class Pow2 {
 
+        internal struct N1 : IConstant{ public int Value => 1; }
+        internal struct N2 : IConstant{ public int Value => 2; }
         public struct N4 : IConstant{ public int Value => 4; }
         public struct N8 : IConstant{ public int Value => 8; }
         public struct N16 : IConstant{ public int Value => 16; }
