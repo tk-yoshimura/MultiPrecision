@@ -52,6 +52,19 @@ namespace MultiPrecision {
             }
         }
 
+        public Accumulator(Mantissa<N> n, long sft) : this(n) {
+            if(Math.Abs(sft) > Bits) { 
+                return;
+            }
+
+            if (sft > 0) {
+                value.LeftShift((int)sft);
+            }
+            else if (sft < 0 && -sft >= 0) {
+                value.RightShift((int)-sft);
+            }
+        }
+
         public bool IsZero => value.IsZero;
 
         public bool IsFull => value.IsFull;

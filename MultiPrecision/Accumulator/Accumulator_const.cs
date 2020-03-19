@@ -7,5 +7,8 @@
 
         public static Accumulator<N> Full { get; } = new Accumulator<N>(BigUInt<N, Pow2.N2>.Full);
 
+        public static Accumulator<N> MaxDecimal { get; } = new Accumulator<N>(Mantissa<N>.MaxDecimal);
+
+        public static Accumulator<N> MaxDecimal_x10 { get; } = MaxDecimal * 10;
     }
 }

@@ -4,7 +4,7 @@ namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> : ICloneable where N : struct, IConstant where K : struct, IConstant {
         public static int Length { get; } = default(N).Value * default(K).Value;
         public static int Bits { get; } = Length * UIntUtil.UInt32Bits;
-        public static int MaxDecimalDigits { get; } = Bits * 30103 / 100000;
+        public static int MaxDecimalDigits { get; } = Bits * 30103 / 100000 - 3;
         public UInt32[] Value { get; }
 
         public BigUInt() {
