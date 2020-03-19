@@ -6,5 +6,6 @@
         public static Accumulator<N> One { get; } = new Accumulator<N>(Mantissa<N>.One) * new Accumulator<N>(Mantissa<N>.One);
 
         public static Accumulator<N> Full { get; } = new Accumulator<N>(BigUInt<N, Pow2.N2>.Full);
+
     }
 }

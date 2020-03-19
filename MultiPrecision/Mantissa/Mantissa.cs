@@ -11,6 +11,7 @@ namespace MultiPrecision {
 
         public static int Length { get; } = BigUInt<N, Pow2.N1>.Length;
         public static int Bits { get; } = BigUInt<N, Pow2.N1>.Bits;
+        public static int MaxDecimalDigits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value.Value);
 
         public Mantissa() {

@@ -12,9 +12,9 @@ namespace MultiPrecision {
         private readonly UInt32 exponent;
         private readonly Mantissa<N> mantissa;
 
-        public static int Length => Mantissa<N>.Length;
-        public static int Bits => Mantissa<N>.Bits;
-        public static int Digits => Bits * 30103 / 100000;
+        public static int Length { get; } = Mantissa<N>.Length;
+        public static int Bits { get; } = Mantissa<N>.Bits;
+        public static int Digits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
         
         private MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
             this.sign = sign;

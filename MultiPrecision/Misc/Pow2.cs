@@ -15,6 +15,5 @@
         public struct N256 : IConstant{ public int Value => 256; }
         public struct N512 : IConstant{ public int Value => 512; }
         public struct N1024 : IConstant{ public int Value => 1024; }
-        public struct N2048 : IConstant{ public int Value => 2048; }
     }
 }
