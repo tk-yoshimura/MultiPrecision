@@ -50,6 +50,12 @@ namespace MultiPrecision {
                 this.mantissa = mantissa;
             }
         }
+                
+        private static MultiPrecision<N> CreateInteger(Sign sign, Accumulator<N> acc) {
+            (Mantissa<N> n, int sft) = acc.Mantissa;
+
+            return new MultiPrecision<N>(sign, Accumulator<N>.Bits - sft - 1, n, round: false);
+        }
 
         public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;
 
