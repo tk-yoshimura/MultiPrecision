@@ -9,6 +9,7 @@ namespace MultiPrecisionTest {
             MultiPrecision<Pow2.N8> sqrt2 = MultiPrecision<Pow2.N8>.Sqrt2;
 
             Console.WriteLine((double)sqrt2);
+            Console.WriteLine(sqrt2);
             Assert.AreEqual(Math.Sqrt(2), (double)sqrt2, 1e-5);
         }
     }
