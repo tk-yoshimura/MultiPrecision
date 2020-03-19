@@ -106,6 +106,20 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
             }
+
+            MultiPrecision<Pow2.N8> p = 1;
+            for(int i = 0; i <= 100; i++) { 
+                MultiPrecision<Pow2.N8> v = p + (MultiPrecision<Pow2.N8>)7 / 10;
+                
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+
+                Console.WriteLine(sign);
+                Console.WriteLine(exponent_dec);
+                Console.WriteLine(mantissa_dec);
+                Console.WriteLine(v.ToString());
+
+                p *= 10;
+            }
         }
     }
 }
