@@ -33,48 +33,24 @@ namespace MultiPrecision {
             MultiPrecision<N> exponent = Consts.log10_2 * Exponent;
             MultiPrecision<N> exponent_int = Floor(exponent), exponent_frac = Pow10(exponent - exponent_int);
 
-            Accumulator<N> exponent_acc = new Accumulator<N>(exponent_int.mantissa, exponent_int.Exponent - Mantissa<N>.Bits + 1);
+            Int64 exponent_dec = (Int64)exponent_int;
 
-            if(exponent_acc.Digits > 1) { 
-                throw new OverflowException();
-            }
+            Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa, 2);
 
-            Int64 exponent_dec = exponent_acc.Value[0];
-            if(exponent_int.sign == Sign.Minus) { 
-                exponent_dec = -exponent_dec;
-            }
+            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.MaxDecimal);
+            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
-            Accumulator<N> mantissa_acc = new Accumulator<N>(mantissa);
-
-            mantissa_acc = (mantissa_acc * Accumulator<N>.MaxDecimal) >> (Mantissa<N>.Bits - 2);
-
-            if((mantissa_acc.Value[0] & 1) == 1) { 
-                mantissa_acc = (mantissa_acc >> 1) + 1;
-            }
-            else { 
-                mantissa_acc >>= 1;
-            }
-
-            mantissa_acc = (mantissa_acc * new Accumulator<N>(exponent_frac.mantissa)) >> (Mantissa<N>.Bits - (int)exponent_frac.Exponent - 2);
-
-            if((mantissa_acc.Value[0] & 1) == 1) { 
-                mantissa_acc = (mantissa_acc >> 1) + 1;
-            }
-            else { 
-                mantissa_acc >>= 1;
-            }
-
-            if(mantissa_acc >= Accumulator<N>.MaxDecimal_x10) { 
-                (Accumulator<N> div, Accumulator<N> rem) = Accumulator<N>.Div(mantissa_acc, 10);
+            if(mantissa_dec >= Accumulator<N>.MaxDecimal_x10) { 
+                (Accumulator<N> div, Accumulator<N> rem) = Accumulator<N>.Div(mantissa_dec, 10);
                 if(rem.Value[0] >= 5) { 
                     div += 1;
                 }
 
                 exponent_dec += 1;
-                mantissa_acc = div;
+                mantissa_dec = div;
             }
 
-            return (sign, exponent_dec, mantissa_acc);
+            return (sign, exponent_dec, mantissa_dec);
         }
     }
 }
