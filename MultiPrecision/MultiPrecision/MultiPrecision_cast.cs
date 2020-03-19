@@ -14,10 +14,10 @@ namespace MultiPrecision {
             if (IsFinite) { 
                 UInt64 n = mantissa.MostSignificantDigits;
 
-                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((sign == Sign.Plus) ? 1 : -1);
+                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((Sign == Sign.Plus) ? 1 : -1);
             }
             else if (mantissa.IsZero){
-                return (sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
+                return (Sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
             }
             else{
                 return double.NaN;
@@ -45,7 +45,7 @@ namespace MultiPrecision {
 
             UInt64 u = UIntUtil.Pack(acc.Value[1], acc.Value[0]);
 
-            if (v.sign == Sign.Plus) {
+            if (v.Sign == Sign.Plus) {
                 if (u > (UInt64)Int64.MaxValue) {
                     throw new OverflowException();
                 }

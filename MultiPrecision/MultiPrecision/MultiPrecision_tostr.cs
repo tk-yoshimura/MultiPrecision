@@ -27,7 +27,7 @@ namespace MultiPrecision {
             }
 
             if (IsZero) { 
-                return (sign, 0, Accumulator<N>.Zero);
+                return (Sign, 0, Accumulator<N>.Zero);
             }
 
             MultiPrecision<N> exponent = Consts.log10_2 * Exponent;
@@ -50,7 +50,7 @@ namespace MultiPrecision {
                 mantissa_dec = div;
             }
 
-            return (sign, exponent_dec, mantissa_dec);
+            return (Sign, exponent_dec, mantissa_dec);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace MultiPrecision {
 
@@ -7,17 +8,19 @@ namespace MultiPrecision {
         public const UInt32 ExponentMin = UInt32.MinValue;
         public const UInt32 ExponentMax = UInt32.MaxValue;
         public const UInt32 ExponentZero = UInt32.MaxValue / 2 + 1;
-
-        private readonly Sign sign;
         private readonly UInt32 exponent;
         private readonly Mantissa<N> mantissa;
 
         public static int Length { get; } = Mantissa<N>.Length;
         public static int Bits { get; } = Mantissa<N>.Bits;
         public static int Digits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
+
+        public Sign Sign { get; }
+        public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;
+        public ReadOnlyCollection<UInt32> Mantissa => mantissa.Value;
         
         private MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
-            this.sign = sign;
+            this.Sign = sign;
             this.exponent = exponent;
             this.mantissa = mantissa;
         }
@@ -35,7 +38,7 @@ namespace MultiPrecision {
 
             Int64 exponent_zerosft = exponent + ExponentZero;
 
-            this.sign = sign;
+            this.Sign = sign;
 
             if(exponent_zerosft >= ExponentMax) { 
                 this.exponent = ExponentMax;
@@ -64,15 +67,13 @@ namespace MultiPrecision {
         public bool IsFinite => exponent < ExponentMax;
 
         public bool IsNormal => (exponent > ExponentMin && exponent < ExponentMax) || IsZero;
-
-        public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;
-
+        
         public object Clone() {
             return Copy();
         }
 
         public MultiPrecision<N> Copy() {
-            return new MultiPrecision<N>(sign, exponent, mantissa);
+            return new MultiPrecision<N>(Sign, exponent, mantissa);
         }
 
         public override bool Equals(object obj) {
@@ -80,7 +81,7 @@ namespace MultiPrecision {
         }
 
         public override int GetHashCode() {
-            return sign.GetHashCode() ^ exponent.GetHashCode() ^ mantissa.GetHashCode();
+            return Sign.GetHashCode() ^ exponent.GetHashCode() ^ mantissa.GetHashCode();
         }
     }
 }

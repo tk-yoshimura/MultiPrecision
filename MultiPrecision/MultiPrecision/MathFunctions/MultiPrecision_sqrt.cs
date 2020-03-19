@@ -18,7 +18,7 @@ namespace MultiPrecision {
                 InitializeSqrtConsts();
             }
 
-            if (x.sign == Sign.Minus || x.IsNaN) {
+            if (x.Sign == Sign.Minus || x.IsNaN) {
                 return NaN;
             }
             if (!x.IsFinite) {

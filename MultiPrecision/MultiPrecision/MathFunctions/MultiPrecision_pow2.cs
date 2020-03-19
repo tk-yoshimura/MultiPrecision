@@ -20,7 +20,7 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Floor(x);
 
             if(x_int.Exponent >= UIntUtil.UInt32Bits) {
-                if(x_int.sign == Sign.Plus) { 
+                if(x_int.Sign == Sign.Plus) { 
                     return PositiveInfinity;
                 }
                 else {
@@ -29,7 +29,7 @@ namespace MultiPrecision {
             }
 
             Int64 exponent = x_int.mantissa.Value.Last() >> (UIntUtil.UInt32Bits - (int)x_int.Exponent - 1);
-            if(x_int.sign == Sign.Minus) { 
+            if(x_int.Sign == Sign.Minus) { 
                 exponent = -exponent;
             }
 

@@ -7,7 +7,7 @@ namespace MultiPrecision {
         public static bool operator ==(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (a.IsNaN || b.IsNaN) return false;
             
-            return ((a.sign == b.sign) && (a.exponent == b.exponent) && (a.mantissa == b.mantissa)) || (a.IsZero && b.IsZero);
+            return ((a.Sign == b.Sign) && (a.exponent == b.exponent) && (a.mantissa == b.mantissa)) || (a.IsZero && b.IsZero);
         }
 
         public static bool operator !=(MultiPrecision<N> a, MultiPrecision<N> b) {
@@ -17,11 +17,11 @@ namespace MultiPrecision {
         public static bool operator <=(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (a.IsNaN || b.IsNaN) return false;
 
-            if (a.sign != b.sign) {
-                return a.sign == Sign.Minus || (a.IsZero && b.IsZero);
+            if (a.Sign != b.Sign) {
+                return a.Sign == Sign.Minus || (a.IsZero && b.IsZero);
             }
 
-            if (a.sign == Sign.Plus) {
+            if (a.Sign == Sign.Plus) {
                 if (a.exponent != b.exponent) {
                     return a.exponent < b.exponent;
                 }
@@ -40,11 +40,11 @@ namespace MultiPrecision {
         public static bool operator >=(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (a.IsNaN || b.IsNaN) return false;
 
-            if (a.sign != b.sign) {
-                return a.sign == Sign.Plus || (a.IsZero && b.IsZero);
+            if (a.Sign != b.Sign) {
+                return a.Sign == Sign.Plus || (a.IsZero && b.IsZero);
             }
 
-            if (a.sign == Sign.Plus) {
+            if (a.Sign == Sign.Plus) {
                 if (a.exponent != b.exponent) {
                     return a.exponent > b.exponent;
                 }
