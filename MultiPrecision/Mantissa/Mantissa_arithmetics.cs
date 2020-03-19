@@ -1,4 +1,6 @@
-﻿namespace MultiPrecision {
+﻿using System;
+
+namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
         public static Mantissa<N> operator +(Mantissa<N> a, Mantissa<N> b) {
@@ -6,6 +8,14 @@
         }
 
         public static Mantissa<N> operator -(Mantissa<N> a, Mantissa<N> b) {
+            return Sub(a, b);
+        }
+
+        public static Mantissa<N> operator +(Mantissa<N> a, UInt32 b) {
+            return Add(a, b);
+        }
+
+        public static Mantissa<N> operator -(Mantissa<N> a, UInt32 b) {
             return Sub(a, b);
         }
 
@@ -27,6 +37,14 @@
 
         public static Mantissa<N> Sub(Mantissa<N> v1, Mantissa<N> v2) {
             return new Mantissa<N>(BigUInt<N, Pow2.N1>.Sub(v1.value, v2.value));
+        }
+
+        public static Mantissa<N> Add(Mantissa<N> v1, UInt32 v2) {
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Add(v1.value, v2));
+        }
+
+        public static Mantissa<N> Sub(Mantissa<N> v1, UInt32 v2) {
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Sub(v1.value, v2));
         }
 
         public static Mantissa<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {

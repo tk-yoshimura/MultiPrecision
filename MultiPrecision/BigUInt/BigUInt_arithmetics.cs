@@ -11,6 +11,14 @@ namespace MultiPrecision {
             return Sub(a, b);
         }
 
+        public static BigUInt<N, K> operator +(BigUInt<N, K> a, UInt32 b) {
+            return Add(a, b);
+        }
+
+        public static BigUInt<N, K> operator -(BigUInt<N, K> a, UInt32 b) {
+            return Sub(a, b);
+        }
+
         public static BigUInt<N, K> operator *(BigUInt<N, K> a, BigUInt<N, K> b) {
             return Mul(a, b);
         }
@@ -47,6 +55,22 @@ namespace MultiPrecision {
             BigUInt<N, K> ret = v1.Copy();
 
             ret.Sub(v2);
+
+            return ret;
+        }
+
+        public static BigUInt<N, K> Add(BigUInt<N, K> v1, UInt32 v2) {
+            BigUInt<N, K> ret = v1.Copy();
+            
+            ret.CarryAdd(0, v2);
+
+            return ret;
+        }
+
+        public static BigUInt<N, K> Sub(BigUInt<N, K> v1, UInt32 v2) {
+            BigUInt<N, K> ret = v1.Copy();
+
+            ret.CarrySub(0, v2);
 
             return ret;
         }

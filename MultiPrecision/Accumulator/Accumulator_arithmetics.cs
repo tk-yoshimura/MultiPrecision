@@ -1,4 +1,6 @@
-﻿namespace MultiPrecision {
+﻿using System;
+
+namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
         public static Accumulator<N> operator +(Accumulator<N> a, Accumulator<N> b) {
@@ -6,6 +8,14 @@
         }
 
         public static Accumulator<N> operator -(Accumulator<N> a, Accumulator<N> b) {
+            return Sub(a, b);
+        }
+
+        public static Accumulator<N> operator +(Accumulator<N> a, UInt32 b) {
+            return Add(a, b);
+        }
+
+        public static Accumulator<N> operator -(Accumulator<N> a, UInt32 b) {
             return Sub(a, b);
         }
 
@@ -28,6 +38,15 @@
         public static Accumulator<N> Sub(Accumulator<N> v1, Accumulator<N> v2) {
             return new Accumulator<N>(BigUInt<N, Pow2.N2>.Sub(v1.value, v2.value));
         }
+
+        public static Accumulator<N> Add(Accumulator<N> v1, UInt32 v2) {
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.Add(v1.value, v2));
+        }
+
+        public static Accumulator<N> Sub(Accumulator<N> v1, UInt32 v2) {
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.Sub(v1.value, v2));
+        }
+
 
         public static Accumulator<N> Mul(Accumulator<N> v1, Accumulator<N> v2) {
             return new Accumulator<N>(BigUInt<N, Pow2.N2>.Mul(v1.value, v2.value));
