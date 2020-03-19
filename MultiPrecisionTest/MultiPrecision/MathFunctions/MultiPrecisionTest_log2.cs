@@ -48,7 +48,7 @@ namespace MultiPrecisionTest {
                 p2 *= 2;
             }
 
-            MultiPrecision<Pow2.N8> n2 = 3;
+            MultiPrecision<Pow2.N8> n2 = 257;
             for(int i = 0; i < 32; i++) { 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(n2);
 

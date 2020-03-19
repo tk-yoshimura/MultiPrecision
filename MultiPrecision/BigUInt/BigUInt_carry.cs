@@ -15,7 +15,7 @@ namespace MultiPrecision {
             
             fixed(UInt32 *arr = Value) { 
                 for (int i = dig; i < Length && v > 0; i++) {
-                    (v, arr[i]) = UIntUtil.Unpack((UInt64)arr[i] + (UInt64)v);
+                    (v, arr[i]) = UIntUtil.Unpack(unchecked((UInt64)arr[i] + (UInt64)v));
                 }
 
                 if (v > 0) {

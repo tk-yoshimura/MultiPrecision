@@ -16,7 +16,7 @@ namespace MultiPrecision {
 
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-                    Int64 exponent = a.exponent - sft + 1;
+                    Int64 exponent = checked(a.exponent - sft + 1);
 
                     return (n, exponent);
                 }
@@ -35,7 +35,7 @@ namespace MultiPrecision {
 
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-                    Int64 exponent = b.exponent - sft + 1;
+                    Int64 exponent = checked(b.exponent - sft + 1);
 
                     return (n, exponent);
                 }
@@ -57,7 +57,7 @@ namespace MultiPrecision {
 
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-                    Int64 exponent = a.exponent - sft + 1;
+                    Int64 exponent = checked(a.exponent - sft + 1);
 
                     return (n, exponent);
                 }
@@ -76,7 +76,7 @@ namespace MultiPrecision {
 
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-                    Int64 exponent = b.exponent - sft + 1;
+                    Int64 exponent = checked(b.exponent - sft + 1);
 
                     return (n, exponent);
                 }
@@ -96,7 +96,7 @@ namespace MultiPrecision {
                 else {
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-                    Int64 exponent = a.exponent - sft + 1;
+                    Int64 exponent = checked(a.exponent - sft + 1);
 
                     return (n, exponent);
                 }
@@ -111,7 +111,7 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
-            Int64 exponent = a.exponent + b.exponent - sft + 1;
+            Int64 exponent = checked(a.exponent + b.exponent - sft + 1);
 
             return (n, exponent);
         }
@@ -124,7 +124,7 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = c_acc_div.Mantissa;
 
-            Int64 exponent = a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1;
+            Int64 exponent = checked(a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1);
 
             bool round = c_acc_rem >= (b_acc >> 1);
 

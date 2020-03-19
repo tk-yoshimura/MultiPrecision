@@ -18,7 +18,10 @@ namespace MultiPrecision {
         public Sign Sign { get; }
         public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;
         public ReadOnlyCollection<UInt32> Mantissa => mantissa.Value;
-        
+
+        public MultiPrecision(Sign sign, Int64 exponent, UInt32[] mantissa)
+            : this(sign, exponent, new Mantissa<N>(mantissa), round: false) { }
+
         private MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
             this.Sign = sign;
             this.exponent = exponent;
@@ -26,38 +29,44 @@ namespace MultiPrecision {
         }
 
         internal MultiPrecision(Sign sign, Int64 exponent, Mantissa<N> mantissa, bool round) {
-            if (round) {
-                if (mantissa.IsFull) { 
-                    mantissa = Mantissa<N>.One;
-                    exponent = exponent < Int64.MaxValue ? exponent + 1 : Int64.MaxValue;
-                }
-                else {
-                    mantissa += 1;
-                }
-            }
-
-            Int64 exponent_zerosft = exponent + ExponentZero;
+            Int64 exponent_zerosft = checked(exponent + ExponentZero);
 
             this.Sign = sign;
 
-            if(exponent_zerosft >= ExponentMax) { 
-                this.exponent = ExponentMax;
-                this.mantissa = Mantissa<N>.Zero;
-            }
-            else if (mantissa.IsZero || exponent_zerosft <= ExponentMin) { 
+            if (mantissa.IsZero || exponent_zerosft <= ExponentMin) {
                 this.exponent = ExponentMin;
                 this.mantissa = Mantissa<N>.Zero;
             }
-            else{ 
-                this.exponent = unchecked((UInt32)exponent_zerosft);
-                this.mantissa = mantissa;
+            else {
+                if (round) {
+                    if (mantissa.IsFull) { 
+                        mantissa = Mantissa<N>.One;
+                        exponent_zerosft = checked(exponent_zerosft + 1);
+                    }
+                    else {
+                        mantissa += 1;
+                    }
+                }
+
+                if (exponent_zerosft >= ExponentMax) {
+                    this.exponent = ExponentMax;
+                    this.mantissa = Mantissa<N>.Zero;
+                }
+                else {
+                    if (mantissa.Value[Length - 1] <= UIntUtil.UInt32Round) {
+                        throw new ArgumentException(nameof(mantissa));
+                    }
+
+                    this.exponent = unchecked((UInt32)exponent_zerosft);
+                    this.mantissa = mantissa;
+                }
             }
         }
                 
         private static MultiPrecision<N> CreateInteger(Sign sign, Accumulator<N> acc) {
             (Mantissa<N> n, int sft) = acc.Mantissa;
 
-            return new MultiPrecision<N>(sign, Accumulator<N>.Bits - sft - 1, n, round: false);
+            return new MultiPrecision<N>(sign, (Int64)Accumulator<N>.Bits - sft - 1, n, round: false);
         }
 
         public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;

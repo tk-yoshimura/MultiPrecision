@@ -46,7 +46,7 @@ namespace MultiPrecision {
                     div += 1;
                 }
 
-                exponent_dec += 1;
+                exponent_dec = checked(exponent_dec + 1);
                 mantissa_dec = div;
             }
 

@@ -11,6 +11,8 @@ namespace MultiPrecision {
         public const UInt32 UInt32MaxDecimal = 1000000000u;
         public const UInt64 UInt64MaxDecimal = 10000000000000000000ul;
 
+        public const UInt32 UInt32Round = UInt32.MaxValue >> 1;
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (UInt32 high, UInt32 low) Unpack(UInt64 v) {
             UInt32 low = unchecked((UInt32)v);
