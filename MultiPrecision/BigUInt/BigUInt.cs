@@ -16,7 +16,7 @@ namespace MultiPrecision {
         }
 
         public BigUInt(UInt64 v) : this() {
-            (this.Value[1], this.Value[0]) = Unpack(v);
+            (this.Value[1], this.Value[0]) = UIntUtil.Unpack(v);
         }
 
         public BigUInt(UInt32[] arr) {
@@ -76,7 +76,7 @@ namespace MultiPrecision {
             }
         }
 
-        public UInt64 MostSignificantDigits => Pack(Value[Length - 1], Value[Length - 2]);
+        public UInt64 MostSignificantDigits => UIntUtil.Pack(Value[Length - 1], Value[Length - 2]);
 
         public UInt32 this[int index] {
             get {

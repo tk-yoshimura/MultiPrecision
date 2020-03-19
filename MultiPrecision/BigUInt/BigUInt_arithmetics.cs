@@ -90,7 +90,7 @@ namespace MultiPrecision {
                         continue;
                     }
 
-                    (UInt32 h, UInt32 l) = Unpack((UInt64)v1[dig1] * (UInt64)v2[dig2]);
+                    (UInt32 h, UInt32 l) = UIntUtil.Unpack((UInt64)v1[dig1] * (UInt64)v2[dig2]);
 
                     ret.CarryAdd(dig1 + dig2, l);
                     ret.CarryAdd(dig1 + dig2 + 1, h);
@@ -127,10 +127,10 @@ namespace MultiPrecision {
             }
 
             for (int i = Length - 1; i >= denom_digits;) {
-                UInt64 numer = Pack(rem[i], rem[i - 1]);
+                UInt64 numer = UIntUtil.Pack(rem[i], rem[i - 1]);
 
                 UInt64 n = numer / denom;
-                (UInt32 nh, UInt32 nl) = Unpack(n);
+                (UInt32 nh, UInt32 nl) = UIntUtil.Unpack(n);
                 div.CarryAdd(i - denom_digits + 1, nh);
                 div.CarryAdd(i - denom_digits, nl);
 
@@ -148,7 +148,7 @@ namespace MultiPrecision {
                 UInt64 numer = rem[denom_digits - 1];
 
                 UInt64 n = numer / denom;
-                (UInt32 nh, UInt32 nl) = Unpack(n);
+                (UInt32 nh, UInt32 nl) = UIntUtil.Unpack(n);
                 div.CarryAdd(1, nh);
                 div.CarryAdd(0, nl);
 

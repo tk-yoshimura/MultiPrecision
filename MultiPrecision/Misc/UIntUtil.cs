@@ -11,6 +11,19 @@ namespace MultiPrecision {
         public const UInt32 UInt32MaxDecimal = 1000000000u;
         public const UInt64 UInt64MaxDecimal = 10000000000000000000ul;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static (UInt32 high, UInt32 low) Unpack(UInt64 v) {
+            UInt32 low = unchecked((UInt32)v);
+            UInt32 high = unchecked((UInt32)(v >> UInt32Bits));
+
+            return (high, low);
+        } 
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UInt64 Pack(UInt32 high, UInt32 low) {            
+            return (((UInt64)high) << UInt32Bits) | ((UInt64)low);
+        }
+
         /// <summary>Comparate uint32 array a == b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {

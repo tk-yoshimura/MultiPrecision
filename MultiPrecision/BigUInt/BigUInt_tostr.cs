@@ -18,7 +18,7 @@ namespace MultiPrecision {
             for (int j = bin_digits - 1; j >= 0; j--) {
                 UInt32 carry = Value[j];
                 for (int i = 0; i < dec_digits; i++) {
-                    UInt64 res = Pack(dec[i], carry);
+                    UInt64 res = UIntUtil.Pack(dec[i], carry);
 
                     dec[i] = (UInt32)(res % dec_base);
                     carry = (UInt32)(res / dec_base);
