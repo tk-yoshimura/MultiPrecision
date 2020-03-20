@@ -26,7 +26,7 @@ namespace MultiPrecision {
             Accumulator<N> d = 1;
 
             while (table.Count < 1 || !(table.Last().IsZero)) {
-                table.Add(CarryRightShift(v, TaylorTableShift));
+                table.Add(RightRoundShift(v, TaylorTableShift));
                 d += 1;
                 v /= d;
             }

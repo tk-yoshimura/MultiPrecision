@@ -11,7 +11,7 @@ namespace MultiPrecision {
 
         public static int Length { get; } = BigUInt<N, Pow2.N2>.Length;
         public static int Bits { get; } = BigUInt<N, Pow2.N2>.Bits;
-        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value.Value);
+        public ReadOnlyCollection<UInt32> Value => value.Value;
 
         public Accumulator() {
             this.value = new BigUInt<N, Pow2.N2>();
@@ -29,41 +29,30 @@ namespace MultiPrecision {
             this.value = new BigUInt<N, Pow2.N2>(arr);
         }
 
+        public Accumulator(ReadOnlyCollection<UInt32> arr) {
+            this.value = new BigUInt<N, Pow2.N2>(arr);
+        }
+
         public Accumulator(BigUInt<N, Pow2.N2> value) {
             this.value = value;
         }
 
-        public Accumulator(Mantissa<N> n) : this() {
-            ReadOnlyCollection<UInt32> m = n.Value;
-
-            UInt32[] vs = value.Value;
-
-            for(int i = 0; i < Mantissa<N>.Length; i++) { 
-                vs[i] = m[i];
+        public Accumulator(Mantissa<N> n, Int64 sft = 0){
+            if (sft == 0) {
+                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false);
+            }
+            else if (sft > 0 && sft < Bits) {
+                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) << (int)sft;
+            }
+            else if (sft < 0 && sft > -Bits) {
+                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) >> (int)-sft;
+            }
+            else {
+                this.value = BigUInt<N, Pow2.N2>.Zero;
             }
         }
 
-        public Accumulator(Mantissa<N> n, int sft) : this(n) {
-            if (sft > 0) {
-                value.LeftShift(sft);
-            }
-            else if (sft < 0 && -sft >= 0) {
-                value.RightShift(-sft);
-            }
-        }
-
-        public Accumulator(Mantissa<N> n, long sft) : this(n) {
-            if(Math.Abs(sft) > Bits) { 
-                return;
-            }
-
-            if (sft > 0) {
-                value.LeftShift((int)sft);
-            }
-            else if (sft < 0 && -sft >= 0) {
-                value.RightShift((int)-sft);
-            }
-        }
+        public Accumulator(Mantissa<N> n, int sft) : this(n, (long)sft) { }
 
         public bool IsZero => value.IsZero;
 

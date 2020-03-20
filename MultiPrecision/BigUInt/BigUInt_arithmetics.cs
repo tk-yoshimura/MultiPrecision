@@ -31,13 +31,13 @@ namespace MultiPrecision {
             return Div(a, b).rem;
         }
 
-        public void Add(BigUInt<N, K> v) {
+        private void Add(BigUInt<N, K> v) {
             for (int dig = 0; dig < Length; dig++) {
                 CarryAdd(dig, v[dig]);
             }
         }
 
-        public void Sub(BigUInt<N, K> v) {
+        private void Sub(BigUInt<N, K> v) {
             for (int dig = 0; dig < Length; dig++) {
                 CarrySub(dig, v[dig]);
             }
@@ -168,6 +168,17 @@ namespace MultiPrecision {
             rem.RightShift(sft);
 
             return (div, rem);
+        }
+
+        public static BigUInt<N, K> RoundDiv(BigUInt<N, K> v1, BigUInt<N, K> v2) {
+            (BigUInt<N, K> div, BigUInt<N, K> rem) = Div(v1, v2);
+
+            rem.LeftShift(1);
+            if (rem >= v2) {
+                div.CarryAdd(0, 1u);
+            }
+
+            return div;
         }
     }
 }

@@ -20,6 +20,10 @@ namespace MultiPrecision {
             return Div(a, b);
         }
 
+        public static MultiPrecision<N> operator %(MultiPrecision<N> a, MultiPrecision<N> b) {
+            return a - Truncate(a / b) * b;
+        }
+
         public static MultiPrecision<N> operator +(MultiPrecision<N> x) {
             return x;
         }
@@ -38,6 +42,14 @@ namespace MultiPrecision {
             }
             if (b.IsZero) {
                 return a;
+            }
+
+            if (!a.IsFinite || !b.IsFinite) {
+                if (a.Sign != b.Sign) { 
+                    return NaN;
+                }
+
+                return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
             }
 
             if(a.Sign == b.Sign) { 
@@ -62,6 +74,14 @@ namespace MultiPrecision {
             }
             if (b.IsZero) {
                 return a;
+            }
+
+            if (!a.IsFinite || !b.IsFinite) {
+                if (a.Sign == b.Sign) { 
+                    return NaN;
+                }
+
+                return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
             }
 
             if(a.Sign == b.Sign){
@@ -104,9 +124,9 @@ namespace MultiPrecision {
                 }
             }
 
-            (Mantissa<N> mantissa, Int64 exponent, bool round) = Div((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+            (Mantissa<N> mantissa, Int64 exponent) = Div((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
             
-            return new MultiPrecision<N>((a.Sign == b.Sign) ? Sign.Plus : Sign.Minus, exponent, mantissa, round);
+            return new MultiPrecision<N>((a.Sign == b.Sign) ? Sign.Plus : Sign.Minus, exponent, mantissa, round: false);
         }
 
         public static MultiPrecision<N> Neg(MultiPrecision<N> v) { 

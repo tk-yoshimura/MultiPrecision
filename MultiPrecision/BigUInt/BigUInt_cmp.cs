@@ -5,7 +5,7 @@ namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> : IComparable<BigUInt<N, K>> {
 
         public static bool operator ==(BigUInt<N, K> a, BigUInt<N, K> b) {
-            return UIntUtil.Equal(Length, a.Value, b.Value);
+            return UIntUtil.Equal(Length, a.value, b.value);
         }
 
         public static bool operator !=(BigUInt<N, K> a, BigUInt<N, K> b) {
@@ -13,11 +13,11 @@ namespace MultiPrecision {
         }
 
         public static bool operator <=(BigUInt<N, K> a, BigUInt<N, K> b) {
-            return UIntUtil.LessThanOrEqual(Length, a.Value, b.Value);
+            return UIntUtil.LessThanOrEqual(Length, a.value, b.value);
         }
 
         public static bool operator >=(BigUInt<N, K> a, BigUInt<N, K> b) {
-            return UIntUtil.GreaterThanOrEqual(Length, a.Value, b.Value);
+            return UIntUtil.GreaterThanOrEqual(Length, a.value, b.value);
         }
 
         public static bool operator <(BigUInt<N, K> a, BigUInt<N, K> b) {

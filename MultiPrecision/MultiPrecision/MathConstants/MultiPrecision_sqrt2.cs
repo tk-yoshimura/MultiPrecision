@@ -26,13 +26,12 @@
                 y = y_next;
             }
 
-            y >>= Mantissa<N>.Bits;
+            y = Accumulator<N>.RightRoundBlockShift(y, Mantissa<N>.Length);
 
-            (Accumulator<N> acc_div, Accumulator<N> acc_rem) = Accumulator<N>.Div(x, y);
-            (Mantissa<N> n, int _) = acc_div.Mantissa;
-            bool round = acc_rem >= (y >> 1);
+            Accumulator<N> acc = Accumulator<N>.RoundDiv(x, y);
+            (Mantissa<N> n, int _) = acc.Mantissa;
 
-            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, round);
+            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, round: false);
         }
     }
 }

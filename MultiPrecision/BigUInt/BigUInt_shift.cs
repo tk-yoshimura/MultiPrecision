@@ -52,24 +52,24 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static BigUInt<N, K> CarryRightShift(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N, K> RoundRightShift(BigUInt<N, K> n, int sft) {
             BigUInt<N, K> ret = n.Copy();
 
             ret.RightShift(sft);
 
-            if (sft >= 1 && UIntUtil.GetBit(n.Value, sft - 1) != 0) {
+            if (sft >= 1 && UIntUtil.GetBit(n.value, sft - 1) != 0) {
                 ret.CarryAdd(0, 1);
             }
 
             return ret;
         }
 
-        public static BigUInt<N, K> CarryRightBlockShift(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N, K> RightRoundBlockShift(BigUInt<N, K> n, int sft) {
             BigUInt<N, K> ret = n.Copy();
 
             ret.RightBlockShift(sft);
 
-            if (sft >= 1 && n.Value[sft - 1] > UIntUtil.UInt32Round) {
+            if (sft >= 1 && n.value[sft - 1] > UIntUtil.UInt32Round) {
                 ret.CarryAdd(0, 1);
             }
 
@@ -77,7 +77,7 @@ namespace MultiPrecision {
         }
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
-        public unsafe void LeftShift(int sft) {
+        private unsafe void LeftShift(int sft) {
 
 #if DEBUG
             if (sft < 0) {
@@ -100,18 +100,18 @@ namespace MultiPrecision {
 
             UInt32[] v_sft = new UInt32[Length];
 
-            fixed(UInt32 *v = Value) { 
+            fixed(UInt32 *v = value) { 
                 v_sft[sftdev] = v[0] << sftrem;
                 for (int i = sftdev + 1; i < Length; i++) {
                     v_sft[i] = (v[i - sftdev] << sftrem) | (v[i - sftdev - 1] >> (UIntUtil.UInt32Bits - sftrem));
                 }
             }
 
-            Array.Copy(v_sft, 0, Value, 0, Length);
+            Array.Copy(v_sft, 0, value, 0, Length);
         }
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft</summary>
-        public unsafe void RightShift(int sft) {
+        private unsafe void RightShift(int sft) {
 
 #if DEBUG
             if (sft < 0) {
@@ -134,7 +134,7 @@ namespace MultiPrecision {
 
             UInt32[] v_sft = new UInt32[Length];
     
-            fixed(UInt32 *v = Value) { 
+            fixed(UInt32 *v = value) { 
                 int i = sftdev;
                 for (; i < Length - 1; i++) {
                     v_sft[i - sftdev] = (v[i] >> sftrem) | (v[i + 1] << (UIntUtil.UInt32Bits - sftrem));
@@ -144,12 +144,12 @@ namespace MultiPrecision {
                 }
             }
 
-            Array.Copy(v_sft, 0, Value, 0, Length);
+            Array.Copy(v_sft, 0, value, 0, Length);
         }
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void LeftBlockShift(int sft) {
+        private unsafe void LeftBlockShift(int sft) {
 
 #if DEBUG
             if (sft < 0) {
@@ -157,7 +157,7 @@ namespace MultiPrecision {
             }
 #endif
 
-            fixed(UInt32 *v = Value) { 
+            fixed(UInt32 *v = value) { 
                 for (int i = Math.Min(Length, Length - sft) - 1; i >= 0; i--) {
                     v[i + sft] = v[i];
                 }
@@ -168,7 +168,7 @@ namespace MultiPrecision {
         }
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft * UInt32Bits</summary>
-        public unsafe void RightBlockShift(int sft) {
+        private unsafe void RightBlockShift(int sft) {
 
 #if DEBUG
             if (sft < 0) {
@@ -176,7 +176,7 @@ namespace MultiPrecision {
             }
 #endif
 
-            fixed(UInt32 *v = Value) { 
+            fixed(UInt32 *v = value) { 
                 for (int i = sft; i < Length; i++) {
                     v[i - sft] = v[i];
                 }

@@ -56,5 +56,9 @@ namespace MultiPrecision {
 
             return (new Mantissa<N>(div), new Mantissa<N>(rem));
         }
+
+        public static Mantissa<N> RoundDiv(Mantissa<N> v1, Mantissa<N> v2) {
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RoundDiv(v1.value, v2.value));
+        }
     }
 }

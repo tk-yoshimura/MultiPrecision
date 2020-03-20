@@ -25,12 +25,12 @@
             return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightBlockShift(n.value, sft));
         }
 
-        public static Mantissa<N> CarryRightShift(Mantissa<N> n, int sft) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.CarryRightShift(n.value, sft));
+        public static Mantissa<N> RightRoundShift(Mantissa<N> n, int sft) {
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RoundRightShift(n.value, sft));
         }
 
-        public static Mantissa<N> CarryRightBlockShift(Mantissa<N> n, int sft) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.CarryRightBlockShift(n.value, sft));
+        public static Mantissa<N> RightRoundBlockShift(Mantissa<N> n, int sft) {
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightRoundBlockShift(n.value, sft));
         }
     }
 }

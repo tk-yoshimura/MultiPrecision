@@ -9,7 +9,6 @@ namespace MultiPrecision {
                 public static bool initialized = false;
                 public static MultiPrecision<N> c4 = null;
                 public static MultiPrecision<N> approx_a = null, approx_b = null, approx_c = null;
-
             }
         }
 

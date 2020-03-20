@@ -46,5 +46,9 @@ namespace MultiPrecision {
 
             return x_int;
         }
+
+        public static MultiPrecision<N> Round(MultiPrecision<N> x) {
+            return Floor(x + Ldexp(One, -1));
+        }
     }
 }

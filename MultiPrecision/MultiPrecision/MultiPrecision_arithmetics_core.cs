@@ -116,19 +116,17 @@ namespace MultiPrecision {
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent, bool round) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
             Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits);
             Accumulator<N> b_acc = new Accumulator<N>(b.n);
 
-            (Accumulator<N> c_acc_div, Accumulator<N> c_acc_rem) = Accumulator<N>.Div(a_acc, b_acc);
+            Accumulator<N> c_acc = Accumulator<N>.RoundDiv(a_acc, b_acc);
 
-            (Mantissa<N> n, int sft) = c_acc_div.Mantissa;
+            (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
             Int64 exponent = checked(a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1);
 
-            bool round = c_acc_rem >= (b_acc >> 1);
-
-            return (n, exponent, round);
+            return (n, exponent);
         }
     }
 }

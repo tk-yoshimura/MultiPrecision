@@ -41,13 +41,8 @@ namespace MultiPrecision {
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
             if(mantissa_dec >= Accumulator<N>.MaxDecimal_x10) { 
-                (Accumulator<N> div, Accumulator<N> rem) = Accumulator<N>.Div(mantissa_dec, 10);
-                if(rem.Value[0] >= 5) { 
-                    div += 1;
-                }
-
                 exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = div;
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, 10);
             }
 
             return (Sign, exponent_dec, mantissa_dec);

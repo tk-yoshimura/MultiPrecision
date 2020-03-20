@@ -12,7 +12,7 @@ namespace MultiPrecision {
         public static int Length { get; } = BigUInt<N, Pow2.N1>.Length;
         public static int Bits { get; } = BigUInt<N, Pow2.N1>.Bits;
         public static int MaxDecimalDigits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
-        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value.Value);
+        public ReadOnlyCollection<UInt32> Value => value.Value;
 
         public Mantissa() {
             this.value = new BigUInt<N, Pow2.N1>();
@@ -30,12 +30,16 @@ namespace MultiPrecision {
             this.value = new BigUInt<N, Pow2.N1>(arr);
         }
 
+        public Mantissa(ReadOnlyCollection<UInt32> arr) {
+            this.value = new BigUInt<N, Pow2.N1>(arr);
+        }
+
         public Mantissa(BigUInt<N, Pow2.N1> value) {
             this.value = value;
         }
 
-        public Mantissa(UInt32[] arr, int src_index) {
-            this.value = new BigUInt<N, Pow2.N1>(arr, src_index);
+        public Mantissa(Accumulator<N> acc) {
+            this.value = new BigUInt<N, Pow2.N1>(acc.Value, Length, carry: acc.Value[Length - 1] > UIntUtil.UInt32Round);
         }
 
         public bool IsZero => value.IsZero;

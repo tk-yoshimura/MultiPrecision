@@ -16,7 +16,7 @@ namespace MultiPrecision {
             UInt32[] dec = new UInt32[checked(bin_digits * 10 / 9 + 2)]; 
 
             for (int j = bin_digits - 1; j >= 0; j--) {
-                UInt32 carry = Value[j];
+                UInt32 carry = value[j];
                 for (int i = 0; i < dec_digits; i++) {
                     UInt64 res = UIntUtil.Pack(dec[i], carry);
 
@@ -48,7 +48,7 @@ namespace MultiPrecision {
         }
 
         public string ToHexcode() { 
-            return string.Join(' ', Value.Reverse().Select((u) => $"{u:X8}"));
+            return string.Join(' ', value.Reverse().Select((u) => $"{u:X8}"));
         }
     }
 }

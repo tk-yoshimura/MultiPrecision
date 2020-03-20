@@ -5,7 +5,7 @@ namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void CarryAdd(int dig, UInt32 v) {
+        private unsafe void CarryAdd(int dig, UInt32 v) {
 
 #if DEBUG
             if (dig < 0) {
@@ -13,7 +13,7 @@ namespace MultiPrecision {
             }
 #endif
             
-            fixed(UInt32 *arr = Value) { 
+            fixed(UInt32 *arr = value) { 
                 for (int i = dig; i < Length && v > 0; i++) {
                     (v, arr[i]) = UIntUtil.Unpack(unchecked((UInt64)arr[i] + (UInt64)v));
                 }
@@ -25,7 +25,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe void CarrySub(int dig, UInt32 v) {
+        private unsafe void CarrySub(int dig, UInt32 v) {
 
 #if DEBUG
             if (dig < 0) {
@@ -33,7 +33,7 @@ namespace MultiPrecision {
             }
 #endif
                 
-            fixed(UInt32 *arr = Value) { 
+            fixed(UInt32 *arr = value) { 
                 for (int i = dig; i < Length && v > 0; i++) {
                     if (arr[i] >= v) {
                         arr[i] -= v;

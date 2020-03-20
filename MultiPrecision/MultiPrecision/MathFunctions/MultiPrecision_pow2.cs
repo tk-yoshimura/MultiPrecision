@@ -50,7 +50,7 @@ namespace MultiPrecision {
                 }
 
                 a += d;
-                w = Accumulator<N>.CarryRightShift(w * m, Mantissa<N>.Bits - 1);
+                w = Accumulator<N>.RightRoundShift(w * m, Mantissa<N>.Bits - 1);
             }
 
             (Mantissa<N> n, int sft) = a.Mantissa;
