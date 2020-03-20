@@ -41,8 +41,8 @@ namespace MultiPrecision {
             if (sft == 0) {
                 this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false);
             }
-            else if (sft > 0 && sft < Bits) {
-                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) << (int)sft;
+            else if (sft > 0) {
+                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) << checked((int)sft);
             }
             else if (sft < 0 && sft > -Bits) {
                 this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) >> (int)-sft;

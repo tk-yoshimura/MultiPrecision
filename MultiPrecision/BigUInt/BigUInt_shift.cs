@@ -85,9 +85,8 @@ namespace MultiPrecision {
             }
 #endif
 
-            if (sft >= Bits) {
-                Zeroset();
-                return;
+            if (sft > LeadingZeroCount) {
+                throw new OverflowException();
             }
 
             int sftdev = sft / UIntUtil.UInt32Bits;
@@ -156,6 +155,9 @@ namespace MultiPrecision {
                 throw new ArgumentException(nameof(sft));
             }
 #endif
+            if (checked(sft + Digits) > Length) {
+                throw new OverflowException();
+            }
 
             fixed (UInt32* v = value) {
                 for (int i = Math.Min(Length, Length - sft) - 1; i >= 0; i--) {

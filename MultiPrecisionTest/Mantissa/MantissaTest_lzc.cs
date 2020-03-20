@@ -12,7 +12,7 @@ namespace MultiPrecisionTest {
             Mantissa<Pow2.N32> one = new Mantissa<Pow2.N32>(1);
             Mantissa<Pow2.N32> v = Mantissa<Pow2.N32>.Zero;
 
-            for (int i = 0; i <= Mantissa<Pow2.N32>.Bits + 100; i++) {
+            for (int i = 0; i < Mantissa<Pow2.N32>.Bits; i++) {
                 Console.WriteLine($"{v.LeadingZeroCount}, {v}");
 
                 v <<= 1;

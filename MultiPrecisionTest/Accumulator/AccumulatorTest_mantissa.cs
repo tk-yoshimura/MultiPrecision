@@ -13,7 +13,7 @@ namespace MultiPrecisionTest {
             Accumulator<Pow2.N8> one = new Accumulator<Pow2.N8>(1);
             Accumulator<Pow2.N8> v = Accumulator<Pow2.N8>.Zero;
 
-            for (int i = 0; i <= Accumulator<Pow2.N8>.Bits + 10; i++) {
+            for (int i = 0; i < Accumulator<Pow2.N8>.Bits; i++) {
                 (Mantissa<Pow2.N8> n, int sft) = v.Mantissa;
 
                 Console.WriteLine($"{n.LeadingZeroCount}, {sft}, {n}, {v}");
