@@ -4,7 +4,7 @@ using System.Runtime.Intrinsics.X86;
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> {
 
-        public unsafe int LeadingZeroCount{
+        public unsafe int LeadingZeroCount {
             get {
                 uint cnt = 0;
 

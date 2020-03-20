@@ -29,15 +29,15 @@ namespace MultiPrecision {
         }
 
         public int CompareTo([AllowNull] Mantissa<N> other) {
-            if(other is null) { 
+            if (other is null) {
                 return 1;
             }
 
-            if(this < other) { 
+            if (this < other) {
                 return -1;
             }
 
-            if(this == other) { 
+            if (this == other) {
                 return 0;
             }
 

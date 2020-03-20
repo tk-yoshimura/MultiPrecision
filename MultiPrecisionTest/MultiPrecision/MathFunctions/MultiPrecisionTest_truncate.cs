@@ -8,7 +8,7 @@ namespace MultiPrecisionTest {
         public void TruncateTest() {
             MultiPrecision<Pow2.N8> p0 = 0;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -17,7 +17,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -26,7 +26,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -35,7 +35,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -46,7 +46,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p1 = (MultiPrecision<Pow2.N8>)(1) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -55,7 +55,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -64,7 +64,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -73,7 +73,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -84,7 +84,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p5 = (MultiPrecision<Pow2.N8>)(5) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -93,7 +93,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -102,7 +102,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -111,7 +111,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -122,7 +122,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p9 = (MultiPrecision<Pow2.N8>)(9) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -131,7 +131,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -140,7 +140,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -149,7 +149,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Truncate((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
@@ -163,7 +163,7 @@ namespace MultiPrecisionTest {
         public void FloorTest() {
             MultiPrecision<Pow2.N8> p0 = 0;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -172,7 +172,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -181,7 +181,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -190,7 +190,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -201,7 +201,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p1 = (MultiPrecision<Pow2.N8>)(1) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -210,7 +210,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -219,7 +219,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -228,7 +228,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -239,7 +239,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p5 = (MultiPrecision<Pow2.N8>)(5) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -248,7 +248,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -257,7 +257,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -266,7 +266,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -277,7 +277,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p9 = (MultiPrecision<Pow2.N8>)(9) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -286,7 +286,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -295,7 +295,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -304,7 +304,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Floor((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
@@ -318,7 +318,7 @@ namespace MultiPrecisionTest {
         public void CeilingTest() {
             MultiPrecision<Pow2.N8> p0 = 0;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -327,7 +327,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -336,7 +336,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -345,7 +345,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p0 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -356,7 +356,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p1 = (MultiPrecision<Pow2.N8>)(1) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -365,7 +365,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -374,7 +374,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -383,7 +383,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p1 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -394,7 +394,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p5 = (MultiPrecision<Pow2.N8>)(5) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -403,7 +403,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -412,7 +412,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -421,7 +421,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p5 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -432,7 +432,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p9 = (MultiPrecision<Pow2.N8>)(9) / 10;
 
-            for(Int64 i = 1; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 1; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -441,7 +441,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -1; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -450,7 +450,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = 1; i <= 1000; i *= 10) { 
+            for (Int64 i = 1; i <= 1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
@@ -459,7 +459,7 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
 
-            for(Int64 i = -1; i >= -1000; i *= 10) { 
+            for (Int64 i = -1; i >= -1000; i *= 10) {
                 MultiPrecision<Pow2.N8> x = p9 + 1 / (MultiPrecision<Pow2.N8>)i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 

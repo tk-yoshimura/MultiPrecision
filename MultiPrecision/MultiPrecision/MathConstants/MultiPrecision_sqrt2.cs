@@ -1,4 +1,4 @@
-﻿namespace MultiPrecision {    
+﻿namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
@@ -15,10 +15,10 @@
             }
         }
 
-        private static MultiPrecision<N> GenerateSqrt2() { 
+        private static MultiPrecision<N> GenerateSqrt2() {
             Accumulator<N> x = 1, y = 0;
 
-            while(x.LeadingZeroCount >= 2) { 
+            while (x.LeadingZeroCount >= 2) {
                 Accumulator<N> x_next = x + (y << 1);
                 Accumulator<N> y_next = x + y;
 

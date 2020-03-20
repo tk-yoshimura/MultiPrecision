@@ -19,10 +19,10 @@ namespace MultiPrecision {
             UInt32 high = unchecked((UInt32)(v >> UInt32Bits));
 
             return (high, low);
-        } 
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt64 Pack(UInt32 high, UInt32 low) {            
+        public static UInt64 Pack(UInt32 high, UInt32 low) {
             return (((UInt64)high) << UInt32Bits) | ((UInt64)low);
         }
 
@@ -30,7 +30,7 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
-            fixed(UInt32* va = a, vb = b) { 
+            fixed (UInt32* va = a, vb = b) {
                 for (int i = 0; i < length; i++) {
                     if (va[i] != vb[i]) {
                         return false;
@@ -45,7 +45,7 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool LessThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
-            fixed(UInt32* va = a, vb = b) { 
+            fixed (UInt32* va = a, vb = b) {
                 for (int i = length - 1; i >= 0; i--) {
                     if (va[i] > vb[i]) {
                         return false;
@@ -63,7 +63,7 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool GreaterThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
-            fixed(UInt32* va = a, vb = b) { 
+            fixed (UInt32* va = a, vb = b) {
                 for (int i = length - 1; i >= 0; i--) {
                     if (va[i] < vb[i]) {
                         return false;
@@ -114,7 +114,7 @@ namespace MultiPrecision {
 
             v[mask_index] = (v[mask_index] >> (UInt32Bits - posrem - 1)) << (UInt32Bits - posrem - 1);
 
-            for(int i = 0; i < mask_index; i++) { 
+            for (int i = 0; i < mask_index; i++) {
                 v[i] = 0u;
             }
         }

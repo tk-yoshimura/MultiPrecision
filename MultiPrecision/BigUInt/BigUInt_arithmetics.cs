@@ -45,7 +45,7 @@ namespace MultiPrecision {
 
         public static BigUInt<N, K> Add(BigUInt<N, K> v1, BigUInt<N, K> v2) {
             BigUInt<N, K> ret = v1.Copy();
-            
+
             ret.Add(v2);
 
             return ret;
@@ -61,7 +61,7 @@ namespace MultiPrecision {
 
         public static BigUInt<N, K> Add(BigUInt<N, K> v1, UInt32 v2) {
             BigUInt<N, K> ret = v1.Copy();
-            
+
             ret.CarryAdd(0, v2);
 
             return ret;
@@ -144,7 +144,7 @@ namespace MultiPrecision {
                 }
             }
 
-            while(true) {
+            while (true) {
                 UInt64 numer = rem[denom_digits - 1];
 
                 UInt64 n = numer / denom;

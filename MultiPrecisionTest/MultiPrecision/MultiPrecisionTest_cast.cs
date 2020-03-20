@@ -34,13 +34,13 @@ namespace MultiPrecisionTest {
             Console.WriteLine((double)min_value);
             Console.WriteLine((Int64)min_value);
 
-            for(Int64 i = 10; i <= 100000000000; i *= 10) { 
+            for (Int64 i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Console.WriteLine((double)m);
                 Console.WriteLine((Int64)m);
             }
 
-            for(Int64 i = -10; i >= -100000000000; i *= 10) { 
+            for (Int64 i = -10; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Console.WriteLine((double)m);
                 Console.WriteLine((Int64)m);

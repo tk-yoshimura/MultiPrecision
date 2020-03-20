@@ -1,11 +1,11 @@
 ﻿namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
-        public static Mantissa<N> operator<<(Mantissa<N> n, int sft) {
+        public static Mantissa<N> operator <<(Mantissa<N> n, int sft) {
             return new Mantissa<N>(n.value << sft);
         }
 
-        public static Mantissa<N> operator>>(Mantissa<N> n, int sft) {
+        public static Mantissa<N> operator >>(Mantissa<N> n, int sft) {
             return new Mantissa<N>(n.value >> sft);
         }
 
@@ -19,7 +19,7 @@
 
         public static Mantissa<N> LeftBlockShift(Mantissa<N> n, int sft) {
             return new Mantissa<N>(BigUInt<N, Pow2.N1>.LeftBlockShift(n.value, sft));
-        }        
+        }
 
         public static Mantissa<N> RightBlockShift(Mantissa<N> n, int sft) {
             return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightBlockShift(n.value, sft));

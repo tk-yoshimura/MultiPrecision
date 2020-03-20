@@ -1,4 +1,4 @@
-﻿namespace MultiPrecision {    
+﻿namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
@@ -15,12 +15,12 @@
             }
         }
 
-        private static MultiPrecision<N> GenerateE() { 
+        private static MultiPrecision<N> GenerateE() {
             Accumulator<N> v = new Accumulator<N>(Mantissa<N>.One, UIntUtil.UInt32Bits - 1);
             Accumulator<N> m = v;
             Accumulator<N> i = 2;
 
-            while (!v.IsZero) { 
+            while (!v.IsZero) {
                 m += v;
                 v /= i;
                 i += 1;

@@ -5,7 +5,7 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Log2(MultiPrecision<N> x) {
-            if(!(x >= Zero)) {
+            if (!(x >= Zero)) {
                 return NaN;
             }
 
@@ -14,7 +14,7 @@ namespace MultiPrecision {
             Int64 exponent = x.Exponent;
             UInt32[] mantissa = new UInt32[Accumulator<N>.Length];
 
-            for(int i = 0, init = Mantissa<N>.Bits; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++) { 
+            for (int i = 0, init = Mantissa<N>.Bits; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++) {
                 v *= v;
                 if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
                     UIntUtil.SetBit(mantissa, i);
@@ -38,7 +38,7 @@ namespace MultiPrecision {
             (Mantissa<N> n, int sft) = mantissa_acc.Mantissa;
 
             MultiPrecision<N> intpart = exponent;
-            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, - (Int64)sft - 1, n, round: false);
+            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, -(Int64)sft - 1, n, round: false);
 
             MultiPrecision<N> y = intpart + decpart;
 

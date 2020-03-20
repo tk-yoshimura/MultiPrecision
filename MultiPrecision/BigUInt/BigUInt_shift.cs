@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> {
 
-        public static BigUInt<N, K> operator<<(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N, K> operator <<(BigUInt<N, K> n, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -12,7 +12,7 @@ namespace MultiPrecision {
             return LeftShift(n, sft);
         }
 
-        public static BigUInt<N, K> operator>>(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N, K> operator >>(BigUInt<N, K> n, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -42,7 +42,7 @@ namespace MultiPrecision {
             ret.LeftBlockShift(sft);
 
             return ret;
-        }        
+        }
 
         public static BigUInt<N, K> RightBlockShift(BigUInt<N, K> n, int sft) {
             BigUInt<N, K> ret = n.Copy();
@@ -100,7 +100,7 @@ namespace MultiPrecision {
 
             UInt32[] v_sft = new UInt32[Length];
 
-            fixed(UInt32 *v = value) { 
+            fixed (UInt32* v = value) {
                 v_sft[sftdev] = v[0] << sftrem;
                 for (int i = sftdev + 1; i < Length; i++) {
                     v_sft[i] = (v[i - sftdev] << sftrem) | (v[i - sftdev - 1] >> (UIntUtil.UInt32Bits - sftrem));
@@ -133,8 +133,8 @@ namespace MultiPrecision {
             }
 
             UInt32[] v_sft = new UInt32[Length];
-    
-            fixed(UInt32 *v = value) { 
+
+            fixed (UInt32* v = value) {
                 int i = sftdev;
                 for (; i < Length - 1; i++) {
                     v_sft[i - sftdev] = (v[i] >> sftrem) | (v[i + 1] << (UIntUtil.UInt32Bits - sftrem));
@@ -157,7 +157,7 @@ namespace MultiPrecision {
             }
 #endif
 
-            fixed(UInt32 *v = value) { 
+            fixed (UInt32* v = value) {
                 for (int i = Math.Min(Length, Length - sft) - 1; i >= 0; i--) {
                     v[i + sft] = v[i];
                 }
@@ -176,7 +176,7 @@ namespace MultiPrecision {
             }
 #endif
 
-            fixed(UInt32 *v = value) { 
+            fixed (UInt32* v = value) {
                 for (int i = sft; i < Length; i++) {
                     v[i - sft] = v[i];
                 }

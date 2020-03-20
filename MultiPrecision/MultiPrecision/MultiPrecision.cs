@@ -39,7 +39,7 @@ namespace MultiPrecision {
             }
             else {
                 if (round) {
-                    if (mantissa.IsFull) { 
+                    if (mantissa.IsFull) {
                         mantissa = Mantissa<N>.One;
                         exponent_zerosft = checked(exponent_zerosft + 1);
                     }
@@ -62,7 +62,7 @@ namespace MultiPrecision {
                 }
             }
         }
-                
+
         private static MultiPrecision<N> CreateInteger(Sign sign, Accumulator<N> acc) {
             (Mantissa<N> n, int sft) = acc.Mantissa;
 
@@ -76,7 +76,7 @@ namespace MultiPrecision {
         public bool IsFinite => exponent < ExponentMax;
 
         public bool IsNormal => (exponent > ExponentMin && exponent < ExponentMax) || IsZero;
-        
+
         public object Clone() {
             return Copy();
         }

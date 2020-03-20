@@ -37,7 +37,7 @@ namespace MultiPrecision {
             this.value = value;
         }
 
-        public Accumulator(Mantissa<N> n, Int64 sft = 0){
+        public Accumulator(Mantissa<N> n, Int64 sft = 0) {
             if (sft == 0) {
                 this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false);
             }
@@ -57,7 +57,7 @@ namespace MultiPrecision {
         public bool IsZero => value.IsZero;
 
         public bool IsFull => value.IsFull;
-        
+
         public int Digits => value.Digits;
 
         public int LeadingZeroCount => value.LeadingZeroCount;

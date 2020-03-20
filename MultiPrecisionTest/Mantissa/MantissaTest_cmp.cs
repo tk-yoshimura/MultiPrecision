@@ -11,7 +11,7 @@ namespace MultiPrecisionTest {
         public void CmpTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 2500; i++) { 
+            for (int i = 0; i <= 2500; i++) {
                 int digits1 = random.Next(Mantissa<Pow2.N32>.Length);
                 int digits2 = random.Next(Mantissa<Pow2.N32>.Length);
 
@@ -21,7 +21,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 && random.Next(2) < 1 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = random.Next(8) < 7
                                         ? new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits)

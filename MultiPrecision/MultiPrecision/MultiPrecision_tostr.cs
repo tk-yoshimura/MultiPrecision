@@ -8,13 +8,13 @@ namespace MultiPrecision {
         public override string ToString() {
             (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore();
 
-            if (mantissa_dec.IsZero) { 
+            if (mantissa_dec.IsZero) {
                 return sign == Sign.Plus ? "0e0" : "-0e0";
             }
 
             string num = mantissa_dec.ToString().TrimEnd('0');
 
-            if(num.Length >= 2) { 
+            if (num.Length >= 2) {
                 num = num.Insert(1, ".");
             }
 
@@ -26,7 +26,7 @@ namespace MultiPrecision {
                 Consts.log10_2 = One / Log2(10);
             }
 
-            if (IsZero) { 
+            if (IsZero) {
                 return (Sign, 0, Accumulator<N>.Zero);
             }
 
@@ -40,7 +40,7 @@ namespace MultiPrecision {
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.MaxDecimal);
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
-            if(mantissa_dec >= Accumulator<N>.MaxDecimal_x10) { 
+            if (mantissa_dec >= Accumulator<N>.MaxDecimal_x10) {
                 exponent_dec = checked(exponent_dec + 1);
                 mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, 10);
             }

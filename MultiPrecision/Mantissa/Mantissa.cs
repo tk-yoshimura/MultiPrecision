@@ -18,7 +18,7 @@ namespace MultiPrecision {
             this.value = new BigUInt<N, Pow2.N1>();
         }
 
-        public Mantissa(UInt32 v) { 
+        public Mantissa(UInt32 v) {
             this.value = new BigUInt<N, Pow2.N1>(v);
         }
 
@@ -45,7 +45,7 @@ namespace MultiPrecision {
         public bool IsZero => value.IsZero;
 
         public bool IsFull => value.IsFull;
-        
+
         public int Digits => value.Digits;
 
         public int LeadingZeroCount => value.LeadingZeroCount;

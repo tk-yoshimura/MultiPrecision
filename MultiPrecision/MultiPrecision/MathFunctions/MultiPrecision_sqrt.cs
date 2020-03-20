@@ -5,7 +5,7 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
-            public static class Sqrt { 
+            public static class Sqrt {
                 public static bool initialized = false;
                 public static MultiPrecision<N> c4 = null;
                 public static MultiPrecision<N> approx_a = null, approx_b = null, approx_c = null;
@@ -23,7 +23,7 @@ namespace MultiPrecision {
             if (!x.IsFinite) {
                 return PositiveInfinity;
             }
-            if (x.IsZero) { 
+            if (x.IsZero) {
                 return Zero;
             }
 
@@ -33,7 +33,7 @@ namespace MultiPrecision {
             MultiPrecision<N> a = Consts.Sqrt.approx_a + v * (Consts.Sqrt.approx_b + v * Consts.Sqrt.approx_c);
             MultiPrecision<N> h = One - v * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
- 
+
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
                 a *= One + h * Ldexp(Consts.Sqrt.c4 + h + Ldexp(h, 1), -3);
                 h = One - v * a * a;
@@ -47,7 +47,7 @@ namespace MultiPrecision {
             return y;
         }
 
-        private static void InitializeSqrtConsts() { 
+        private static void InitializeSqrtConsts() {
             Consts.Sqrt.c4 = 4;
 
             Consts.Sqrt.approx_a = (17 - 6 * Sqrt2) / 6;

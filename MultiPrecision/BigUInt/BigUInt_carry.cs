@@ -12,8 +12,8 @@ namespace MultiPrecision {
                 throw new ArgumentException();
             }
 #endif
-            
-            fixed(UInt32 *arr = value) { 
+
+            fixed (UInt32* arr = value) {
                 for (int i = dig; i < Length && v > 0; i++) {
                     (v, arr[i]) = UIntUtil.Unpack(unchecked((UInt64)arr[i] + (UInt64)v));
                 }
@@ -32,8 +32,8 @@ namespace MultiPrecision {
                 throw new ArgumentException();
             }
 #endif
-                
-            fixed(UInt32 *arr = value) { 
+
+            fixed (UInt32* arr = value) {
                 for (int i = dig; i < Length && v > 0; i++) {
                     if (arr[i] >= v) {
                         arr[i] -= v;

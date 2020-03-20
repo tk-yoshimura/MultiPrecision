@@ -11,7 +11,7 @@ namespace MultiPrecisionTest {
         public void AddTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 50000; i++) {
+            for (int i = 0; i <= 50000; i++) {
                 int digits2 = random.Next(Mantissa<Pow2.N32>.Length / 2);
                 int digits1 = random.Next(Mantissa<Pow2.N32>.Length - digits2);
 
@@ -21,7 +21,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = v1, bi2 = v2;
@@ -39,7 +39,7 @@ namespace MultiPrecisionTest {
         public void SubTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 50000; i++) { 
+            for (int i = 0; i <= 50000; i++) {
                 int digits2 = random.Next(Mantissa<Pow2.N32>.Length / 2 - 2);
                 int digits1 = random.Next(digits2 + 1, digits2 + Mantissa<Pow2.N32>.Length / 2);
 
@@ -49,7 +49,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = v1, bi2 = v2;
@@ -74,7 +74,7 @@ namespace MultiPrecisionTest {
         public void MulTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 50000; i++) { 
+            for (int i = 0; i <= 50000; i++) {
                 int digits2 = random.Next(Mantissa<Pow2.N32>.Length / 2);
                 int digits1 = random.Next(Mantissa<Pow2.N32>.Length - digits2);
 
@@ -84,7 +84,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = v1, bi2 = v2;
@@ -106,7 +106,7 @@ namespace MultiPrecisionTest {
             UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                 .Select((_, idx) => idx < Mantissa<Pow2.N32>.Length / 2 ? 0xFFFFFFFFu : 0
             ).ToArray();
-                
+
             Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1);
             Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2);
             BigInteger bi1 = v1, bi2 = v2;
@@ -123,7 +123,7 @@ namespace MultiPrecisionTest {
         public void DivTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 50000; i++) { 
+            for (int i = 0; i <= 50000; i++) {
                 int digits2 = random.Next(1, Mantissa<Pow2.N32>.Length);
                 int digits1 = random.Next(digits2, Mantissa<Pow2.N32>.Length);
 
@@ -133,7 +133,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 BigInteger bi1 = v1, bi2 = v2;
@@ -145,7 +145,7 @@ namespace MultiPrecisionTest {
                 (Mantissa<Pow2.N32> vdiv, Mantissa<Pow2.N32> vrem)
                     = Mantissa<Pow2.N32>.Div(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
-                
+
                 Assert.IsTrue(vrem < v2);
 
                 Assert.AreEqual(birem, vrem, "rem");
@@ -185,7 +185,7 @@ namespace MultiPrecisionTest {
         public void MulDivTest() {
             Random random = new Random(1234);
 
-            for(int i = 0; i <= 50000; i++) { 
+            for (int i = 0; i <= 50000; i++) {
                 int digits2 = random.Next(2, Mantissa<Pow2.N32>.Length / 2);
                 int digits1 = random.Next(1, Mantissa<Pow2.N32>.Length - digits2 - 1);
 
@@ -195,7 +195,7 @@ namespace MultiPrecisionTest {
                 UInt32[] mantissa2 = (new UInt32[Mantissa<Pow2.N32>.Length])
                     .Select((_, idx) => idx < digits2 ? (UInt32)random.Next() : 0
                 ).ToArray();
-                
+
                 Mantissa<Pow2.N32> v1 = new Mantissa<Pow2.N32>(mantissa1) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v2 = new Mantissa<Pow2.N32>(mantissa2) >> random.Next(UIntUtil.UInt32Bits);
                 Mantissa<Pow2.N32> v3 = new Mantissa<Pow2.N32>((UInt32)random.Next(4));
@@ -207,7 +207,7 @@ namespace MultiPrecisionTest {
                     Assert.AreEqual(v1, vdiv);
                     Assert.AreEqual(v3, vrem);
                 }
-                else{
+                else {
                     try {
                         (Mantissa<Pow2.N32> vdiv, Mantissa<Pow2.N32> vrem) =
                             Mantissa<Pow2.N32>.Div(Mantissa<Pow2.N32>.Sub(Mantissa<Pow2.N32>.Mul(v1, v2), v3), v2);

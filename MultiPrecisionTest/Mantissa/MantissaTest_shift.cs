@@ -12,14 +12,14 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             UInt32[] mantissa = (new UInt32[Mantissa<Pow2.N32>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
-            
+
             Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
             BigInteger bi = v;
 
             Mantissa<Pow2.N32> v_full = Mantissa<Pow2.N32>.Full;
             BigInteger bi_full = v_full;
 
-            for(int sft = 0; sft <= 2500; sft++) { 
+            for (int sft = 0; sft <= 2500; sft++) {
                 Mantissa<Pow2.N32> v_sft = v << sft;
                 BigInteger bi_sft = (bi << sft) & bi_full;
 
@@ -38,7 +38,7 @@ namespace MultiPrecisionTest {
             Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
             BigInteger bi = v;
 
-            for(int sft = 0; sft <= 2500; sft++) { 
+            for (int sft = 0; sft <= 2500; sft++) {
                 Mantissa<Pow2.N32> v_sft = v >> sft;
                 BigInteger bi_sft = bi >> sft;
 
@@ -53,14 +53,14 @@ namespace MultiPrecisionTest {
             Random random = new Random(1234);
 
             UInt32[] mantissa = (new UInt32[Mantissa<Pow2.N32>.Length]).Select((_) => (UInt32)random.Next()).ToArray();
-            
+
             Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
             BigInteger bi = v;
 
             Mantissa<Pow2.N32> v_full = Mantissa<Pow2.N32>.Full;
             BigInteger bi_full = v_full;
 
-            for(int sft = 0; sft <= 100; sft++) { 
+            for (int sft = 0; sft <= 100; sft++) {
                 Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.LeftBlockShift(v, sft);
                 BigInteger bi_sft = (bi << (sft * 32)) & bi_full;
 
@@ -79,7 +79,7 @@ namespace MultiPrecisionTest {
             Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
             BigInteger bi = v;
 
-            for(int sft = 0; sft <= 100; sft++) {
+            for (int sft = 0; sft <= 100; sft++) {
                 Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.RightBlockShift(v, sft);
                 BigInteger bi_sft = bi >> (sft * 32);
 

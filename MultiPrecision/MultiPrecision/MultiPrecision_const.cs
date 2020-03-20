@@ -1,4 +1,4 @@
-﻿namespace MultiPrecision {    
+﻿namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {

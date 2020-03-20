@@ -6,19 +6,19 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Truncate(MultiPrecision<N> x) {
-            if (x.IsNaN) { 
+            if (x.IsNaN) {
                 return NaN;
             }
 
-            if(x.Exponent >= Mantissa<N>.Bits) { 
+            if (x.Exponent >= Mantissa<N>.Bits) {
                 return x;
             }
-            if(x.Exponent < 0) { 
+            if (x.Exponent < 0) {
                 return Zero;
             }
 
             UInt32[] vs = x.mantissa.Value.ToArray();
-            
+
             UIntUtil.FlushBit(vs, (int)x.Exponent);
             MultiPrecision<N> y = new MultiPrecision<N>(x.Sign, x.exponent, new Mantissa<N>(vs));
 
@@ -29,7 +29,7 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Truncate(x);
             MultiPrecision<N> x_frac = x - x_int;
 
-            if(x_frac < Zero) { 
+            if (x_frac < Zero) {
                 x_int -= 1;
             }
 
@@ -40,7 +40,7 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Truncate(x);
             MultiPrecision<N> x_frac = x - x_int;
 
-            if(x_frac > Zero) { 
+            if (x_frac > Zero) {
                 x_int += 1;
             }
 

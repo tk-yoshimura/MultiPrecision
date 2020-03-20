@@ -38,14 +38,14 @@ namespace MultiPrecision {
             this.value = arr.ToArray();
         }
 
-        public BigUInt(UInt32[] arr, int index) : this(){
+        public BigUInt(UInt32[] arr, int index) : this() {
             if (arr == null || arr.Length - index != Length) {
                 throw new ArgumentException();
             }
             Array.Copy(arr, index, this.value, 0, Length);
         }
 
-        public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this(){
+        public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
             if (arr == null) {
                 throw new ArgumentException();
             }
@@ -59,7 +59,7 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe bool IsZero{
+        public unsafe bool IsZero {
             get {
                 fixed (UInt32* v = value) {
                     for (int i = 0; i < Length; i++) {
@@ -73,21 +73,21 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe bool IsFull{
+        public unsafe bool IsFull {
             get {
                 fixed (UInt32* v = value) {
                     for (int i = 0; i < Length; i++) {
-                    if (v[i] != UInt32.MaxValue) {
-                        return false;
+                        if (v[i] != UInt32.MaxValue) {
+                            return false;
+                        }
                     }
                 }
-            }
 
-            return true;
+                return true;
             }
         }
-        
-        public unsafe int Digits{
+
+        public unsafe int Digits {
             get {
                 fixed (UInt32* v = value) {
                     for (int i = Length - 1; i >= 0; i--) {
@@ -96,7 +96,7 @@ namespace MultiPrecision {
                         }
                     }
                 }
-        
+
                 return 1;
             }
         }
@@ -109,7 +109,7 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe void Zeroset() { 
+        public unsafe void Zeroset() {
             fixed (UInt32* v = value) {
                 for (int i = 0; i < Length; i++) {
                     v[i] = 0;

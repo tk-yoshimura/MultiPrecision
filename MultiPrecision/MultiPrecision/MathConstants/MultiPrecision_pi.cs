@@ -18,7 +18,7 @@
         private static MultiPrecision<N> GeneratePI() {
             MultiPrecision<N> a = One, b = Sqrt2 / 2, t = Ldexp(One, -2), p = One;
 
-            for(long i = 1; i < Bits; i *= 2) {
+            for (long i = 1; i < Bits; i *= 2) {
                 MultiPrecision<N> a_next = Ldexp(a + b, -1);
                 MultiPrecision<N> b_next = Sqrt(a * b);
                 MultiPrecision<N> t_next = t - p * (a - a_next) * (a - a_next);

@@ -19,8 +19,8 @@ namespace MultiPrecision {
 
             MultiPrecision<N> x_int = Floor(x);
 
-            if(x_int.Exponent >= UIntUtil.UInt32Bits) {
-                if(x_int.Sign == Sign.Plus) { 
+            if (x_int.Exponent >= UIntUtil.UInt32Bits) {
+                if (x_int.Sign == Sign.Plus) {
                     return PositiveInfinity;
                 }
                 else {
@@ -29,7 +29,7 @@ namespace MultiPrecision {
             }
 
             Int64 exponent = x_int.mantissa.Value.Last() >> (UIntUtil.UInt32Bits - (int)x_int.Exponent - 1);
-            if(x_int.Sign == Sign.Minus) { 
+            if (x_int.Sign == Sign.Minus) {
                 exponent = -exponent;
             }
 
@@ -37,15 +37,15 @@ namespace MultiPrecision {
 
             MultiPrecision<N> v = Consts.log2 * x_frac;
 
-            if (v.IsZero || v.Exponent < int.MinValue) { 
+            if (v.IsZero || v.Exponent < int.MinValue) {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
             Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(v.mantissa, (int)v.Exponent), w = m;
 
-            foreach(var t in Accumulator<N>.TaylorTable){
+            foreach (var t in Accumulator<N>.TaylorTable) {
                 Accumulator<N> d = w * t;
-                if (d.IsZero) { 
+                if (d.IsZero) {
                     break;
                 }
 

@@ -6,25 +6,25 @@ namespace MultiPrecision {
     [DebuggerDisplay("{ToDouble()}")]
     public sealed partial class MultiPrecision<N> {
 
-        public static explicit operator double(MultiPrecision<N> v){
+        public static explicit operator double(MultiPrecision<N> v) {
             return v.ToDouble();
         }
 
-        public double ToDouble(){
-            if (IsFinite) { 
+        public double ToDouble() {
+            if (IsFinite) {
                 UInt64 n = mantissa.MostSignificantDigits;
 
                 return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((Sign == Sign.Plus) ? 1 : -1);
             }
-            else if (mantissa.IsZero){
+            else if (mantissa.IsZero) {
                 return (Sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
             }
-            else{
+            else {
                 return double.NaN;
             }
         }
 
-        public static explicit operator Int64(MultiPrecision<N> v){
+        public static explicit operator Int64(MultiPrecision<N> v) {
             if (v.IsNaN) {
                 throw new InvalidCastException("NaN");
             }
@@ -33,10 +33,10 @@ namespace MultiPrecision {
                 return 0;
             }
 
-            if (v.Exponent >= UIntUtil.UInt64Bits) { 
+            if (v.Exponent >= UIntUtil.UInt64Bits) {
                 throw new OverflowException();
             }
-            
+
             Accumulator<N> acc = new Accumulator<N>(v.mantissa, v.Exponent - Mantissa<N>.Bits + 1);
 
             if (acc.Digits > 2) {
@@ -53,7 +53,7 @@ namespace MultiPrecision {
                 return unchecked((Int64)u);
             }
             else {
-                if(u > (UInt64)Int64.MaxValue + 1) {
+                if (u > (UInt64)Int64.MaxValue + 1) {
                     throw new OverflowException();
                 }
 
@@ -61,13 +61,13 @@ namespace MultiPrecision {
             }
         }
 
-        public static implicit operator MultiPrecision<N>(Int64 v){
-            if(v >= 0) { 
+        public static implicit operator MultiPrecision<N>(Int64 v) {
+            if (v >= 0) {
                 UInt64 v_pos = unchecked((UInt64)v);
 
                 return CreateInteger(Sign.Plus, new Accumulator<N>(v_pos));
             }
-            else { 
+            else {
                 UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
 
                 return CreateInteger(Sign.Minus, new Accumulator<N>(v_neg));
