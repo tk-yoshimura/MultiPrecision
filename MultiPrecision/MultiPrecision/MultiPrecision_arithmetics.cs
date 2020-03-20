@@ -21,7 +21,21 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> operator %(MultiPrecision<N> a, MultiPrecision<N> b) {
-            return a - Truncate(a / b) * b;
+            if (b.IsZero || a.IsNaN || b.IsNaN) {
+                return NaN;
+            }
+
+            if (!b.IsFinite) {
+                return a;
+            }
+
+            MultiPrecision<N> c = Truncate(a / b) * b;
+
+            if (Abs(a) < Abs(c)) {
+                return NaN;
+            }
+
+            return a - c;
         }
 
         public static MultiPrecision<N> operator +(MultiPrecision<N> x) {
