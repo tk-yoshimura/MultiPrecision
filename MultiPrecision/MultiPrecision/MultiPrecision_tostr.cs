@@ -6,6 +6,13 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public override string ToString() {
+            if (IsNaN) {
+                return double.NaN.ToString();
+            }
+            if (!IsFinite) {
+                return (Sign == Sign.Plus) ? double.PositiveInfinity.ToString() : double.NegativeInfinity.ToString();
+            }
+
             (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore();
 
             if (mantissa_dec.IsZero) {
