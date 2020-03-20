@@ -24,5 +24,13 @@
         public static Accumulator<N> RightBlockShift(Accumulator<N> n, int sft) {
             return new Accumulator<N>(BigUInt<N, Pow2.N2>.RightBlockShift(n.value, sft));
         }
+
+        public static Accumulator<N> CarryRightShift(Accumulator<N> n, int sft) {
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.CarryRightShift(n.value, sft));
+        }
+
+        public static Accumulator<N> CarryRightBlockShift(Accumulator<N> n, int sft) {
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.CarryRightBlockShift(n.value, sft));
+        }
     }
 }

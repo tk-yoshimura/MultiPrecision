@@ -18,14 +18,14 @@ namespace MultiPrecision {
                 v *= v;
                 if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
                     UIntUtil.SetBit(mantissa, i);
-                    v >>= Mantissa<N>.Bits;
+                    v = Accumulator<N>.CarryRightBlockShift(v, Mantissa<N>.Length);
 
                     if (init >= Mantissa<N>.Bits) {
                         init = i;
                     }
                 }
                 else {
-                    v >>= Mantissa<N>.Bits - 1;
+                    v = Accumulator<N>.CarryRightShift(v, Mantissa<N>.Bits - 1);
                 }
             }
 

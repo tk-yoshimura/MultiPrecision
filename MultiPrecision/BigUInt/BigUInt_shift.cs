@@ -52,6 +52,30 @@ namespace MultiPrecision {
             return ret;
         }
 
+        public static BigUInt<N, K> CarryRightShift(BigUInt<N, K> n, int sft) {
+            BigUInt<N, K> ret = n.Copy();
+
+            ret.RightShift(sft);
+
+            if (sft >= 1 && UIntUtil.GetBit(n.Value, sft - 1) != 0) {
+                ret.CarryAdd(0, 1);
+            }
+
+            return ret;
+        }
+
+        public static BigUInt<N, K> CarryRightBlockShift(BigUInt<N, K> n, int sft) {
+            BigUInt<N, K> ret = n.Copy();
+
+            ret.RightBlockShift(sft);
+
+            if (sft >= 1 && n.Value[sft - 1] > UIntUtil.UInt32Round) {
+                ret.CarryAdd(0, 1);
+            }
+
+            return ret;
+        }
+
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
         public unsafe void LeftShift(int sft) {
 
