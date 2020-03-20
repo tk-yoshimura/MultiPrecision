@@ -9,20 +9,23 @@ namespace MultiPrecision {
                 return NaN;
             }
 
-            MultiPrecision<N> v = new MultiPrecision<N>(Sign.Plus, ExponentZero, x.mantissa);
+            Accumulator<N> v = new Accumulator<N>(x.mantissa);
 
             Int64 exponent = x.Exponent;
             UInt32[] mantissa = new UInt32[Accumulator<N>.Length];
 
             for(int i = 0, init = Mantissa<N>.Bits; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++) { 
                 v *= v;
-                if(v.exponent > ExponentZero) { 
+                if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
                     UIntUtil.SetBit(mantissa, i);
-                    v = new MultiPrecision<N>(Sign.Plus, ExponentZero, v.mantissa);
+                    v >>= Mantissa<N>.Bits;
 
                     if (init >= Mantissa<N>.Bits) {
                         init = i;
                     }
+                }
+                else {
+                    v >>= Mantissa<N>.Bits - 1;
                 }
             }
 
