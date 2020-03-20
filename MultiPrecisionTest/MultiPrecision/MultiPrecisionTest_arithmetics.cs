@@ -2,109 +2,234 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MultiPrecisionTest {
     public partial class MultiPrecisionTest {
+        MultiPrecision<Pow2.N8>[] vs = {
+            MultiPrecision<Pow2.N8>.Zero,
+            MultiPrecision<Pow2.N8>.MinusZero,
+            1, 2, 3, 4, 5, 7, 10, 11, 13, 100, 1000,
+            -1, -2, -3, -4, -5, -7, -10, -11, -13, -100, -1000,
+            MultiPrecision<Pow2.N8>.One / 2,
+            MultiPrecision<Pow2.N8>.One / 3,
+            MultiPrecision<Pow2.N8>.One / 4,
+            MultiPrecision<Pow2.N8>.One / 5,
+            MultiPrecision<Pow2.N8>.MinusOne / 2,
+            MultiPrecision<Pow2.N8>.MinusOne / 3,
+            MultiPrecision<Pow2.N8>.MinusOne / 4,
+            MultiPrecision<Pow2.N8>.MinusOne / 5,
+            MultiPrecision<Pow2.N8>.MaxValue,
+            MultiPrecision<Pow2.N8>.MinValue,
+            MultiPrecision<Pow2.N8>.PositiveInfinity,
+            MultiPrecision<Pow2.N8>.NegativeInfinity,
+            MultiPrecision<Pow2.N8>.NaN,
+            MultiPrecision<Pow2.N8>.Epsilon,
+            -MultiPrecision<Pow2.N8>.Epsilon
+        };
+
+
         [TestMethod]
         public void AddTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Zero;
+            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+                foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    MultiPrecision<Pow2.N8> c_actual = a + b;
+                    double c_expect = (double)a + (double)b;
 
-            for (int i = 0; i < 8; i++) {
-                v += MultiPrecision<Pow2.N8>.One;
+                    Trace.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
+                    Trace.WriteLine($"{a} + {b} = {c_actual}");
 
-                Console.WriteLine((double)v);
-            }
+                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
 
-            for (int i = 0; i < 10; i++) {
-                v += MultiPrecision<Pow2.N8>.MinusOne;
-
-                Console.WriteLine((double)v);
+                    if (a.IsNaN || b.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
+                            Console.WriteLine($"{a} + {b} = {c_actual}");
+                            Console.Write("\n");
+                        }
+                    }
+                    else {
+                        if (c_expect > 0) {
+                            if (!(c_expect >= (double)c_actual * 0.999 && c_expect <= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} + {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                        else {
+                            if (!(c_expect <= (double)c_actual * 0.999 && c_expect >= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} + {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                    }
+                }
             }
         }
 
         [TestMethod]
         public void SubTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Zero;
+            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+                foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    MultiPrecision<Pow2.N8> c_actual = a - b;
+                    double c_expect = (double)a - (double)b;
 
-            for (int i = 0; i < 4; i++) {
-                v -= MultiPrecision<Pow2.N8>.One;
-            }
+                    Trace.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
+                    Trace.WriteLine($"{a} - {b} = {c_actual}");
 
-            for (int i = 0; i < 9; i++) {
-                v -= MultiPrecision<Pow2.N8>.MinusOne;
-
-                Console.WriteLine((double)v);
+                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
+                    
+                    if (a.IsNaN || b.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
+                            Console.WriteLine($"{a} - {b} = {c_actual}");
+                            Console.Write("\n");
+                        }
+                    }
+                    else {
+                        if (c_expect > 0) {
+                            if (!(c_expect >= (double)c_actual * 0.999 && c_expect <= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} - {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                        else {
+                            if (!(c_expect <= (double)c_actual * 0.999 && c_expect >= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} - {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                    }
+                }
             }
         }
 
         [TestMethod]
         public void MulTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Zero;
-            List<MultiPrecision<Pow2.N8>> vs = new List<MultiPrecision<Pow2.N8>>();
+            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+                foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    MultiPrecision<Pow2.N8> c_actual = a * b;
+                    double c_expect = (double)a * (double)b;
 
-            for (int i = 0; i < 6; i++) {
-                v -= MultiPrecision<Pow2.N8>.One;
-            }
+                    Trace.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
+                    Trace.WriteLine($"{a} * {b} = {c_actual}");
 
-            for (int i = 0; i < 12; i++) {
-                v -= MultiPrecision<Pow2.N8>.MinusOne;
-
-                vs.Add(v);
-            }
-
-            foreach (var a in vs) {
-                foreach (var b in vs) {
-                    var m = a * b;
-
-                    Console.WriteLine($"{(double)a} * {(double)b} = {(double)m}");
+                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
+                    
+                    if (a.IsNaN || b.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
+                            Console.WriteLine($"{a} * {b} = {c_actual}");
+                            Console.Write("\n");
+                        }
+                    }
+                    else {
+                        if (c_expect > 0) {
+                            if (!(c_expect >= (double)c_actual * 0.999 && c_expect <= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} * {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                        else {
+                            if (!(c_expect <= (double)c_actual * 0.999 && c_expect >= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} * {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                    }
                 }
             }
         }
 
         [TestMethod]
         public void DivTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Zero;
-            List<MultiPrecision<Pow2.N8>> vs = new List<MultiPrecision<Pow2.N8>>();
+            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+                foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    MultiPrecision<Pow2.N8> c_actual = a / b;
+                    double c_expect = (double)a / (double)b;
 
-            for (int i = 0; i < 6; i++) {
-                v -= MultiPrecision<Pow2.N8>.One;
-            }
+                    Trace.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
+                    Trace.WriteLine($"{a} / {b} = {c_actual}");
 
-            for (int i = 0; i < 12; i++) {
-                v -= MultiPrecision<Pow2.N8>.MinusOne;
-
-                vs.Add(v);
-            }
-
-            foreach (var a in vs) {
-                foreach (var b in vs) {
-                    var m = a / b;
-
-                    Console.WriteLine($"{(double)a} / {(double)b} = {(double)m}");
+                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
+                    
+                    if (a.IsNaN || b.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
+                            Console.WriteLine($"{a} / {b} = {c_actual}");
+                            Console.Write("\n");
+                        }
+                    }
+                    else {
+                        if (c_expect > 0) {
+                            if (!(c_expect >= (double)c_actual * 0.999 && c_expect <= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} / {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                        else {
+                            if (!(c_expect <= (double)c_actual * 0.999 && c_expect >= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} / {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                    }
                 }
             }
         }
 
         [TestMethod]
         public void RemTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Zero;
-            List<MultiPrecision<Pow2.N8>> vs = new List<MultiPrecision<Pow2.N8>>();
+            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+                foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    MultiPrecision<Pow2.N8> c_actual = a % b;
+                    double c_expect = (double)a % (double)b;
 
-            for (int i = 0; i < 6; i++) {
-                v -= MultiPrecision<Pow2.N8>.One;
-            }
+                    Trace.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
+                    Trace.WriteLine($"{a} % {b} = {c_actual}");
 
-            for (int i = 0; i < 12; i++) {
-                v -= MultiPrecision<Pow2.N8>.MinusOne;
-
-                vs.Add(v);
-            }
-
-            foreach (var a in vs) {
-                foreach (var b in vs) {
-                    var m = a % b;
-
-                    Console.WriteLine($"{(double)a} % {(double)b} = {(double)m}");
+                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
+                    
+                    if (a.IsNaN || b.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
+                            Console.WriteLine($"{a} % {b} = {c_actual}");
+                            Console.Write("\n");
+                        }
+                    }
+                    else {
+                        if (c_expect > 0) {
+                            if (!(c_expect >= (double)c_actual * 0.999 && c_expect <= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} % {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                        else {
+                            if (!(c_expect <= (double)c_actual * 0.999 && c_expect >= (double)c_actual * 1.001)) {
+                                Console.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
+                                Console.WriteLine($"{a} % {b} = {c_actual}");
+                                Console.Write("\n");
+                            }
+                        }
+                    }
                 }
             }
         }

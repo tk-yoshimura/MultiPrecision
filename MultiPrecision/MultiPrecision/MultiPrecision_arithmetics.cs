@@ -44,12 +44,18 @@ namespace MultiPrecision {
                 return a;
             }
 
-            if (!a.IsFinite || !b.IsFinite) {
+            if (!a.IsFinite) {
+                if (b.IsFinite) {
+                    return a;
+                }
                 if (a.Sign != b.Sign) {
                     return NaN;
                 }
 
                 return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
+            }
+            if (!b.IsFinite) {
+                return b;
             }
 
             if (a.Sign == b.Sign) {
@@ -70,18 +76,24 @@ namespace MultiPrecision {
             }
 
             if (a.IsZero) {
-                return Neg(b);
+                return -b;
             }
             if (b.IsZero) {
                 return a;
             }
 
-            if (!a.IsFinite || !b.IsFinite) {
+            if (!a.IsFinite) {
+                if (b.IsFinite) {
+                    return a;
+                }
                 if (a.Sign == b.Sign) {
                     return NaN;
                 }
 
                 return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
+            }
+            if (!b.IsFinite) {
+                return -b;
             }
 
             if (a.Sign == b.Sign) {
@@ -102,7 +114,15 @@ namespace MultiPrecision {
             }
 
             if (a.IsZero || b.IsZero) {
+                if (!a.IsFinite || !b.IsFinite) {
+                    return NaN;
+                }
+
                 return a.Sign == b.Sign ? Zero : MinusZero;
+            }
+
+            if (!a.IsFinite || !b.IsFinite) {
+                return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
             }
 
             (Mantissa<N> mantissa, Int64 exponent) = Mul((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
@@ -122,6 +142,16 @@ namespace MultiPrecision {
                 else {
                     return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
                 }
+            }
+
+            if (!a.IsFinite) {
+                if (b.IsFinite) {
+                    return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
+                }
+                return NaN;
+            }
+            if (!b.IsFinite) {
+                return (a.Sign == b.Sign) ? Zero : MinusZero;
             }
 
             (Mantissa<N> mantissa, Int64 exponent) = Div((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
