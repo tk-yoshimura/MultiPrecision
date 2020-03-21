@@ -11,7 +11,7 @@ namespace MultiPrecisionTest {
             for (int i = 1; i <= 10000; i *= 10) {
                 MultiPrecision<Pow2.N8> v = i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -25,7 +25,7 @@ namespace MultiPrecisionTest {
             for (int i = -1; i >= -10000; i *= 10) {
                 MultiPrecision<Pow2.N8> v = i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -39,7 +39,7 @@ namespace MultiPrecisionTest {
             for (int i = 2; i <= 10000; i *= 2) {
                 MultiPrecision<Pow2.N8> v = i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -53,7 +53,7 @@ namespace MultiPrecisionTest {
             for (int i = -2; i >= -10000; i *= 2) {
                 MultiPrecision<Pow2.N8> v = i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -67,7 +67,7 @@ namespace MultiPrecisionTest {
             for (int i = 1; i <= 10000; i *= 10) {
                 MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.One / i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -81,7 +81,7 @@ namespace MultiPrecisionTest {
             for (int i = -1; i >= -10000; i *= 10) {
                 MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.One / i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -95,7 +95,7 @@ namespace MultiPrecisionTest {
             for (int i = 2; i <= 10000; i *= 2) {
                 MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.One / i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -109,7 +109,7 @@ namespace MultiPrecisionTest {
             for (int i = -2; i >= -10000; i *= 2) {
                 MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.One / i;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -123,7 +123,7 @@ namespace MultiPrecisionTest {
             for (int i = 0; i <= 10; i++) {
                 MultiPrecision<Pow2.N8> v = (MultiPrecision<Pow2.N8>)i / 9;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);
@@ -138,7 +138,7 @@ namespace MultiPrecisionTest {
             for (int i = 0; i <= 100; i++) {
                 MultiPrecision<Pow2.N8> v = p + (MultiPrecision<Pow2.N8>)7 / 10;
 
-                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore();
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
                 Console.WriteLine(sign);
                 Console.WriteLine(exponent_dec);

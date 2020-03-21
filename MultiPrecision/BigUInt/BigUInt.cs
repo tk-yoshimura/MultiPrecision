@@ -8,7 +8,7 @@ namespace MultiPrecision {
         private readonly UInt32[] value;
         public static int Length { get; } = checked(default(N).Value * default(K).Value);
         public static int Bits { get; } = checked(Length * UIntUtil.UInt32Bits);
-        public static int MaxDecimalDigits { get; } = checked(Bits * 30103 / 100000 - 3);
+        public static int MaxDecimalDigits { get; } = checked(Bits * 30103 / 100000 - 4); //10^(4 - 1) = 1000 approx equals 1024
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
 
         public BigUInt() {

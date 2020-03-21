@@ -13,7 +13,7 @@ namespace MultiPrecision {
                 return (Sign == Sign.Plus) ? double.PositiveInfinity.ToString() : double.NegativeInfinity.ToString();
             }
 
-            (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore();
+            (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore(DecimalDigits);
 
             if (mantissa_dec.IsZero) {
                 return sign == Sign.Plus ? "0" : "-0";
@@ -33,9 +33,13 @@ namespace MultiPrecision {
             }
         }
 
-        internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore() {
+        internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
             if (Consts.log10_2 is null) {
                 Consts.log10_2 = One / Log2(10);
+            }
+
+            if (digits > DecimalDigits) {
+                throw new ArgumentException(nameof(digits));
             }
 
             if (IsZero) {
@@ -49,11 +53,14 @@ namespace MultiPrecision {
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa, 2);
 
-            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(DecimalDigits));
+            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + 1));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
-            if (mantissa_dec >= Accumulator<N>.Decimal(DecimalDigits + 1)) {
+            if (mantissa_dec >= Accumulator<N>.Decimal(digits + 2)) {
                 exponent_dec = checked(exponent_dec + 1);
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(100));
+            }
+            else { 
                 mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(10));
             }
 
