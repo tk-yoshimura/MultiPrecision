@@ -2,7 +2,7 @@
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
-            public static MultiPrecision<N> pi = null;
+            public static MultiPrecision<N> pi = null, inv_pi = null;
         }
 
         public static MultiPrecision<N> PI {
@@ -12,6 +12,16 @@
                 }
 
                 return Consts.pi;
+            }
+        }
+
+        public static MultiPrecision<N> InvertPI {
+            get {
+                if (Consts.inv_pi is null) {
+                    Consts.inv_pi = One / PI;
+                }
+
+                return Consts.inv_pi;
             }
         }
 
