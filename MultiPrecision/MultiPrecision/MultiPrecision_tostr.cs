@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecision {
 
-    public sealed partial class MultiPrecision<N> {
+    public sealed partial class MultiPrecision<N> : IFormattable {
 
         public override string ToString() {
             if (IsNaN) {
@@ -33,6 +34,34 @@ namespace MultiPrecision {
             }
         }
 
+        public string ToString(string format, IFormatProvider formatProvider) {
+            if (format == null || format.Length < 2 || (format[0] != 'e' && format[0] != 'E')) {
+                throw new FormatException();
+            }
+
+            if (!(int.TryParse(format[1..], out int digits)) || digits <= 1) { 
+                throw new FormatException();
+            }
+
+            if (IsNaN) {
+                return double.NaN.ToString();
+            }
+            if (!IsFinite) {
+                return (Sign == Sign.Plus) ? double.PositiveInfinity.ToString() : double.NegativeInfinity.ToString();
+            }
+
+            (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore(digits);
+
+            if (mantissa_dec.IsZero) {
+                return (sign == Sign.Plus ? "0." : "-0.") + new string(Enumerable.Repeat('0', digits).ToArray()) + $"{format[0]}0";
+            }
+
+            string num = mantissa_dec.ToString();
+            num = num.Insert(1, ".");
+
+            return $"{(sign == Sign.Plus ? "" : "-")}{num}{format[0]}{exponent_dec}";
+        }
+        
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
             if (Consts.log10_2 is null) {
                 Consts.log10_2 = One / Log2(10);
@@ -55,12 +84,10 @@ namespace MultiPrecision {
 
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + 1));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
+            mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(10));
 
-            if (mantissa_dec >= Accumulator<N>.Decimal(digits + 2)) {
+            while (mantissa_dec >= Accumulator<N>.Decimal(digits + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(100));
-            }
-            else { 
                 mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(10));
             }
 

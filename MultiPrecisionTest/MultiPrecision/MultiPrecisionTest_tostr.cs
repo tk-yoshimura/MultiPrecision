@@ -17,8 +17,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -31,8 +32,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -45,8 +47,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -59,8 +62,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -73,8 +77,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -87,8 +92,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -101,8 +107,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -115,8 +122,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -129,8 +137,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
             }
 
@@ -144,8 +153,9 @@ namespace MultiPrecisionTest {
                 Console.WriteLine(exponent_dec);
                 Console.WriteLine(mantissa_dec);
                 Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
 
-                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec);
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
 
                 p *= 10;
