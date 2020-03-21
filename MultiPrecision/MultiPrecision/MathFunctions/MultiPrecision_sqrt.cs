@@ -7,7 +7,6 @@ namespace MultiPrecision {
         private static partial class Consts {
             public static class Sqrt {
                 public static bool initialized = false;
-                public static MultiPrecision<N> c4 = null;
                 public static MultiPrecision<N> approx_a = null, approx_b = null, approx_c = null;
             }
         }
@@ -32,10 +31,11 @@ namespace MultiPrecision {
 
             MultiPrecision<N> a = Consts.Sqrt.approx_a + v * (Consts.Sqrt.approx_b + v * Consts.Sqrt.approx_c);
             MultiPrecision<N> h = One - v * a * a;
+            MultiPrecision<N> c4 = Integer(4);
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= One + h * Ldexp(Consts.Sqrt.c4 + h + Ldexp(h, 1), -3);
+                a *= One + h * Ldexp(c4 + h + Ldexp(h, 1), -3);
                 h = One - v * a * a;
 
                 h_exponent_prev = h_exponent_post;
@@ -48,8 +48,6 @@ namespace MultiPrecision {
         }
 
         private static void InitializeSqrtConsts() {
-            Consts.Sqrt.c4 = 4;
-
             Consts.Sqrt.approx_a = (17 - 6 * Sqrt2) / 6;
             Consts.Sqrt.approx_b = (5 * Sqrt2 - 9) / 4;
             Consts.Sqrt.approx_c = (5 - 3 * Sqrt2) / 12;

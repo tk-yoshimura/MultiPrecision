@@ -44,12 +44,12 @@ namespace MultiPrecision {
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa, 2);
 
-            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.MaxDecimal);
+            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(DecimalDigits));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
-            if (mantissa_dec >= Accumulator<N>.MaxDecimal_x10) {
+            if (mantissa_dec >= Accumulator<N>.Decimal(DecimalDigits + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, 10);
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(10));
             }
 
             return (Sign, exponent_dec, mantissa_dec);

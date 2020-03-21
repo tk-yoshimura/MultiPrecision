@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Arithmetics {
+
+    [TestClass]
     public partial class MultiPrecisionTest {
         MultiPrecision<Pow2.N8>[] vs = {
             MultiPrecision<Pow2.N8>.Zero,

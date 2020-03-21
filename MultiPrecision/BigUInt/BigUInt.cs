@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> : ICloneable where N : struct, IConstant where K : struct, IConstant {
+
         private readonly UInt32[] value;
         public static int Length { get; } = checked(default(N).Value * default(K).Value);
         public static int Bits { get; } = checked(Length * UIntUtil.UInt32Bits);
@@ -50,7 +51,7 @@ namespace MultiPrecision {
                 throw new ArgumentException();
             }
 
-            for (int i = 0; i < arr.Count && i < Length; i++) {
+            for (int i = 0; i < Length && i + index < arr.Count; i++) {
                 this.value[i] = arr[i + index];
             }
 

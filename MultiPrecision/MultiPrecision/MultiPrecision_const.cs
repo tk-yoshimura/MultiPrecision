@@ -1,10 +1,15 @@
-﻿namespace MultiPrecision {
+﻿using System;
+using System.Collections.Generic;
+
+namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
             public static MultiPrecision<N> zero = null, minus_zero = null, one = null, minus_one = null, nan = null;
             public static MultiPrecision<N> max_value = null, min_value = null, positive_inf = null, negative_inf = null;
             public static MultiPrecision<N> epsilon = null;
+
+            public static Dictionary<Int64, MultiPrecision<N>> integer = new Dictionary<long, MultiPrecision<N>>();
         }
 
         public static MultiPrecision<N> Zero {
@@ -105,6 +110,14 @@
 
                 return Consts.epsilon;
             }
+        }
+
+        private static MultiPrecision<N> Integer(Int64 n) {
+            if (!Consts.integer.ContainsKey(n)) {
+                Consts.integer.Add(n, n);
+            }
+
+            return Consts.integer[n];
         }
     }
 }

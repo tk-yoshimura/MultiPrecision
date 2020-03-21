@@ -13,7 +13,7 @@ namespace MultiPrecision {
 
         public static int Length { get; } = Mantissa<N>.Length;
         public static int Bits { get; } = Mantissa<N>.Bits;
-        public static int Digits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
+        public static int DecimalDigits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
 
         public Sign Sign { get; }
         public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;

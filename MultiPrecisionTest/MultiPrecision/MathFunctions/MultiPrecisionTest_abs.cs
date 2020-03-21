@@ -2,7 +2,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Functions {
+    [TestClass]
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void AbsTest() {
