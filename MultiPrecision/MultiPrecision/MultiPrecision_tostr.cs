@@ -63,6 +63,9 @@ namespace MultiPrecision {
         }
         
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
+            const int presicion = 2;
+            const UInt64 presicion_pow10 = 100, presicion_p1_pow10 = presicion_pow10 * 10;
+
             if (Consts.log10_2 is null) {
                 Consts.log10_2 = One / Log2(10);
             }
@@ -82,15 +85,15 @@ namespace MultiPrecision {
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa, 2);
 
-            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + 2));
+            mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + presicion));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
             
-            if(mantissa_dec >= Accumulator<N>.Decimal(digits + 3)) {
+            if(mantissa_dec >= Accumulator<N>.Decimal(digits + presicion + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(1000));
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_p1_pow10));
             }
             else{
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(100));
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_pow10));
             }
             if (mantissa_dec == Accumulator<N>.Decimal(digits + 1)) { 
                 exponent_dec = checked(exponent_dec + 1);

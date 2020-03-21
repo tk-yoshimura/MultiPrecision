@@ -145,7 +145,7 @@ namespace MultiPrecisionTest {
 
             MultiPrecision<Pow2.N8> p = 1;
             for (int i = 0; i <= 100; i++) {
-                MultiPrecision<Pow2.N8> v = p + (MultiPrecision<Pow2.N8>)7046 / 10000;
+                MultiPrecision<Pow2.N8> v = p + (MultiPrecision<Pow2.N8>)5007046 / 10000000;
 
                 (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
