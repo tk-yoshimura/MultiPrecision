@@ -44,7 +44,7 @@ namespace MultiPrecision {
                 for (int i = 2; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
                     Accumulator<N> t = Accumulator<N>.TaylorTable[i];
                     Accumulator<N> d = w * t;
-                    if (d.IsZero) {
+                    if (d.Digits < Length) {
                         break;
                     }
 
