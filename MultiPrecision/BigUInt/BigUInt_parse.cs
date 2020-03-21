@@ -4,8 +4,10 @@ using System.Text.RegularExpressions;
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> {
 
+        private static readonly Regex parse_regex = new Regex(@"\d+");
+
         public BigUInt(string s) : this() {
-            if (!(new Regex("[0-9]+").IsMatch(s))) {
+            if (!parse_regex.IsMatch(s)) {
                 throw new FormatException();
             }
 

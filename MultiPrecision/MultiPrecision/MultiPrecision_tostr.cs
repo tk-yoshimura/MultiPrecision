@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Numerics;
 
 namespace MultiPrecision {
 
@@ -35,7 +34,11 @@ namespace MultiPrecision {
         }
 
         public string ToString(string format, IFormatProvider formatProvider) {
-            if (format == null || format.Length < 2 || (format[0] != 'e' && format[0] != 'E')) {
+            if (format == null) {
+                return ToString();
+            }
+
+            if (format.Length < 2 || (format[0] != 'e' && format[0] != 'E')) {
                 throw new FormatException();
             }
 

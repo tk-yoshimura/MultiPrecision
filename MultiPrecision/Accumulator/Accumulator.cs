@@ -11,6 +11,7 @@ namespace MultiPrecision {
 
         public static int Length { get; } = BigUInt<N, Pow2.N2>.Length;
         public static int Bits { get; } = BigUInt<N, Pow2.N2>.Bits;
+        public static int MaxDecimalDigits { get; } = BigUInt<N, Pow2.N2>.MaxDecimalDigits;
         public ReadOnlyCollection<UInt32> Value => value.Value;
 
         public Accumulator() {
