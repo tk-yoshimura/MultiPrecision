@@ -16,7 +16,7 @@ namespace MultiPrecision {
             (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore();
 
             if (mantissa_dec.IsZero) {
-                return sign == Sign.Plus ? "0e0" : "-0e0";
+                return sign == Sign.Plus ? "0" : "-0";
             }
 
             string num = mantissa_dec.ToString().TrimEnd('0');
@@ -25,7 +25,12 @@ namespace MultiPrecision {
                 num = num.Insert(1, ".");
             }
 
-            return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
+            if (exponent_dec != 0) {
+                return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
+            }
+            else { 
+                return $"{(sign == Sign.Plus ? "" : "-")}{num}";
+            }
         }
 
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore() {
