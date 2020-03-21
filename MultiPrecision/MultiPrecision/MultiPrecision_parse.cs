@@ -6,11 +6,11 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
-        private static readonly Regex parse_regex = new Regex(@"[+-]?\d+(\.\d+)?([eE][+-]?\d+)?");
+        private static readonly Regex parse_regex = new Regex(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
 
         public static implicit operator MultiPrecision<N>(string num) {
             if (!parse_regex.IsMatch(num)) {
-                throw new ArgumentException(nameof(num));
+                throw new FormatException();
             }
 
             Sign sign = Sign.Plus;
@@ -33,7 +33,6 @@ namespace MultiPrecision {
             }
 
             string mantissa = num[..exponent_symbol_index].TrimStart('0');
-            string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
 
             int point_symbol_index = mantissa.Contains('.') ? (mantissa.IndexOf('.') - 1) : (mantissa.Length - 1);
 
@@ -44,8 +43,17 @@ namespace MultiPrecision {
             }
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa_withoutpoint);
-            Int64 exponent_dec = checked(Int64.Parse(exponent) + point_symbol_index);
+            
+            string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
+            if (!Int64.TryParse(exponent, out Int64 exponent_dec)) { 
+                throw new FormatException(nameof(num));
+            }
+
+            exponent_dec = checked(exponent_dec + point_symbol_index);
+
             int digits = mantissa_withoutpoint.Length - 1;
+
+
 
             return FromStringCore(sign, exponent_dec, mantissa_dec, digits);
         }

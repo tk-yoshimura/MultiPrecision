@@ -112,6 +112,62 @@ namespace MultiPrecisionTest {
 
                 Console.WriteLine($"{v} {num}");
             }
+
+            for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
+                string num = "00314" + new string(Enumerable.Repeat('0', i).ToArray());
+
+                MultiPrecision<Pow2.N8> v = num;
+
+                Console.WriteLine($"{v} {num}");
+            }
+
+            for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
+                string num = "314" + new string(Enumerable.Repeat('0', i).ToArray()) + ".00";
+
+                MultiPrecision<Pow2.N8> v = num;
+
+                Console.WriteLine($"{v} {num}");
+            }
+
+            for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
+                string num = "00314" + new string(Enumerable.Repeat('0', i).ToArray()) + ".00";
+
+                MultiPrecision<Pow2.N8> v = num;
+
+                Console.WriteLine($"{v} {num}");
+            }
+        }
+
+        [TestMethod]
+        public void BadParseTest() {
+            string[] vs = new string[] {
+                string.Empty,
+                "abcd",
+                "e",
+                ".",
+                "+",
+                "-",
+                "+.",
+                "-.",
+                "+e",
+                "-e",
+                "+.e",
+                "-.e",
+                "e12",
+                "1e",
+                "1e99999999999999999999999999999999",
+                ".e123",
+                ".e12.3",
+                "2.e12",
+                "2.3.e12",
+            };
+
+            foreach (string v in vs) {
+                Assert.ThrowsException<FormatException>(() => {
+                    MultiPrecision<Pow2.N8> u = v;
+                    Console.WriteLine(u);
+                }, v);
+            }
         }
     }
 }
