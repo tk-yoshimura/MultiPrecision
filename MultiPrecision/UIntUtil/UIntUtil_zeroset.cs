@@ -22,18 +22,18 @@ namespace MultiPrecision {
 
             fixed (UInt32* v = value) {
                 for (uint i = 0; i < length_sets; i += Mask.MM256UInt32s) {
-                    Avx.Store(v + i + index, Vector256<UInt32>.Zero);
-
 #if DEBUG
                     Debug.Assert(checked(i + index + Mask.MM256UInt32s) <= value.Length);
 #endif
+
+                    Avx.Store(v + i + index, Vector256<UInt32>.Zero);
                 }
                 if (length_rems > 0) {
-                    Avx2.MaskStore(v + length_sets + index, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
-
 #if DEBUG
                     Debug.Assert(checked(length_sets + index + length_rems) <= value.Length);
 #endif
+
+                    Avx2.MaskStore(v + length_sets + index, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
                 }
             }
         }
@@ -46,18 +46,18 @@ namespace MultiPrecision {
 
             fixed (UInt32* v = value) {
                 for (uint i = 0; i < length_sets; i += Mask.MM256UInt32s) {
-                    Avx.Store(v + i, Vector256<UInt32>.Zero);
-
 #if DEBUG
                     Debug.Assert(checked(i + Mask.MM256UInt32s) <= value.Length);
 #endif
+
+                    Avx.Store(v + i, Vector256<UInt32>.Zero);
                 }
                 if (length_rems > 0) {
-                    Avx2.MaskStore(v + length_sets, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
-
 #if DEBUG
                     Debug.Assert(checked(length_sets + length_rems) <= value.Length);
 #endif
+
+                    Avx2.MaskStore(v + length_sets, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
                 }
             }
         }

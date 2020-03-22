@@ -29,7 +29,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosHalfPI(x);
                 double y_expect = Math.Cos((double)x * Math.PI / 2);
 
@@ -65,7 +65,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosPI(x);
                 double y_expect = Math.Cos((double)x * Math.PI);
 
@@ -101,7 +101,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.SinPI(x);
                 double y_expect = Math.Sin((double)x * Math.PI);
 
@@ -122,7 +122,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);
                 Console.WriteLine((double)y_expect);
-                
+
                 if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
                     continue;
                 }
@@ -145,7 +145,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.TanPI(x);
                 double y_expect = Math.Tan((double)x * Math.PI);
 
@@ -185,7 +185,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Cos(x);
                 double y_expect = Math.Cos((double)x);
 
@@ -221,7 +221,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Sin(x);
                 double y_expect = Math.Sin((double)x);
 
@@ -242,7 +242,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);
                 Console.WriteLine((double)y_expect);
-                
+
                 if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
                     continue;
                 }
@@ -265,9 +265,9 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = - 65536 + (MultiPrecision<Pow2.N8>)i / 250;
+                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
                 MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Tan(x);
-                double y_expect = Math.Tan((double)x );
+                double y_expect = Math.Tan((double)x);
 
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);

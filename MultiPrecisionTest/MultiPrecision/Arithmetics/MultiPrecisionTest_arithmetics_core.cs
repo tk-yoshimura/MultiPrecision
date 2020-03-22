@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 
 namespace MultiPrecisionTest.Arithmetics {
-    
+
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void AccumulatorAddTest() {

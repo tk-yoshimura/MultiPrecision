@@ -32,7 +32,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void AddTest() {
-            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a + b;
                     double c_expect = (double)a + (double)b;
@@ -73,7 +73,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void SubTest() {
-            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a - b;
                     double c_expect = (double)a - (double)b;
@@ -84,7 +84,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
                         continue;
                     }
-                    
+
                     if (a.IsNaN || b.IsNaN) {
                         if (!c_actual.IsNaN) {
                             Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
@@ -114,7 +114,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void MulTest() {
-            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a * b;
                     double c_expect = (double)a * (double)b;
@@ -125,7 +125,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
                         continue;
                     }
-                    
+
                     if (a.IsNaN || b.IsNaN) {
                         if (!c_actual.IsNaN) {
                             Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
@@ -155,7 +155,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void DivTest() {
-            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a / b;
                     double c_expect = (double)a / (double)b;
@@ -166,7 +166,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
                         continue;
                     }
-                    
+
                     if (a.IsNaN || b.IsNaN) {
                         if (!c_actual.IsNaN) {
                             Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
@@ -196,7 +196,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void RemTest() {
-            foreach (MultiPrecision<Pow2.N8> a in vs) { 
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a % b;
                     double c_expect = (double)a % (double)b;
@@ -207,7 +207,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
                         continue;
                     }
-                    
+
                     if (a.IsNaN || b.IsNaN) {
                         if (!c_actual.IsNaN) {
                             Console.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
