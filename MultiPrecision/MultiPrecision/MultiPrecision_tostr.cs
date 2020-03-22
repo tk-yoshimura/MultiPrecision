@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -28,7 +29,7 @@ namespace MultiPrecision {
             if (exponent_dec != 0) {
                 return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
             }
-            else { 
+            else {
                 return $"{(sign == Sign.Plus ? "" : "-")}{num}";
             }
         }
@@ -42,7 +43,7 @@ namespace MultiPrecision {
                 throw new FormatException();
             }
 
-            if (!(int.TryParse(format[1..], out int digits)) || digits <= 1) { 
+            if (!(int.TryParse(format[1..], out int digits)) || digits <= 1) {
                 throw new FormatException();
             }
 
@@ -64,7 +65,7 @@ namespace MultiPrecision {
 
             return $"{(sign == Sign.Plus ? "" : "-")}{num}{format[0]}{exponent_dec}";
         }
-        
+
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
             const int presicion = 2;
             const UInt64 presicion_pow10 = 100, presicion_p1_pow10 = presicion_pow10 * 10;
@@ -90,18 +91,22 @@ namespace MultiPrecision {
 
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + presicion));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
-            
-            if(mantissa_dec >= Accumulator<N>.Decimal(digits + presicion + 1)) {
+
+            if (mantissa_dec >= Accumulator<N>.Decimal(digits + presicion + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
                 mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_p1_pow10));
             }
-            else{
+            else {
                 mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_pow10));
             }
-            if (mantissa_dec == Accumulator<N>.Decimal(digits + 1)) { 
+            if (mantissa_dec == Accumulator<N>.Decimal(digits + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
                 mantissa_dec = Accumulator<N>.Decimal(digits);
             }
+
+#if DEBUG
+            Debug.Assert(mantissa_dec < Accumulator<N>.Decimal(digits + 1));
+#endif
 
             return (Sign, exponent_dec, mantissa_dec);
         }

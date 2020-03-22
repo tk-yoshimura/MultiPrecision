@@ -35,9 +35,7 @@ namespace MultiPrecision {
                     }
 
 #if DEBUG
-                    if (carry / dec_base > 0) {
-                        throw new OverflowException();
-                    }
+                    Debug.Assert(carry / dec_base == 0);
 #endif
                 }
             }

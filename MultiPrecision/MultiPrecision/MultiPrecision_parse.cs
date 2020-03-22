@@ -43,9 +43,9 @@ namespace MultiPrecision {
             }
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa_withoutpoint);
-            
+
             string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
-            if (!Int64.TryParse(exponent, out Int64 exponent_dec)) { 
+            if (!Int64.TryParse(exponent, out Int64 exponent_dec)) {
                 throw new FormatException(nameof(num));
             }
 

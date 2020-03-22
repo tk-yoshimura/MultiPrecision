@@ -36,10 +36,10 @@ namespace MultiPrecision {
             MultiPrecision<N> x_abs = Abs(x);
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = Ldexp(x_frac * PI, -1), squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
-                        
+
             Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
             Sign s = Sign.Minus;
-            
+
             for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
                 Accumulator<N> t = Accumulator<N>.TaylorTable[i];
                 Accumulator<N> d = w * t;
@@ -60,12 +60,12 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = a.Mantissa;
 
-            MultiPrecision<N> y;            
+            MultiPrecision<N> y;
             if (cycle == 0 || cycle == 2) {
-                y = new MultiPrecision<N>((cycle == 0) ? Sign.Plus : Sign.Minus, - sft + 1, n, round: false);
+                y = new MultiPrecision<N>((cycle == 0) ? Sign.Plus : Sign.Minus, -sft + 1, n, round: false);
             }
-            else{
-                y = new MultiPrecision<N>((cycle == 1) ? Sign.Minus : Sign.Plus, - sft + 1, n, round: false);
+            else {
+                y = new MultiPrecision<N>((cycle == 1) ? Sign.Minus : Sign.Plus, -sft + 1, n, round: false);
                 y *= xpi;
             }
 

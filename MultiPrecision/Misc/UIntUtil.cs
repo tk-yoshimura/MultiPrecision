@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
@@ -14,7 +15,7 @@ namespace MultiPrecision {
         public const UInt64 UInt64MaxDecimal = 10000000000000000000ul;
 
         public const UInt32 UInt32Round = UInt32.MaxValue >> 1;
-        
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (UInt32 high, UInt32 low) Unpack(UInt64 v) {
             UInt32 low = unchecked((UInt32)v);
@@ -32,6 +33,11 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
+#if DEBUG
+            Debug.Assert(length == a.Length);
+            Debug.Assert(length == b.Length);
+#endif
+
             fixed (UInt32* va = a, vb = b) {
                 for (int i = 0; i < length; i++) {
                     if (va[i] != vb[i]) {
@@ -46,6 +52,11 @@ namespace MultiPrecision {
         /// <summary>Comparate uint32 array a &lt;= b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool LessThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+
+#if DEBUG
+            Debug.Assert(length == a.Length);
+            Debug.Assert(length == b.Length);
+#endif
 
             fixed (UInt32* va = a, vb = b) {
                 for (int i = length - 1; i >= 0; i--) {
@@ -65,6 +76,11 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static bool GreaterThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
+#if DEBUG
+            Debug.Assert(length == a.Length);
+            Debug.Assert(length == b.Length);
+#endif
+
             fixed (UInt32* va = a, vb = b) {
                 for (int i = length - 1; i >= 0; i--) {
                     if (va[i] < vb[i]) {
@@ -83,9 +99,7 @@ namespace MultiPrecision {
         public static unsafe void LeftShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
+            Debug.Assert(sft >= 0);
 #endif
 
             if (sft > LeadingZeroCount(value)) {
@@ -104,22 +118,33 @@ namespace MultiPrecision {
             uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                uint i;
                 if (count_rems > 0) {
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + count_sets, mask), (byte)(UInt32Bits - sftrem));
                     Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + count_sets + 1, mask), (byte)sftrem);
 
                     Avx2.MaskStore(v + count_sets + sftdev + 1, mask, Avx2.Or(ls, ms));
+
+#if DEBUG
+                    Debug.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
+#endif
                 }
-                for (i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i - Mask.MM256UInt32s), (byte)(UInt32Bits - sftrem));
                     Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + 1 - Mask.MM256UInt32s), (byte)sftrem);
-                    
+
                     Avx.Store(v + i + sftdev + 1 - Mask.MM256UInt32s, Avx2.Or(ls, ms));
+
+#if DEBUG
+                    Debug.Assert(checked(i + sftdev + 1) <= value.Length);
+#endif
                 }
 
                 v[sftdev] = v[0] << sftrem;
+
+#if DEBUG
+                Debug.Assert(sftdev < value.Length);
+#endif
             }
 
             Zeroset(value, 0, (uint)sftdev);
@@ -129,9 +154,7 @@ namespace MultiPrecision {
         public static unsafe void RightShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
+            Debug.Assert(sft >= 0);
 #endif
 
             int sftdev = sft / UIntUtil.UInt32Bits;
@@ -146,22 +169,33 @@ namespace MultiPrecision {
             uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                uint i;
-                for (i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i + sftdev), (byte)sftrem);
                     Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + sftdev + 1), (byte)(UInt32Bits - sftrem));
 
                     Avx.Store(v + i, Avx2.Or(ls, ms));
+
+#if DEBUG
+                    Debug.Assert(checked(i + sftdev + 1 + Mask.MM256UInt32s) <= value.Length);
+#endif
                 }
                 if (count_rems > 0) {
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
-                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + i + sftdev, mask), (byte)sftrem);
-                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + i + sftdev + 1, mask), (byte)(UInt32Bits - sftrem));
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + count_sets + sftdev, mask), (byte)sftrem);
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + count_sets + sftdev + 1, mask), (byte)(UInt32Bits - sftrem));
 
-                    Avx2.MaskStore(v + i, mask, Avx2.Or(ls, ms));
+                    Avx2.MaskStore(v + count_sets, mask, Avx2.Or(ls, ms));
+
+#if DEBUG
+                    Debug.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
+#endif
                 }
 
                 v[count] = v[value.Length - 1] >> sftrem;
+
+#if DEBUG
+                Debug.Assert(count < value.Length);
+#endif
             }
 
             Zeroset(value, count + 1, (uint)sftdev);
@@ -172,10 +206,9 @@ namespace MultiPrecision {
         public static unsafe void LeftBlockShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
+            Debug.Assert(sft >= 0);
 #endif
+
             if (checked(sft + Digits(value)) > value.Length) {
                 throw new OverflowException();
             }
@@ -184,13 +217,20 @@ namespace MultiPrecision {
             uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                uint i;
                 if (count_rems > 0) {
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
                     Avx2.MaskStore(v + count_sets + sft, mask, Avx2.MaskLoad(v + count_sets, mask));
+
+#if DEBUG
+                    Debug.Assert(checked(count_sets + sft + count_rems) <= value.Length);
+#endif
                 }
-                for (i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
                     Avx.Store(v + i + sft - Mask.MM256UInt32s, Avx2.LoadVector256(v + i - Mask.MM256UInt32s));
+
+#if DEBUG
+                    Debug.Assert(checked(i + sft) <= value.Length);
+#endif
                 }
             }
 
@@ -201,10 +241,9 @@ namespace MultiPrecision {
         public static unsafe void RightBlockShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
+            Debug.Assert(sft >= 0);
 #endif
+
             if (sft >= value.Length) {
                 Zeroset(value);
                 return;
@@ -214,13 +253,20 @@ namespace MultiPrecision {
             uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                uint i;
-                for (i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
                     Avx.Store(v + i, Avx2.LoadVector256(v + i + sft));
+
+#if DEBUG
+                    Debug.Assert(checked(i + sft + Mask.MM256UInt32s) <= value.Length);
+#endif
                 }
                 if (count_rems > 0) {
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
-                    Avx2.MaskStore(v + i, mask, Avx2.MaskLoad(v + i + sft, mask));
+                    Avx2.MaskStore(v + count_sets, mask, Avx2.MaskLoad(v + count_sets + sft, mask));
+
+#if DEBUG
+                    Debug.Assert(checked(count_sets + sft + count_rems) <= value.Length);
+#endif
                 }
             }
 
@@ -252,15 +298,26 @@ namespace MultiPrecision {
                 return;
             }
 
+#if DEBUG
+            Debug.Assert(checked(index + length) <= value.Length);
+#endif
+
             uint length_sets = Mask.UInt32Sets(length), length_rems = Mask.UInt32Rems(length);
-            
-            fixed (UInt32* v = value) {                
-                uint i;
-                for (i = 0; i < length_sets; i += Mask.MM256UInt32s) {
+
+            fixed (UInt32* v = value) {
+                for (uint i = 0; i < length_sets; i += Mask.MM256UInt32s) {
                     Avx.Store(v + i + index, Vector256<UInt32>.Zero);
+
+#if DEBUG
+                    Debug.Assert(checked(i + index + Mask.MM256UInt32s) <= value.Length);
+#endif
                 }
                 if (length_rems > 0) {
-                    Avx2.MaskStore(v + i + index, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+                    Avx2.MaskStore(v + length_sets + index, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+
+#if DEBUG
+                    Debug.Assert(checked(length_sets + index + length_rems) <= value.Length);
+#endif
                 }
             }
         }
@@ -270,14 +327,21 @@ namespace MultiPrecision {
             uint length = (uint)value.Length;
 
             uint length_sets = Mask.UInt32Sets(length), length_rems = Mask.UInt32Rems(length);
-            
-            fixed (UInt32* v = value) {                
-                uint i;
-                for (i = 0; i < length_sets; i += Mask.MM256UInt32s) {
+
+            fixed (UInt32* v = value) {
+                for (uint i = 0; i < length_sets; i += Mask.MM256UInt32s) {
                     Avx.Store(v + i, Vector256<UInt32>.Zero);
+
+#if DEBUG
+                    Debug.Assert(checked(i + Mask.MM256UInt32s) <= value.Length);
+#endif
                 }
                 if (length_rems > 0) {
-                    Avx2.MaskStore(v + i, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+                    Avx2.MaskStore(v + length_sets, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+
+#if DEBUG
+                    Debug.Assert(checked(length_sets + length_rems) <= value.Length);
+#endif
                 }
             }
         }
@@ -319,9 +383,7 @@ namespace MultiPrecision {
 
             v[mask_index] = (v[mask_index] >> (UInt32Bits - posrem - 1)) << (UInt32Bits - posrem - 1);
 
-            for (int i = 0; i < mask_index; i++) {
-                v[i] = 0u;
-            }
+            Zeroset(v, 0, (uint)mask_index);
         }
 
         public static unsafe bool IsZero([DisallowNull] UInt32[] value) {
@@ -371,34 +433,28 @@ namespace MultiPrecision {
                 lstable = new Vector256<UInt32>[MM256UInt32s];
                 mstable = new Vector256<UInt32>[MM256UInt32s];
 
-                UInt32[] value = new UInt32[15] { ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, 0, 0, 0, 0, 0, 0, 0, 0 };
+                UInt32[] value = new UInt32[15] { ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u };
 
                 fixed (UInt32* v = value) {
                     for (int i = 0; i < lstable.Length; i++) {
                         lstable[i] = Avx.LoadVector256(v + (MM256UInt32s - 1 - i));
-                        mstable[i] = Avx2.Xor(lstable[i], Vector256<UInt32>.Zero);
                     }
                 }
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static uint UInt32Sets(uint length) { 
+            public static uint UInt32Sets(uint length) {
                 return length / MM256UInt32s * MM256UInt32s;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static uint UInt32Rems(uint length) { 
+            public static uint UInt32Rems(uint length) {
                 return length % MM256UInt32s;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static Vector256<UInt32> LSV(uint count) { 
+            public static Vector256<UInt32> LSV(uint count) {
                 return Mask.lstable[count];
-            }
-
-            [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            public static Vector256<UInt32> MSV(uint count) { 
-                return Mask.mstable[count];
             }
         }
     }
