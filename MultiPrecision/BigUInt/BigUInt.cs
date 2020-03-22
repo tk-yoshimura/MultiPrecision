@@ -60,49 +60,15 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe bool IsZero {
-            get {
-                fixed (UInt32* v = value) {
-                    for (int i = 0; i < Length; i++) {
-                        if (v[i] != 0) {
-                            return false;
-                        }
-                    }
-                }
+        public unsafe bool IsZero => UIntUtil.IsZero(value);
 
-                return true;
-            }
-        }
+        public bool IsFull => UIntUtil.IsFull(value);
 
-        public unsafe bool IsFull {
-            get {
-                fixed (UInt32* v = value) {
-                    for (int i = 0; i < Length; i++) {
-                        if (v[i] != UInt32.MaxValue) {
-                            return false;
-                        }
-                    }
-                }
-
-                return true;
-            }
-        }
-
-        public unsafe int Digits {
-            get {
-                fixed (UInt32* v = value) {
-                    for (int i = Length - 1; i >= 0; i--) {
-                        if (v[i] != 0) {
-                            return i + 1;
-                        }
-                    }
-                }
-
-                return 1;
-            }
-        }
+        public int Digits => UIntUtil.Digits(value);
 
         public UInt64 MostSignificantDigits => UIntUtil.Pack(value[Length - 1], value[Length - 2]);
+
+        public int LeadingZeroCount => UIntUtil.LeadingZeroCount(value);
 
         public UInt32 this[int index] {
             get {
@@ -110,12 +76,8 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe void Zeroset() {
-            fixed (UInt32* v = value) {
-                for (int i = 0; i < Length; i++) {
-                    v[i] = 0;
-                }
-            }
+        public void Zeroset() {
+            UIntUtil.Zeroset(value);
         }
 
         public object Clone() {

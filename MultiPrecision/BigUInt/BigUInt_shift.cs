@@ -78,114 +78,23 @@ namespace MultiPrecision {
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
         private unsafe void LeftShift(int sft) {
-
-#if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-#endif
-
-            if (sft > LeadingZeroCount) {
-                throw new OverflowException();
-            }
-
-            int sftdev = sft / UIntUtil.UInt32Bits;
-            int sftrem = sft % UIntUtil.UInt32Bits;
-
-            if (sftrem == 0) {
-                LeftBlockShift(sftdev);
-                return;
-            }
-
-            UInt32[] v_sft = new UInt32[Length];
-
-            fixed (UInt32* v = value) {
-                v_sft[sftdev] = v[0] << sftrem;
-                for (int i = sftdev + 1; i < Length; i++) {
-                    v_sft[i] = (v[i - sftdev] << sftrem) | (v[i - sftdev - 1] >> (UIntUtil.UInt32Bits - sftrem));
-                }
-            }
-
-            Array.Copy(v_sft, 0, value, 0, Length);
+            UIntUtil.LeftShift(value, sft);
         }
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft</summary>
         private unsafe void RightShift(int sft) {
-
-#if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-#endif
-
-            if (sft >= Bits) {
-                Zeroset();
-                return;
-            }
-
-            int sftdev = sft / UIntUtil.UInt32Bits;
-            int sftrem = sft % UIntUtil.UInt32Bits;
-
-            if (sftrem == 0) {
-                RightBlockShift(sftdev);
-                return;
-            }
-
-            UInt32[] v_sft = new UInt32[Length];
-
-            fixed (UInt32* v = value) {
-                int i = sftdev;
-                for (; i < Length - 1; i++) {
-                    v_sft[i - sftdev] = (v[i] >> sftrem) | (v[i + 1] << (UIntUtil.UInt32Bits - sftrem));
-                }
-                if (i - sftdev >= 0) {
-                    v_sft[i - sftdev] = v[i] >> sftrem;
-                }
-            }
-
-            Array.Copy(v_sft, 0, value, 0, Length);
+            UIntUtil.RightShift(value, sft);
         }
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe void LeftBlockShift(int sft) {
-
-#if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-#endif
-            if (checked(sft + Digits) > Length) {
-                throw new OverflowException();
-            }
-
-            fixed (UInt32* v = value) {
-                for (int i = Math.Min(Length, Length - sft) - 1; i >= 0; i--) {
-                    v[i + sft] = v[i];
-                }
-                for (int i = 0; i < Math.Min(sft, Length); i++) {
-                    v[i] = 0;
-                }
-            }
+            UIntUtil.LeftBlockShift(value, sft);
         }
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft * UInt32Bits</summary>
-        private unsafe void RightBlockShift(int sft) {
-
-#if DEBUG
-            if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
-            }
-#endif
-
-            fixed (UInt32* v = value) {
-                for (int i = sft; i < Length; i++) {
-                    v[i - sft] = v[i];
-                }
-                for (int i = Math.Max(0, Length - sft); i < Length; i++) {
-                    v[i] = 0;
-                }
-            }
+        private void RightBlockShift(int sft) {
+            UIntUtil.RightBlockShift(value, sft);
         }
     }
 }

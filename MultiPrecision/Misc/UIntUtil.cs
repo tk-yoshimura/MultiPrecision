@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics;
+using System.Runtime.Intrinsics.X86;
 
 namespace MultiPrecision {
     internal static class UIntUtil {
@@ -12,7 +14,7 @@ namespace MultiPrecision {
         public const UInt64 UInt64MaxDecimal = 10000000000000000000ul;
 
         public const UInt32 UInt32Round = UInt32.MaxValue >> 1;
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static (UInt32 high, UInt32 low) Unpack(UInt64 v) {
             UInt32 low = unchecked((UInt32)v);
@@ -77,6 +79,209 @@ namespace MultiPrecision {
             return true;
         }
 
+        /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
+        public static unsafe void LeftShift([DisallowNull] UInt32[] value, int sft) {
+
+#if DEBUG
+            if (sft < 0) {
+                throw new ArgumentException(nameof(sft));
+            }
+#endif
+
+            if (sft > LeadingZeroCount(value)) {
+                throw new OverflowException();
+            }
+
+            int sftdev = sft / UIntUtil.UInt32Bits;
+            int sftrem = sft % UIntUtil.UInt32Bits;
+
+            if (sftrem == 0) {
+                LeftBlockShift(value, sftdev);
+                return;
+            }
+
+            uint count = (uint)(value.Length - sftdev - 1);
+            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+
+            fixed (UInt32* v = value) {
+                uint i;
+                if (count_rems > 0) {
+                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + count_sets, mask), (byte)(UInt32Bits - sftrem));
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + count_sets + 1, mask), (byte)sftrem);
+
+                    Avx2.MaskStore(v + count_sets + sftdev + 1, mask, Avx2.Or(ls, ms));
+                }
+                for (i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i - Mask.MM256UInt32s), (byte)(UInt32Bits - sftrem));
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + 1 - Mask.MM256UInt32s), (byte)sftrem);
+                    
+                    Avx.Store(v + i + sftdev + 1 - Mask.MM256UInt32s, Avx2.Or(ls, ms));
+                }
+
+                v[sftdev] = v[0] << sftrem;
+            }
+
+            Zeroset(value, 0, (uint)sftdev);
+        }
+
+        /// <summary>Shift uint32 array v &gt;&gt;= sft</summary>
+        public static unsafe void RightShift([DisallowNull] UInt32[] value, int sft) {
+
+#if DEBUG
+            if (sft < 0) {
+                throw new ArgumentException(nameof(sft));
+            }
+#endif
+
+            int sftdev = sft / UIntUtil.UInt32Bits;
+            int sftrem = sft % UIntUtil.UInt32Bits;
+
+            if (sftrem == 0 || sftdev >= value.Length) {
+                RightBlockShift(value, sftdev);
+                return;
+            }
+
+            uint count = (uint)(value.Length - sftdev - 1);
+            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+
+            fixed (UInt32* v = value) {
+                uint i;
+                for (i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i + sftdev), (byte)sftrem);
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + sftdev + 1), (byte)(UInt32Bits - sftrem));
+
+                    Avx.Store(v + i, Avx2.Or(ls, ms));
+                }
+                if (count_rems > 0) {
+                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + i + sftdev, mask), (byte)sftrem);
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + i + sftdev + 1, mask), (byte)(UInt32Bits - sftrem));
+
+                    Avx2.MaskStore(v + i, mask, Avx2.Or(ls, ms));
+                }
+
+                v[count] = v[value.Length - 1] >> sftrem;
+            }
+
+            Zeroset(value, count + 1, (uint)sftdev);
+        }
+
+        /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe void LeftBlockShift([DisallowNull] UInt32[] value, int sft) {
+
+#if DEBUG
+            if (sft < 0) {
+                throw new ArgumentException(nameof(sft));
+            }
+#endif
+            if (checked(sft + Digits(value)) > value.Length) {
+                throw new OverflowException();
+            }
+
+            uint count = (uint)(value.Length - sft);
+            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+
+            fixed (UInt32* v = value) {
+                uint i;
+                if (count_rems > 0) {
+                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Avx2.MaskStore(v + count_sets + sft, mask, Avx2.MaskLoad(v + count_sets, mask));
+                }
+                for (i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                    Avx.Store(v + i + sft - Mask.MM256UInt32s, Avx2.LoadVector256(v + i - Mask.MM256UInt32s));
+                }
+            }
+
+            Zeroset(value, 0, (uint)sft);
+        }
+
+        /// <summary>Shift uint32 array v &gt;&gt;= sft * UInt32Bits</summary>
+        public static unsafe void RightBlockShift([DisallowNull] UInt32[] value, int sft) {
+
+#if DEBUG
+            if (sft < 0) {
+                throw new ArgumentException(nameof(sft));
+            }
+#endif
+            if (sft >= value.Length) {
+                Zeroset(value);
+                return;
+            }
+
+            uint count = (uint)(value.Length - sft);
+            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+
+            fixed (UInt32* v = value) {
+                uint i;
+                for (i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                    Avx.Store(v + i, Avx2.LoadVector256(v + i + sft));
+                }
+                if (count_rems > 0) {
+                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Avx2.MaskStore(v + i, mask, Avx2.MaskLoad(v + i + sft, mask));
+                }
+            }
+
+            Zeroset(value, count, (uint)sft);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static int LeadingZeroCount([DisallowNull] UInt32[] value) {
+            uint cnt = 0;
+
+            fixed (UInt32* v = value) {
+                for (int i = value.Length - 1; i >= 0; i--) {
+                    if (v[i] == 0) {
+                        cnt += UIntUtil.UInt32Bits;
+                    }
+                    else {
+                        cnt += Lzcnt.LeadingZeroCount(v[i]);
+                        break;
+                    }
+                }
+            }
+
+            return checked((int)cnt);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zeroset([DisallowNull] UInt32[] value, uint index, uint length) {
+            if (length <= 0) {
+                return;
+            }
+
+            uint length_sets = Mask.UInt32Sets(length), length_rems = Mask.UInt32Rems(length);
+            
+            fixed (UInt32* v = value) {                
+                uint i;
+                for (i = 0; i < length_sets; i += Mask.MM256UInt32s) {
+                    Avx.Store(v + i + index, Vector256<UInt32>.Zero);
+                }
+                if (length_rems > 0) {
+                    Avx2.MaskStore(v + i + index, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+                }
+            }
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static void Zeroset([DisallowNull] UInt32[] value) {
+            uint length = (uint)value.Length;
+
+            uint length_sets = Mask.UInt32Sets(length), length_rems = Mask.UInt32Rems(length);
+            
+            fixed (UInt32* v = value) {                
+                uint i;
+                for (i = 0; i < length_sets; i += Mask.MM256UInt32s) {
+                    Avx.Store(v + i, Vector256<UInt32>.Zero);
+                }
+                if (length_rems > 0) {
+                    Avx2.MaskStore(v + i, Mask.LSV(length_rems), Vector256<UInt32>.Zero);
+                }
+            }
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetBit([DisallowNull] UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
@@ -116,6 +321,84 @@ namespace MultiPrecision {
 
             for (int i = 0; i < mask_index; i++) {
                 v[i] = 0u;
+            }
+        }
+
+        public static unsafe bool IsZero([DisallowNull] UInt32[] value) {
+            fixed (UInt32* v = value) {
+                for (int i = 0; i < value.Length; i++) {
+                    if (v[i] != 0) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe bool IsFull([DisallowNull] UInt32[] value) {
+            fixed (UInt32* v = value) {
+                for (int i = 0; i < value.Length; i++) {
+                    if ((~v[i]) != 0) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe int Digits([DisallowNull] UInt32[] value) {
+            fixed (UInt32* v = value) {
+                for (int i = value.Length - 1; i >= 0; i--) {
+                    if (v[i] != 0) {
+                        return i + 1;
+                    }
+                }
+            }
+
+            return 1;
+        }
+
+        private static class Mask {
+            private static readonly Vector256<UInt32>[] lstable, mstable;
+
+            public const uint MM256UInt32s = 8;
+
+            static unsafe Mask() {
+                lstable = new Vector256<UInt32>[MM256UInt32s];
+                mstable = new Vector256<UInt32>[MM256UInt32s];
+
+                UInt32[] value = new UInt32[15] { ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, ~0u, 0, 0, 0, 0, 0, 0, 0, 0 };
+
+                fixed (UInt32* v = value) {
+                    for (int i = 0; i < lstable.Length; i++) {
+                        lstable[i] = Avx.LoadVector256(v + (MM256UInt32s - 1 - i));
+                        mstable[i] = Avx2.Xor(lstable[i], Vector256<UInt32>.Zero);
+                    }
+                }
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static uint UInt32Sets(uint length) { 
+                return length / MM256UInt32s * MM256UInt32s;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static uint UInt32Rems(uint length) { 
+                return length % MM256UInt32s;
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static Vector256<UInt32> LSV(uint count) { 
+                return Mask.lstable[count];
+            }
+
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public static Vector256<UInt32> MSV(uint count) { 
+                return Mask.mstable[count];
             }
         }
     }

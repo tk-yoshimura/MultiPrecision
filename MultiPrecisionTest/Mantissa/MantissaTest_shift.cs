@@ -9,10 +9,15 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void LeftShiftTest() {
-            Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(1u);
-            BigInteger bi = v;
+            Random random = new Random(1234);
 
             for (int sft = 0; sft < Mantissa<Pow2.N32>.Bits; sft++) {
+                UInt32[] mantissa = (new UInt32[Mantissa<Pow2.N32>.Length]).Select((_, idx) => idx < Mantissa<Pow2.N32>.Length - sft / UIntUtil.UInt32Bits ? (UInt32)random.Next() : 0u).ToArray();
+                mantissa[Mantissa<Pow2.N32>.Length - sft / UIntUtil.UInt32Bits - 1] >>= sft % UIntUtil.UInt32Bits;
+
+                Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
+                BigInteger bi = v;
+
                 Mantissa<Pow2.N32> v_sft = v << sft;
                 BigInteger bi_sft = bi << sft;
 
@@ -22,6 +27,8 @@ namespace MultiPrecisionTest {
             }
 
             Assert.ThrowsException<OverflowException>(() => {
+                Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(1u);
+
                 Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.LeftBlockShift(v, Mantissa<Pow2.N32>.Length);
             });
         }
@@ -35,7 +42,7 @@ namespace MultiPrecisionTest {
             Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
             BigInteger bi = v;
 
-            for (int sft = 0; sft <= 2500; sft++) {
+            for (int sft = 33; sft <= 2500; sft++) {
                 Mantissa<Pow2.N32> v_sft = v >> sft;
                 BigInteger bi_sft = bi >> sft;
 
@@ -47,10 +54,14 @@ namespace MultiPrecisionTest {
 
         [TestMethod]
         public void LeftBlockShiftTest() {
-            Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(0x12345678u);
-            BigInteger bi = v;
-
+            Random random = new Random(1234);
+            
             for (int sft = 0; sft < Mantissa<Pow2.N32>.Length; sft++) {
+                UInt32[] mantissa = (new UInt32[Mantissa<Pow2.N32>.Length]).Select((_, idx) => idx < Mantissa<Pow2.N32>.Length - sft ? (UInt32)random.Next() : 0u).ToArray();
+
+                Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(mantissa);
+                BigInteger bi = v;
+
                 Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.LeftBlockShift(v, sft);
                 BigInteger bi_sft = bi << (sft * 32);
 
@@ -60,6 +71,8 @@ namespace MultiPrecisionTest {
             }
 
             Assert.ThrowsException<OverflowException>(() => {
+                 Mantissa<Pow2.N32> v = new Mantissa<Pow2.N32>(0x12345678u);
+
                 Mantissa<Pow2.N32> v_sft = Mantissa<Pow2.N32>.LeftBlockShift(v, Mantissa<Pow2.N32>.Length);
             });
         }
