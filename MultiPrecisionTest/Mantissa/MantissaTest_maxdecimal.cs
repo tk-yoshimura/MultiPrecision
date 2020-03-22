@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Mantissa {
     public partial class MantissaTest {
         [TestMethod]
         public void MaxDecimalTest() {

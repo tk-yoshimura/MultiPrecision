@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using System.Numerics;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Mantissa {
     public partial class MantissaTest {
 
         [TestMethod]

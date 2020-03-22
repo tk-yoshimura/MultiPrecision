@@ -3,8 +3,8 @@ using MultiPrecision;
 using System;
 using System.Linq;
 
-namespace MultiPrecisionTest {
-    [TestClass]
+namespace MultiPrecisionTest.Arithmetics {
+    
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void AccumulatorAddTest() {

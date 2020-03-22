@@ -2,7 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Accumulator {
     public partial class AccumulatorTest {
 
         [TestMethod]

@@ -3,7 +3,7 @@ using MultiPrecision;
 using System;
 using System.Linq;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Mantissa {
     public partial class MantissaTest {
 
         [TestMethod]

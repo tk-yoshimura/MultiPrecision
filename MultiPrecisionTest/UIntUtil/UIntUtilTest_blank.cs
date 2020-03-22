@@ -1,6 +1,6 @@
 //using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-//namespace MultiPrecisionTest {
+//namespace MultiPrecisionTest.UIntUtils {
 
 //    [TestClass]
 //    public partial class UintUtilTest {

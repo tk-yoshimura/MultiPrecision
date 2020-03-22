@@ -3,7 +3,7 @@ using MultiPrecision;
 using System;
 using System.Linq;
 
-namespace MultiPrecisionTest {
+namespace MultiPrecisionTest.Accumulator {
     [TestClass]
     public partial class AccumulatorTest {
         [TestMethod]

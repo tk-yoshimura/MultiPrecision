@@ -52,8 +52,6 @@ namespace MultiPrecision {
 
             int digits = mantissa_withoutpoint.Length - 1;
 
-
-
             return FromStringCore(sign, exponent_dec, mantissa_dec, digits);
         }
 
