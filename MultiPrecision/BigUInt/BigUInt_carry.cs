@@ -16,10 +16,10 @@ namespace MultiPrecision {
                 for (int i = dig; i < Length && v > 0; i++) {
                     (v, arr[i]) = UIntUtil.Unpack(unchecked((UInt64)arr[i] + (UInt64)v));
                 }
+            }
 
-                if (v > 0) {
-                    throw new OverflowException();
-                }
+            if (v > 0) {
+                throw new OverflowException();
             }
         }
 

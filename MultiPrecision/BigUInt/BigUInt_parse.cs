@@ -18,7 +18,7 @@ namespace MultiPrecision {
             }
 
             const int decimals = 9;
-            BigUInt<N, K> decbase = new BigUInt<N, K>(1000000000ul), decpow = new BigUInt<N, K>(1);
+            BigUInt<N, K> decbase = Decimal(decimals), decpow = 1;
 
             for (int i = 0; ; i += decimals) {
                 if (i + decimals < s.Length) {

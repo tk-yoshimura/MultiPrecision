@@ -17,7 +17,7 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> SinPI(MultiPrecision<N> x) {
-            return CosHalfPI(Ldexp(x, 1) + Integer(-1));
+            return CosHalfPI(Ldexp(x, 1) + MinusOne);
         }
 
         public static MultiPrecision<N> CosPI(MultiPrecision<N> x) {

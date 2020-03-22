@@ -60,7 +60,7 @@ namespace MultiPrecision {
             }
         }
 
-        public unsafe bool IsZero => UIntUtil.IsZero(value);
+        public bool IsZero => UIntUtil.IsZero(value);
 
         public bool IsFull => UIntUtil.IsFull(value);
 
