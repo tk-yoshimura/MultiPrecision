@@ -17,7 +17,7 @@ namespace MultiPrecisionTest.Accumulator {
             UInt32[] v6 = new UInt32[] { ~0u, ~0u, ~0u, ~0u, 0x7FFFFFFFu, 0u, 0u, 0u };
             UInt32[] v7 = new UInt32[] { ~0u, ~0u, ~0u, ~0u, 0x80000000u, 0u, 0u, 0u };
             UInt32[] v8 = new UInt32[] { ~0u, ~0u, ~0u, ~0u, ~0u, 0u, 0u, 0u };
-            UInt32[] v9 = new UInt32[]  { 0u, 0x3FFFFFFFu, ~0u, ~0u, ~0u, 0u, 0u, 0u };
+            UInt32[] v9 = new UInt32[] { 0u, 0x3FFFFFFFu, ~0u, ~0u, ~0u, 0u, 0u, 0u };
             UInt32[] v10 = new UInt32[] { 0u, 0x7FFFFFFFu, ~0u, ~0u, ~0u, 0u, 0u, 0u };
             UInt32[] v11 = new UInt32[] { 0u, 0x7FFFFFFFu, ~0u, ~0u, ~0u, 0x7FFFFFFFu, 0u, 0u };
             UInt32[] v12 = new UInt32[] { 0u, 0x7FFFFFFFu, ~0u, ~0u, ~0u, 0x80000000u, 0u, 0u };
@@ -62,55 +62,55 @@ namespace MultiPrecisionTest.Accumulator {
             (Mantissa<Pow2.N4> n15, int sft15) = acc15.Mantissa;
             (Mantissa<Pow2.N4> n16, int sft16) = acc16.Mantissa;
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0u, 0u, 0u, 0u }.Reverse().ToArray(), n0.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0u, 0u, 0u, 0u }.Reverse().ToArray(), n0.Value);
             Assert.AreEqual(0, sft0);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u << 2 }.Reverse().ToArray(), n1.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u << 2 }.Reverse().ToArray(), n1.Value);
             Assert.AreEqual(2, sft1);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u << 1 }.Reverse().ToArray(), n2.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u << 1 }.Reverse().ToArray(), n2.Value);
             Assert.AreEqual(1, sft2);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, (~0u << 1) + 1 }.Reverse().ToArray(), n3.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, (~0u << 1) + 1 }.Reverse().ToArray(), n3.Value);
             Assert.AreEqual(1, sft3);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n4.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n4.Value);
             Assert.AreEqual(1, sft4);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n5.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n5.Value);
             Assert.AreEqual(0, sft5);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n6.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n6.Value);
             Assert.AreEqual(0, sft6);
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n7.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n7.Value);
             Assert.AreEqual(-1, sft7);
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n8.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n8.Value);
             Assert.AreEqual(-1, sft8);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u << 2 }.Reverse().ToArray(), n9.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u << 2 }.Reverse().ToArray(), n9.Value);
             Assert.AreEqual(34, sft9);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u << 1 }.Reverse().ToArray(), n10.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u << 1 }.Reverse().ToArray(), n10.Value);
             Assert.AreEqual(33, sft10);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, (~0u << 1) + 1 }.Reverse().ToArray(), n11.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, (~0u << 1) + 1 }.Reverse().ToArray(), n11.Value);
             Assert.AreEqual(33, sft11);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n12.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n12.Value);
             Assert.AreEqual(33, sft12);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n13.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n13.Value);
             Assert.AreEqual(32, sft13);
 
-            CollectionAssert.AreEqual(new UInt32[]{ ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n14.Value);
+            CollectionAssert.AreEqual(new UInt32[] { ~0u, ~0u, ~0u, ~0u }.Reverse().ToArray(), n14.Value);
             Assert.AreEqual(32, sft14);
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n15.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n15.Value);
             Assert.AreEqual(31, sft15);
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n16.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n16.Value);
             Assert.AreEqual(31, sft16);
         }
     }

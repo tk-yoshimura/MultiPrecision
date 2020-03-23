@@ -170,7 +170,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N32, Pow2.N1> v2 = new BigUInt<Pow2.N32, Pow2.N1>(value2);
                 BigUInt<Pow2.N32, Pow2.N1> v3 = new BigUInt<Pow2.N32, Pow2.N1>((UInt32)random.Next(4));
 
-                if (v2.IsZero || v2 <= v3) { 
+                if (v2.IsZero || v2 <= v3) {
                     continue;
                 }
 
@@ -221,7 +221,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N32, Pow2.N1> vdiv = BigUInt<Pow2.N32, Pow2.N1>.RoundDiv(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 % bi2;
 
-                if(birem * 2 >= bi2) { 
+                if (birem * 2 >= bi2) {
                     bidiv++;
                 }
 

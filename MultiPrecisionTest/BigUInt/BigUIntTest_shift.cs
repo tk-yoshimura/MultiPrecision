@@ -119,19 +119,19 @@ namespace MultiPrecisionTest.BigUInt {
             for (int sft = 0; sft <= BigUInt<Pow2.N32, Pow2.N1>.Bits + 4; sft++) {
                 BigUInt<Pow2.N32, Pow2.N1> v_sft = BigUInt<Pow2.N32, Pow2.N1>.RightRoundShift(v, sft);
                 BigInteger bi_sft;
-                if(sft > 0) { 
+                if (sft > 0) {
                     bi_sft = bi >> (sft - 1);
 
-                    if((bi_sft & 1) == 1) { 
-                        bi_sft = (bi_sft >> 1) + 1; 
+                    if ((bi_sft & 1) == 1) {
+                        bi_sft = (bi_sft >> 1) + 1;
                         Console.WriteLine("RoundUp");
                     }
-                    else { 
-                        bi_sft >>= 1; 
+                    else {
+                        bi_sft >>= 1;
                         Console.WriteLine("RoundDown");
                     }
                 }
-                else { 
+                else {
                     bi_sft = bi >> sft;
 
                     Console.WriteLine("RoundDown");
@@ -158,19 +158,19 @@ namespace MultiPrecisionTest.BigUInt {
             for (int sft = 0; sft <= BigUInt<Pow2.N32, Pow2.N1>.Length + 4; sft++) {
                 BigUInt<Pow2.N32, Pow2.N1> v_sft = BigUInt<Pow2.N32, Pow2.N1>.RightRoundBlockShift(v, sft);
                 BigInteger bi_sft;
-                if(sft > 0) { 
+                if (sft > 0) {
                     bi_sft = bi >> (sft * UIntUtil.UInt32Bits - 1);
 
-                    if((bi_sft & 1) == 1) { 
-                        bi_sft = (bi_sft >> 1) + 1; 
+                    if ((bi_sft & 1) == 1) {
+                        bi_sft = (bi_sft >> 1) + 1;
                         Console.WriteLine("RoundUp");
                     }
-                    else { 
-                        bi_sft >>= 1; 
+                    else {
+                        bi_sft >>= 1;
                         Console.WriteLine("RoundDown");
                     }
                 }
-                else { 
+                else {
                     bi_sft = bi >> (sft * UIntUtil.UInt32Bits);
 
                     Console.WriteLine("RoundDown");

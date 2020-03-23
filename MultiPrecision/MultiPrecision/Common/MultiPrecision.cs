@@ -86,7 +86,7 @@ namespace MultiPrecision {
         }
 
         public override bool Equals(object obj) {
-            return (obj is MultiPrecision<N> n) && (n == this);
+            return (obj is MultiPrecision<N> n) && (n == this || (n.IsNaN && this.IsNaN));
         }
 
         public override int GetHashCode() {

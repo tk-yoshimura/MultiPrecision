@@ -7,7 +7,7 @@ namespace MultiPrecision {
 
         [Conditional("DEBUG")]
         public static void Assert([DoesNotReturnIf(false)] bool condition) {
-            if (!condition) { 
+            if (!condition) {
                 throw new T();
             }
         }

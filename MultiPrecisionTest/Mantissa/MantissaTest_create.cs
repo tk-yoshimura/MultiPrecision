@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.Mantissa {
         public void CreateTest() {
             int length = Mantissa<Pow2.N4>.Length;
 
-            UInt32[] vs = new UInt32[] { 
+            UInt32[] vs = new UInt32[] {
                 0x11111111u, 0x22222222u, 0x33333333u, 0x44444444u, 0x55555555u, 0x66666666u, 0x77777777u, 0x88888888u,
                 0x99999999u, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu, 0xDDDDDDDDu, 0xEEEEEEEEu, 0xFFFFFFFFu, 0u,
             };
@@ -30,12 +30,12 @@ namespace MultiPrecisionTest.Mantissa {
             Mantissa<Pow2.N4> n5 = new Mantissa<Pow2.N4>(acc5);
             Mantissa<Pow2.N4> n6 = new Mantissa<Pow2.N4>(acc6);
 
-            CollectionAssert.AreEqual(new UInt32[]{ 0x55555555u, 0x66666666u, 0x77777777u, 0x88888888u }, n1.Value);
-            CollectionAssert.AreEqual(new UInt32[]{ 0x9999999Au, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu }, n2.Value);
-            CollectionAssert.AreEqual(new UInt32[]{ 0xDDDDDDDEu, 0xEEEEEEEEu, 0xFFFFFFFFu, 0u }, n3.Value);
-            CollectionAssert.AreEqual(new UInt32[]{ 0xCCCCCCCDu, 0xBBBBBBBBu, 0xAAAAAAAAu, 0x99999999u }, n4.Value);
-            CollectionAssert.AreEqual(new UInt32[]{ 0x88888889u, 0x77777777u, 0x66666666u, 0x55555555u }, n5.Value);
-            CollectionAssert.AreEqual(new UInt32[]{ 0x44444444u, 0x33333333u, 0x22222222u, 0x11111111u }, n6.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x55555555u, 0x66666666u, 0x77777777u, 0x88888888u }, n1.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x9999999Au, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu }, n2.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0xDDDDDDDEu, 0xEEEEEEEEu, 0xFFFFFFFFu, 0u }, n3.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0xCCCCCCCDu, 0xBBBBBBBBu, 0xAAAAAAAAu, 0x99999999u }, n4.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x88888889u, 0x77777777u, 0x66666666u, 0x55555555u }, n5.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x44444444u, 0x33333333u, 0x22222222u, 0x11111111u }, n6.Value);
         }
     }
 }

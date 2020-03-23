@@ -33,7 +33,7 @@ namespace MultiPrecision {
 
             string mantissa = num[..exponent_symbol_index].TrimStart('0');
 
-            if (string.IsNullOrEmpty(mantissa)) { 
+            if (string.IsNullOrEmpty(mantissa)) {
                 return sign == Sign.Plus ? Zero : MinusZero;
             }
 

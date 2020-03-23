@@ -8,8 +8,10 @@ namespace MultiPrecisionTest.Common {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void ParseTest() {
-            /* without sign */{ 
-                /* without exp */{ 
+            /* without sign */
+            {
+                /* without exp */
+                {
                     MultiPrecision<Pow2.N8> v1 = "2.56";
                     Assert.AreEqual(2.56, (double)v1);
 
@@ -53,7 +55,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(256, (double)v14);
                 }
 
-                /* with e10 */{ 
+                /* with e10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "2.56e10";
                     Assert.AreEqual(2.56e10, (double)v1);
 
@@ -97,7 +100,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(2.56e12, (double)v14);
                 }
 
-                /* with e+10 */{ 
+                /* with e+10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "2.56e+10";
                     Assert.AreEqual(2.56e10, (double)v1);
 
@@ -141,7 +145,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(2.56e12, (double)v14);
                 }
 
-                /* with e-10 */{ 
+                /* with e-10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "2.56e-10";
                     Assert.AreEqual(2.56e-10, (double)v1);
 
@@ -186,8 +191,10 @@ namespace MultiPrecisionTest.Common {
                 }
             }
 
-            /* plus sign */{ 
-                /* without exp */{ 
+            /* plus sign */
+            {
+                /* without exp */
+                {
                     MultiPrecision<Pow2.N8> v1 = "+2.56";
                     Assert.AreEqual(2.56, (double)v1);
 
@@ -231,7 +238,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(256, (double)v14);
                 }
 
-                /* with e10 */{ 
+                /* with e10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "+2.56e10";
                     Assert.AreEqual(2.56e10, (double)v1);
 
@@ -275,7 +283,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(2.56e12, (double)v14);
                 }
 
-                /* with e+10 */{ 
+                /* with e+10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "+2.56e+10";
                     Assert.AreEqual(2.56e10, (double)v1);
 
@@ -319,7 +328,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(2.56e12, (double)v14);
                 }
 
-                /* with e-10 */{ 
+                /* with e-10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "+2.56e-10";
                     Assert.AreEqual(2.56e-10, (double)v1);
 
@@ -364,8 +374,10 @@ namespace MultiPrecisionTest.Common {
                 }
             }
 
-            /* plus sign */{ 
-                /* without exp */{ 
+            /* plus sign */
+            {
+                /* without exp */
+                {
                     MultiPrecision<Pow2.N8> v1 = "-2.56";
                     Assert.AreEqual(-2.56, (double)v1);
 
@@ -409,7 +421,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(-256, (double)v14);
                 }
 
-                /* with e10 */{ 
+                /* with e10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "-2.56e10";
                     Assert.AreEqual(-2.56e10, (double)v1);
 
@@ -453,7 +466,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(-2.56e12, (double)v14);
                 }
 
-                /* with e+10 */{ 
+                /* with e+10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "-2.56e+10";
                     Assert.AreEqual(-2.56e10, (double)v1);
 
@@ -497,7 +511,8 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(-2.56e12, (double)v14);
                 }
 
-                /* with e-10 */{ 
+                /* with e-10 */
+                {
                     MultiPrecision<Pow2.N8> v1 = "-2.56e-10";
                     Assert.AreEqual(-2.56e-10, (double)v1);
 
@@ -542,7 +557,8 @@ namespace MultiPrecisionTest.Common {
                 }
             }
 
-            /* zero */{ 
+            /* zero */
+            {
                 MultiPrecision<Pow2.N8> v1 = "0";
                 Assert.AreEqual(0, (double)v1);
 
