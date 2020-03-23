@@ -55,7 +55,7 @@ namespace MultiPrecision {
                     a -= d;
                     s = Sign.Plus;
                 }
-                w = Accumulator<N>.RightRoundShift(w * m, Mantissa<N>.Bits - 1);
+                w = Accumulator<N>.MulShift(w, m);
             }
 
             (Mantissa<N> n, int sft) = a.Mantissa;

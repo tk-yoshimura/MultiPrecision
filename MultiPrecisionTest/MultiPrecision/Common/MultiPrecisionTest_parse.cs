@@ -106,7 +106,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
-                string num = "314" + new string(Enumerable.Repeat('0', i).ToArray());
+                string num = "314" + new string('0', i);
 
                 MultiPrecision<Pow2.N8> v = num;
 
@@ -114,7 +114,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
-                string num = "00314" + new string(Enumerable.Repeat('0', i).ToArray());
+                string num = "00314" + new string('0', i);
 
                 MultiPrecision<Pow2.N8> v = num;
 
@@ -122,7 +122,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
-                string num = "314" + new string(Enumerable.Repeat('0', i).ToArray()) + ".00";
+                string num = "314" + new string('0', i) + ".00";
 
                 MultiPrecision<Pow2.N8> v = num;
 
@@ -130,7 +130,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (int i = 1; i <= Accumulator<Pow2.N8>.MaxDecimalDigits + 10; i++) {
-                string num = "00314" + new string(Enumerable.Repeat('0', i).ToArray()) + ".00";
+                string num = "00314" + new string('0', i) + ".00";
 
                 MultiPrecision<Pow2.N8> v = num;
 

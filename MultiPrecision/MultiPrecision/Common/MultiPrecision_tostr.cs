@@ -56,7 +56,7 @@ namespace MultiPrecision {
             (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) = ToStringCore(digits);
 
             if (mantissa_dec.IsZero) {
-                return (sign == Sign.Plus ? "0." : "-0.") + new string(Enumerable.Repeat('0', digits).ToArray()) + $"{format[0]}0";
+                return (sign == Sign.Plus ? "0." : "-0.") + new string('0', digits) + $"{format[0]}0";
             }
 
             string num = mantissa_dec.ToString();
@@ -86,7 +86,7 @@ namespace MultiPrecision {
 
             Int64 exponent_dec = (Int64)exponent_int;
 
-            Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa, 2);
+            Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa);
 
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + presicion));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
