@@ -17,7 +17,7 @@ namespace MultiPrecision {
             for (int i = 0, init = Mantissa<N>.Bits; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++) {
                 v *= v;
                 if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
-                    UIntUtil.SetBit(mantissa, i);
+                    UIntUtil.SetMSB(mantissa, i);
                     v = Accumulator<N>.RightRoundBlockShift(v, Mantissa<N>.Length);
 
                     if (init >= Mantissa<N>.Bits) {

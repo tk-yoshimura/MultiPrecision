@@ -57,7 +57,7 @@ namespace MultiPrecision {
 
             ret.RightShift(sft);
 
-            if (sft >= 1 && UIntUtil.GetBit(n.value, sft - 1) != 0) {
+            if (sft >= 1 && sft <= Bits && UIntUtil.GetLSB(n.value, sft - 1) != 0) {
                 ret.CarryAdd(0, 1);
             }
 
@@ -69,7 +69,7 @@ namespace MultiPrecision {
 
             ret.RightBlockShift(sft);
 
-            if (sft >= 1 && n.value[sft - 1] > UIntUtil.UInt32Round) {
+            if (sft >= 1 && sft <= Length && n.value[sft - 1] > UIntUtil.UInt32Round) {
                 ret.CarryAdd(0, 1);
             }
 

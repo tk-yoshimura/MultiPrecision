@@ -106,5 +106,63 @@ namespace MultiPrecisionTest.BigUInt {
                 Console.Write("\n");
             }
         }
+
+        [TestMethod]
+        public void RightRoundShiftTest() {
+            Random random = new Random(1234);
+
+            UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32, Pow2.N1>.Length, BigUInt<Pow2.N32, Pow2.N1>.Bits);
+
+            BigUInt<Pow2.N32, Pow2.N1> v = new BigUInt<Pow2.N32, Pow2.N1>(mantissa);
+            BigInteger bi = v;
+
+            for (int sft = 0; sft <= BigUInt<Pow2.N32, Pow2.N1>.Bits + 4; sft++) {
+                BigUInt<Pow2.N32, Pow2.N1> v_sft = BigUInt<Pow2.N32, Pow2.N1>.RightRoundShift(v, sft);
+                BigInteger bi_sft;
+                if(sft > 0) { 
+                    bi_sft = bi >> (sft - 1);
+                    bi_sft = ((bi_sft & 1) == 1) ? (bi_sft >> 1) + 1 : (bi_sft >> 1); 
+                }
+                else { 
+                    bi_sft = bi >> sft;
+                }
+
+                Console.WriteLine(sft);
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(v_sft.ToHexcode());
+                Assert.AreEqual(bi_sft, v_sft);
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void RightRoundBlockShiftTest() {
+            Random random = new Random(1234);
+
+            UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32, Pow2.N1>.Length, BigUInt<Pow2.N32, Pow2.N1>.Bits);
+
+            BigUInt<Pow2.N32, Pow2.N1> v = new BigUInt<Pow2.N32, Pow2.N1>(mantissa);
+            BigInteger bi = v;
+
+            for (int sft = 0; sft <= BigUInt<Pow2.N32, Pow2.N1>.Length + 4; sft++) {
+                BigUInt<Pow2.N32, Pow2.N1> v_sft = BigUInt<Pow2.N32, Pow2.N1>.RightRoundBlockShift(v, sft);
+                BigInteger bi_sft;
+                if(sft > 0) { 
+                    bi_sft = bi >> (sft * UIntUtil.UInt32Bits - 1);
+                    bi_sft = ((bi_sft & 1) == 1) ? (bi_sft >> 1) + 1 : (bi_sft >> 1); 
+                }
+                else { 
+                    bi_sft = bi >> (sft * UIntUtil.UInt32Bits);
+                }
+
+                Console.WriteLine(sft);
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(v_sft.ToHexcode());
+                Assert.AreEqual(bi_sft, v_sft);
+
+                Console.Write("\n");
+            }
+        }
     }
 }
