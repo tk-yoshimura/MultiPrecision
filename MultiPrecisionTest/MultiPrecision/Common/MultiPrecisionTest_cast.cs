@@ -7,43 +7,34 @@ namespace MultiPrecisionTest.Common {
         [TestMethod]
         public void Int64Test() {
             MultiPrecision<Pow2.N8> zero = 0;
-            Console.WriteLine((double)zero);
-            Console.WriteLine((Int64)zero);
+            Assert.AreEqual(0L, (Int64)zero);
 
             MultiPrecision<Pow2.N8> one = 1;
-            Console.WriteLine((double)one);
-            Console.WriteLine((Int64)one);
+            Assert.AreEqual(1L, (Int64)one);
 
             MultiPrecision<Pow2.N8> minus_one = -1;
-            Console.WriteLine((double)minus_one);
-            Console.WriteLine((Int64)minus_one);
+            Assert.AreEqual(-1L, (Int64)minus_one);
 
             MultiPrecision<Pow2.N8> maxhalf_value = Int64.MaxValue / 2;
-            Console.WriteLine((double)maxhalf_value);
-            Console.WriteLine((Int64)maxhalf_value);
+            Assert.AreEqual(Int64.MaxValue / 2, (Int64)maxhalf_value);
 
             MultiPrecision<Pow2.N8> minhalf_value = Int64.MinValue / 2;
-            Console.WriteLine((double)minhalf_value);
-            Console.WriteLine((Int64)minhalf_value);
+            Assert.AreEqual(Int64.MinValue / 2, (Int64)minhalf_value);
 
             MultiPrecision<Pow2.N8> max_value = Int64.MaxValue;
-            Console.WriteLine((double)max_value);
-            Console.WriteLine((Int64)max_value);
+            Assert.AreEqual(Int64.MaxValue, (Int64)max_value);
 
             MultiPrecision<Pow2.N8> min_value = Int64.MinValue;
-            Console.WriteLine((double)min_value);
-            Console.WriteLine((Int64)min_value);
+            Assert.AreEqual(Int64.MinValue, (Int64)min_value);
 
             for (Int64 i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
-                Console.WriteLine((double)m);
-                Console.WriteLine((Int64)m);
+                Assert.AreEqual(i, (Int64)m);
             }
 
             for (Int64 i = -10; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
-                Console.WriteLine((double)m);
-                Console.WriteLine((Int64)m);
+                Assert.AreEqual(i, (Int64)m);
             }
 
             Assert.ThrowsException<OverflowException>(() => {
@@ -53,6 +44,40 @@ namespace MultiPrecisionTest.Common {
             Assert.ThrowsException<OverflowException>(() => {
                 Int64 v = (Int64)(max_value + 1);
             });
+        }
+
+        [TestMethod]
+        public void DoubleTest() {
+            MultiPrecision<Pow2.N8> zero = 0;
+            Assert.AreEqual((double)0L, (double)zero);
+
+            MultiPrecision<Pow2.N8> one = 1;
+            Assert.AreEqual((double)1L, (double)one);
+
+            MultiPrecision<Pow2.N8> minus_one = -1;
+            Assert.AreEqual((double)-1L, (double)minus_one);
+
+            MultiPrecision<Pow2.N8> maxhalf_value = Int64.MaxValue / 2;
+            Assert.AreEqual((double)(Int64.MaxValue / 2), (double)maxhalf_value);
+
+            MultiPrecision<Pow2.N8> minhalf_value = Int64.MinValue / 2;
+            Assert.AreEqual((double)(Int64.MinValue / 2), (double)minhalf_value);
+
+            MultiPrecision<Pow2.N8> max_value = Int64.MaxValue;
+            Assert.AreEqual((double)(Int64.MaxValue), (double)max_value);
+
+            MultiPrecision<Pow2.N8> min_value = Int64.MinValue;
+            Assert.AreEqual((double)(Int64.MinValue), (double)min_value);
+
+            for (Int64 i = 10; i <= 100000000000; i *= 10) {
+                MultiPrecision<Pow2.N8> m = i;
+                Assert.AreEqual((double)i, (double)m);
+            }
+
+            for (Int64 i = -10; i >= -100000000000; i *= 10) {
+                MultiPrecision<Pow2.N8> m = i;
+                Assert.AreEqual((double)i, (double)m);
+            }
         }
     }
 }

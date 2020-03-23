@@ -20,13 +20,9 @@ namespace MultiPrecisionTest.Arithmetics {
             MultiPrecision<Pow2.N8>.MinusOne / 3,
             MultiPrecision<Pow2.N8>.MinusOne / 4,
             MultiPrecision<Pow2.N8>.MinusOne / 5,
-            MultiPrecision<Pow2.N8>.MaxValue,
-            MultiPrecision<Pow2.N8>.MinValue,
             MultiPrecision<Pow2.N8>.PositiveInfinity,
             MultiPrecision<Pow2.N8>.NegativeInfinity,
             MultiPrecision<Pow2.N8>.NaN,
-            MultiPrecision<Pow2.N8>.Epsilon,
-            -MultiPrecision<Pow2.N8>.Epsilon
         };
 
 
@@ -49,6 +45,8 @@ namespace MultiPrecisionTest.Arithmetics {
                             Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} + {b} = {c_actual}");
                             Console.Write("\n");
+
+                            Assert.Fail();
                         }
                     }
                     else {
@@ -57,6 +55,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} + {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                         else {
@@ -64,6 +64,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} + {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                     }
@@ -90,6 +92,8 @@ namespace MultiPrecisionTest.Arithmetics {
                             Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} - {b} = {c_actual}");
                             Console.Write("\n");
+
+                            Assert.Fail();
                         }
                     }
                     else {
@@ -98,6 +102,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} - {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                         else {
@@ -105,6 +111,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} - {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                     }
@@ -131,6 +139,8 @@ namespace MultiPrecisionTest.Arithmetics {
                             Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} * {b} = {c_actual}");
                             Console.Write("\n");
+
+                            Assert.Fail();
                         }
                     }
                     else {
@@ -139,6 +149,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} * {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                         else {
@@ -146,6 +158,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} * {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                     }
@@ -172,6 +186,8 @@ namespace MultiPrecisionTest.Arithmetics {
                             Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} / {b} = {c_actual}");
                             Console.Write("\n");
+
+                            Assert.Fail();
                         }
                     }
                     else {
@@ -180,6 +196,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} / {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                         else {
@@ -187,6 +205,8 @@ namespace MultiPrecisionTest.Arithmetics {
                                 Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                                 Console.WriteLine($"{a} / {b} = {c_actual}");
                                 Console.Write("\n");
+
+                                Assert.Fail();
                             }
                         }
                     }

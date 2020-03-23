@@ -21,6 +21,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = -1; i >= -10000; i *= 10) {
@@ -36,6 +38,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = 2; i <= 10000; i *= 2) {
@@ -51,6 +55,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = -2; i >= -10000; i *= 2) {
@@ -66,6 +72,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = 1; i <= 10000; i *= 10) {
@@ -81,6 +89,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = -1; i >= -10000; i *= 10) {
@@ -96,6 +106,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = 2; i <= 10000; i *= 2) {
@@ -111,6 +123,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = -2; i >= -10000; i *= 2) {
@@ -126,6 +140,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             for (int i = 0; i <= 10; i++) {
@@ -141,6 +157,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
             }
 
             MultiPrecision<Pow2.N8> p = 1;
@@ -157,6 +175,8 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                 Console.WriteLine(u.ToString());
+
+                Assert.IsTrue(v.ToString() == u.ToString());
 
                 p *= 10;
             }

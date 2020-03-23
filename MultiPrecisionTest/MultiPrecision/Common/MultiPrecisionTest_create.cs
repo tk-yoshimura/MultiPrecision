@@ -29,21 +29,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(0, (double)n1);
+                Assert.AreEqual(-0, (double)n2);
+                Assert.AreEqual(0, (double)n3);
+                Assert.AreEqual(-0, (double)n4);
+                Assert.AreEqual(0, (double)n5);
+                Assert.AreEqual(-0, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(0, (double)n11);
+                Assert.AreEqual(-0, (double)n12);
+                Assert.AreEqual(0, (double)n13);
+                Assert.AreEqual(-0, (double)n14);
             }
 
             {
@@ -62,21 +61,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(1, (double)n1);
+                Assert.AreEqual(-1, (double)n2);
+                Assert.AreEqual(2, (double)n3);
+                Assert.AreEqual(-2, (double)n4);
+                Assert.AreEqual(0.5, (double)n5);
+                Assert.AreEqual(-0.5, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(double.PositiveInfinity, (double)n11);
+                Assert.AreEqual(double.NegativeInfinity, (double)n12);
+                Assert.AreEqual(double.PositiveInfinity, (double)n13);
+                Assert.AreEqual(double.NegativeInfinity, (double)n14);
             }
 
             {
@@ -95,21 +93,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(2, (double)n1);
+                Assert.AreEqual(-2, (double)n2);
+                Assert.AreEqual(4, (double)n3);
+                Assert.AreEqual(-4, (double)n4);
+                Assert.AreEqual(1, (double)n5);
+                Assert.AreEqual(-1, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(double.PositiveInfinity, (double)n11);
+                Assert.AreEqual(double.NegativeInfinity, (double)n12);
+                Assert.AreEqual(double.PositiveInfinity, (double)n13);
+                Assert.AreEqual(double.NegativeInfinity, (double)n14);
             }
 
             {
@@ -128,21 +125,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(0, (double)n1);
+                Assert.AreEqual(-0, (double)n2);
+                Assert.AreEqual(0, (double)n3);
+                Assert.AreEqual(-0, (double)n4);
+                Assert.AreEqual(0, (double)n5);
+                Assert.AreEqual(-0, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(0, (double)n11);
+                Assert.AreEqual(-0, (double)n12);
+                Assert.AreEqual(0, (double)n13);
+                Assert.AreEqual(-0, (double)n14);
             }
 
             {
@@ -161,21 +157,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(1, (double)n1);
+                Assert.AreEqual(-1, (double)n2);
+                Assert.AreEqual(2, (double)n3);
+                Assert.AreEqual(-2, (double)n4);
+                Assert.AreEqual(0.5, (double)n5);
+                Assert.AreEqual(-0.5, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(double.PositiveInfinity, (double)n11);
+                Assert.AreEqual(double.NegativeInfinity, (double)n12);
+                Assert.AreEqual(double.PositiveInfinity, (double)n13);
+                Assert.AreEqual(double.NegativeInfinity, (double)n14);
             }
 
             {
@@ -194,21 +189,20 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
                 MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
 
-                Console.WriteLine((double)n1);
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)n3);
-                Console.WriteLine((double)n4);
-                Console.WriteLine((double)n5);
-                Console.WriteLine((double)n6);
-                Console.WriteLine((double)n7);
-                Console.WriteLine((double)n8);
-                Console.WriteLine((double)n9);
-                Console.WriteLine((double)n10);
-                Console.WriteLine((double)n11);
-                Console.WriteLine((double)n12);
-                Console.WriteLine((double)n13);
-                Console.WriteLine((double)n14);
-                Console.Write("\n");
+                Assert.AreEqual(2, (double)n1);
+                Assert.AreEqual(-2, (double)n2);
+                Assert.AreEqual(4, (double)n3);
+                Assert.AreEqual(-4, (double)n4);
+                Assert.AreEqual(1, (double)n5);
+                Assert.AreEqual(-1, (double)n6);
+                Assert.AreEqual(0, (double)n7);
+                Assert.AreEqual(-0, (double)n8);
+                Assert.AreEqual(0, (double)n9);
+                Assert.AreEqual(-0, (double)n10);
+                Assert.AreEqual(double.PositiveInfinity, (double)n11);
+                Assert.AreEqual(double.NegativeInfinity, (double)n12);
+                Assert.AreEqual(double.PositiveInfinity, (double)n13);
+                Assert.AreEqual(double.NegativeInfinity, (double)n14);
             }
         }
     }
