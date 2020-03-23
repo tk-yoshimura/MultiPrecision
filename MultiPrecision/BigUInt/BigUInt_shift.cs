@@ -52,7 +52,7 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static BigUInt<N, K> RoundRightShift(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N, K> RightRoundShift(BigUInt<N, K> n, int sft) {
             BigUInt<N, K> ret = n.Copy();
 
             ret.RightShift(sft);

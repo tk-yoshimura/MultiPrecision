@@ -8,7 +8,7 @@ namespace MultiPrecision {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe int Digits([DisallowNull] UInt32[] value) {
             fixed (UInt32* v = value) {
-                for (int i = value.Length - 1; i >= 0; i--) {
+                for (int i = value.Length - 1; i >= 1; i--) {
                     if (v[i] != 0) {
                         return i + 1;
                     }

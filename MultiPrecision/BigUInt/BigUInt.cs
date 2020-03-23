@@ -40,14 +40,14 @@ namespace MultiPrecision {
         }
 
         public BigUInt(UInt32[] arr, int index) : this() {
-            if (arr == null || arr.Length - index != Length) {
+            if (arr == null || arr.Length - index != Length || index < 0) {
                 throw new ArgumentException();
             }
             Array.Copy(arr, index, this.value, 0, Length);
         }
 
         public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
-            if (arr == null) {
+            if (arr == null || index < 0) {
                 throw new ArgumentException();
             }
 
@@ -74,10 +74,6 @@ namespace MultiPrecision {
             get {
                 return value[index];
             }
-        }
-
-        public void Zeroset() {
-            UIntUtil.Zeroset(value);
         }
 
         public object Clone() {

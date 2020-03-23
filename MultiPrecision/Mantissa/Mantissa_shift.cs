@@ -26,7 +26,7 @@
         }
 
         public static Mantissa<N> RightRoundShift(Mantissa<N> n, int sft) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RoundRightShift(n.value, sft));
+            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RightRoundShift(n.value, sft));
         }
 
         public static Mantissa<N> RightRoundBlockShift(Mantissa<N> n, int sft) {

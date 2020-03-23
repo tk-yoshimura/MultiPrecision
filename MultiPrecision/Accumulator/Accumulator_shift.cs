@@ -26,7 +26,7 @@
         }
 
         public static Accumulator<N> RightRoundShift(Accumulator<N> n, int sft) {
-            return new Accumulator<N>(BigUInt<N, Pow2.N2>.RoundRightShift(n.value, sft));
+            return new Accumulator<N>(BigUInt<N, Pow2.N2>.RightRoundShift(n.value, sft));
         }
 
         public static Accumulator<N> RightRoundBlockShift(Accumulator<N> n, int sft) {
