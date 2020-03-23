@@ -121,10 +121,20 @@ namespace MultiPrecisionTest.BigUInt {
                 BigInteger bi_sft;
                 if(sft > 0) { 
                     bi_sft = bi >> (sft - 1);
-                    bi_sft = ((bi_sft & 1) == 1) ? (bi_sft >> 1) + 1 : (bi_sft >> 1); 
+
+                    if((bi_sft & 1) == 1) { 
+                        bi_sft = (bi_sft >> 1) + 1; 
+                        Console.WriteLine("RoundUp");
+                    }
+                    else { 
+                        bi_sft >>= 1; 
+                        Console.WriteLine("RoundDown");
+                    }
                 }
                 else { 
                     bi_sft = bi >> sft;
+
+                    Console.WriteLine("RoundDown");
                 }
 
                 Console.WriteLine(sft);
@@ -150,10 +160,20 @@ namespace MultiPrecisionTest.BigUInt {
                 BigInteger bi_sft;
                 if(sft > 0) { 
                     bi_sft = bi >> (sft * UIntUtil.UInt32Bits - 1);
-                    bi_sft = ((bi_sft & 1) == 1) ? (bi_sft >> 1) + 1 : (bi_sft >> 1); 
+
+                    if((bi_sft & 1) == 1) { 
+                        bi_sft = (bi_sft >> 1) + 1; 
+                        Console.WriteLine("RoundUp");
+                    }
+                    else { 
+                        bi_sft >>= 1; 
+                        Console.WriteLine("RoundDown");
+                    }
                 }
                 else { 
                     bi_sft = bi >> (sft * UIntUtil.UInt32Bits);
+
+                    Console.WriteLine("RoundDown");
                 }
 
                 Console.WriteLine(sft);
