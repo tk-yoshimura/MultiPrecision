@@ -14,6 +14,12 @@ namespace MultiPrecisionTest.Functions {
             foreach(var v in vs) { 
                 Console.WriteLine(v);
             }
+
+            MultiPrecision<Pow2.N8> vs_sum = vs.Sum();
+            MultiPrecision<Pow2.N8> vs_average = vs.Average();
+
+            Console.WriteLine($"sum : {vs_sum}");
+            Console.WriteLine($"average : {vs_average}");
         }
     }
 }
