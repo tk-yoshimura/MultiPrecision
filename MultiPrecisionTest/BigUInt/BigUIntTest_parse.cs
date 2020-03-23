@@ -11,12 +11,7 @@ namespace MultiPrecisionTest.BigUInt {
             Random random = new Random(1234);
 
             for (int i = 0; i <= 2500; i++) {
-                UInt32[] mantissa = 
-                    UIntUtil.Random(
-                        random, 
-                        BigUInt<Pow2.N32, Pow2.N1>.Length, 
-                        random.Next(BigUInt<Pow2.N32, Pow2.N1>.Length * UIntUtil.UInt32Bits + 1)
-                    );
+                UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32, Pow2.N1>.Length, random.Next(BigUInt<Pow2.N32, Pow2.N1>.Bits + 1));
 
                 BigUInt<Pow2.N32, Pow2.N1> v = new BigUInt<Pow2.N32, Pow2.N1>(mantissa);
                 BigUInt<Pow2.N32, Pow2.N1> v2 = new BigUInt<Pow2.N32, Pow2.N1>(v.ToString());
