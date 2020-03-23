@@ -20,6 +20,18 @@ namespace MultiPrecisionTest.Functions {
 
             Console.WriteLine($"sum : {vs_sum}");
             Console.WriteLine($"average : {vs_average}");
+
+            MultiPrecision<Pow2.N8>[] vs_sorted = vs.OrderBy((v) => v).ToArray();
+
+            Console.WriteLine($"median : {vs_sorted[vs.Length / 2]}");
+
+            MultiPrecision<Pow2.N8> vs_min = vs.Min();
+
+            Console.WriteLine($"min : {vs_min}");
+
+            MultiPrecision<Pow2.N8> vs_max = vs.Max();
+
+            Console.WriteLine($"min : {vs_max}");
         }
     }
 }
