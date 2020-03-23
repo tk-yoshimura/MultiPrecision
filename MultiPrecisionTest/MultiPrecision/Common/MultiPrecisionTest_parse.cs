@@ -541,6 +541,38 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual(-2.56e-8, (double)v14, 2.56e-20);
                 }
             }
+
+            /* zero */{ 
+                MultiPrecision<Pow2.N8> v1 = "0";
+                Assert.AreEqual(0, (double)v1);
+
+                MultiPrecision<Pow2.N8> v2 = "0.0";
+                Assert.AreEqual(0, (double)v2);
+
+                MultiPrecision<Pow2.N8> v3 = "00";
+                Assert.AreEqual(0, (double)v3);
+
+                MultiPrecision<Pow2.N8> v4 = "0e1";
+                Assert.AreEqual(0, (double)v4);
+
+                MultiPrecision<Pow2.N8> v5 = "0e-1";
+                Assert.AreEqual(0, (double)v5);
+
+                MultiPrecision<Pow2.N8> v6 = "0e0";
+                Assert.AreEqual(0, (double)v6);
+
+                MultiPrecision<Pow2.N8> v7 = "+0";
+                Assert.AreEqual(0, (double)v7);
+
+                MultiPrecision<Pow2.N8> v8 = "-0";
+                Assert.AreEqual(-0, (double)v8);
+
+                MultiPrecision<Pow2.N8> v9 = "+0.0";
+                Assert.AreEqual(0, (double)v9);
+
+                MultiPrecision<Pow2.N8> v10 = "-0.0";
+                Assert.AreEqual(0, (double)v10);
+            }
         }
 
         [TestMethod]

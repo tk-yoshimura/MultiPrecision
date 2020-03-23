@@ -33,6 +33,10 @@ namespace MultiPrecision {
 
             string mantissa = num[..exponent_symbol_index].TrimStart('0');
 
+            if (string.IsNullOrEmpty(mantissa)) { 
+                return sign == Sign.Plus ? Zero : MinusZero;
+            }
+
             int point_symbol_index = mantissa.Contains('.') ? (mantissa.IndexOf('.') - 1) : (mantissa.Length - 1);
 
             string mantissa_withoutpoint = mantissa.Replace(".", string.Empty);
