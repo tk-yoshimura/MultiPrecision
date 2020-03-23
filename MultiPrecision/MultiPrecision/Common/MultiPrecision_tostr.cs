@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -105,7 +104,7 @@ namespace MultiPrecision {
             }
 
 #if DEBUG
-            Debug.Assert(mantissa_dec < Accumulator<N>.Decimal(digits + 1));
+            Debug<ArithmeticException>.Assert(mantissa_dec < Accumulator<N>.Decimal(digits + 1));
 #endif
 
             return (Sign, exponent_dec, mantissa_dec);

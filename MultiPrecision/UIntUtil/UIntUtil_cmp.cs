@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
@@ -11,8 +10,8 @@ namespace MultiPrecision {
         public unsafe static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
 #if DEBUG
-            Debug.Assert(length == a.Length);
-            Debug.Assert(length == b.Length);
+            Debug<ArgumentException>.Assert(length == a.Length);
+            Debug<ArgumentException>.Assert(length == b.Length);
 #endif
 
             fixed (UInt32* va = a, vb = b) {
@@ -31,8 +30,8 @@ namespace MultiPrecision {
         public unsafe static bool LessThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
 #if DEBUG
-            Debug.Assert(length == a.Length);
-            Debug.Assert(length == b.Length);
+            Debug<ArgumentException>.Assert(length == a.Length);
+            Debug<ArgumentException>.Assert(length == b.Length);
 #endif
 
             fixed (UInt32* va = a, vb = b) {
@@ -54,8 +53,8 @@ namespace MultiPrecision {
         public unsafe static bool GreaterThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
 
 #if DEBUG
-            Debug.Assert(length == a.Length);
-            Debug.Assert(length == b.Length);
+            Debug<ArgumentException>.Assert(length == a.Length);
+            Debug<ArgumentException>.Assert(length == b.Length);
 #endif
 
             fixed (UInt32* va = a, vb = b) {

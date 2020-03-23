@@ -8,8 +8,6 @@ namespace MultiPrecision {
     internal sealed partial class BigUInt<N, K> {
 
         public override string ToString() {
-            const UInt64 dec_base = 1000000000u;
-
             int bin_digits = (int)Digits, dec_digits = 0;
 
             // dec_digits <= bin_digits * digits(2^32 - 1) / digits(10^9 - 1) + 2
@@ -20,14 +18,14 @@ namespace MultiPrecision {
                 for (int i = 0; i < dec_digits; i++) {
                     UInt64 res = UIntUtil.Pack(dec[i], carry);
 
-                    dec[i] = (UInt32)(res % dec_base);
-                    carry = (UInt32)(res / dec_base);
+                    dec[i] = (UInt32)(res % UIntUtil.UInt32MaxDecimal);
+                    carry = (UInt32)(res / UIntUtil.UInt32MaxDecimal);
                 }
                 if (carry > 0) {
-                    dec[dec_digits] = (UInt32)(carry % dec_base);
+                    dec[dec_digits] = (UInt32)(carry % UIntUtil.UInt32MaxDecimal);
                     dec_digits++;
 
-                    carry = (UInt32)(carry / dec_base);
+                    carry = (UInt32)(carry / UIntUtil.UInt32MaxDecimal);
 
                     if (carry > 0) {
                         dec[dec_digits] = carry;
@@ -35,7 +33,7 @@ namespace MultiPrecision {
                     }
 
 #if DEBUG
-                    Debug.Assert(carry / dec_base == 0);
+                    Debug<ArithmeticException>.Assert(carry / UIntUtil.UInt32MaxDecimal == 0);
 #endif
                 }
             }

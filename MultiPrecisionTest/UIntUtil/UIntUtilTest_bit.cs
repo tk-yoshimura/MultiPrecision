@@ -41,5 +41,17 @@ namespace MultiPrecisionTest.UIntUtils {
                 Console.WriteLine(string.Join(' ', us.Reverse().Select((u) => $"{u:X8}")));
             }
         }
+
+        [TestMethod]
+        public void RandomTest() {
+            const int length = 4;
+            Random random = new Random();
+
+            for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
+                UInt32[] vs = UIntUtil.Random(random, length, i);
+
+                Console.WriteLine($"{i} : {string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}"))}");
+            }
+        }
     }
 }

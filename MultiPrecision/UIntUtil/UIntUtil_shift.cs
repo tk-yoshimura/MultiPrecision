@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
@@ -12,7 +11,7 @@ namespace MultiPrecision {
         public static unsafe void LeftShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            Debug.Assert(sft >= 0);
+            Debug<ArgumentException>.Assert(sft >= 0);
 #endif
 
             if (sft > LeadingZeroCount(value)) {
@@ -33,7 +32,7 @@ namespace MultiPrecision {
             fixed (UInt32* v = value) {
                 if (count_rems > 0) {
 #if DEBUG
-                    Debug.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
 #endif
 
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
@@ -44,7 +43,7 @@ namespace MultiPrecision {
                 }
                 for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
 #if DEBUG
-                    Debug.Assert(checked(i + sftdev + 1) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sftdev + 1) <= value.Length);
 #endif
 
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i - Mask.MM256UInt32s), (byte)(UInt32Bits - sftrem));
@@ -54,7 +53,7 @@ namespace MultiPrecision {
                 }
 
 #if DEBUG
-                Debug.Assert(sftdev < value.Length);
+                Debug<IndexOutOfRangeException>.Assert(sftdev < value.Length);
 #endif
 
                 v[sftdev] = v[0] << sftrem;
@@ -67,7 +66,7 @@ namespace MultiPrecision {
         public static unsafe void RightShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            Debug.Assert(sft >= 0);
+            Debug<ArgumentException>.Assert(sft >= 0);
 #endif
 
             int sftdev = sft / UIntUtil.UInt32Bits;
@@ -84,7 +83,7 @@ namespace MultiPrecision {
             fixed (UInt32* v = value) {
                 for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
 #if DEBUG
-                    Debug.Assert(checked(i + sftdev + 1 + Mask.MM256UInt32s) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sftdev + 1 + Mask.MM256UInt32s) <= value.Length);
 #endif
 
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i + sftdev), (byte)sftrem);
@@ -95,7 +94,7 @@ namespace MultiPrecision {
                 }
                 if (count_rems > 0) {
 #if DEBUG
-                    Debug.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
 #endif
 
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
@@ -106,7 +105,7 @@ namespace MultiPrecision {
                 }
 
 #if DEBUG
-                Debug.Assert(count < value.Length);
+                Debug<IndexOutOfRangeException>.Assert(count < value.Length);
 #endif
 
                 v[count] = v[value.Length - 1] >> sftrem;
@@ -120,7 +119,7 @@ namespace MultiPrecision {
         public static unsafe void LeftBlockShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            Debug.Assert(sft >= 0);
+            Debug<ArgumentException>.Assert(sft >= 0);
 #endif
 
             if (checked(sft + Digits(value)) > value.Length) {
@@ -133,7 +132,7 @@ namespace MultiPrecision {
             fixed (UInt32* v = value) {
                 if (count_rems > 0) {
 #if DEBUG
-                    Debug.Assert(checked(count_sets + sft + count_rems) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sft + count_rems) <= value.Length);
 #endif
 
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
@@ -142,7 +141,7 @@ namespace MultiPrecision {
                 }
                 for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
 #if DEBUG
-                    Debug.Assert(checked(i + sft) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sft) <= value.Length);
 #endif
 
                     Avx.Store(v + i + sft - Mask.MM256UInt32s, Avx2.LoadVector256(v + i - Mask.MM256UInt32s));
@@ -156,7 +155,7 @@ namespace MultiPrecision {
         public static unsafe void RightBlockShift([DisallowNull] UInt32[] value, int sft) {
 
 #if DEBUG
-            Debug.Assert(sft >= 0);
+            Debug<ArgumentException>.Assert(sft >= 0);
 #endif
 
             if (sft >= value.Length) {
@@ -170,14 +169,14 @@ namespace MultiPrecision {
             fixed (UInt32* v = value) {
                 for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
 #if DEBUG
-                    Debug.Assert(checked(i + sft + Mask.MM256UInt32s) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sft + Mask.MM256UInt32s) <= value.Length);
 #endif
 
                     Avx.Store(v + i, Avx2.LoadVector256(v + i + sft));
                 }
                 if (count_rems > 0) {
 #if DEBUG
-                    Debug.Assert(checked(count_sets + sft + count_rems) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sft + count_rems) <= value.Length);
 #endif
 
                     Vector256<UInt32> mask = Mask.LSV(count_rems);
