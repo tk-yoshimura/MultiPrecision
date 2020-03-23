@@ -3,17 +3,10 @@
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
-
-        private static partial class Consts {
-            public static class Sqrt {
-                public static bool initialized = false;
-                public static MultiPrecision<N> approx_a = null, approx_b = null, approx_c = null;
-            }
-        }
-
+        
         public static MultiPrecision<N> Sqrt(MultiPrecision<N> x) {
-            if (!Consts.Sqrt.initialized) {
-                InitializeSqrtConsts();
+            if (!Consts.Sqrt.Initialized) {
+                Consts.Sqrt.Initialize();
             }
 
             if (x.Sign == Sign.Minus || x.IsNaN) {
@@ -29,7 +22,7 @@ namespace MultiPrecision {
             Int64 exponent = x.Exponent;
             MultiPrecision<N> v = new MultiPrecision<N>(Sign.Plus, exponent % 2, x.mantissa, round: false);
 
-            MultiPrecision<N> a = Consts.Sqrt.approx_a + v * (Consts.Sqrt.approx_b + v * Consts.Sqrt.approx_c);
+            MultiPrecision<N> a = Consts.Sqrt.ApproxA + v * (Consts.Sqrt.ApproxB + v * Consts.Sqrt.ApproxC);
             MultiPrecision<N> h = One - v * a * a;
             MultiPrecision<N> c4 = Integer(4);
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
@@ -47,12 +40,22 @@ namespace MultiPrecision {
             return y;
         }
 
-        private static void InitializeSqrtConsts() {
-            Consts.Sqrt.approx_a = (17 - 6 * Sqrt2) / 6;
-            Consts.Sqrt.approx_b = (5 * Sqrt2 - 9) / 4;
-            Consts.Sqrt.approx_c = (5 - 3 * Sqrt2) / 12;
+        
+        private static partial class Consts {
+            public static class Sqrt {
+                public static bool Initialized { private set; get; } = false;
+                public static MultiPrecision<N> ApproxA { private set; get; } = null;
+                public static MultiPrecision<N> ApproxB { private set; get; } = null;
+                public static MultiPrecision<N> ApproxC { private set; get; } = null;
 
-            Consts.Sqrt.initialized = true;
+                public static void Initialize() {
+                    ApproxA = (17 - 6 * Sqrt2) / 6;
+                    ApproxB = (5 * Sqrt2 - 9) / 4;
+                    ApproxC = (5 - 3 * Sqrt2) / 12;
+
+                    Initialized = true;
+                }
+            }
         }
     }
 }
