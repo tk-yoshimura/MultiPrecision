@@ -20,7 +20,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 Assert.AreEqual(1u, UIntUtil.GetMSB(vs, i));
 
-                Console.WriteLine(string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(vs));
             }
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
@@ -30,7 +30,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 Assert.AreEqual(0u, UIntUtil.GetMSB(vs, i));
 
-                Console.WriteLine(string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(vs));
             }
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
@@ -38,7 +38,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 UIntUtil.FlushMSB(us, i);
 
-                Console.WriteLine(string.Join(' ', us.Reverse().Select((u) => $"{u:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(us));
             }
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
@@ -48,7 +48,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 Assert.AreEqual(1u, UIntUtil.GetLSB(vs, i));
 
-                Console.WriteLine(string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(vs));
             }
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
@@ -58,7 +58,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 Assert.AreEqual(0u, UIntUtil.GetLSB(vs, i));
 
-                Console.WriteLine(string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(vs));
             }
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
@@ -66,7 +66,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
                 UIntUtil.FlushLSB(us, i);
 
-                Console.WriteLine(string.Join(' ', us.Reverse().Select((u) => $"{u:X8}")));
+                Console.WriteLine(UIntUtil.ToHexcode(us));
             }
         }
 
@@ -78,7 +78,7 @@ namespace MultiPrecisionTest.UIntUtils {
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
                 UInt32[] vs = UIntUtil.Random(random, length, i);
 
-                Console.WriteLine($"{i} : {string.Join(' ', vs.Reverse().Select((v) => $"{v:X8}"))}");
+                Console.WriteLine($"{i} : {UIntUtil.ToHexcode(vs)}");
             }
         }
     }

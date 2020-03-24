@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace MultiPrecision {
 
@@ -9,21 +10,7 @@ namespace MultiPrecision {
         public static explicit operator double(MultiPrecision<N> v) {
             return v.ToDouble();
         }
-
-        public double ToDouble() {
-            if (IsFinite) {
-                UInt64 n = mantissa.MostSignificantDigits;
-
-                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((Sign == Sign.Plus) ? 1 : -1);
-            }
-            else if (mantissa.IsZero) {
-                return (Sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
-            }
-            else {
-                return double.NaN;
-            }
-        }
-
+        
         public static explicit operator Int64(MultiPrecision<N> v) {
             if (v.IsNaN) {
                 throw new InvalidCastException("NaN");
@@ -61,6 +48,20 @@ namespace MultiPrecision {
             }
         }
 
+        public static implicit operator MultiPrecision<N>(double v) {
+            if (double.IsNaN(v)) {
+                return NaN;
+            }
+            if (double.IsInfinity(v)) {
+                return v > 0 ? PositiveInfinity : NegativeInfinity;
+            }
+            if (v == 0) {
+                return Zero;
+            }
+
+            return $"{v:E18}";
+        }
+                
         public static implicit operator MultiPrecision<N>(Int64 v) {
             if (v >= 0) {
                 UInt64 v_pos = unchecked((UInt64)v);
@@ -71,6 +72,20 @@ namespace MultiPrecision {
                 UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
 
                 return CreateInteger(Sign.Minus, new Accumulator<N>(v_neg));
+            }
+        }
+
+        public double ToDouble() {
+            if (IsFinite) {
+                UInt64 n = mantissa.MostSignificantDigits;
+
+                return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((Sign == Sign.Plus) ? 1 : -1);
+            }
+            else if (mantissa.IsZero) {
+                return (Sign == Sign.Plus) ? double.PositiveInfinity : double.NegativeInfinity;
+            }
+            else {
+                return double.NaN;
             }
         }
     }

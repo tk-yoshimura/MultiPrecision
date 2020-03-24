@@ -43,8 +43,6 @@ namespace MultiPrecision {
             return (str != string.Empty) ? str : "0";
         }
 
-        public string ToHexcode() {
-            return string.Join(' ', value.Reverse().Select((u) => $"{u:X8}"));
-        }
+        public string ToHexcode() => UIntUtil.ToHexcode(value);
     }
 }

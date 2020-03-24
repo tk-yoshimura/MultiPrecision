@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -42,7 +43,7 @@ namespace MultiPrecision {
                 throw new FormatException();
             }
 
-            if (!(int.TryParse(format[1..], out int digits)) || digits <= 1) {
+            if (!(int.TryParse(format[1..], NumberStyles.Integer, CultureInfo.InvariantCulture, out int digits)) || digits <= 1) {
                 throw new FormatException();
             }
 

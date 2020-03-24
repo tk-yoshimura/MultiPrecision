@@ -46,7 +46,6 @@ namespace MultiPrecision {
                 public static MultiPrecision<N> ApproxA { private set; get; } = null;
                 public static MultiPrecision<N> ApproxB { private set; get; } = null;
                 public static MultiPrecision<N> ApproxC { private set; get; } = null;
-                public static MultiPrecision<N> ApproxD { private set; get; } = null;
                 public static MultiPrecision<N> DifferenceA { private set; get; } = null;
                 public static MultiPrecision<N> DifferenceB { private set; get; } = null;
                 public static MultiPrecision<N> DifferenceC { private set; get; } = null;

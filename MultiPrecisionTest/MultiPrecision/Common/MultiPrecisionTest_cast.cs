@@ -48,33 +48,36 @@ namespace MultiPrecisionTest.Common {
 
         [TestMethod]
         public void DoubleTest() {
-            MultiPrecision<Pow2.N8> zero = 0;
-            Assert.AreEqual((double)0L, (double)zero);
+            MultiPrecision<Pow2.N8> zero = 0.0;
+            Assert.AreEqual((double)0, (double)zero);
 
-            MultiPrecision<Pow2.N8> one = 1;
-            Assert.AreEqual((double)1L, (double)one);
+            MultiPrecision<Pow2.N8> one = 1.0;
+            Assert.AreEqual((double)1, (double)one);
 
-            MultiPrecision<Pow2.N8> minus_one = -1;
-            Assert.AreEqual((double)-1L, (double)minus_one);
+            MultiPrecision<Pow2.N8> minus_one = -1.0;
+            Assert.AreEqual((double)-1, (double)minus_one);
 
-            MultiPrecision<Pow2.N8> maxhalf_value = Int64.MaxValue / 2;
-            Assert.AreEqual((double)(Int64.MaxValue / 2), (double)maxhalf_value);
+            MultiPrecision<Pow2.N8> max_value = double.MaxValue;
+            Assert.AreEqual(double.MaxValue, (double)max_value);
 
-            MultiPrecision<Pow2.N8> minhalf_value = Int64.MinValue / 2;
-            Assert.AreEqual((double)(Int64.MinValue / 2), (double)minhalf_value);
+            MultiPrecision<Pow2.N8> min_value = double.MinValue;
+            Assert.AreEqual(double.MinValue, (double)min_value);
 
-            MultiPrecision<Pow2.N8> max_value = Int64.MaxValue;
-            Assert.AreEqual((double)(Int64.MaxValue), (double)max_value);
+            MultiPrecision<Pow2.N8> inf_value = double.PositiveInfinity;
+            Assert.AreEqual(double.PositiveInfinity, (double)inf_value);
 
-            MultiPrecision<Pow2.N8> min_value = Int64.MinValue;
-            Assert.AreEqual((double)(Int64.MinValue), (double)min_value);
+            MultiPrecision<Pow2.N8> minf_value = double.NegativeInfinity;
+            Assert.AreEqual(double.NegativeInfinity, (double)minf_value);
 
-            for (Int64 i = 10; i <= 100000000000; i *= 10) {
+            MultiPrecision<Pow2.N8> nan_value = double.NaN;
+            Assert.AreEqual(double.NaN, (double)nan_value);
+
+            for (double i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Assert.AreEqual((double)i, (double)m);
             }
 
-            for (Int64 i = -10; i >= -100000000000; i *= 10) {
+            for (double i = -10; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Assert.AreEqual((double)i, (double)m);
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace MultiPrecision {
@@ -22,12 +23,12 @@ namespace MultiPrecision {
 
             for (int i = 0; ; i += decimals) {
                 if (i + decimals < s.Length) {
-                    UInt32 dec = UInt32.Parse(s.Substring(s.Length - decimals - i, decimals));
+                    UInt32 dec = UInt32.Parse(s.Substring(s.Length - decimals - i, decimals), NumberStyles.Integer, CultureInfo.InvariantCulture);
                     Add(Mul(new BigUInt<N, K>(dec), decpow));
                     decpow *= decbase;
                 }
                 else {
-                    UInt32 dec = UInt32.Parse(s.Substring(0, s.Length - i));
+                    UInt32 dec = UInt32.Parse(s.Substring(0, s.Length - i), NumberStyles.Integer, CultureInfo.InvariantCulture);
                     Add(Mul(new BigUInt<N, K>(dec), decpow));
                     break;
                 }
