@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecision {
@@ -8,49 +9,76 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Atan(MultiPrecision<N> x) {
-            if (!Consts.Atan.Initialized) {
-                Consts.Atan.Initialize();
+            if(x <= One && x >= MinusOne) { 
+                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + 1);
+                MultiPrecision<N> w = Sqrt(SquareAsin(z));
+
+                return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
+            }
+            else {
+                MultiPrecision<N> invx = One / x;
+                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + 1);
+                MultiPrecision<N> w = Sqrt(SquareAsin(z));
+
+                if(x.Sign == Sign.Plus) { 
+                    return Ldexp(PI, -1) - w;
+                }
+                else { 
+                    return w - Ldexp(PI, -1);
+                }
+            }
+        }
+
+        internal static MultiPrecision<N> SquareAsin(MultiPrecision<N> x) { 
+            if (!Consts.SquareAsin.Initialized) {
+                Consts.SquareAsin.Initialize();
             }
 
-            MultiPrecision<N> x2 = Ldexp(x, 1);
-            MultiPrecision<N> s = x2 / (x * x + 1);
-            MultiPrecision<N> z = x2 * s;
+            #if DEBUG
+            Debug<ArithmeticException>.Assert(x >= Zero && x < One);
+            #endif
 
-            MultiPrecision<N> v = Zero, w = One;
+            MultiPrecision<N> z = Zero, dz = Zero, s = Ldexp(x * x, 2), t = s;
 
-            foreach (MultiPrecision<N> f in Consts.Atan.FracTable) {
-                MultiPrecision<N> dv = f * w;
+            bool convergence = false;
+            
+            foreach(MultiPrecision<N> f in Consts.SquareAsin.FracTable) { 
+                dz = t * f;
+                z += dz;
+                t *= s;
 
-                if (dv.IsZero || v.Exponent > dv.Exponent + Bits) {
+                if (dz.IsZero || z.Exponent - dz.Exponent > Bits) {
+                    convergence = true;
                     break;
                 }
-
-                v += dv;
-                w *= z;
             }
 
-            MultiPrecision<N> y = Ldexp(v * s, -1);
+            #if DEBUG
+            Debug<ArithmeticException>.Assert(convergence);
+            #endif
 
-            return y;
+            return Ldexp(z, -1);
         }
 
         private static partial class Consts {
-            public static class Atan {
+            public static class SquareAsin {
                 public static bool Initialized { private set; get; } = false;
                 public static ReadOnlyCollection<MultiPrecision<N>> FracTable { private set; get; } = null;
         
                 public static void Initialize() {
-                    MultiPrecision<N> numer = 1, denom = 1, k = 1, s = 2;
+                    MultiPrecision<N> n = 1, n_frac = 1, n2_frac = 2;
                     List<MultiPrecision<N>> fracs = new List<MultiPrecision<N>>();
 
-                    while (denom.Exponent - numer.Exponent < Bits * 2 && denom.IsFinite) {
-                        fracs.Add((numer * numer) / denom); 
+                    while(fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
+                        fracs.Add((n_frac * n_frac) / (n * n * n2_frac)); 
  
-                        numer *= k;
-                        denom *= s * (s + 1);
-                        
-                        k += 1;
-                        s += 2;
+                        n += 1;
+                        n_frac *= n;
+                        n2_frac *= (2 * n - 1) * (2 * n);
+
+                        if (!n2_frac.IsFinite) { 
+                            break;
+                        }
                     }
 
                     FracTable = Array.AsReadOnly(fracs.ToArray());

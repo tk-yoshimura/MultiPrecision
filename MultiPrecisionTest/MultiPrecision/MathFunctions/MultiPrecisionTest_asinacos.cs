@@ -15,7 +15,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);
                 Console.WriteLine((double)y_expect);
-                //Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
@@ -26,7 +26,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);
                 Console.WriteLine((double)y_expect);
-                //Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
             }
 
             for (Int64 i = -1000; i <= 1000; i++) {
@@ -37,7 +37,21 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine((double)x);
                 Console.WriteLine((double)y_actual);
                 Console.WriteLine((double)y_expect);
-                //Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+            }
+        }
+
+        [TestMethod]
+        public void SquareAsinTest() {
+            for (Int64 i = 0; i <= 250; i++) {
+                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 500;
+                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.SquareAsin(x);
+                double y_expect = Math.Asin((double)x) * Math.Asin((double)x);
+
+                Console.WriteLine((double)x);
+                Console.WriteLine((double)y_actual);
+                Console.WriteLine((double)y_expect);
+                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
             }
         }
     }
