@@ -13,7 +13,7 @@ namespace MultiPrecision {
                 return NaN;
             }
             if (!x.IsFinite) {
-                return PositiveInfinity;
+                return (x.Sign == Sign.Plus) ? PositiveInfinity : NegativeInfinity;
             }
             if (x.IsZero) {
                 return Zero;
