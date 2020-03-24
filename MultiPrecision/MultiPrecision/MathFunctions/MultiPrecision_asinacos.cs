@@ -9,53 +9,91 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Atan(MultiPrecision<N> x) {
-            if(x <= One && x >= MinusOne) { 
-                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + 1);
+            if (x.IsNaN) {
+                return NaN;
+            }
+
+            if (!x.IsFinite) {
+                return x.Sign == Sign.Plus ? Ldexp(PI, -1) : -Ldexp(PI, -1);
+            }
+
+            if (x <= One && x >= MinusOne) {
+                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + One);
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
                 MultiPrecision<N> invx = One / x;
-                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + 1);
+                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + One);
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
-                if(x.Sign == Sign.Plus) { 
+                if (x.Sign == Sign.Plus) {
                     return Ldexp(PI, -1) - w;
                 }
-                else { 
+                else {
                     return w - Ldexp(PI, -1);
                 }
             }
         }
 
-        internal static MultiPrecision<N> SquareAsin(MultiPrecision<N> x) { 
+        public static MultiPrecision<N> Asin(MultiPrecision<N> x) {
+            if (!(x >= MinusOne && x <= One)) {
+                return NaN;
+            }
+
+            if (x == MinusOne) {
+                return -Ldexp(PI, -1);
+            }
+            if (x == One) {
+                return Ldexp(PI, -1);
+            }
+
+            if (Abs(x) <= Ldexp(Sqrt2, -1)) {
+                MultiPrecision<N> w = Sqrt(SquareAsin(Abs(x)));
+                return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
+            }
+            else {
+                MultiPrecision<N> z = x / (Sqrt(One - x * x) + One);
+                return Ldexp(Atan(z), 1);
+            }
+        }
+
+        public static MultiPrecision<N> Acos(MultiPrecision<N> x) {
+            return Ldexp(PI, -1) - Asin(x);
+        }
+
+        internal static MultiPrecision<N> SquareAsin(MultiPrecision<N> x) {
             if (!Consts.SquareAsin.Initialized) {
                 Consts.SquareAsin.Initialize();
             }
 
-            #if DEBUG
+#if DEBUG
             Debug<ArithmeticException>.Assert(x >= Zero && x < One);
-            #endif
+#endif
 
             MultiPrecision<N> z = Zero, dz = Zero, s = Ldexp(x * x, 2), t = s;
 
-            bool convergence = false;
-            
-            foreach(MultiPrecision<N> f in Consts.SquareAsin.FracTable) { 
+#if DEBUG
+            bool convergenced = false;
+#endif
+
+            foreach (MultiPrecision<N> f in Consts.SquareAsin.FracTable) {
                 dz = t * f;
                 z += dz;
                 t *= s;
 
                 if (dz.IsZero || z.Exponent - dz.Exponent > Bits) {
-                    convergence = true;
+#if DEBUG
+                    convergenced = true;
+#endif
                     break;
                 }
             }
 
-            #if DEBUG
-            Debug<ArithmeticException>.Assert(convergence);
-            #endif
+#if DEBUG
+            Debug<ArithmeticException>.Assert(convergenced);
+#endif
 
             return Ldexp(z, -1);
         }
@@ -64,19 +102,19 @@ namespace MultiPrecision {
             public static class SquareAsin {
                 public static bool Initialized { private set; get; } = false;
                 public static ReadOnlyCollection<MultiPrecision<N>> FracTable { private set; get; } = null;
-        
+
                 public static void Initialize() {
                     MultiPrecision<N> n = 1, n_frac = 1, n2_frac = 2;
                     List<MultiPrecision<N>> fracs = new List<MultiPrecision<N>>();
 
-                    while(fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
-                        fracs.Add((n_frac * n_frac) / (n * n * n2_frac)); 
- 
+                    while (fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
+                        fracs.Add((n_frac * n_frac) / (n * n * n2_frac));
+
                         n += 1;
                         n_frac *= n;
                         n2_frac *= (2 * n - 1) * (2 * n);
 
-                        if (!n2_frac.IsFinite) { 
+                        if (!n2_frac.IsFinite) {
                             break;
                         }
                     }

@@ -41,7 +41,7 @@ namespace MultiPrecisionTest.Common {
                 foreach (MultiPrecision<Pow2.N8> u in vs) {
 
                     double dv = (double)v, du = (double)u;
-                    
+
                     try {
                         Assert.AreEqual(v.Equals(u), dv.Equals(du), "equal");
                         Assert.AreEqual(v == u, dv == du, "==");
@@ -51,7 +51,7 @@ namespace MultiPrecisionTest.Common {
                         Assert.AreEqual(v <= u, dv <= du, "<=");
                         Assert.AreEqual(v >= u, dv >= du, ">=");
                     }
-                    catch (AssertFailedException e){
+                    catch (AssertFailedException e) {
                         Console.WriteLine(e.Message);
                         Console.WriteLine(v);
                         Console.WriteLine(u);
@@ -63,7 +63,7 @@ namespace MultiPrecisionTest.Common {
                         Console.WriteLine($"> {v > u}");
                         Console.WriteLine($"<= {v <= u}");
                         Console.WriteLine($">= {v >= u}");
-                        
+
                         throw;
                     }
                 }

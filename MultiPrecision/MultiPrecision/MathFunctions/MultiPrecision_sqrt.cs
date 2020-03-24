@@ -3,7 +3,7 @@
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
-        
+
         public static MultiPrecision<N> Sqrt(MultiPrecision<N> x) {
             if (!Consts.Sqrt.Initialized) {
                 Consts.Sqrt.Initialize();
@@ -40,7 +40,7 @@ namespace MultiPrecision {
             return y;
         }
 
-        
+
         private static partial class Consts {
             public static class Sqrt {
                 public static bool Initialized { private set; get; } = false;
