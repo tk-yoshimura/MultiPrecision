@@ -22,7 +22,7 @@ namespace MultiPrecision {
         public MultiPrecision(Sign sign, Int64 exponent, UInt32[] mantissa)
             : this(sign, exponent, new Mantissa<N>(mantissa), round: false) { }
 
-        private MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
+        internal MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
             this.Sign = sign;
             this.exponent = exponent;
             this.mantissa = mantissa;
