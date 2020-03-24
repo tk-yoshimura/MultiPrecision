@@ -70,6 +70,23 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
+        public void Atan2Test() {
+            for (Int64 iy = -10; iy <= 10; iy++) {
+                for (Int64 ix = -10; ix <= 10; ix++) {
+                    MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)ix / 10;
+                    MultiPrecision<Pow2.N8> y = (MultiPrecision<Pow2.N8>)iy / 10;
+                    MultiPrecision<Pow2.N8> d_actual = MultiPrecision<Pow2.N8>.Atan2(y, x);
+                    double d_expect = Math.Atan2((double)y, (double)x);
+
+                    Console.WriteLine($"{(double)x}, {(double)y}");
+                    Console.WriteLine((double)d_actual);
+                    Console.WriteLine((double)d_expect);
+                    Assert.AreEqual(d_expect, (double)d_actual, Math.Abs(d_expect * 1e-5) + 1e-10);
+                }
+            }
+        }
+
+        [TestMethod]
         public void SquareAsinTest() {
             for (Int64 i = 0; i <= 250; i++) {
                 MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 500;
