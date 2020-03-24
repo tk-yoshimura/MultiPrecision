@@ -6,7 +6,7 @@ namespace MultiPrecision {
     public static class MultiPrecisionIOExpand {
 
         public static void Write<N>(this BinaryWriter writer, MultiPrecision<N> n) where N : struct, IConstant {
-            writer.Write((UInt32)n.Sign);
+            writer.Write((byte)n.Sign);
             writer.Write(checked((UInt32)(n.Exponent + MultiPrecision<N>.ExponentZero)));
             for (int i = 0; i < MultiPrecision<N>.Length; i++) {
                 writer.Write((UInt32)n.Mantissa[i]);
@@ -14,7 +14,7 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> ReadMultiPrecision<N>(this BinaryReader reader) where N : struct, IConstant {
-            Sign sign = (Sign)reader.ReadUInt32();
+            Sign sign = (Sign)reader.ReadByte();
             if (!Enum.IsDefined(typeof(Sign), sign)){
                 throw new FormatException();
             }
