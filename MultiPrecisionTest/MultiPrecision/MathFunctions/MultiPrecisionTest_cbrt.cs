@@ -77,5 +77,27 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(Math.Cbrt((double)x), (double)y, 1e-5);
             }
         }
+
+        [TestMethod]
+        public void CbrtBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 8 };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cbrt(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Cbrt((double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Cbrt((double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }

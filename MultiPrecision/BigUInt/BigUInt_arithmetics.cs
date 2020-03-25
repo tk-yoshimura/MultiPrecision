@@ -167,6 +167,10 @@ namespace MultiPrecision {
 
             rem.RightShift(sft);
 
+#if DEBUG
+            Debug<ArithmeticException>.Assert(rem < v2);
+#endif
+
             return (div, rem);
         }
 

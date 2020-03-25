@@ -8,6 +8,12 @@ namespace MultiPrecision {
             if (!(x >= Zero)) {
                 return NaN;
             }
+            if (x.IsZero) { 
+                return NegativeInfinity;
+            }
+            if (x.mantissa == Mantissa<N>.One) {
+                return x.Exponent;
+            }
 
             Accumulator<N> v = new Accumulator<N>(x.mantissa);
 

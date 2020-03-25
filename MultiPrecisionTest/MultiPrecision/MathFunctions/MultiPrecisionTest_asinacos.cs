@@ -99,5 +99,154 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
             }
         }
+
+        [TestMethod]
+        public void AtanBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Atan((double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan((double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void AsinBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 
+                -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1), 
+                0, 
+                MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1), 
+            };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Asin(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Asin((double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Asin((double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void AcosBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 
+                -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1), 
+                0, 
+                MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1), 
+            };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Acos(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Acos((double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Acos((double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void Atan2BorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 
+                0, 
+            };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, 1);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Atan2((double)x, 1), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, 1)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, -1);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Atan2((double)x, -1), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, -1)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(1, x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Atan2(1, (double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2(1, (double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(-1, x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Atan2(-1, (double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2(-1, (double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }

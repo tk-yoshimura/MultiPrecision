@@ -78,5 +78,27 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(Math.Pow(2, (double)x), (double)y, Math.Pow(2, (double)x) * 1e-5);
             }
         }
+
+        [TestMethod]
+        public void Pow2BorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
+            
+            foreach(MultiPrecision<Pow2.N8> b in borders) { 
+                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Pow(2, (double)x), (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Pow(2, (double)x)), Math.Sign((double)y), 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }
