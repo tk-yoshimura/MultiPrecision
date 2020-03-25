@@ -94,7 +94,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Pow(2, (double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Pow(2, (double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Pow(2, (double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");

@@ -88,7 +88,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Sqrt((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Sqrt((double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Sqrt((double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");

@@ -117,7 +117,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Atan((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atan((double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan((double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -143,7 +143,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Asin((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Asin((double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Asin((double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -169,7 +169,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Acos((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Acos((double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Acos((double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -193,7 +193,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Atan2((double)x, 1), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, 1)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, 1)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -210,7 +210,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Atan2((double)x, -1), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, -1)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2((double)x, -1)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -227,7 +227,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Atan2(1, (double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atan2(1, (double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2(1, (double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
@@ -244,7 +244,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     Assert.AreEqual(Math.Atan2(-1, (double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atan2(-1, (double)x)), Math.Sign((double)y), 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Atan2(-1, (double)x)), Math.Sign((double)y));
                 }
 
                 Console.Write("\n");
