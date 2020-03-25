@@ -11,6 +11,12 @@ namespace MultiPrecision {
         public static int MaxDecimalDigits { get; } = checked(Bits * 30103 / 100000 - 4); //10^(4 - 1) = 1000 approx equals 1024
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
 
+        static BigUInt() {
+            if(Length < 4) { 
+                throw new ArgumentOutOfRangeException(nameof(Length));
+            }
+        }
+
         public BigUInt() {
             this.value = new UInt32[Length];
         }
