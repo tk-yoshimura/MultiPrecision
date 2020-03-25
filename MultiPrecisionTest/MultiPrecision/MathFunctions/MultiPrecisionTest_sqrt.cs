@@ -72,12 +72,12 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void SqrtBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 4 };
-            
-            foreach(MultiPrecision<Pow2.N8> b in borders) { 
-                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sqrt(x);
 
-                    if (y.IsNaN) { 
+                    if (y.IsNaN) {
                         continue;
                     }
 

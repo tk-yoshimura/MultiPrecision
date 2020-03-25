@@ -15,7 +15,7 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> ReadMultiPrecision<N>(this BinaryReader reader) where N : struct, IConstant {
             Sign sign = (Sign)reader.ReadByte();
-            if (!Enum.IsDefined(typeof(Sign), sign)){
+            if (!Enum.IsDefined(typeof(Sign), sign)) {
                 throw new FormatException();
             }
 
@@ -30,12 +30,12 @@ namespace MultiPrecision {
                     throw new FormatException();
                 }
             }
-            else { 
+            else {
                 if (UIntUtil.LeadingZeroCount(mantissa) != 0u) {
                     throw new FormatException();
                 }
             }
-            
+
             return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(mantissa));
         }
     }

@@ -284,14 +284,14 @@ namespace MultiPrecisionTest.Functions {
         public void CosHalfPIBorderTest() {
             MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Ldexp(1, -1);
 
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
                 -65536 - half, -65536, -65535 - half, -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
                 0,
                 0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half, 65535 + half, 65536, 65536 + half
             };
-            
-            foreach(MultiPrecision<Pow2.N8> b in borders) { 
-                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
                     Console.WriteLine(x);
@@ -304,6 +304,21 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void CosHalfPIUnnormalValueTest() {
+            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.NaN,
+                MultiPrecision<Pow2.N8>.PositiveInfinity,
+                MultiPrecision<Pow2.N8>.NegativeInfinity,
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in vs) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(v);
+
+                Assert.IsTrue(y.IsNaN);
             }
         }
     }

@@ -82,9 +82,9 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void Pow2BorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
-            
-            foreach(MultiPrecision<Pow2.N8> b in borders) { 
-                foreach(MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) { 
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(x);
 
                     Console.WriteLine(x);
@@ -99,6 +99,21 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.Write("\n");
             }
+        }
+
+        [TestMethod]
+        public void Pow2UnnormalValueTest() {
+            MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(MultiPrecision<Pow2.N8>.NaN);
+
+            Assert.IsTrue(y.IsNaN);
+
+            MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Pow2(MultiPrecision<Pow2.N8>.PositiveInfinity);
+
+            Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, inf);
+
+            MultiPrecision<Pow2.N8> minf = MultiPrecision<Pow2.N8>.Pow2(MultiPrecision<Pow2.N8>.NegativeInfinity);
+
+            Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, minf);
         }
     }
 }

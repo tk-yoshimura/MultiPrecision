@@ -8,8 +8,11 @@ namespace MultiPrecision {
             if (!(x >= Zero)) {
                 return NaN;
             }
-            if (x.IsZero) { 
+            if (x.IsZero) {
                 return NegativeInfinity;
+            }
+            if (x == PositiveInfinity) {
+                return PositiveInfinity;
             }
             if (x.mantissa == Mantissa<N>.One) {
                 return x.Exponent;

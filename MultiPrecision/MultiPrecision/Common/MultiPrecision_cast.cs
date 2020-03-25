@@ -10,7 +10,7 @@ namespace MultiPrecision {
         public static explicit operator double(MultiPrecision<N> v) {
             return v.ToDouble();
         }
-        
+
         public static explicit operator Int64(MultiPrecision<N> v) {
             if (v.IsNaN) {
                 throw new InvalidCastException("NaN");
@@ -61,7 +61,7 @@ namespace MultiPrecision {
 
             return $"{v:E18}";
         }
-                
+
         public static implicit operator MultiPrecision<N>(Int64 v) {
             if (v >= 0) {
                 UInt64 v_pos = unchecked((UInt64)v);

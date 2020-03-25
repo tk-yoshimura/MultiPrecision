@@ -12,7 +12,7 @@ namespace MultiPrecision {
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
 
         static BigUInt() {
-            if(Length < 4) { 
+            if (Length < 4) {
                 throw new ArgumentOutOfRangeException(nameof(Length));
             }
         }

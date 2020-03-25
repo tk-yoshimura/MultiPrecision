@@ -20,7 +20,7 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Floor(x);
 
             if (x_int.Exponent >= UIntUtil.UInt32Bits) {
-                if (x_int.Sign == Sign.Plus) {
+                if (x.Sign == Sign.Plus) {
                     return PositiveInfinity;
                 }
                 else {

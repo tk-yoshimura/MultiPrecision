@@ -64,17 +64,17 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Atan2(MultiPrecision<N> y, MultiPrecision<N> x) {
-            if(x.IsZero && y.IsZero) { 
+            if (x.IsZero && y.IsZero) {
                 return Zero;
             }
-            if(!x.IsFinite || !y.IsFinite) { 
+            if (!x.IsFinite || !y.IsFinite) {
                 return NaN;
             }
-            if(Abs(x) >= Abs(y)) { 
+            if (Abs(x) >= Abs(y)) {
                 MultiPrecision<N> yx = y / x;
                 return x.Sign == Sign.Plus ? Atan(yx) : ((y.Sign == Sign.Plus) ? (Atan(yx) + PI) : (Atan(yx) - PI));
             }
-            if(Abs(x) <= Abs(y)){
+            if (Abs(x) <= Abs(y)) {
                 MultiPrecision<N> xy = x / y;
                 return y.Sign == Sign.Plus ? (Ldexp(PI, -1) - Atan(xy)) : (-Ldexp(PI, -1) - Atan(xy));
             }

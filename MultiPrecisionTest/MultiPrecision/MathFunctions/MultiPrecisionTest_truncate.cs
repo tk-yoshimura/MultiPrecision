@@ -468,5 +468,20 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(Math.Ceiling((double)x), (double)y, 1e-5);
             }
         }
+
+        [TestMethod]
+        public void TruncateUnnormalValueTest() {
+            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.NaN,
+                MultiPrecision<Pow2.N8>.PositiveInfinity,
+                MultiPrecision<Pow2.N8>.NegativeInfinity,
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in vs) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(v);
+
+                Assert.IsTrue(y.IsNaN);
+            }
+        }
     }
 }

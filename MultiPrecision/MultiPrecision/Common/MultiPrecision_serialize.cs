@@ -13,9 +13,9 @@ namespace MultiPrecision {
             info.AddValue(nameof(Mantissa), Mantissa.ToArray(), typeof(UInt32[]));
         }
 
-        public MultiPrecision(SerializationInfo info, StreamingContext context){
+        public MultiPrecision(SerializationInfo info, StreamingContext context) {
             Sign sign = (Sign)info.GetValue(nameof(Sign), typeof(Sign));
-            if (!Enum.IsDefined(typeof(Sign), sign)){
+            if (!Enum.IsDefined(typeof(Sign), sign)) {
                 throw new FormatException();
             }
 
@@ -31,7 +31,7 @@ namespace MultiPrecision {
                     throw new FormatException();
                 }
             }
-            else { 
+            else {
                 if (UIntUtil.LeadingZeroCount(mantissa) != 0u) {
                     throw new FormatException();
                 }

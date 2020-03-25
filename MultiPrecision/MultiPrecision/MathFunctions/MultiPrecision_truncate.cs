@@ -6,7 +6,7 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Truncate(MultiPrecision<N> x) {
-            if (x.IsNaN) {
+            if (!x.IsFinite) {
                 return NaN;
             }
 
