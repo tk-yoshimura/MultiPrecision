@@ -1,7 +1,7 @@
 # MultiPrecision
  float multi precision arithmetic implements
 
-# Spec
+## Spec
 
 Exponent : &plusmn;2147483647
 
@@ -11,7 +11,7 @@ Round: half away from zero
 
 MaxValue: &plusmn;8.808065x10^646456992
 
-# Types
+## Types
 
 |type|mantissa bits|significant digits|
 |----|----|----|
@@ -25,7 +25,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;Pow2.N512&gt;|16384|4928|
 |MultiPrecision&lt;Pow2.N1024&gt;|32768|9860|
 
-# Functions
+## Functions
 
 |function|domain|mantissa error bits|note|
 |----|----|----|----|
