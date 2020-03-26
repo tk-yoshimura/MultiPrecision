@@ -52,7 +52,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |artanh|&#40;-1,1&#41;|4||
 |loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
 |gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
-|ldexp|&#40;-inf,+&inf&#41;|N/A||
+|ldexp|&#40;-inf,+inf&#41;|N/A||
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|
 |min|N/A|N/A||
 |max|N/A|N/A||
