@@ -9,7 +9,7 @@
         }
 
         public static MultiPrecision<N> Arcosh(MultiPrecision<N> x) {
-            if(x == One) { 
+            if (x == One) {
                 return Zero;
             }
 
@@ -19,14 +19,14 @@
         }
 
         public static MultiPrecision<N> Artanh(MultiPrecision<N> x) {
-            if(x.IsNaN || x.Exponent > 1 || x < MinusOne || x > One) {
+            if (x.IsNaN || x.Exponent > 1 || x < MinusOne || x > One) {
                 return NaN;
             }
 
-            if(x == MinusOne) { 
+            if (x == MinusOne) {
                 return NegativeInfinity;
             }
-            if(x == One){
+            if (x == One) {
                 return PositiveInfinity;
             }
 

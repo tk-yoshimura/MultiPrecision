@@ -50,5 +50,19 @@ namespace MultiPrecision {
         public static MultiPrecision<N> Round(MultiPrecision<N> x) {
             return Floor(x + Ldexp(One, -1));
         }
+
+        internal static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
+            if(keep_bits < 1) { 
+                throw new ArgumentException(nameof(keep_bits));
+            }
+            if(Bits <= keep_bits) {
+                return x;
+            }
+            Mantissa<N> n = Mantissa<N>.RightRoundShift(x.mantissa, Bits - keep_bits);
+            int lzc = n.LeadingZeroCount;
+            n <<= lzc;
+
+            return new MultiPrecision<N>(x.Sign, x.Exponent + Bits - keep_bits - lzc, n, round: false);
+        }
     }
 }
