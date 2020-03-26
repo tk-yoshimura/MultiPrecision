@@ -1,6 +1,9 @@
 # MultiPrecision
  float multi precision arithmetic implements
 
+## Requirement
+.NET Core 3.1
+
 ## Spec
 
 Exponent : &plusmn;2147483647
