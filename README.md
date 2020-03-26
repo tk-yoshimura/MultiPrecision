@@ -27,36 +27,40 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 ## Functions
 
-|function|domain|mantissa error bits|note|
-|----|----|----|----|
-|sqrt|&#91;0,+inf&#41;|1||
-|cbrt|&#40;-inf,+inf&#41;|1||
-|log2|&#40;0,+inf&#41;|0||
-|log|&#40;0,+inf&#41;|1||
-|log10|&#40;0,+inf&#41;|1||
-|pow2|&#40;-inf,+inf&#41;|0||
-|pow|&#40;-inf,+inf&#41;|2||
-|pow10|&#40;-inf,+inf&#41;|2||
-|sin|&#40;-inf,+inf&#41;|0||
-|cos|&#40;-inf,+inf&#41;|0||
-|tan|&#40;-inf,+inf&#41;|4||
-|sinh|&#40;-inf,+inf&#41;|2||
-|cosh|&#40;-inf,+inf&#41;|2||
-|tanh|&#40;-inf,+inf&#41;|2||
-|asin|&#91;-1,1&#93;|8||
-|acos|&#91;-1,1&#93;|8||
-|atan|&#40;-inf,+inf&#41;|8||
-|atan2|&#40;-inf,+inf&#41;|8||
-|arsinh|&#40;-inf,+inf&#41;|2||
-|arcosh|&#91;-1,+inf&#41;|2||
-|artanh|&#40;-1,1&#41;|4||
-|loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
-|gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
-|ldexp|&#40;-inf,+inf&#41;|N/A||
-|random|N/A|N/A|generation uniform random &#91;0, 1&#41;|
-|min|N/A|N/A||
-|max|N/A|N/A||
-|floor|N/A|N/A||
-|ceiling|N/A|N/A||
-|round|N/A|N/A||
-|truncate|N/A|N/A||
+|function|domain|mantissa error bits|note|usage|
+|----|----|----|----|----|
+|sqrt|&#91;0,+inf&#41;|1||MultiPrecision&lt;N&gt;.Sqrt(x)|
+|cbrt|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Cbrt(x)|
+|log2|&#40;0,+inf&#41;|0||MultiPrecision&lt;N&gt;.Log2(x)|
+|log|&#40;0,+inf&#41;|1||MultiPrecision&lt;N&gt;.Log(x)|
+|log10|&#40;0,+inf&#41;|1||MultiPrecision&lt;N&gt;.Log10(x)|
+|pow2|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;N&gt;.Pow2(x)|
+|pow|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow(x, y)|
+|pow10|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow10(x)|
+|sin|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;N&gt;.Sin(x)|
+|cos|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;N&gt;.Cos(x)|
+|tan|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;N&gt;.Tan(x)|
+|sinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Sinh(x)|
+|cosh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Cosh(x)|
+|tanh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Tanh(x)|
+|asin|&#91;-1,1&#93;|8||MultiPrecision&lt;N&gt;.Asin(x)|
+|acos|&#91;-1,1&#93;|8||MultiPrecision&lt;N&gt;.Acos(x)|
+|atan|&#40;-inf,+inf&#41;|8||MultiPrecision&lt;N&gt;.Atan(x)|
+|atan2|&#40;-inf,+inf&#41;|8||MultiPrecision&lt;N&gt;.Atan2(y, x)|
+|arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
+|arcosh|&#91;-1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
+|artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
+|loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
+|gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
+|ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;N&gt;.Ldexp(x, y)|
+|random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;N&gt;.Random(random)|
+|min|N/A|N/A||MultiPrecision&lt;N&gt;.Min(x, y)|
+|max|N/A|N/A||MultiPrecision&lt;N&gt;.Max(x, y)|
+|floor|N/A|N/A||MultiPrecision&lt;N&gt;.Floor(x)|
+|ceiling|N/A|N/A||MultiPrecision&lt;N&gt;.Ceiling(x)|
+|round|N/A|N/A||MultiPrecision&lt;N&gt;.Round(x)|
+|truncate|N/A|N/A||MultiPrecision&lt;N&gt;.Truncate(x)|
+|array sum|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Sum()|
+|array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Average()|
+|array min|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Min()|
+|array max|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Max()|
