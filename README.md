@@ -31,9 +31,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |----|----|----|----|
 |sqrt|&#91;0,+inf&#41;|1||
 |cbrt|&#40;-inf,+inf&#41;|1||
-|log2|&#40;0;,+inf&#41;|0||
+|log2|&#40;0,+inf&#41;|0||
 |log|&#40;0;,+inf&#41;|1||
-|log10|&#40;0;,+inf&#41;|1||
+|log10|&#40;0,+inf&#41;|1||
 |pow2|&#40;-inf,+inf&#41;|0||
 |pow|&#40;-inf,+inf&#41;|2||
 |pow10|&#40;-inf,+inf&#41;|2||
@@ -43,14 +43,14 @@ MaxValue: &plusmn;8.808065x10^646456992
 |sinh|&#40;-inf,+inf&#41;|2||
 |cosh|&#40;-inf,+inf&#41;|2||
 |tanh|&#40;-inf,+inf&#41;|2||
-|asin|&#91;-1;,1&#93;|8||
-|acos|&#91;-1;,1&#93;|8||
+|asin|&#91;-1,1&#93;|8||
+|acos|&#91;-1,1&#93;|8||
 |atan|&#40;-inf,+inf&#41;|8||
 |atan2|&#40;-inf,+inf&#41;|8||
 |arsinh|&#40;-inf,+inf&#41;|2||
-|arcosh|&#91;-1;,+inf&#41;|2||
-|artanh|&#40;-1;,1&#41;|4||
-|loggamma|&#40;0;,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
+|arcosh|&#91;-1,+inf&#41;|2||
+|artanh|&#40;-1,1&#41;|4||
+|loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
 |gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|
 |ldexp|&#40;-inf,+&inf&#41;|N/A||
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|
