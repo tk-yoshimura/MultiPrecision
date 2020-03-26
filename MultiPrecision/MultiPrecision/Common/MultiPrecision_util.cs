@@ -5,7 +5,14 @@ namespace MultiPrecision {
 
     public static class MultiPrecisionUtil {
 
-        public static MultiPrecision<Ndst> Convert<Ndst, Nsrc>(MultiPrecision<Nsrc> v) where Nsrc : struct, IConstant where Ndst : struct, IConstant { 
+        public static MultiPrecision<Ndst> Convert<Ndst, Nsrc>(MultiPrecision<Nsrc> v) where Nsrc : struct, IConstant where Ndst : struct, IConstant {
+            if (!v.IsFinite) {
+                if (v.IsNaN) { 
+                    return MultiPrecision<Ndst>.NaN;
+                }
+                return v.Sign == Sign.Plus ? MultiPrecision<Ndst>.PositiveInfinity : MultiPrecision<Ndst>.NegativeInfinity;
+            }
+            
             if(typeof(Nsrc) == typeof(Ndst)) { 
                 return new MultiPrecision<Ndst>(v.Sign, v.Exponent, v.Mantissa.ToArray());
             }

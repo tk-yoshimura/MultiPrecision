@@ -11,23 +11,21 @@ namespace MultiPrecision {
             MultiPrecision<Pow2.N8> xn8 = MultiPrecisionUtil.Convert<Pow2.N8, N>(x);
             MultiPrecision<Pow2.N8> yn8;
 
-            if(x.Sign == Sign.Plus) {
-                if(x.Exponent >= Consts.LogGamma.ExponentThreshold) { 
-                    yn8 = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(xn8));
-                }
-                else {
-                    MultiPrecision<Pow2.N8> x_int = MultiPrecision<Pow2.N8>.Floor(xn8), x_frac = xn8 - x_int;
-                    MultiPrecision<Pow2.N8> z = x_frac + MultiPrecision<Pow2.N8>.Integer(Consts.LogGamma.ApproxThreshold);
-                    MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(z));
+            if(x.Sign == Sign.Plus && x.Exponent >= Consts.LogGamma.ExponentThreshold) {
+                yn8 = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(xn8));
+            }
+            else if(x.Exponent < Consts.LogGamma.ExponentThreshold){
+                MultiPrecision<Pow2.N8> x_int = MultiPrecision<Pow2.N8>.Floor(xn8), x_frac = xn8 - x_int;
+                MultiPrecision<Pow2.N8> z = x_frac + MultiPrecision<Pow2.N8>.Integer(Consts.LogGamma.ApproxThreshold);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(z));
 
-                    MultiPrecision<Pow2.N8> s = MultiPrecision<Pow2.N8>.One;
-                    for(Int64 i = (Int64)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
-                        z -= MultiPrecision<Pow2.N8>.One;
-                        s *= z;
-                    }
-
-                    yn8 = w / s;
+                MultiPrecision<Pow2.N8> s = MultiPrecision<Pow2.N8>.One;
+                for(Int64 i = (Int64)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
+                    z -= MultiPrecision<Pow2.N8>.One;
+                    s *= z;
                 }
+
+                yn8 = w / s;
             }
             else { 
                 throw new NotImplementedException();

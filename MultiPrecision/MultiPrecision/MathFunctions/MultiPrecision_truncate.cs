@@ -55,9 +55,10 @@ namespace MultiPrecision {
             if(keep_bits < 1) { 
                 throw new ArgumentException(nameof(keep_bits));
             }
-            if(Bits <= keep_bits) {
+            if(Bits <= keep_bits || x.mantissa.IsZero || x.IsNaN) {
                 return x;
             }
+
             Mantissa<N> n = Mantissa<N>.RightRoundShift(x.mantissa, Bits - keep_bits);
             int lzc = n.LeadingZeroCount;
             n <<= lzc;
