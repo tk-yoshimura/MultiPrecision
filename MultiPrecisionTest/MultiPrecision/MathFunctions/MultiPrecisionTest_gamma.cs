@@ -18,8 +18,8 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void GammaTest() {
             for (int i = 1; i < 100; i++) {
-                MultiPrecision<Pow2.N16> x = MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.One, -1) * i;
-                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
+                MultiPrecision<Pow2.N4> x = MultiPrecision<Pow2.N4>.Ldexp(MultiPrecision<Pow2.N4>.One, -1) * i;
+                MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
