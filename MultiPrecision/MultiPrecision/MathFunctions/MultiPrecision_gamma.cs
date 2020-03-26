@@ -28,7 +28,9 @@ namespace MultiPrecision {
                 yn8 = w / s;
             }
             else { 
-                throw new NotImplementedException();
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(-xn8));
+
+                yn8 = -MultiPrecision<Pow2.N8>.PI / (w * MultiPrecision<Pow2.N8>.SinPI(xn8) * xn8);
             }
 
             return MultiPrecisionUtil.Convert<N, Pow2.N8>(MultiPrecision<Pow2.N8>.RoundMantissa(yn8, MultiPrecision<Pow2.N8>.Bits - 12));
