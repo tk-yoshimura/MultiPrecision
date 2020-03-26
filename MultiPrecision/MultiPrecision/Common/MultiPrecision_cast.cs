@@ -59,7 +59,12 @@ namespace MultiPrecision {
                 return Zero;
             }
 
-            return $"{v:E18}";
+            const int double_bits = 52;
+
+            int exponent = Math.ILogB(v);
+            Int64 n = (Int64)Math.ScaleB(Math.Abs(v), -exponent + double_bits);
+
+            return Math.Sign(v) * Ldexp(n, exponent - double_bits);
         }
 
         public static implicit operator MultiPrecision<N>(Int64 v) {

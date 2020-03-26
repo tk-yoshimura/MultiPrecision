@@ -48,6 +48,10 @@ namespace MultiPrecisionTest.Common {
 
         [TestMethod]
         public void DoubleTest() {
+            MultiPrecision<Pow2.N8> p5 = 0.5;
+            Assert.AreEqual(-1, p5.Exponent);
+            CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
+
             MultiPrecision<Pow2.N8> zero = 0.0;
             Assert.AreEqual((double)0, (double)zero);
 
