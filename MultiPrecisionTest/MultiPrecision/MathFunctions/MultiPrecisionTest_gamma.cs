@@ -29,5 +29,47 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
         }
+
+        [TestMethod]
+        public void LogGammaBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 4, 32, 64 };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
+
+                    if (y.IsNaN) {
+                        continue;
+                    }
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void GammaBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -64, -32, -4, -1, 0, 1, 4, 32, 64 };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }
