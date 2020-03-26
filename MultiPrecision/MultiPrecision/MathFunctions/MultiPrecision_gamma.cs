@@ -36,6 +36,35 @@ namespace MultiPrecision {
             return MultiPrecisionUtil.Convert<N, Pow2.N8>(MultiPrecision<Pow2.N8>.RoundMantissa(yn8, MultiPrecision<Pow2.N8>.Bits - 12));
         }
 
+        public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {
+            if(!(x > Zero)) { 
+                return NaN;
+            }
+
+            MultiPrecision<Pow2.N8> xn8 = MultiPrecisionUtil.Convert<Pow2.N8, N>(x);
+            MultiPrecision<Pow2.N8> yn8;
+
+            if(x.Exponent >= Consts.LogGamma.ExponentThreshold) {
+                yn8 = LogGammaSterlingApprox(xn8);
+            }
+            else {
+                MultiPrecision<Pow2.N8> x_int = MultiPrecision<Pow2.N8>.Floor(xn8), x_frac = xn8 - x_int;
+                MultiPrecision<Pow2.N8> z = x_frac + MultiPrecision<Pow2.N8>.Integer(Consts.LogGamma.ApproxThreshold);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.Exp(LogGammaSterlingApprox(z));
+                MultiPrecision<Pow2.N8> w_round = MultiPrecision<Pow2.N8>.RoundMantissa(w, MultiPrecision<Pow2.N8>.Bits - 12);
+
+                MultiPrecision<Pow2.N8> s = MultiPrecision<Pow2.N8>.One;
+                for(Int64 i = (Int64)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
+                    z -= MultiPrecision<Pow2.N8>.One;
+                    s *= z;
+                }
+
+                yn8 = MultiPrecision<Pow2.N8>.Log(w_round / s);
+            }
+
+            return MultiPrecisionUtil.Convert<N, Pow2.N8>(yn8);
+        }
+
         internal static MultiPrecision<Pow2.N8> LogGammaSterlingApprox(MultiPrecision<Pow2.N8> x) {
             if (!Consts.LogGamma.Initialized) {
                 Consts.LogGamma.Initialize();
