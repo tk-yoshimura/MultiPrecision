@@ -69,25 +69,25 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 - long
 
-MultiPrecision&lt;N&gt; v0 = 123;
+  MultiPrecision&lt;N&gt; v0 = 123;
 
-long n0 = (long)v0;
+  long n0 = (long)v0;
 
 - double
 
-MultiPrecision&lt;N&gt; v1 = 0.5;
+  MultiPrecision&lt;N&gt; v1 = 0.5;
 
-double n1 = (double)v1;
+  double n1 = (double)v1;
 
 - string
 
-MultiPrecision&lt;N&gt; v2 = "3.14e0";
+  MultiPrecision&lt;N&gt; v2 = "3.14e0";
 
-string s0 = v2.ToString();
+  string s0 = v2.ToString();
 
-string s1 = v2.ToString("E8");
+  string s1 = v2.ToString("E8");
 
-string s2 = $"{v2:E8}";
+  string s2 = $"{v2:E8}";
 
 ## I/O
 
