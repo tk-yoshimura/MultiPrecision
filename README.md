@@ -95,3 +95,10 @@ MaxValue: &plusmn;8.808065x10^646456992
 ## I/O
 
 BinaryWriter, BinaryReader, Serialize
+
+## Licence
+[MIT](https://github.com/tk-yoshimura/MultiPrecision/blob/master/LICENSE)
+
+## Author
+
+[tk-yoshimura](https://github.com/tk-yoshimura)
