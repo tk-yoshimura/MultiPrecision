@@ -62,5 +62,33 @@ MaxValue: &plusmn;8.808065x10^646456992
 |truncate|N/A|N/A||MultiPrecision&lt;N&gt;.Truncate(x)|
 |array sum|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Sum()|
 |array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Average()|
-|array min|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Min()|
-|array max|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Max()|
+|array min|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Min()|
+|array max|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;N&gt;&gt;.Max()|
+
+## Casts
+
+- long
+
+MultiPrecision&lt;N&gt; v0 = 123;
+
+long n0 = (long)v0;
+
+- double
+
+MultiPrecision&lt;N&gt; v1 = 0.5;
+
+double n1 = (double)v1;
+
+- string
+
+MultiPrecision&lt;N&gt; v2 = "3.14e0";
+
+string s0 = v2.ToString();
+
+string s1 = v2.ToString("E8");
+
+string s2 = $"{v2:E8}";
+
+## I/O
+
+BinaryWriter, BinaryReader, Serialize

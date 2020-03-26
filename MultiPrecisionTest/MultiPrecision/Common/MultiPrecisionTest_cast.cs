@@ -76,6 +76,9 @@ namespace MultiPrecisionTest.Common {
             MultiPrecision<Pow2.N8> nan_value = double.NaN;
             Assert.AreEqual(double.NaN, (double)nan_value);
 
+            MultiPrecision<Pow2.N8> pi = Math.PI;
+            Assert.AreEqual(Math.PI, (double)pi);
+
             for (double i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Assert.AreEqual((double)i, (double)m);
