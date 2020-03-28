@@ -4,6 +4,11 @@
 ## Requirement
 .NET Core 3.1
 
+[Download DLL](https://github.com/tk-yoshimura/MultiPrecision/releases)
+
+- To install, just import the DLL.
+- This library does not change the environment at all.
+
 ## Spec
 
 Exponent : &plusmn;2147483647
