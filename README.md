@@ -8,7 +8,7 @@
 
 Exponent : &plusmn;2147483647
 
-Mantissa : 256-32768 bits
+Mantissa : 128-32768 bits
 
 Round: half away from zero
 
@@ -53,8 +53,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
 |arcosh|&#91;-1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
-|loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
-|gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal degits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
+|loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
+|gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;N&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;N&gt;.Random(random)|
 |min|N/A|N/A||MultiPrecision&lt;N&gt;.Min(x, y)|
