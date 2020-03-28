@@ -4,6 +4,8 @@
 ## Requirement
 .NET Core 3.1
 
+## Install
+
 [Download DLL](https://github.com/tk-yoshimura/MultiPrecision/releases)
 
 - To install, just import the DLL.
