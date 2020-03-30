@@ -8,6 +8,18 @@ namespace MultiPrecisionTest.Common {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void ParseTest() {
+            /* common */
+            { 
+                MultiPrecision<Pow2.N8> v1 = "0.5";
+                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -1), v1);
+
+                MultiPrecision<Pow2.N8> v2 = "0.25";
+                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -2), v2);
+
+                MultiPrecision<Pow2.N8> v3 = "0.125";
+                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -3), v3);
+            }
+
             /* without sign */
             {
                 /* without exp */
