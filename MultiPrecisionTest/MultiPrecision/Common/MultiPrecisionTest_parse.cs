@@ -20,6 +20,19 @@ namespace MultiPrecisionTest.Common {
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -3), v3);
             }
 
+            for (int i = 1; i <= 10000; i++) { 
+                 MultiPrecision<Pow2.N8> v1 = $"2.56e{i}";
+                 Assert.AreEqual($"2.56e{i}", $"{v1:e2}");
+            }
+
+            for (int i = 1; i <= 10000; i++) { 
+                 MultiPrecision<Pow2.N8> v1 = $"2.56e-{i}";
+                 Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
+            }
+        }
+        
+        [TestMethod]
+        public void FormatParseTest() {
             /* without sign */
             {
                 /* without exp */
