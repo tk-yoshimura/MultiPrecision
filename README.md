@@ -62,7 +62,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |atan|&#40;-inf,+inf&#41;|8||MultiPrecision&lt;N&gt;.Atan(x)|
 |atan2|&#40;-inf,+inf&#41;|8||MultiPrecision&lt;N&gt;.Atan2(y, x)|
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
-|arcosh|&#91;-1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
+|arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
 |loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
 |gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
