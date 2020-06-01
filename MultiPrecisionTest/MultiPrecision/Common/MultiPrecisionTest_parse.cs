@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using MultiPrecision;
+
 using System;
 using System.Linq;
 
@@ -9,7 +11,7 @@ namespace MultiPrecisionTest.Common {
         [TestMethod]
         public void ParseTest() {
             /* common */
-            { 
+            {
                 MultiPrecision<Pow2.N8> v1 = "0.5";
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -1), v1);
 
@@ -20,17 +22,17 @@ namespace MultiPrecisionTest.Common {
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -3), v3);
             }
 
-            for (int i = 1; i <= 10000; i++) { 
-                 MultiPrecision<Pow2.N8> v1 = $"2.56e{i}";
-                 Assert.AreEqual($"2.56e{i}", $"{v1:e2}");
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N8> v1 = $"2.56e{i}";
+                Assert.AreEqual($"2.56e{i}", $"{v1:e2}");
             }
 
-            for (int i = 1; i <= 10000; i++) { 
-                 MultiPrecision<Pow2.N8> v1 = $"2.56e-{i}";
-                 Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N8> v1 = $"2.56e-{i}";
+                Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
             }
         }
-        
+
         [TestMethod]
         public void FormatParseTest() {
             /* without sign */

@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
 using MultiPrecision;
+
 using System;
 
 namespace MultiPrecisionTest.Functions {
@@ -138,7 +140,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
                     Console.Write("\n");
 
-                    if (double.IsInfinity(Math.Atanh((double)x))) { 
+                    if (double.IsInfinity(Math.Atanh((double)x))) {
                         continue;
                     }
 

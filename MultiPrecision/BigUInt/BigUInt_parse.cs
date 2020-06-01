@@ -19,18 +19,45 @@ namespace MultiPrecision {
             }
 
             const int decimals = 9;
-            BigUInt<N, K> decbase = Decimal(decimals), decpow = 1;
 
-            for (int i = 0; ; i += decimals) {
-                if (i + decimals < s.Length) {
-                    UInt32 dec = UInt32.Parse(s.Substring(s.Length - decimals - i, decimals), NumberStyles.Integer, CultureInfo.InvariantCulture);
-                    Add(Mul(new BigUInt<N, K>(dec), decpow));
-                    decpow *= decbase;
+            UInt32[] dec = new UInt32[(s.Length + decimals - 1) / decimals];
+            for(int i = 0, idx = s.Length - decimals; i < dec.Length; i++, idx -= decimals) { 
+                if(idx >= 0) { 
+                    dec[i] = UInt32.Parse(s.Substring(idx, decimals), NumberStyles.Integer, CultureInfo.InvariantCulture);
                 }
                 else {
-                    UInt32 dec = UInt32.Parse(s.Substring(0, s.Length - i), NumberStyles.Integer, CultureInfo.InvariantCulture);
-                    Add(Mul(new BigUInt<N, K>(dec), decpow));
-                    break;
+                    dec[i] = UInt32.Parse(s.Substring(0, decimals + idx), NumberStyles.Integer, CultureInfo.InvariantCulture);
+                }
+            }
+
+            int bin_digits = 0;
+
+            for (int j = dec.Length - 1; j >= 0; j--) {
+                if(bin_digits > Length) { 
+                    throw new OverflowException();
+                }
+
+                UInt32 carry = dec[j];
+                for (int i = 0; i < bin_digits; i++) {
+                    UInt64 res = (UInt64)value[i] * UIntUtil.UInt32MaxDecimal + (UInt64)carry;
+                    (carry, value[i]) = UIntUtil.Unpack(res);
+                }
+                if (carry > 0) {
+                    if(bin_digits >= Length) { 
+                        throw new OverflowException();
+                    }
+
+                    (carry, value[bin_digits]) = UIntUtil.Unpack(carry);
+                    bin_digits++;
+
+                    if (carry > 0) {
+                        if(bin_digits >= Length) { 
+                            throw new OverflowException();
+                        }
+
+                        value[bin_digits] = carry;
+                        bin_digits++;
+                    }
                 }
             }
         }
