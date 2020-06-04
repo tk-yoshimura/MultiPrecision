@@ -24,9 +24,10 @@ namespace MultiPrecision {
 
             MultiPrecision<N> v = One;
             MultiPrecision<N> d = 1;
+            MultiPrecision<N> t = One;
 
-            while (table.Count < 1024) {
-                MultiPrecision<N> t = One / v;
+            while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
+                t = One / v;
 
                 if (t.IsZero) { 
                     break;
