@@ -215,11 +215,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfcBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 2, 0, -1, 1, -2, 2 };
+            MultiPrecision<Pow2.N16>[] borders = new MultiPrecision<Pow2.N16>[] { 2, 0, -1, 1, -2, 2 };
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erfc(x);
+            foreach (MultiPrecision<Pow2.N16> b in borders) {
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erfc(x);
 
                     if (y.IsNaN) {
                         continue;

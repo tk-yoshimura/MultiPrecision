@@ -58,7 +58,7 @@ namespace MultiPrecision {
             MultiPrecision<N> z = x * Consts.sqrt2;
             MultiPrecision<N> a = 0;
 
-            for (int n = Bits; n > 0; n--){
+            for (long n = Bits * 4; n > 0; n--){
                 a = n / (z + a);
             }
 
