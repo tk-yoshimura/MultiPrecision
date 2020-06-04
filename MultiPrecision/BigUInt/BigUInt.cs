@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -29,7 +30,7 @@ namespace MultiPrecision {
             (this.value[1], this.value[0]) = UIntUtil.Unpack(v);
         }
 
-        public BigUInt(UInt32[] arr) {
+        public BigUInt([DisallowNull] UInt32[] arr) {
             if (arr == null || arr.Length != Length) {
                 throw new ArgumentException();
             }
@@ -37,7 +38,7 @@ namespace MultiPrecision {
             this.value = (UInt32[])arr.Clone();
         }
 
-        public BigUInt(ReadOnlyCollection<UInt32> arr) {
+        public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr) {
             if (arr == null || arr.Count != Length) {
                 throw new ArgumentException();
             }
@@ -45,14 +46,14 @@ namespace MultiPrecision {
             this.value = arr.ToArray();
         }
 
-        public BigUInt(UInt32[] arr, int index) : this() {
+        public BigUInt([DisallowNull] UInt32[] arr, int index) : this() {
             if (arr == null || arr.Length - index != Length || index < 0) {
                 throw new ArgumentException();
             }
             Array.Copy(arr, index, this.value, 0, Length);
         }
 
-        public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
+        public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
             if (arr == null || index < 0) {
                 throw new ArgumentException();
             }

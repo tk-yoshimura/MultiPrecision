@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
 
 namespace MultiPrecision {
 
@@ -34,7 +34,7 @@ namespace MultiPrecision {
             }
         }
 
-        public string ToString(string format, IFormatProvider formatProvider) {
+        public string ToString([AllowNull] string format, [AllowNull] IFormatProvider formatProvider) {
             if (format == null) {
                 return ToString();
             }
@@ -64,6 +64,10 @@ namespace MultiPrecision {
             num = num.Insert(1, ".");
 
             return $"{(sign == Sign.Plus ? "" : "-")}{num}{format[0]}{exponent_dec}";
+        }
+
+        public string ToString(string format) { 
+            return ToString(format, null);
         }
 
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
