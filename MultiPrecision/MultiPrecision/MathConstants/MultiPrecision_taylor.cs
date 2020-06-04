@@ -17,8 +17,6 @@ namespace MultiPrecision {
             }
         }
 
-        public static int TaylorTableShift => Mantissa<N>.Bits - 1;
-
         private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorTable() {
             List<MultiPrecision<N>> table = new List<MultiPrecision<N>>();
 
