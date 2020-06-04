@@ -80,5 +80,45 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(Math.Exp((double)x), (double)y, Math.Exp((double)x) * 1e-5);
             }
         }
+
+        [TestMethod]
+        public void Expm1Test() {
+            for (Int64 i = -110; i <= 110; i++) {
+                MultiPrecision<Pow2.N8> x = i;
+                x /= 100;
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Expm1(x);
+
+                Console.WriteLine((double)x);
+                Console.WriteLine((double)y);
+                Assert.AreEqual(Math.Exp((double)x) - 1, (double)y, Math.Abs(Math.Exp((double)x) - 1) * 1e-5);
+            }
+        }
+
+        [TestMethod]
+        public void Expm1BorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, -1, 1 };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Expm1(x);
+
+                    if (y.IsNaN) {
+                        continue;
+                    }
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    Assert.AreEqual(Math.Exp((double)x) - 1, (double)y, 1e-10);
+                    Assert.AreEqual(Math.Sign(Math.Exp((double)x) - 1), Math.Sign((double)y));
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }

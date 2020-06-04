@@ -14,5 +14,27 @@
 
             return y;
         }
+
+        public static MultiPrecision<N> Expm1(MultiPrecision<N> x) {
+            if(x.Exponent >= 0) { 
+                return Exp(x) - 1;
+            }
+
+            MultiPrecision<N> z = x;
+            MultiPrecision<N> y = Zero;
+
+            foreach(MultiPrecision<N> t in TaylorTable) { 
+                MultiPrecision<N> dy = t * z;
+                y += dy;
+
+                if(dy.IsZero || dy.Exponent + Bits < y.Exponent) {
+                    break;
+                }
+
+                z *= x;
+            }
+
+            return y;
+        }
     }
 }

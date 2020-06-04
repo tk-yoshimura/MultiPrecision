@@ -114,5 +114,63 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
             }
         }
+
+        [TestMethod]
+        public void TanhBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0 };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tanh(x);
+
+                    if (y.IsNaN) {
+                        continue;
+                    }
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    if (double.IsInfinity(Math.Tanh((double)x))) {
+                        continue;
+                    }
+
+                    Assert.AreEqual(Math.Tanh((double)x), (double)y, 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void SinhBorderTest() {
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, -1, 1 };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sinh(x);
+
+                    if (y.IsNaN) {
+                        continue;
+                    }
+
+                    Console.WriteLine(x);
+                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(y);
+                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.Write("\n");
+
+                    if (double.IsInfinity(Math.Sinh((double)x))) {
+                        continue;
+                    }
+
+                    Assert.AreEqual(Math.Sinh((double)x), (double)y, 1e-10);
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }
