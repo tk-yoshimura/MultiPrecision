@@ -47,8 +47,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |pow2|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;N&gt;.Pow2(x)|
 |pow|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow(x, y)|
 |pow10|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow10(x)|
-|exp|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Exp(x)|
-|expm1|&#40;-inf,+inf&#41;|1|exp(x)-1|MultiPrecision&lt;N&gt;.Expm1(x)|
+|exp|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Exp(x)|
+|expm1|&#40;-inf,+inf&#41;|2|exp(x)-1|MultiPrecision&lt;N&gt;.Expm1(x)|
 |sin|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Sin(x)|
 |cos|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Cos(x)|
 |tan|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;N&gt;.Tan(x)|
