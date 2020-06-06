@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -215,11 +216,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfcBorderTest() {
-            MultiPrecision<Pow2.N16>[] borders = new MultiPrecision<Pow2.N16>[] { 2, 0, -1, 1, -2, 2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 2, 0, -1, 1, -2, 2 };
 
-            foreach (MultiPrecision<Pow2.N16> b in borders) {
-                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
-                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erfc(x);
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erfc(x);
 
                     if (y.IsNaN) {
                         continue;
@@ -236,6 +237,31 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 Console.Write("\n");
+            }
+        }
+
+        //[TestMethod]
+        public void ErfcConvexTest() {
+            MultiPrecision<Pow2.N8> x = 2;
+            MultiPrecision<Pow2.N8> erfc2 = 1 - MultiPrecision<Pow2.N8>.Erf(x);
+
+            List<MultiPrecision<Pow2.N8>> errs = new List<MultiPrecision<Pow2.N8>>();
+
+            for (int i = MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 14; i <= MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 16; i++) {
+                MultiPrecision<Pow2.N8> z = x * MultiPrecision<Pow2.N8>.Sqrt2;
+                MultiPrecision<Pow2.N8> a = 0;
+
+                for (long n = i; n > 0; n--) {
+                    a = n / (z + a);
+                }
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Exp(-x * x) / (z + a) * MultiPrecision<Pow2.N8>.Sqrt(2 / MultiPrecision<Pow2.N8>.PI);
+
+                MultiPrecision<Pow2.N8> err = erfc2 - y;
+
+                errs.Add(err);
+
+                Console.WriteLine($"{i},{err:E12}");
             }
         }
     }

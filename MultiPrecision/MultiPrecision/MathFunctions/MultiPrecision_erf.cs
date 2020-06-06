@@ -13,7 +13,7 @@ namespace MultiPrecision {
             if (!x.IsFinite) { 
                 return x.Sign == Sign.Plus ? One : MinusOne;
             }
-            if(x.Exponent >= 1) { 
+            if(x.Exponent > 1) { 
                 return One - Erfc(x);
             }
 
@@ -48,21 +48,21 @@ namespace MultiPrecision {
             if (!x.IsFinite) { 
                 return x.Sign == Sign.Plus ? Zero : Integer(2);
             }
-            if(x.Exponent < 1) { 
+            if(x.Exponent <= 1) { 
                 return One - Erf(x);
             }
             if(x.Sign == Sign.Minus) { 
                 return Integer(2) - Erfc(-x);
             }
 
-            MultiPrecision<N> z = x * Consts.sqrt2;
+            MultiPrecision<N> z = x * Sqrt2;
             MultiPrecision<N> a = 0;
 
-            for (long n = Bits * 4; n > 0; n--){
+            for (long n = Length * Length * 123 / 8; n > 0; n--){
                 a = n / (z + a);
             }
 
-            MultiPrecision<N> y = Exp(-x * x) / (z + a) * Sqrt(2 / Consts.pi);
+            MultiPrecision<N> y = Exp(-x * x) / (z + a) * Sqrt(2 / PI);
 
             return y;
         }
