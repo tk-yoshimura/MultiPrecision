@@ -58,8 +58,13 @@ namespace MultiPrecision {
             MultiPrecision<N> z = x * Sqrt2;
             MultiPrecision<N> a = 0;
 
-            for (long n = Length * Length * 123 / 8; n > 0; n--){
-                a = n / (z + a);
+            // Number of convergences in length = 8, less than this number for length = 16.
+            const double s = 57.387608, p = -1.809676;
+            long n = (long)((double)Length * Length * s * Math.Pow((double)x, p)) + 1;
+
+            while (n > 0){
+                a = Integer(n) / (z + a);
+                n--;
             }
 
             MultiPrecision<N> y = Exp(-x * x) / (z + a) * Sqrt(2 / PI);

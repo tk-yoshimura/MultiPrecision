@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace MultiPrecision {
 
@@ -8,6 +9,10 @@ namespace MultiPrecision {
 
         public static explicit operator double(MultiPrecision<N> v) {
             return v.ToDouble();
+        }
+
+        public static explicit operator decimal(MultiPrecision<N> v) {
+            return (decimal)v.ToDouble();
         }
 
         public static explicit operator Int64(MultiPrecision<N> v) {
@@ -64,6 +69,10 @@ namespace MultiPrecision {
             Int64 n = (Int64)Math.ScaleB(Math.Abs(v), -exponent + double_bits);
 
             return Math.Sign(v) * Ldexp(n, exponent - double_bits);
+        }
+
+        public static implicit operator MultiPrecision<N>(decimal v) {
+            return $"{v:e28}";
         }
 
         public static implicit operator MultiPrecision<N>(Int64 v) {

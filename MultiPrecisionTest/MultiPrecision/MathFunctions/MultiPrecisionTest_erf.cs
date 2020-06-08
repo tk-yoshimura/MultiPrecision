@@ -190,7 +190,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, -1, 1, -2, 2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
@@ -216,7 +216,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfcBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 2, 0, -1, 1, -2, 2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
@@ -241,7 +241,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         //[TestMethod]
-        public void ErfcConvexTest() {
+        public void ErfcConvergenceTest() {
             MultiPrecision<Pow2.N8> x = 2;
             MultiPrecision<Pow2.N8> erfc2 = 1 - MultiPrecision<Pow2.N8>.Erf(x);
 
@@ -262,6 +262,47 @@ namespace MultiPrecisionTest.Functions {
                 errs.Add(err);
 
                 Console.WriteLine($"{i},{err:E12}");
+            }
+        }
+
+        //[TestMethod]
+        public void ErfcConvergence2Test() {
+
+            const int max_cnt = 5;
+
+            for (decimal d = 2; d <= 5; d += 0.0625m) {
+                MultiPrecision<Pow2.N8> x = d;
+
+                MultiPrecision<Pow2.N8> prev = 0;
+                int cnt = 0;
+
+                for (int i = MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 4; i <= MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 16; i++) {
+                    MultiPrecision<Pow2.N8> z = x * MultiPrecision<Pow2.N8>.Sqrt2;
+                    MultiPrecision<Pow2.N8> a = 0;
+
+                    for (long n = i; n > 0; n--) {
+                        a = n / (z + a);
+                    }
+
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Exp(-x * x) / (z + a) * MultiPrecision<Pow2.N8>.Sqrt(2 / MultiPrecision<Pow2.N8>.PI);
+
+                    if (prev == y) {
+                        cnt++;
+                    }
+                    else {
+                        prev = y;
+                        cnt = 0;
+                    }
+
+                    if (cnt >= max_cnt) {
+                        Console.WriteLine($"{x},{i - max_cnt},{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                        break;
+                    }
+                }
+
+                if (cnt < max_cnt) {
+                    Console.WriteLine($"{x},N/A");
+                }
             }
         }
     }

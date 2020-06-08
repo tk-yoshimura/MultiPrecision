@@ -47,8 +47,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |pow2|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;N&gt;.Pow2(x)|
 |pow|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow(x, y)|
 |pow10|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Pow10(x)|
-|exp|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Exp(x)|
-|expm1|&#40;-inf,+inf&#41;|2|exp(x)-1|MultiPrecision&lt;N&gt;.Expm1(x)|
+|exp|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;N&gt;.Exp(x)|
+|expm1|&#40;-inf,+inf&#41;|4|exp(x)-1|MultiPrecision&lt;N&gt;.Expm1(x)|
 |sin|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Sin(x)|
 |cos|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Cos(x)|
 |tan|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;N&gt;.Tan(x)|
@@ -65,6 +65,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
 |arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
+|erf|&#40;-inf,+inf&#41;|10||MultiPrecision&lt;N&gt;.Erf(x)|
+|erfc|&#40;-inf,+inf&#41;|10||MultiPrecision&lt;N&gt;.Erfc(x)|
 |loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
 |gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;N&gt;.Ldexp(x, y)|
