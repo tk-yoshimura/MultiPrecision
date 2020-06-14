@@ -65,8 +65,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
 |arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
-|erf|&#40;-inf,+inf&#41;|10||MultiPrecision&lt;N&gt;.Erf(x)|
-|erfc|&#40;-inf,+inf&#41;|10||MultiPrecision&lt;N&gt;.Erfc(x)|
+|erf|&#40;-inf,+inf&#41;|16||MultiPrecision&lt;N&gt;.Erf(x)|
+|erfc|&#40;-inf,+inf&#41;|16||MultiPrecision&lt;N&gt;.Erfc(x)|
 |loggamma|&#40;0,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.LogGamma(x)|
 |gamma|&#40;-inf,+inf&#41;|N/A|generation bits: 234<br>decimal digits: 72|MultiPrecision&lt;N&gt;.Gamma(x)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;N&gt;.Ldexp(x, y)|
