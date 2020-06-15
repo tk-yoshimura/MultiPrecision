@@ -8,7 +8,7 @@ using MultiPrecision;
 namespace MultiPrecisionSandbox {
     public static class GammaCoef<N> where N : struct, IConstant {
 
-        public static MultiPrecision<N>[] Generate(MultiPrecision<N> g, int length) {
+        public static MultiPrecision<N>[] PSeries(MultiPrecision<N> g, int length) {
             MultiPrecision<N> p5 = MultiPrecision<N>.Ldexp(1, -1);
             MultiPrecision<N> g_p5 = g + p5;
             MultiPrecision<N> d32 = MultiPrecision<N>.Ldexp(3, -1);
@@ -38,7 +38,7 @@ namespace MultiPrecisionSandbox {
 
                 fact.Add(MultiPrecision<N>.Ldexp(fact.Last() * (2 * k + 1), -1));
                 pow.Add(MultiPrecision<N>.Pow(k + g_p5 + 1, -k - d32));
-                exp.Add(exp.Last() * MultiPrecision<N>.E);
+                exp.Add(exp[0] + (k + 1) * MultiPrecision<N>.E);
             }
 
             return ps.ToArray();

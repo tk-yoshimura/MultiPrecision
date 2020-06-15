@@ -13,7 +13,7 @@ namespace MultiPrecisionSandbox {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N8>[] ps = GammaCoef<Pow2.N8>.Generate(0.75, 8);
+            MultiPrecision<Pow2.N8>[] ps = GammaCoef<Pow2.N8>.PSeries(0.75, 8);
 
             MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Pow(2.5, 1.5);
 
