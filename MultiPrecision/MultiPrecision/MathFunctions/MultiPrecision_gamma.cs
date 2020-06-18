@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
@@ -192,6 +193,11 @@ namespace MultiPrecision {
                             break;
                         }
                     }
+
+#if DEBUG
+                    Trace.WriteLine($"Gamma round bits : {RoundBits}bits @{Length}length");
+#endif
+
                 }
             }
         }

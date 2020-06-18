@@ -115,6 +115,16 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
                 Console.Write("\n");
             }
+
+            for (int i = 1; i <= 4; i++) {
+                MultiPrecision<Pow2.N64> x = i;
+                MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.Write("\n");
+            }
         }
     }
 }
