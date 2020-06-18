@@ -92,5 +92,9 @@ namespace MultiPrecision {
         public override int GetHashCode() {
             return Sign.GetHashCode() ^ exponent.GetHashCode() ^ mantissa.GetHashCode();
         }
+
+        public string ToHexcode() { 
+            return $"{Sign} {Exponent}, {UIntUtil.ToHexcode(Mantissa)}";
+        }
     }
 }
