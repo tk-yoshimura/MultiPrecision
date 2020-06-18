@@ -29,7 +29,7 @@ namespace MultiPrecision {
                 MultiPrecision<N> dy = t * z;
                 y += dy;
 
-                if(dy.IsZero || dy.Exponent + Bits < y.Exponent) {
+                if(dy.IsZero || y.Exponent - dy.Exponent > Bits) {
                     break;
                 }
 
