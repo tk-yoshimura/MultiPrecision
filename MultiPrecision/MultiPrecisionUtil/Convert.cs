@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MultiPrecision {
 
-    public static class MultiPrecisionUtil {
+    public static partial class MultiPrecisionUtil {
 
         public static MultiPrecision<Ndst> Convert<Ndst, Nsrc>(MultiPrecision<Nsrc> v) where Nsrc : struct, IConstant where Ndst : struct, IConstant {
             if (!v.IsFinite) {
