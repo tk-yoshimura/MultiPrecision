@@ -98,7 +98,7 @@ namespace MultiPrecision {
             public static class LogGamma {
                 public static readonly long ApproxThreshold = (long)(7.2152 * Math.Exp(0.17 * Length));
                 public static readonly long NearOneThreshold = 3;
-                public static int RoundBits = 8;
+                public static int RoundBits = 0;
 
                 public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<N> C0 { private set; get; } = null;
@@ -182,8 +182,10 @@ namespace MultiPrecision {
                 }
 
                 public static void FixRoundBits() { 
-                    while(RoundBits < UIntUtil.UInt64Bits) { 
-                        if(Gamma(One) != One) { 
+                    MultiPrecision<N> y = Gamma(One);
+
+                    while(RoundBits < Bits / 2) { 
+                        if(RoundMantissa(y, Bits - RoundBits) != One) { 
                             RoundBits++;
                         }
                         else {
