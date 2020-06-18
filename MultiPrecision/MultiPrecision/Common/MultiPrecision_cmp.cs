@@ -72,6 +72,14 @@ namespace MultiPrecision {
             return !(a <= b);
         }
 
+        public static bool NearlyEquals(MultiPrecision<N> a, MultiPrecision<N> b, MultiPrecision<N> eps) { 
+            return a - eps <= b && b <= a + eps;
+        }
+
+        public static bool NearlyEqualBits(MultiPrecision<N> a, MultiPrecision<N> b, int ignore_bits) { 
+            return RoundMantissa(a, Bits - ignore_bits) == RoundMantissa(b, Bits - ignore_bits);
+        }
+
         public int CompareTo([AllowNull] MultiPrecision<N> other) {
             if (other is null) {
                 return 1;

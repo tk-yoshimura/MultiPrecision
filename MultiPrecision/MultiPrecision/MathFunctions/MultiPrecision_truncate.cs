@@ -51,7 +51,7 @@ namespace MultiPrecision {
             return Floor(x + Ldexp(One, -1));
         }
 
-        internal static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
+        public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
             if(keep_bits < 1) { 
                 throw new ArgumentException(nameof(keep_bits));
             }
