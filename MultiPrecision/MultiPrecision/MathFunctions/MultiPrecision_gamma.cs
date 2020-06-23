@@ -104,7 +104,7 @@ namespace MultiPrecision {
             public static class LogGamma {
                 public static readonly long ApproxThreshold = (long)(7.2152 * Math.Exp(0.17 * Length));
                 public static readonly long NearOneThreshold = 3;
-                public static int RoundBits = 0;
+                public static int RoundBits { private set; get; } = 0;
 
                 public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<N> C0 { private set; get; } = null;
