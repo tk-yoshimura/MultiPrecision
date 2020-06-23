@@ -25,6 +25,10 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    if(x.Sign == Sign.Minus) { 
+                        continue;
+                    }
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(x);
 
                     Console.WriteLine(x);
@@ -33,7 +37,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(Math.Log2((double)x), y);
+                    TestTool.Tolerance(Math.Log2((double)x), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");

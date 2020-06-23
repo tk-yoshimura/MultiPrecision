@@ -25,6 +25,10 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    if(x.Sign == Sign.Minus) { 
+                        continue;
+                    }
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sqrt(x);
 
                     Console.WriteLine(x);

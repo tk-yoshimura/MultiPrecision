@@ -48,6 +48,9 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void TanPITest() {
             foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+                if(x * 2 == MultiPrecision<Pow2.N8>.Truncate(x * 2)) { 
+                    continue;
+                }
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPI(x);
 

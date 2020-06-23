@@ -19,6 +19,10 @@ namespace MultiPrecisionTest.Functions {
                 1.5056327351493116e-7
             };
 
+            if(z <= 0 && z == Math.Truncate(z)) {
+                return double.NaN;
+            }
+
             if (z < 0.5) {
                 return Math.PI / (Math.Sin(Math.PI * z) * GammaApprox(1 - z));
             }
@@ -56,7 +60,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void LogGammaTest() {
-            for (int i = 0; i < 200; i++) {
+            for (int i = 1; i < 200; i++) {
                 MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -2) * i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
@@ -70,6 +74,10 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void GammaTest() {
             for (int i = -200; i < 200; i++) {
+                if(i <= 0 && i % 4 == 0) { 
+                    continue;
+                }
+
                 MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -2) * i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
@@ -86,6 +94,10 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    if(x <= 0) { 
+                        continue;
+                    }
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
                     Console.WriteLine(x);
@@ -103,10 +115,14 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void GammaBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -64, -32, -4, -1, 0, 1, 4, 32, 64 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 1, 2, 3, 4, 32, 64 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    if(x <= 0 && x == MultiPrecision<Pow2.N8>.Truncate(x)) { 
+                        continue;
+                    }
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
                     Console.WriteLine(x);

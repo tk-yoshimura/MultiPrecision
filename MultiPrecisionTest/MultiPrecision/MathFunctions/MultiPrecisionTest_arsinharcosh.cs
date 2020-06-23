@@ -81,6 +81,10 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
+                    if(x < 1) { 
+                        continue;
+                    }
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(x);
 
                     Console.WriteLine(x);
@@ -89,7 +93,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(Math.Acosh((double)x), y, ignore_expected_nan: true);
+                    TestTool.Tolerance(Math.Acosh((double)x), y, ignore_expected_nan: true, ignore_sign: true);
                 }
 
                 Console.Write("\n");
@@ -103,7 +107,11 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(x);
+                    if(x < -1 || x > 1) { 
+                        continue;
+                    }
+
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Artanh(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());

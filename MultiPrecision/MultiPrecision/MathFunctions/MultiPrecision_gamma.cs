@@ -8,32 +8,37 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> Gamma(MultiPrecision<N> x) {
 
-            if(x.Sign == Sign.Plus && x >= Integer(Consts.LogGamma.ApproxThreshold)) {
-                return RoundMantissa(Exp(LogGammaSterlingApprox(x).hi), Bits - Consts.LogGamma.RoundBits);
+            if (x.IsZero) { 
+                return NaN;
             }
-            
-            MultiPrecision<N> y;
 
-            if(x < Integer(Consts.LogGamma.ApproxThreshold)){
-                MultiPrecision<N> x_int = Floor(x), x_frac = x - x_int;
-                MultiPrecision<N> z = x_frac + Integer(Consts.LogGamma.ApproxThreshold);
-                MultiPrecision<N> w = Exp(LogGammaSterlingApprox(z).hi);
-
-                MultiPrecision<N> s = One;
-                for(long i = (long)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
-                    z -= One;
-                    s *= z;
+            if(x.Sign == Sign.Plus){
+                if(x >= Integer(Consts.LogGamma.ApproxThreshold)) {
+                    return RoundMantissa(Exp(LogGammaSterlingApprox(x).hi), Bits - Consts.LogGamma.RoundBits);
                 }
+                else{
+                    MultiPrecision<N> x_int = Floor(x), x_frac = x - x_int;
+                    MultiPrecision<N> z = x_frac + Integer(Consts.LogGamma.ApproxThreshold);
+                    MultiPrecision<N> w = Exp(LogGammaSterlingApprox(z).hi);
 
-                y = w / s;
+                    MultiPrecision<N> s = One;
+                    for(long i = (long)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
+                        z -= One;
+                        s *= z;
+                    }
+
+                    return RoundMantissa(w / s, Bits - Consts.LogGamma.RoundBits);
+                }
             }
             else { 
-                MultiPrecision<N> w = Exp(LogGammaSterlingApprox(-x).hi);
+                if(x == Truncate(x)) { 
+                    return NaN;
+                }
 
-                y = -PI / (w * SinPI(x) * x);
+                MultiPrecision<N> w = Gamma(-x);
+
+                return -PI / (w * SinPI(x) * x);
             }
-
-            return RoundMantissa(y, Bits - Consts.LogGamma.RoundBits);
         }
 
         public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {

@@ -47,7 +47,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(ErfApprox((double)x), y, minerr:1e-2);
+                TestTool.Tolerance(ErfApprox((double)x), y, minerr:1e-2, ignore_sign: true);
             }
         }
 
@@ -60,7 +60,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(ErfcApprox((double)x), y, minerr:1e-2);
+                TestTool.Tolerance(ErfcApprox((double)x), y, minerr:1e-2, ignore_sign: true);
             }
         }
 
