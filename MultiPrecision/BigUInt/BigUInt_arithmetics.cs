@@ -100,6 +100,65 @@ namespace MultiPrecision {
             return ret;
         }
 
+        public static BigUInt<N, K> Mul(UInt64 n, BigUInt<N, K> v) {
+            BigUInt<N, K> ret = Zero.Copy();
+
+            (UInt32 v11, UInt32 v10) = UIntUtil.Unpack(n);
+
+            int v_digits = v.Digits;
+
+            for (int dig = 0; dig < v_digits; dig++) {
+                if (v[dig] == 0) {
+                    continue;
+                }
+
+                if(v10 > 0u) { 
+                    (UInt32 h, UInt32 l) = UIntUtil.Unpack((UInt64)v10 * (UInt64)v[dig]);
+
+                    ret.CarryAdd(dig, l);
+                    ret.CarryAdd(dig + 1, h);
+                }
+
+                if(v11 > 0u) { 
+                    (UInt32 h, UInt32 l) = UIntUtil.Unpack((UInt64)v11 * (UInt64)v[dig]);
+
+                    ret.CarryAdd(dig + 1, l);
+                    ret.CarryAdd(dig + 2, h);
+                }
+            }
+
+            return ret;
+        }
+
+        public static BigUInt<N, K> Mul(BigUInt<N, K> v, UInt64 n) { 
+            return Mul(n, v);
+        }
+
+        public static BigUInt<N, Pow2.N2> ExpandMul(BigUInt<N, Pow2.N1> v1, BigUInt<N, Pow2.N1> v2) {
+            BigUInt<N, Pow2.N2> ret = BigUInt<N, Pow2.N2>.Zero.Copy();
+
+            int v1_digits = v1.Digits, v2_digits = v2.Digits;
+
+            for (int dig1 = 0; dig1 < v1_digits; dig1++) {
+                if (v1[dig1] == 0) {
+                    continue;
+                }
+
+                for (int dig2 = 0; dig2 < v2_digits; dig2++) {
+                    if (v2[dig2] == 0) {
+                        continue;
+                    }
+
+                    (UInt32 h, UInt32 l) = UIntUtil.Unpack((UInt64)v1[dig1] * (UInt64)v2[dig2]);
+
+                    ret.CarryAdd(dig1 + dig2, l);
+                    ret.CarryAdd(dig1 + dig2 + 1, h);
+                }
+            }
+
+            return ret;
+        }
+
         public static (BigUInt<N, K> div, BigUInt<N, K> rem) Div(BigUInt<N, K> v1, BigUInt<N, K> v2) {
             if (v2.IsZero) {
                 throw new DivideByZeroException();
@@ -134,7 +193,7 @@ namespace MultiPrecision {
                 div.CarryAdd(i - denom_digits + 1, nh);
                 div.CarryAdd(i - denom_digits, nl);
 
-                BigUInt<N, K> sub = Mul(new BigUInt<N, K>(n), v2_sft);
+                BigUInt<N, K> sub = Mul(n, v2_sft);
                 sub.LeftBlockShift(i - denom_digits);
 
                 rem.Sub(sub);
@@ -152,7 +211,7 @@ namespace MultiPrecision {
                 div.CarryAdd(1, nh);
                 div.CarryAdd(0, nl);
 
-                BigUInt<N, K> sub = Mul(new BigUInt<N, K>(n), v2_sft);
+                BigUInt<N, K> sub = Mul(n, v2_sft);
                 rem.Sub(sub);
 
                 if (n == 0) {

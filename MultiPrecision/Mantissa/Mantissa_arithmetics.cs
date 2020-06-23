@@ -19,7 +19,7 @@ namespace MultiPrecision {
             return Sub(a, b);
         }
 
-        public static Mantissa<N> operator *(Mantissa<N> a, Mantissa<N> b) {
+        public static Accumulator<N> operator *(Mantissa<N> a, Mantissa<N> b) {
             return Mul(a, b);
         }
 
@@ -47,8 +47,8 @@ namespace MultiPrecision {
             return new Mantissa<N>(BigUInt<N, Pow2.N1>.Sub(v1.value, v2));
         }
 
-        public static Mantissa<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Mul(v1.value, v2.value));
+        public static Accumulator<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {
+            return new Accumulator<N>(BigUInt<N, Pow2.N1>.ExpandMul(v1.value, v2.value));
         }
 
         public static (Mantissa<N> div, Mantissa<N> rem) Div(Mantissa<N> v1, Mantissa<N> v2) {

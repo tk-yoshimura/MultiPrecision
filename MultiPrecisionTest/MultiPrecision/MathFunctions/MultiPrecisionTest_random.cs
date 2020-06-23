@@ -13,9 +13,9 @@ namespace MultiPrecisionTest.Functions {
 
             MultiPrecision<Pow2.N8>[] vs = (new MultiPrecision<Pow2.N8>[1000]).Select((v) => MultiPrecision<Pow2.N8>.Random(random)).ToArray();
 
-            foreach (var v in vs) {
-                Console.WriteLine(v);
-            }
+            //foreach (var v in vs) {
+            //    Console.WriteLine(v);
+            //}
 
             MultiPrecision<Pow2.N8> vs_sum = vs.Sum();
             MultiPrecision<Pow2.N8> vs_average = vs.Average();

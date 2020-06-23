@@ -104,10 +104,7 @@ namespace MultiPrecision {
         }
 
         internal static (Mantissa<N> n, Int64 exponent) Mul((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> a_acc = new Accumulator<N>(a.n);
-            Accumulator<N> b_acc = new Accumulator<N>(b.n);
-
-            Accumulator<N> c_acc = Accumulator<N>.Mul(a_acc, b_acc);
+            Accumulator<N> c_acc = Mantissa<N>.Mul(a.n, b.n);
 
             (Mantissa<N> n, int sft) = c_acc.Mantissa;
 

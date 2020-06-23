@@ -161,7 +161,7 @@ namespace MultiPrecisionTest.Functions {
                     }
 
                     if (cnt >= max_cnt) {
-                        Console.WriteLine($"{x},{i - max_cnt},{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                        Console.WriteLine($"{x},{i - max_cnt},{y.ToHexcode()}");
                         break;
                     }
                 }
