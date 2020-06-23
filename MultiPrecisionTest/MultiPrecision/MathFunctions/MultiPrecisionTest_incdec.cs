@@ -30,8 +30,8 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(v);
                 Console.WriteLine(vinc);
 
-                Console.WriteLine($"{v.Sign} {v.Exponent}, {UIntUtil.ToHexcode(v.Mantissa)}");
-                Console.WriteLine($"{vinc.Sign} {vinc.Exponent}, {UIntUtil.ToHexcode(vinc.Mantissa)}");
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(vinc.ToHexcode());
 
                 Console.Write("\n");
             }
@@ -60,8 +60,8 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(v);
                 Console.WriteLine(vdec);
 
-                Console.WriteLine($"{v.Sign} {v.Exponent}, {UIntUtil.ToHexcode(v.Mantissa)}");
-                Console.WriteLine($"{vdec.Sign} {vdec.Exponent}, {UIntUtil.ToHexcode(vdec.Mantissa)}");
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(vdec.ToHexcode());
 
                 Console.Write("\n");
             }

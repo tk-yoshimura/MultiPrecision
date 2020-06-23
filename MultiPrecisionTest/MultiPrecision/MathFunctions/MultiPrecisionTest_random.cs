@@ -34,6 +34,10 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> vs_max = vs.Max();
 
             Console.WriteLine($"min : {vs_max}");
+
+            Assert.IsTrue(vs_min >= 0);
+            Assert.IsTrue(vs_max < 1);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEquals(vs_average, 0.5, 1e-2));
         }
     }
 }

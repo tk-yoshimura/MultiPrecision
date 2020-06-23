@@ -8,277 +8,92 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void CosHalfPITest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosHalfPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI / 2);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosHalfPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI / 2);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosHalfPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI / 2);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void CosPITest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosPI(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.CosPI(x);
-                double y_expect = Math.Cos((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void SinPITest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.SinPI(x);
-                double y_expect = Math.Sin((double)x * Math.PI);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinPI(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.SinPI(x);
-                double y_expect = Math.Sin((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.SinPI(x);
-                double y_expect = Math.Sin((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void TanPITest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.TanPI(x);
-                double y_expect = Math.Tan((double)x * Math.PI);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPI(x);
 
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.TanPI(x);
-                double y_expect = Math.Tan((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.TanPI(x);
-                double y_expect = Math.Tan((double)x * Math.PI);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Tan((double)x * Math.PI), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void CosTest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Cos(x);
-                double y_expect = Math.Cos((double)x);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cos(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Cos(x);
-                double y_expect = Math.Cos((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Cos(x);
-                double y_expect = Math.Cos((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Cos((double)x), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void SinTest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Sin(x);
-                double y_expect = Math.Sin((double)x);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sin(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Sin(x);
-                double y_expect = Math.Sin((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Sin(x);
-                double y_expect = Math.Sin((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Sin((double)x), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void TanTest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Tan(x);
-                double y_expect = Math.Tan((double)x);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tan(x);
 
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Tan(x);
-                double y_expect = Math.Tan((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Tan(x);
-                double y_expect = Math.Tan((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-
-                if (!y_actual.IsFinite || !double.IsFinite(y_expect)) {
-                    continue;
-                }
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Tan((double)x), y, ignore_sign: true);
             }
         }
 
@@ -297,12 +112,12 @@ namespace MultiPrecisionTest.Functions {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    Assert.AreEqual(Math.Cos((double)x * Math.PI / 2), (double)y, 1e-10);
+                    TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");

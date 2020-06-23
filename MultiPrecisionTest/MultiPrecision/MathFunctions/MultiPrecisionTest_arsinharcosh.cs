@@ -9,65 +9,42 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArsinhTest() {
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Arsinh(x);
-                double y_expect = Math.Asinh((double)x);
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arsinh(x);
 
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = 65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Arsinh(x);
-                double y_expect = Math.Asinh((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
-            }
-
-            for (Int64 i = -1000; i <= 1000; i++) {
-                MultiPrecision<Pow2.N8> x = -65536 + (MultiPrecision<Pow2.N8>)i / 250;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Arsinh(x);
-                double y_expect = Math.Asinh((double)x);
-
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Asinh((double)x), y);
             }
         }
 
         [TestMethod]
         public void ArcoshTest() {
-            for (Int64 i = 1000; i <= 4000; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 1000;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Arcosh(x);
-                double y_expect = Math.Acosh((double)x);
+            for (Int64 i = 100; i <= 400; i++) {
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 100;
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Acosh((double)x), y);
             }
         }
 
         [TestMethod]
         public void ArtanhTest() {
-            for (Int64 i = -999; i <= 999; i++) {
-                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 1000;
-                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Artanh(x);
-                double y_expect = Math.Atanh((double)x);
+            for (Int64 i = -99; i <= 99; i++) {
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y_actual);
-                Console.WriteLine((double)y_expect);
-                Assert.AreEqual(y_expect, (double)y_actual, Math.Abs(y_expect * 1e-5) + 1e-10);
+                MultiPrecision<Pow2.N8> x = (MultiPrecision<Pow2.N8>)i / 100;
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Artanh(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Atanh((double)x), y);
             }
         }
 
@@ -79,16 +56,16 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arsinh(x);
 
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    Assert.AreEqual(Math.Asinh((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Asinh((double)x)), Math.Sign((double)y));
+                    TestTool.Tolerance(Math.Asinh((double)x), y);
                 }
 
                 Console.Write("\n");
@@ -103,19 +80,16 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(x);
 
-                    if (y.IsNaN) {
-                        continue;
-                    }
-
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    Assert.AreEqual(Math.Acosh((double)x), (double)y, 1e-10);
+                    TestTool.Tolerance(Math.Acosh((double)x), y, ignore_expected_nan: true);
                 }
 
                 Console.Write("\n");
@@ -128,24 +102,16 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Artanh(x);
 
-                    if (y.IsNaN) {
-                        continue;
-                    }
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(x);
 
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    if (double.IsInfinity(Math.Atanh((double)x))) {
-                        continue;
-                    }
-
-                    Assert.AreEqual(Math.Atanh((double)x), (double)y, 1e-10);
-                    Assert.AreEqual(Math.Sign(Math.Atanh((double)x)), Math.Sign((double)y));
+                    TestTool.Tolerance(Math.Atanh((double)x), y, ignore_expected_nan: true);
                 }
 
                 Console.Write("\n");

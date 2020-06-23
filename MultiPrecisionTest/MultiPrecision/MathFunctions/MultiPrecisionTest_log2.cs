@@ -8,57 +8,14 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void Log2Test() {
-            for (Int64 i = 1; i <= 100000000000; i *= 10) {
-                MultiPrecision<Pow2.N8> x = i;
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) { 
+
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(x);
 
-                Console.WriteLine((double)x);
-                Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Log2((double)x), (double)y, 1e-5);
-            }
-
-            MultiPrecision<Pow2.N8> p = 1;
-            for (int i = 0; i < 32; i++) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(p);
-
-                Console.WriteLine((double)p);
-                Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Log2((double)p), (double)y, 1e-5);
-
-                p *= 2;
-            }
-
-            MultiPrecision<Pow2.N8> n = 1;
-            for (int i = 0; i < 32; i++) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(n);
-
-                Console.WriteLine((double)n);
-                Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Log2((double)n), (double)y, 1e-5);
-
-                n /= 2;
-            }
-
-            MultiPrecision<Pow2.N8> p2 = 255;
-            for (int i = 0; i < 32; i++) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(p2);
-
-                Console.WriteLine((double)p2);
-                Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Log2((double)p2), (double)y, 1e-5);
-
-                p2 *= 2;
-            }
-
-            MultiPrecision<Pow2.N8> n2 = 257;
-            for (int i = 0; i < 32; i++) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(n2);
-
-                Console.WriteLine((double)n2);
-                Console.WriteLine((double)y);
-                Assert.AreEqual(Math.Log2((double)n2), (double)y, 1e-5);
-
-                n2 /= 2;
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                
+                TestTool.Tolerance(Math.Log2((double)x), y);
             }
         }
 
@@ -70,21 +27,13 @@ namespace MultiPrecisionTest.Functions {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(x);
 
-                    if (y.IsNaN) {
-                        continue;
-                    }
-
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    if (double.IsInfinity(Math.Log2((double)x))) {
-                        continue;
-                    }
-
-                    Assert.AreEqual(Math.Log2((double)x), (double)y, 1e-10);
+                    TestTool.Tolerance(Math.Log2((double)x), y);
                 }
 
                 Console.Write("\n");

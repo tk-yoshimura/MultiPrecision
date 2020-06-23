@@ -35,6 +35,8 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine($"max : {max}");
                     Console.WriteLine($"min : {min}");
 
+                    Assert.IsTrue(max >= min);
+
                     Console.Write("\n");
                 }
             }

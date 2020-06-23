@@ -57,34 +57,26 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void LogGammaTest() {
             for (int i = 0; i < 200; i++) {
-                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -1) * i;
+                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -2) * i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
-                Console.Write("\n");
-
-                if (y.IsFinite) {
-                    Assert.AreEqual(LogGammaApprox((double)x), (double)y, Math.Abs(LogGammaApprox((double)x) * 1e-5) + 1e-12, x.ToString());
-                }
+                
+                TestTool.Tolerance(LogGammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void GammaTest() {
             for (int i = -200; i < 200; i++) {
-                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -1) * i;
+                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.One, -2) * i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
-                Console.Write("\n");
-
-                if (y.IsFinite) {
-                    Assert.AreEqual(GammaApprox((double)x), (double)y, Math.Abs(GammaApprox((double)x)) * 1e-5 + 1e-12, x.ToString());
-                }
+                
+                TestTool.Tolerance(GammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
             }
         }
 
@@ -96,15 +88,13 @@ namespace MultiPrecisionTest.Functions {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
-                    if (y.IsNaN) {
-                        continue;
-                    }
-
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
+
+                    TestTool.Tolerance(LogGammaApprox((double)x), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");
@@ -120,10 +110,12 @@ namespace MultiPrecisionTest.Functions {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
                     Console.WriteLine(x);
-                    Console.WriteLine($"{x.Sign} {x.Exponent}, {UIntUtil.ToHexcode(x.Mantissa)}");
+                    Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
-                    Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                    Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
+
+                    TestTool.Tolerance(GammaApprox((double)x), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");
@@ -132,54 +124,64 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void GammaIntegerTest() {
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N4> x = i;
                 MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+                
+                Assert.AreEqual(f, y);
             }
 
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N8> x = i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                Assert.AreEqual(f, y);
             }
 
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N16> x = i;
                 MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                Assert.AreEqual(f, y);
             }
 
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N32> x = i;
                 MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                Assert.AreEqual(f, y);
             }
 
-            for (int i = 1; i <= 4; i++) {
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N64> x = i;
                 MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                Console.WriteLine($"{y.Sign} {y.Exponent}, {UIntUtil.ToHexcode(y.Mantissa)}");
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                Assert.AreEqual(f, y);
             }
         }
     }
