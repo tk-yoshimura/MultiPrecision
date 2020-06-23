@@ -3,15 +3,21 @@
 using System;
 
 namespace MultiPrecisionSandbox {
-    using MP = MultiPrecision<Pow2.N64>;
+    using MP = MultiPrecision<Pow2.N8>;
 
     class Program {
 
         static void Main(string[] args) {
-            MP x = MP.Gamma(1.5);
+            MP x = 2;
 
-            Console.WriteLine(x);
-            Console.WriteLine(x.ToHexcode());
+            for(int i = 0; i < 4098; i++) { 
+                MP y = MP.Erfc(x);
+
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+
+                x = MP.BitDecrement(x);
+            }
 
             Console.WriteLine("END");
             Console.Read();

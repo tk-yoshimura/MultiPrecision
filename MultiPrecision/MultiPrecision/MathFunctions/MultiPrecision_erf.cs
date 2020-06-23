@@ -158,7 +158,7 @@ namespace MultiPrecision {
                         }
                     }
 
-                    RoundBits++;
+                    RoundBits += 3;
 
 #if DEBUG
                     Trace.WriteLine($"Erfc round bits : {RoundBits}bits @{Length}length");
