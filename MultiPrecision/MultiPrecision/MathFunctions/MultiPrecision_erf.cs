@@ -136,7 +136,7 @@ namespace MultiPrecision {
                     FixRoundBits();
                 }
 
-                public static void FixRoundBits(int matches = 5) {
+                public static void FixRoundBits(int matches = 16) {
                     MultiPrecision<N> x = 2;
                     MultiPrecision<N>[] ys = new MultiPrecision<N>[matches];
 
@@ -157,8 +157,6 @@ namespace MultiPrecision {
                             break;
                         }
                     }
-
-                    RoundBits += 3;
 
 #if DEBUG
                     Trace.WriteLine($"Erfc round bits : {RoundBits}bits @{Length}length");

@@ -49,6 +49,64 @@ namespace MultiPrecisionTest.Functions {
                 
                 TestTool.Tolerance(ErfApprox((double)x), y, minerr:1e-2, ignore_sign: true);
             }
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "-9.999999845827420997199811478403265131159514278547464108088316571e-1",
+                    MultiPrecision<Pow2.N8>.Erf(-4),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "-9.999779095030014145586272238704176796201522929126007503427610452e-1",
+                    MultiPrecision<Pow2.N8>.Erf(-3),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "-9.953222650189527341620692563672529286108917970400600767383523262e-1",
+                    MultiPrecision<Pow2.N8>.Erf(-2),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "-8.427007929497148693412206350826092592960669979663029084599378978e-1",
+                    MultiPrecision<Pow2.N8>.Erf(-1),
+                    "1e-50"
+                ));
+
+            Assert.AreEqual(0, MultiPrecision<Pow2.N8>.Erf(0));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "8.427007929497148693412206350826092592960669979663029084599378978e-1",
+                    MultiPrecision<Pow2.N8>.Erf(1),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "9.953222650189527341620692563672529286108917970400600767383523262e-1",
+                    MultiPrecision<Pow2.N8>.Erf(2),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "9.999779095030014145586272238704176796201522929126007503427610452e-1",
+                    MultiPrecision<Pow2.N8>.Erf(3),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "9.999999845827420997199811478403265131159514278547464108088316571e-1",
+                    MultiPrecision<Pow2.N8>.Erf(4),
+                    "1e-50"
+                ));
         }
 
         [TestMethod]
@@ -62,6 +120,64 @@ namespace MultiPrecisionTest.Functions {
                 
                 TestTool.Tolerance(ErfcApprox((double)x), y, minerr:1e-2, ignore_sign: true);
             }
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.9999999845827420997199811478403265131159514278547464108088316571e0",
+                    MultiPrecision<Pow2.N8>.Erfc(-4),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.9999779095030014145586272238704176796201522929126007503427610452e0",
+                    MultiPrecision<Pow2.N8>.Erfc(-3),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.9953222650189527341620692563672529286108917970400600767383523262e0",
+                    MultiPrecision<Pow2.N8>.Erfc(-2),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.8427007929497148693412206350826092592960669979663029084599378978e0",
+                    MultiPrecision<Pow2.N8>.Erfc(-1),
+                    "1e-50"
+                ));
+
+            Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Erfc(0));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.572992070502851306587793649173907407039330020336970915400621022e-1",
+                    MultiPrecision<Pow2.N8>.Erfc(1),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "4.677734981047265837930743632747071389108202959939923261647673800e-3",
+                    MultiPrecision<Pow2.N8>.Erfc(2),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "2.209049699858544137277612958232037984770708739924965723895484294e-5",
+                    MultiPrecision<Pow2.N8>.Erfc(3),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    "1.541725790028001885215967348688404857214525358919116834290499421e-8",
+                    MultiPrecision<Pow2.N8>.Erfc(4),
+                    "1e-50"
+                ));
         }
 
         [TestMethod]

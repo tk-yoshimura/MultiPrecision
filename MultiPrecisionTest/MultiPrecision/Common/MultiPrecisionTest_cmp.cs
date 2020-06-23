@@ -71,5 +71,17 @@ namespace MultiPrecisionTest.Common {
                 }
             }
         }
+
+        [TestMethod]
+        public void NearlyEqualsTest() {
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.45", "0.1"));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.55", "0.1"));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.45", "0.06"));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.55", "0.06"));
+            Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.45", "0.04"));
+            Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.55", "0.04"));
+            Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.45", "0.01"));
+            Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.55", "0.01"));
+        }
     }
 }
