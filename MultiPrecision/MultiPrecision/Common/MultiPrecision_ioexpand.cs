@@ -36,7 +36,7 @@ namespace MultiPrecision {
                 }
             }
 
-            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(mantissa));
+            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(mantissa, enable_clone: false));
         }
     }
 }

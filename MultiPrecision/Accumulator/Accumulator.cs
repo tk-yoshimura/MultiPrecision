@@ -26,8 +26,8 @@ namespace MultiPrecision {
             this.value = new BigUInt<N, Pow2.N2>(v);
         }
 
-        public Accumulator(UInt32[] arr) {
-            this.value = new BigUInt<N, Pow2.N2>(arr);
+        public Accumulator(UInt32[] arr, bool enable_clone = true) {
+            this.value = new BigUInt<N, Pow2.N2>(arr, enable_clone);
         }
 
         public Accumulator(ReadOnlyCollection<UInt32> arr) {

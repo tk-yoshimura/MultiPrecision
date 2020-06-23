@@ -27,6 +27,7 @@ namespace MultiPrecision {
                 v *= v;
                 if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
                     UIntUtil.SetMSB(mantissa, i);
+
                     v = Accumulator<N>.RightRoundBlockShift(v, Mantissa<N>.Length);
 
                     if (init >= Mantissa<N>.Bits) {
@@ -38,7 +39,7 @@ namespace MultiPrecision {
                 }
             }
 
-            Accumulator<N> mantissa_acc = new Accumulator<N>(mantissa);
+            Accumulator<N> mantissa_acc = new Accumulator<N>(mantissa, enable_clone: false);
 
             if (mantissa_acc.IsZero) {
                 return exponent;

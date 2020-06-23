@@ -108,7 +108,7 @@ namespace MultiPrecisionTest {
         }
 
         public static IEnumerable<MultiPrecision<N>> TruncateSet<N>() where N : struct, IConstant { 
-            MultiPrecision<N>[] ps = { 0, 0.1, 0.5, 0.9 };
+            MultiPrecision<N>[] ps = { 0, "0.1", "0.5", "0.9" };
 
             foreach(var p in ps) { 
                 for (Int64 i = 0; i <= 32; i++) {

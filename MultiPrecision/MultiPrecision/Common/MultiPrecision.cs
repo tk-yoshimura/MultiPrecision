@@ -69,6 +69,21 @@ namespace MultiPrecision {
             return new MultiPrecision<N>(sign, (Int64)Accumulator<N>.Bits - sft - 1, n, round: false);
         }
 
+        private static MultiPrecision<N> CreateInteger(Sign sign, UInt64 num) {
+            if(num == 0u) {
+                return sign == Sign.Plus ? Zero : MinusZero;
+            }
+
+            UInt32[] vs = new UInt32[Length];
+            (vs[^1], vs[^2]) = UIntUtil.Unpack(num);
+
+            int lzc = UIntUtil.LeadingZeroCount(vs);
+
+            UIntUtil.LeftShift(vs, lzc);
+
+            return new MultiPrecision<N>(sign, (uint)(UIntUtil.UInt64Bits - lzc - 1) + ExponentZero, new Mantissa<N>(vs, enable_clone: false));
+        }
+
         public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;
 
         public bool IsNaN => exponent >= ExponentMax && !mantissa.IsZero;

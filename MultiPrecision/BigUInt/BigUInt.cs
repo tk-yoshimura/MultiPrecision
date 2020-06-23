@@ -30,12 +30,12 @@ namespace MultiPrecision {
             (this.value[1], this.value[0]) = UIntUtil.Unpack(v);
         }
 
-        public BigUInt([DisallowNull] UInt32[] arr) {
+        public BigUInt([DisallowNull] UInt32[] arr, bool enable_clone = true) {
             if (arr == null || arr.Length != Length) {
                 throw new ArgumentException();
             }
 
-            this.value = (UInt32[])arr.Clone();
+            this.value = enable_clone ? (UInt32[])arr.Clone() : arr;
         }
 
         public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr) {

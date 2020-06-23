@@ -79,12 +79,12 @@ namespace MultiPrecision {
             if (v >= 0) {
                 UInt64 v_pos = unchecked((UInt64)v);
 
-                return CreateInteger(Sign.Plus, new Accumulator<N>(v_pos));
+                return CreateInteger(Sign.Plus, v_pos);
             }
             else {
                 UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
 
-                return CreateInteger(Sign.Minus, new Accumulator<N>(v_neg));
+                return CreateInteger(Sign.Minus, v_neg);
             }
         }
 

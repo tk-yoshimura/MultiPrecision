@@ -26,8 +26,8 @@ namespace MultiPrecision {
             this.value = new BigUInt<N, Pow2.N1>(v);
         }
 
-        public Mantissa(UInt32[] arr) {
-            this.value = new BigUInt<N, Pow2.N1>(arr);
+        public Mantissa(UInt32[] arr, bool enable_clone = true) {
+            this.value = new BigUInt<N, Pow2.N1>(arr, enable_clone);
         }
 
         public Mantissa(ReadOnlyCollection<UInt32> arr) {
