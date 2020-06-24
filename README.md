@@ -58,17 +58,17 @@ MaxValue: &plusmn;8.808065x10^646456992
 |sinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Sinh(x)|
 |cosh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Cosh(x)|
 |tanh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Tanh(x)|
-|asin|&#91;-1,1&#93;|2||MultiPrecision&lt;N&gt;.Asin(x)|
-|acos|&#91;-1,1&#93;|2||MultiPrecision&lt;N&gt;.Acos(x)|
+|asin|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;N&gt;.Asin(x)|
+|acos|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;N&gt;.Acos(x)|
 |atan|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Atan(x)|
 |atan2|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Atan2(y, x)|
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arsinh(x)|
 |arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;N&gt;.Arcosh(x)|
-|artanh|&#40;-1,1&#41;|4||MultiPrecision&lt;N&gt;.Artanh(x)|
+|artanh|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;N&gt;.Artanh(x)|
 |erf|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Erf(x)|
 |erfc|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Erfc(x)|
-|loggamma|&#40;0,+inf&#41;|3|Accuracy deteriorates near x=1,2.|MultiPrecision&lt;N&gt;.LogGamma(x)|
-|gamma|&#40;-inf,+inf&#41;|3||MultiPrecision&lt;N&gt;.Gamma(x)|
+|loggamma|&#41;0,+inf&#41;|3|Accuracy deteriorates near x=1,2.|MultiPrecision&lt;N&gt;.LogGamma(x)|
+|gamma|&#40;-inf,+inf&#41;|3|Accuracy deteriorates near non-positive intergers.|MultiPrecision&lt;N&gt;.Gamma(x)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;N&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;N&gt;.Random(random)|
 |min|N/A|N/A||MultiPrecision&lt;N&gt;.Min(x, y)|
