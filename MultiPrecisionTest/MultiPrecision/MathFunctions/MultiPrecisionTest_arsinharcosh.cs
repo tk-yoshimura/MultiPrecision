@@ -119,6 +119,10 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
+                    if (Math.Abs((double)x) == 1) {
+                        continue;
+                    }
+
                     TestTool.Tolerance(Math.Atanh((double)x), y, ignore_expected_nan: true);
                 }
 

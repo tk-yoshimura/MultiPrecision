@@ -28,7 +28,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, minerr:1e-4, ignore_sign: true);
             }
         }
 
@@ -41,7 +41,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, minerr:1e-4, ignore_sign: true);
             }
         }
 

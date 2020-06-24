@@ -37,6 +37,10 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
+                    if ((double)x == 0) {
+                        continue;
+                    }
+
                     TestTool.Tolerance(Math.Log2((double)x), y, ignore_sign: true);
                 }
 

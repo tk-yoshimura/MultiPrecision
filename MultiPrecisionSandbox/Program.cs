@@ -3,21 +3,16 @@
 using System;
 
 namespace MultiPrecisionSandbox {
-    using MP = MultiPrecision<Pow2.N16>;
+    using MP = MultiPrecision<Pow2.N8>;
 
     class Program {
 
         static void Main(string[] args) {
-            MP x = 2;
+            MP x = "1e10";
 
-            for(int i = 0; i < 16; i++) { 
-                MP y = MP.Erfc(x);
+            MP a = MP.Exp(x), b = MP.Exp(-x), c = a + b;
 
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-
-                x = MP.BitDecrement(x);
-            }
+            MP y = MP.Ldexp(c, -1);
 
             Console.WriteLine("END");
             Console.Read();
