@@ -141,8 +141,8 @@ namespace MultiPrecisionTest {
                 Assert.AreEqual(Math.Sign(expected), Math.Sign((double)actual), "unmatch sign");
             }
             
-            if (!double.IsInfinity(expected)) { 
-                Assert.IsFalse(double.IsInfinity(actual.ToDouble()), "not infinity");
+            if (double.IsInfinity(expected)) { 
+                Assert.IsTrue(double.IsInfinity(actual.ToDouble()), "not infinity");
 
                 return;
             }

@@ -74,13 +74,13 @@ namespace MultiPrecision {
 
                 for (long i = (long)x_int; i < Consts.LogGamma.ApproxThreshold; i++) {
                     z_next -= MultiPrecision<Next<N>>.One;
-                    s = MultiPrecision<Next<N>>.Log2(z_next);
+                    s += MultiPrecision<Next<N>>.Log2(z_next);
                 }
 
                 y = w - s / MultiPrecision<Next<N>>.Log2(MultiPrecision<Next<N>>.E);
             }
 
-             return RoundMantissa(MultiPrecisionUtil.Convert<N, Next<N>>(y), Bits - Consts.LogGamma.RoundBits);
+            return RoundMantissa(MultiPrecisionUtil.Convert<N, Next<N>>(y), Bits - Consts.LogGamma.RoundBits);
         }
 
         internal static MultiPrecision<Next<N>> LogGammaSterlingApprox(MultiPrecision<N> x) {

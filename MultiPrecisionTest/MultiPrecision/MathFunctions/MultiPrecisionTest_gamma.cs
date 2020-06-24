@@ -69,6 +69,57 @@ namespace MultiPrecisionTest.Functions {
                 
                 TestTool.Tolerance(LogGammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
             }
+
+            Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(1));
+            Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(2));
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(2),
+                    MultiPrecision<Pow2.N8>.LogGamma(3),
+                    "1e-50"
+                ), $"{MultiPrecision<Pow2.N8>.Log(2)}, { MultiPrecision<Pow2.N8>.LogGamma(3)}");
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(6),
+                    MultiPrecision<Pow2.N8>.LogGamma(4),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(24),
+                    MultiPrecision<Pow2.N8>.LogGamma(5),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI)), 
+                    MultiPrecision<Pow2.N8>.LogGamma(0.5),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2), 
+                    MultiPrecision<Pow2.N8>.LogGamma(1.5),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4),
+                    MultiPrecision<Pow2.N8>.LogGamma(2.5), 
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8),
+                    MultiPrecision<Pow2.N8>.LogGamma(3.5), 
+                    "1e-50"
+                ));
         }
 
         [TestMethod]
@@ -86,6 +137,54 @@ namespace MultiPrecisionTest.Functions {
                 
                 TestTool.Tolerance(GammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
             }
+
+            Assert.IsTrue(1 == MultiPrecision<Pow2.N8>.Gamma(1));
+            Assert.IsTrue(1 == MultiPrecision<Pow2.N8>.Gamma(2));
+            Assert.IsTrue(2 == MultiPrecision<Pow2.N8>.Gamma(3));
+            Assert.IsTrue(6 == MultiPrecision<Pow2.N8>.Gamma(4));
+            Assert.IsTrue(24 == MultiPrecision<Pow2.N8>.Gamma(5));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 4 / 3, 
+                    MultiPrecision<Pow2.N8>.Gamma(-1.5), 
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * -2, 
+                    MultiPrecision<Pow2.N8>.Gamma(-0.5), 
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI), 
+                    MultiPrecision<Pow2.N8>.Gamma(0.5),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2, 
+                    MultiPrecision<Pow2.N8>.Gamma(1.5),
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4,
+                    MultiPrecision<Pow2.N8>.Gamma(2.5), 
+                    "1e-50"
+                ));
+
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEquals(
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8,
+                    MultiPrecision<Pow2.N8>.Gamma(3.5), 
+                    "1e-50"
+                ));
         }
 
         [TestMethod]
