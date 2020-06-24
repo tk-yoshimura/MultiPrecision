@@ -51,7 +51,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |expm1|&#40;-inf,+inf&#41;|2|exp(x)-1|MultiPrecision&lt;N&gt;.Expm1(x)|
 |sin|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Sin(x)|
 |cos|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;N&gt;.Cos(x)|
-|tan|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;N&gt;.Tan(x)|
+|tan|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;N&gt;.Tan(x)|
 |sinpi|&#40;-inf,+inf&#41;|0| sin(&pi;x) |MultiPrecision&lt;N&gt;.SinPI(x)|
 |cospi|&#40;-inf,+inf&#41;|0| cos(&pi;x) |MultiPrecision&lt;N&gt;.CosPI(x)|
 |tanpi|&#40;-inf,+inf&#41;|3| tan(&pi;x) |MultiPrecision&lt;N&gt;.TanPI(x)|
