@@ -19,23 +19,27 @@ namespace MultiPrecision {
                 return Zero;
             }
 
-            Int64 exponent = x.Exponent;
-            MultiPrecision<N> v = new MultiPrecision<N>(Sign.Plus, exponent % 2, x.mantissa, round: false);
+            MultiPrecision<Next<N>> x_next = MultiPrecisionUtil.Convert<Next<N>, N>(x);
 
-            MultiPrecision<N> a = Consts.Sqrt.ApproxA + v * (Consts.Sqrt.ApproxB + v * Consts.Sqrt.ApproxC);
-            MultiPrecision<N> h = One - v * a * a;
-            MultiPrecision<N> c4 = Integer(4);
+            Int64 exponent = x_next.Exponent;
+            MultiPrecision<Next<N>> v = new MultiPrecision<Next<N>>(Sign.Plus, exponent % 2, x_next.mantissa, round: false);
+
+            MultiPrecision<Next<N>> a = Consts.Sqrt.ApproxA + v * (Consts.Sqrt.ApproxB + v * Consts.Sqrt.ApproxC);
+            MultiPrecision<Next<N>> h = MultiPrecision<Next<N>>.One - v * a * a;
+            MultiPrecision<Next<N>> c4 = 4;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= One + h * Ldexp(c4 + h + Ldexp(h, 1), -3);
-                h = One - v * a * a;
+                a *= MultiPrecision<Next<N>>.One + h * MultiPrecision<Next<N>>.Ldexp(c4 + h + MultiPrecision<Next<N>>.Ldexp(h, 1), -3);
+                h = MultiPrecision<Next<N>>.One - v * a * a;
 
                 h_exponent_prev = h_exponent_post;
                 h_exponent_post = h.exponent;
             }
 
-            MultiPrecision<N> y = Ldexp(v * a, (int)((exponent - exponent % 2) >> 1));
+            MultiPrecision<Next<N>> y_next = MultiPrecision<Next<N>>.Ldexp(v * a, (int)((exponent - exponent % 2) >> 1));
+
+            MultiPrecision<N> y = MultiPrecisionUtil.Convert<N, Next<N>>(y_next);
 
             return y;
         }
@@ -44,14 +48,14 @@ namespace MultiPrecision {
         private static partial class Consts {
             public static class Sqrt {
                 public static bool Initialized { private set; get; } = false;
-                public static MultiPrecision<N> ApproxA { private set; get; } = null;
-                public static MultiPrecision<N> ApproxB { private set; get; } = null;
-                public static MultiPrecision<N> ApproxC { private set; get; } = null;
+                public static MultiPrecision<Next<N>> ApproxA { private set; get; } = null;
+                public static MultiPrecision<Next<N>> ApproxB { private set; get; } = null;
+                public static MultiPrecision<Next<N>> ApproxC { private set; get; } = null;
 
                 public static void Initialize() {
-                    ApproxA = (17 - 6 * Sqrt2) / 6;
-                    ApproxB = (5 * Sqrt2 - 9) / 4;
-                    ApproxC = (5 - 3 * Sqrt2) / 12;
+                    ApproxA = (17 - 6 * MultiPrecision<Next<N>>.Sqrt2) / 6;
+                    ApproxB = (5 * MultiPrecision<Next<N>>.Sqrt2 - 9) / 4;
+                    ApproxC = (5 - 3 * MultiPrecision<Next<N>>.Sqrt2) / 12;
 
                     Initialized = true;
                 }

@@ -89,13 +89,15 @@ namespace MultiPrecision {
             Debug<ArithmeticException>.Assert(x >= Zero && x < One);
 #endif
 
-            MultiPrecision<N> z = Zero, dz = Zero, s = Ldexp(x * x, 2), t = s;
+            MultiPrecision<Next<N>> x_next = MultiPrecisionUtil.Convert<Next<N>, N>(x);
+            MultiPrecision<Next<N>> z = MultiPrecision<Next<N>>.Zero, dz = MultiPrecision<Next<N>>.Zero;
+            MultiPrecision<Next<N>> s = MultiPrecision<Next<N>>.Ldexp(x_next * x_next, 2), t = s;
 
 #if DEBUG
             bool convergenced = false;
 #endif
 
-            foreach (MultiPrecision<N> f in Consts.SquareAsin.FracTable) {
+            foreach (MultiPrecision<Next<N>> f in Consts.SquareAsin.FracTable) {
                 dz = t * f;
                 z += dz;
                 t *= s;
@@ -112,17 +114,17 @@ namespace MultiPrecision {
             Debug<ArithmeticException>.Assert(convergenced);
 #endif
 
-            return Ldexp(z, -1);
+            return Ldexp(MultiPrecisionUtil.Convert<N, Next<N>>(z), -1);
         }
 
         private static partial class Consts {
             public static class SquareAsin {
                 public static bool Initialized { private set; get; } = false;
-                public static ReadOnlyCollection<MultiPrecision<N>> FracTable { private set; get; } = null;
+                public static ReadOnlyCollection<MultiPrecision<Next<N>>> FracTable { private set; get; } = null;
 
                 public static void Initialize() {
-                    MultiPrecision<N> n = 1, n_frac = 1, n2_frac = 2;
-                    List<MultiPrecision<N>> fracs = new List<MultiPrecision<N>>();
+                    MultiPrecision<Next<N>> n = 1, n_frac = 1, n2_frac = 2;
+                    List<MultiPrecision<Next<N>>> fracs = new List<MultiPrecision<Next<N>>>();
 
                     while (fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
                         fracs.Add((n_frac * n_frac) / (n * n * n2_frac));

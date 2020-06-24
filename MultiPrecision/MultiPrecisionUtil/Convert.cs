@@ -13,21 +13,21 @@ namespace MultiPrecision {
                 return v.Sign == Sign.Plus ? MultiPrecision<Ndst>.PositiveInfinity : MultiPrecision<Ndst>.NegativeInfinity;
             }
             
-            if(typeof(Nsrc) == typeof(Ndst)) { 
+            if(MultiPrecision<Nsrc>.Length == MultiPrecision<Ndst>.Length) { 
                 return new MultiPrecision<Ndst>(v.Sign, v.Exponent, v.Mantissa.ToArray());
             }
             
             UInt32[] mantissa = new UInt32[MultiPrecision<Ndst>.Length];
 
-            for(int i = 0, n = Math.Min(MultiPrecision<Nsrc>.Length, MultiPrecision<Ndst>.Length); i < n; i++) {
-                mantissa[mantissa.Length - i - 1] = v.Mantissa[MultiPrecision<Nsrc>.Length - i - 1];
-            }
+            if (MultiPrecision<Nsrc>.Length <= MultiPrecision<Ndst>.Length) {
+                Array.Copy(v.Mantissa.ToArray(), 0, mantissa, MultiPrecision<Ndst>.Length - MultiPrecision<Nsrc>.Length, MultiPrecision<Nsrc>.Length);
 
-            if(MultiPrecision<Nsrc>.Length >= MultiPrecision<Ndst>.Length && UIntUtil.IsFull(mantissa)) {
-                return new MultiPrecision<Ndst>(v.Sign, v.Exponent + 1, Mantissa<Ndst>.One, round: false);
+                return new MultiPrecision<Ndst>(v.Sign, v.Exponent, new Mantissa<Ndst>(mantissa, enable_clone: false), round: false);
             }
-            else { 
-                return new MultiPrecision<Ndst>(v.Sign, v.Exponent, new Mantissa<Ndst>(mantissa), round: false);
+            else {
+                Array.Copy(v.Mantissa.ToArray(), MultiPrecision<Nsrc>.Length - MultiPrecision<Ndst>.Length, mantissa, 0, MultiPrecision<Ndst>.Length);
+
+                return new MultiPrecision<Ndst>(v.Sign, v.Exponent, new Mantissa<Ndst>(mantissa, enable_clone: false), round: v.Mantissa[0] > UIntUtil.UInt32Round);
             }
         }
     }

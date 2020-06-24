@@ -2,6 +2,11 @@
     public interface IConstant {
         int Value { get; }
     }
+
+    public struct Next<N> : IConstant where N : struct, IConstant {
+        public int Value => checked(default(N).Value + 1);
+    }
+
     public static class Pow2 {
 
         internal struct N1 : IConstant { public int Value => 1; }

@@ -16,9 +16,9 @@ namespace MultiPrecision {
                 return x.Sign == Sign.Plus ? One : MinusOne;
             }
 
-            MultiPrecision<N> y = ErfErfcCore(x, is_erf: true);
+            MultiPrecision<Next<N>> y = ErfErfcCore(x, is_erf: true);
 
-            return RoundMantissa(y, Bits - Consts.Erf.RoundBits);
+            return MultiPrecisionUtil.Convert<N, Next<N>>(y);
         }
 
         public static MultiPrecision<N> Erfc(MultiPrecision<N> x) {
@@ -29,24 +29,27 @@ namespace MultiPrecision {
                 return x.Sign == Sign.Plus ? Zero : Integer(2);
             }
 
-            MultiPrecision<N> y = ErfErfcCore(x, is_erf: false);
+            MultiPrecision<Next<N>> y = ErfErfcCore(x, is_erf: false);
 
-            return RoundMantissa(y, Bits - Consts.Erf.RoundBits);
+            return MultiPrecisionUtil.Convert<N, Next<N>>(y);
         }
 
 
-        private static MultiPrecision<N> ErfErfcCore(MultiPrecision<N> x, bool is_erf) {
+        private static MultiPrecision<Next<N>> ErfErfcCore(MultiPrecision<N> x, bool is_erf) {
             if (!Consts.Erf.Initialized) {
                 Consts.Erf.Initialize();
             }
 
-            if (x.Exponent <= 0) {
-                MultiPrecision<N> z = One;
-                MultiPrecision<N> squa_x = x * x;
-                MultiPrecision<N> y = Zero;
+            MultiPrecision<Next<N>> x_next = MultiPrecisionUtil.Convert<Next<N>, N>(x);
+            MultiPrecision<Next<N>> y;
 
-                foreach (MultiPrecision<N> t in Consts.Erf.Table) {
-                    MultiPrecision<N> dy = t * z;
+            if (x.Exponent <= 0) {
+                MultiPrecision<Next<N>> z = MultiPrecision<Next<N>>.One;
+                MultiPrecision<Next<N>> squa_x = x_next * x_next;
+                y = MultiPrecision<Next<N>>.Zero;
+
+                foreach (MultiPrecision<Next<N>> t in Consts.Erf.Table) {
+                    MultiPrecision<Next<N>> dy = t * z;
                     y += dy;
 
                     if (dy.IsZero || y.Exponent - dy.Exponent > Bits) {
@@ -56,17 +59,15 @@ namespace MultiPrecision {
                     z *= squa_x;
                 }
 
-                y *= x * Consts.Erf.G;
+                y *= x_next * Consts.Erf.G;
 
                 if (!is_erf) {
-                    y = One - y;
+                    y = MultiPrecision<Next<N>>.One - y;
                 }
-
-                return y;
             }
             else if (x.Sign == Sign.Plus) {
-                MultiPrecision<N> z = x * Sqrt2;
-                MultiPrecision<N> a = 0;
+                MultiPrecision<Next<N>> z = x_next * MultiPrecision<Next<N>>.Sqrt2;
+                MultiPrecision<Next<N>> a = 0;
 
                 // Number of convergences in length = 8, less than this number for length = 16.
                 const double s = 57.387608, p = -1.809676;
@@ -77,44 +78,43 @@ namespace MultiPrecision {
                     n--;
                 }
 
-                MultiPrecision<N> y = Exp(-x * x) / (z + a) * Consts.Erf.C;
+                y = MultiPrecision<Next<N>>.Exp(-x_next * x_next) / (z + a) * Consts.Erf.C;
 
                 if (is_erf) {
-                    y = One - y;
+                    y = MultiPrecision<Next<N>>.One - y;
                 }
-
-                return y;
             }
             else {
                 if (is_erf) {
-                    return -ErfErfcCore(-x, is_erf: true);
+                    y = -ErfErfcCore(-x, is_erf: true);
                 }
                 else { 
-                    return Integer(2) - ErfErfcCore(-x, is_erf: false);
+                    y = 2 - ErfErfcCore(-x, is_erf: false);
                 }
             }
+
+            return y;
         }
 
         private static partial class Consts {
             public static class Erf {
                 public static bool Initialized { private set; get; } = false;
-                public static int RoundBits { private set; get; } = 0;
 
-                public static MultiPrecision<N> G { private set; get; } = null;
-                public static MultiPrecision<N> C { private set; get; } = null;
-                public static ReadOnlyCollection<MultiPrecision<N>> Table { private set; get; } = null;
+                public static MultiPrecision<Next<N>> G { private set; get; } = null;
+                public static MultiPrecision<Next<N>> C { private set; get; } = null;
+                public static ReadOnlyCollection<MultiPrecision<Next<N>>> Table { private set; get; } = null;
 
                 public static void Initialize() {
-                    List<MultiPrecision<N>> table = new List<MultiPrecision<N>>();
+                    List<MultiPrecision<Next<N>>> table = new List<MultiPrecision<Next<N>>>();
 
-                    MultiPrecision<N> v = One;
-                    MultiPrecision<N> d = Zero;
-                    MultiPrecision<N> t = One;
+                    MultiPrecision<Next<N>> v = MultiPrecision<Next<N>>.One;
+                    MultiPrecision<Next<N>> d = MultiPrecision<Next<N>>.Zero;
+                    MultiPrecision<Next<N>> t = MultiPrecision<Next<N>>.One;
 
                     long i = 0;
 
                     while (t.Exponent >= -Bits * 2) {
-                        t = ((i & 1) == 0 ? One : MinusOne) / (v * (2 * i + 1));
+                        t = ((i & 1) == 0 ? MultiPrecision<Next<N>>.One : MultiPrecision<Next<N>>.MinusOne) / (v * (2 * i + 1));
 
                         if (t.IsZero) {
                             break;
@@ -128,40 +128,10 @@ namespace MultiPrecision {
 
                     Table = table.AsReadOnly();
 
-                    G = 2 / Sqrt(PI);
-                    C = Sqrt(2 / PI);
+                    G = 2 / MultiPrecision<Next<N>>.Sqrt(MultiPrecision<Next<N>>.PI);
+                    C = MultiPrecision<Next<N>>.Sqrt(2 / MultiPrecision<Next<N>>.PI);
 
                     Initialized = true;
-
-                    FixRoundBits();
-                }
-
-                public static void FixRoundBits(int matches = 16) {
-                    MultiPrecision<N> x = 2;
-                    MultiPrecision<N>[] ys = new MultiPrecision<N>[matches];
-
-                    for(int i = 0; i < matches; i++) { 
-                        ys[i] = ErfErfcCore(x, is_erf: false);
-                        x = BitDecrement(x);
-                    }
-
-                    while (RoundBits < Bits / 2) {
-                        int i;
-                        for(i = 1; i < matches; i++) {
-                            if (!NearlyEqualBits(ys[0], ys[i], RoundBits)){ 
-                                RoundBits++;
-                                break;
-                            }
-                        }
-                        if(i == matches){
-                            break;
-                        }
-                    }
-
-#if DEBUG
-                    Trace.WriteLine($"Erfc round bits : {RoundBits}bits @{Length}length");
-#endif
-
                 }
             }
         }

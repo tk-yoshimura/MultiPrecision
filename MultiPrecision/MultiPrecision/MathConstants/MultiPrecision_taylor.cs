@@ -5,9 +5,9 @@ using System.Linq;
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<N>> taylor_table = null;
+        private static ReadOnlyCollection<MultiPrecision<Next<N>>> taylor_table = null;
 
-        public static ReadOnlyCollection<MultiPrecision<N>> TaylorTable {
+        private static ReadOnlyCollection<MultiPrecision<Next<N>>> TaylorTable {
             get {
                 if (taylor_table is null) {
                     taylor_table = GenerateTaylorTable();
@@ -17,15 +17,15 @@ namespace MultiPrecision {
             }
         }
 
-        private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorTable() {
-            List<MultiPrecision<N>> table = new List<MultiPrecision<N>>();
+        private static ReadOnlyCollection<MultiPrecision<Next<N>>> GenerateTaylorTable() {
+            List<MultiPrecision<Next<N>>> table = new List<MultiPrecision<Next<N>>>();
 
-            MultiPrecision<N> v = One;
-            MultiPrecision<N> d = 1;
-            MultiPrecision<N> t = One;
+            MultiPrecision<Next<N>> v = MultiPrecision<Next<N>>.One;
+            MultiPrecision<Next<N>> d = MultiPrecision<Next<N>>.One;
+            MultiPrecision<Next<N>> t = MultiPrecision<Next<N>>.One;
 
             while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
-                t = One / v;
+                t = MultiPrecision<Next<N>>.One / v;
 
                 if (t.IsZero) { 
                     break;

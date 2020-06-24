@@ -20,21 +20,22 @@
                 return Exp(x) - 1;
             }
 
-            MultiPrecision<N> z = x;
-            MultiPrecision<N> y = Zero;
+            MultiPrecision<Next<N>> x_next = MultiPrecisionUtil.Convert<Next<N>, N>(x);
+            MultiPrecision<Next<N>> z = x_next;
+            MultiPrecision<Next<N>> y = MultiPrecision<Next<N>>.Zero;
 
-            foreach(MultiPrecision<N> t in TaylorTable) { 
-                MultiPrecision<N> dy = t * z;
+            foreach(MultiPrecision<Next<N>> t in TaylorTable) { 
+                MultiPrecision<Next<N>> dy = t * z;
                 y += dy;
 
-                if(dy.IsZero || dy.Exponent + Bits < y.Exponent) {
+                if(dy.IsZero || y.Exponent - dy.Exponent > Bits) {
                     break;
                 }
 
-                z *= x;
+                z *= x_next;
             }
 
-            return y;
+            return MultiPrecisionUtil.Convert<N, Next<N>>(y);
         }
     }
 }
