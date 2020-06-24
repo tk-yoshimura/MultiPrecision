@@ -16,22 +16,22 @@
         }
 
         private static MultiPrecision<N> GenerateSqrt2() {
-            Accumulator<N> x = 1, y = 0;
+            Accumulator<Next<N>> x = 1, y = 0;
 
             while (x.LeadingZeroCount >= 2) {
-                Accumulator<N> x_next = x + (y << 1);
-                Accumulator<N> y_next = x + y;
+                Accumulator<Next<N>> x_next = x + (y << 1);
+                Accumulator<Next<N>> y_next = x + y;
 
                 x = x_next;
                 y = y_next;
             }
 
-            y = Accumulator<N>.RightRoundBlockShift(y, Mantissa<N>.Length);
+            y = Accumulator<Next<N>>.RightRoundBlockShift(y, Mantissa<Next<N>>.Length);
 
-            Accumulator<N> acc = Accumulator<N>.RoundDiv(x, y);
-            (Mantissa<N> n, int _) = acc.Mantissa;
+            Accumulator<Next<N>> acc = Accumulator<Next<N>>.RoundDiv(x, y);
+            (Mantissa<Next<N>> n, int _) = acc.Mantissa;
 
-            return new MultiPrecision<N>(Sign.Plus, exponent: 0, n, round: false);
+            return MultiPrecisionUtil.Convert<N, Next<N>>(new MultiPrecision<Next<N>>(Sign.Plus, exponent: 0, n, round: false));
         }
     }
 }
