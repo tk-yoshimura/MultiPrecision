@@ -36,3 +36,4 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.5.*")]
 
 [assembly: InternalsVisibleTo("MultiPrecisionTest")]
+[assembly: InternalsVisibleTo("MultiPrecisionSandbox")]
