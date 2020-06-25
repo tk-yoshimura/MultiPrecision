@@ -2,33 +2,33 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> : IComparable<BigUInt<N, K>> {
+    internal sealed partial class BigUInt<N> : IComparable<BigUInt<N>> {
 
-        public static bool operator ==(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator ==(BigUInt<N> a, BigUInt<N> b) {
             return UIntUtil.Equal(Length, a.value, b.value);
         }
 
-        public static bool operator !=(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator !=(BigUInt<N> a, BigUInt<N> b) {
             return !(a == b);
         }
 
-        public static bool operator <=(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator <=(BigUInt<N> a, BigUInt<N> b) {
             return UIntUtil.LessThanOrEqual(Length, a.value, b.value);
         }
 
-        public static bool operator >=(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator >=(BigUInt<N> a, BigUInt<N> b) {
             return UIntUtil.GreaterThanOrEqual(Length, a.value, b.value);
         }
 
-        public static bool operator <(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator <(BigUInt<N> a, BigUInt<N> b) {
             return !(a >= b);
         }
 
-        public static bool operator >(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static bool operator >(BigUInt<N> a, BigUInt<N> b) {
             return !(a <= b);
         }
 
-        public int CompareTo([AllowNull] BigUInt<N, K> other) {
+        public int CompareTo([AllowNull] BigUInt<N> other) {
             if (other is null) {
                 return 1;
             }

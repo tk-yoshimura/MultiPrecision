@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
         private static readonly Regex parse_regex = new Regex(@"^\d+$");
 
@@ -62,11 +62,11 @@ namespace MultiPrecision {
             }
         }
 
-        public static BigUInt<N, K> Parse(string s) {
-            return new BigUInt<N, K>(s);
+        public static BigUInt<N> Parse(string s) {
+            return new BigUInt<N>(s);
         }
 
-        public static bool TryParse(string s, out BigUInt<N, K> result) {
+        public static bool TryParse(string s, out BigUInt<N> result) {
             try {
                 result = Parse(s);
                 return true;

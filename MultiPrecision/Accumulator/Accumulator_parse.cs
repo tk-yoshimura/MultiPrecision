@@ -3,7 +3,7 @@
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
-        public Accumulator(string s) : this(new BigUInt<N, Pow2.N2>(s)) { }
+        public Accumulator(string s) : this(new BigUInt<Double<N>>(s)) { }
 
         public static Accumulator<N> Parse(string s) {
             return new Accumulator<N>(s);

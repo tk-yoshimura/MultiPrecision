@@ -5,9 +5,9 @@ using System.Linq;
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<Next<N>>> taylor_table = null;
+        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> taylor_table = null;
 
-        private static ReadOnlyCollection<MultiPrecision<Next<N>>> TaylorTable {
+        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> TaylorTable {
             get {
                 if (taylor_table is null) {
                     taylor_table = GenerateTaylorTable();
@@ -17,15 +17,15 @@ namespace MultiPrecision {
             }
         }
 
-        private static ReadOnlyCollection<MultiPrecision<Next<N>>> GenerateTaylorTable() {
-            List<MultiPrecision<Next<N>>> table = new List<MultiPrecision<Next<N>>>();
+        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> GenerateTaylorTable() {
+            List<MultiPrecision<Plus1<N>>> table = new List<MultiPrecision<Plus1<N>>>();
 
-            MultiPrecision<Next<N>> v = MultiPrecision<Next<N>>.One;
-            MultiPrecision<Next<N>> d = MultiPrecision<Next<N>>.One;
-            MultiPrecision<Next<N>> t = MultiPrecision<Next<N>>.One;
+            MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
+            MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.One;
+            MultiPrecision<Plus1<N>> t = MultiPrecision<Plus1<N>>.One;
 
             while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
-                t = MultiPrecision<Next<N>>.One / v;
+                t = MultiPrecision<Plus1<N>>.One / v;
 
                 if (t.IsZero) { 
                     break;

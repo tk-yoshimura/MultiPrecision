@@ -17,11 +17,11 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] mantissa =
                     UIntUtil.Random(
                         random,
-                        BigUInt<Pow2.N32, Pow2.N1>.Length,
-                        random.Next(BigUInt<Pow2.N32, Pow2.N1>.Bits + 1)
+                        BigUInt<Pow2.N32>.Length,
+                        random.Next(BigUInt<Pow2.N32>.Bits + 1)
                     );
 
-                BigUInt<Pow2.N32, Pow2.N1> v = new BigUInt<Pow2.N32, Pow2.N1>(mantissa);
+                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa);
                 BigInteger bi = v;
 
                 Assert.AreEqual(bi.ToString(), v.ToString());
@@ -32,7 +32,7 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void ToStringFullTest() {
-            BigUInt<Pow2.N32, Pow2.N1> v = BigUInt<Pow2.N32, Pow2.N1>.Full;
+            BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Full;
             BigInteger bi = v;
 
             Assert.AreEqual(bi.ToString(), v.ToString());

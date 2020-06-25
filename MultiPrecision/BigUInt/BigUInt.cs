@@ -4,10 +4,10 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> : ICloneable where N : struct, IConstant where K : struct, IConstant {
+    internal sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
 
         private readonly UInt32[] value;
-        public static int Length { get; } = checked(default(N).Value * default(K).Value);
+        public static int Length { get; } = checked(default(N).Value);
         public static int Bits { get; } = checked(Length * UIntUtil.UInt32Bits);
         public static int MaxDecimalDigits { get; } = checked(Bits * 30103 / 100000 - 4); //10^(4 - 1) = 1000 approx equals 1024
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
@@ -87,12 +87,12 @@ namespace MultiPrecision {
             return Copy();
         }
 
-        public BigUInt<N, K> Copy() {
-            return new BigUInt<N, K>(value);
+        public BigUInt<N> Copy() {
+            return new BigUInt<N>(value);
         }
 
         public override bool Equals(object obj) {
-            return (obj is BigUInt<N, K> n) && (n == this);
+            return (obj is BigUInt<N> n) && (n == this);
         }
 
         public override int GetHashCode() {

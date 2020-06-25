@@ -3,14 +3,16 @@
         int Value { get; }
     }
 
-    public struct Next<N> : IConstant where N : struct, IConstant {
+    internal struct Plus1<N> : IConstant where N : struct, IConstant {
         public int Value => checked(default(N).Value + 1);
+    }
+
+    internal struct Double<N> : IConstant where N : struct, IConstant {
+        public int Value => checked(default(N).Value * 2);
     }
 
     public static class Pow2 {
 
-        internal struct N1 : IConstant { public int Value => 1; }
-        internal struct N2 : IConstant { public int Value => 2; }
         public struct N4 : IConstant { public int Value => 4; }
         public struct N8 : IConstant { public int Value => 8; }
         public struct N16 : IConstant { public int Value => 16; }

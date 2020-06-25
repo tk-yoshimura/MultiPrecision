@@ -2,9 +2,9 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
-        public static BigUInt<N, K> operator <<(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N> operator <<(BigUInt<N> n, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -12,7 +12,7 @@ namespace MultiPrecision {
             return LeftShift(n, sft);
         }
 
-        public static BigUInt<N, K> operator >>(BigUInt<N, K> n, int sft) {
+        public static BigUInt<N> operator >>(BigUInt<N> n, int sft) {
             if (sft < 0) {
                 throw new ArgumentException(nameof(sft));
             }
@@ -20,40 +20,40 @@ namespace MultiPrecision {
             return RightShift(n, sft);
         }
 
-        public static BigUInt<N, K> LeftShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> LeftShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.LeftShift(sft);
 
             return ret;
         }
 
-        public static BigUInt<N, K> RightShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> RightShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.RightShift(sft);
 
             return ret;
         }
 
-        public static BigUInt<N, K> LeftBlockShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> LeftBlockShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.LeftBlockShift(sft);
 
             return ret;
         }
 
-        public static BigUInt<N, K> RightBlockShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> RightBlockShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.RightBlockShift(sft);
 
             return ret;
         }
 
-        public static BigUInt<N, K> RightRoundShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> RightRoundShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.RightShift(sft);
 
@@ -64,8 +64,8 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static BigUInt<N, K> RightRoundBlockShift(BigUInt<N, K> n, int sft) {
-            BigUInt<N, K> ret = n.Copy();
+        public static BigUInt<N> RightRoundBlockShift(BigUInt<N> n, int sft) {
+            BigUInt<N> ret = n.Copy();
 
             ret.RightBlockShift(sft);
 

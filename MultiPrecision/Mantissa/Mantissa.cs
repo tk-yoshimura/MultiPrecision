@@ -7,39 +7,39 @@ namespace MultiPrecision {
     [DebuggerDisplay("{ToHexcode()}")]
     internal sealed partial class Mantissa<N> : ICloneable where N : struct, IConstant {
 
-        private readonly BigUInt<N, Pow2.N1> value;
+        private readonly BigUInt<N> value;
 
-        public static int Length { get; } = BigUInt<N, Pow2.N1>.Length;
-        public static int Bits { get; } = BigUInt<N, Pow2.N1>.Bits;
-        public static int MaxDecimalDigits { get; } = BigUInt<N, Pow2.N1>.MaxDecimalDigits;
+        public static int Length { get; } = BigUInt<N>.Length;
+        public static int Bits { get; } = BigUInt<N>.Bits;
+        public static int MaxDecimalDigits { get; } = BigUInt<N>.MaxDecimalDigits;
         public ReadOnlyCollection<UInt32> Value => value.Value;
 
         public Mantissa() {
-            this.value = new BigUInt<N, Pow2.N1>();
+            this.value = new BigUInt<N>();
         }
 
         public Mantissa(UInt32 v) {
-            this.value = new BigUInt<N, Pow2.N1>(v);
+            this.value = new BigUInt<N>(v);
         }
 
         public Mantissa(UInt64 v) {
-            this.value = new BigUInt<N, Pow2.N1>(v);
+            this.value = new BigUInt<N>(v);
         }
 
         public Mantissa(UInt32[] arr, bool enable_clone = true) {
-            this.value = new BigUInt<N, Pow2.N1>(arr, enable_clone);
+            this.value = new BigUInt<N>(arr, enable_clone);
         }
 
         public Mantissa(ReadOnlyCollection<UInt32> arr) {
-            this.value = new BigUInt<N, Pow2.N1>(arr);
+            this.value = new BigUInt<N>(arr);
         }
 
-        public Mantissa(BigUInt<N, Pow2.N1> value) {
+        public Mantissa(BigUInt<N>value) {
             this.value = value;
         }
 
         public Mantissa(Accumulator<N> acc) {
-            this.value = new BigUInt<N, Pow2.N1>(acc.Value, Length, carry: acc.Value[Length - 1] > UIntUtil.UInt32Round);
+            this.value = new BigUInt<N>(acc.Value, Length, carry: acc.Value[Length - 1] > UIntUtil.UInt32Round);
         }
 
         public bool IsZero => value.IsZero;

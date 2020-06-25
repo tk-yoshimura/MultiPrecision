@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
-        public static BigUInt<N, K> Zero { get; } = new BigUInt<N, K>();
+        public static BigUInt<N> Zero { get; } = new BigUInt<N>();
 
-        public static BigUInt<N, K> Full { get; } = new BigUInt<N, K>(Enumerable.Repeat(~0u, Length).ToArray());
+        public static BigUInt<N> Full { get; } = new BigUInt<N>(Enumerable.Repeat(~0u, Length).ToArray());
 
         private static partial class Consts {
-            public static Dictionary<UInt64, BigUInt<N, K>> integers = new Dictionary<UInt64, BigUInt<N, K>>();
-            public static Dictionary<int, BigUInt<N, K>> decimals = new Dictionary<int, BigUInt<N, K>>();
+            public static Dictionary<UInt64, BigUInt<N>> integers = new Dictionary<UInt64, BigUInt<N>>();
+            public static Dictionary<int, BigUInt<N>> decimals = new Dictionary<int, BigUInt<N>>();
         }
 
-        public static BigUInt<N, K> Integer(UInt64 n) {
+        public static BigUInt<N> Integer(UInt64 n) {
             if (!Consts.integers.ContainsKey(n)) {
                 Consts.integers.Add(n, n);
             }
@@ -22,7 +22,7 @@ namespace MultiPrecision {
             return Consts.integers[n];
         }
 
-        public static BigUInt<N, K> Decimal(int digits) {
+        public static BigUInt<N> Decimal(int digits) {
             if (!Consts.decimals.ContainsKey(digits)) {
                 Consts.decimals.Add(digits, GenerateDecimal(digits));
             }
@@ -30,7 +30,7 @@ namespace MultiPrecision {
             return Consts.decimals[digits];
         }
 
-        private static BigUInt<N, K> GenerateDecimal(int digits) {
+        private static BigUInt<N> GenerateDecimal(int digits) {
             if (digits < 1) {
                 throw new ArgumentException(nameof(digits));
             }
@@ -40,8 +40,8 @@ namespace MultiPrecision {
                 v *= 10;
             }
 
-            BigUInt<N, K> uint64_maxdec = UIntUtil.UInt64MaxDecimal;
-            BigUInt<N, K> biguint_dec = v;
+            BigUInt<N> uint64_maxdec = UIntUtil.UInt64MaxDecimal;
+            BigUInt<N> biguint_dec = v;
 
             for (int i = 0; i < digits / UIntUtil.UInt64MaxDecimalDigits; i++) {
                 biguint_dec *= uint64_maxdec;

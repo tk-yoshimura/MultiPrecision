@@ -1,82 +1,82 @@
 ﻿using System;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
-        public static BigUInt<N, K> operator +(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static BigUInt<N> operator +(BigUInt<N> a, BigUInt<N> b) {
             return Add(a, b);
         }
 
-        public static BigUInt<N, K> operator -(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static BigUInt<N> operator -(BigUInt<N> a, BigUInt<N> b) {
             return Sub(a, b);
         }
 
-        public static BigUInt<N, K> operator +(BigUInt<N, K> a, UInt32 b) {
+        public static BigUInt<N> operator +(BigUInt<N> a, UInt32 b) {
             return Add(a, b);
         }
 
-        public static BigUInt<N, K> operator -(BigUInt<N, K> a, UInt32 b) {
+        public static BigUInt<N> operator -(BigUInt<N> a, UInt32 b) {
             return Sub(a, b);
         }
 
-        public static BigUInt<N, K> operator *(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static BigUInt<N> operator *(BigUInt<N> a, BigUInt<N> b) {
             return Mul(a, b);
         }
 
-        public static BigUInt<N, K> operator /(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static BigUInt<N> operator /(BigUInt<N> a, BigUInt<N> b) {
             return Div(a, b).div;
         }
 
-        public static BigUInt<N, K> operator %(BigUInt<N, K> a, BigUInt<N, K> b) {
+        public static BigUInt<N> operator %(BigUInt<N> a, BigUInt<N> b) {
             return Div(a, b).rem;
         }
 
-        private void Add(BigUInt<N, K> v) {
+        private void Add(BigUInt<N> v) {
             for (int dig = 0; dig < Length; dig++) {
                 CarryAdd(dig, v[dig]);
             }
         }
 
-        private void Sub(BigUInt<N, K> v) {
+        private void Sub(BigUInt<N> v) {
             for (int dig = 0; dig < Length; dig++) {
                 CarrySub(dig, v[dig]);
             }
         }
 
-        public static BigUInt<N, K> Add(BigUInt<N, K> v1, BigUInt<N, K> v2) {
-            BigUInt<N, K> ret = v1.Copy();
+        public static BigUInt<N> Add(BigUInt<N> v1, BigUInt<N> v2) {
+            BigUInt<N> ret = v1.Copy();
 
             ret.Add(v2);
 
             return ret;
         }
 
-        public static BigUInt<N, K> Sub(BigUInt<N, K> v1, BigUInt<N, K> v2) {
-            BigUInt<N, K> ret = v1.Copy();
+        public static BigUInt<N> Sub(BigUInt<N> v1, BigUInt<N> v2) {
+            BigUInt<N> ret = v1.Copy();
 
             ret.Sub(v2);
 
             return ret;
         }
 
-        public static BigUInt<N, K> Add(BigUInt<N, K> v1, UInt32 v2) {
-            BigUInt<N, K> ret = v1.Copy();
+        public static BigUInt<N> Add(BigUInt<N> v1, UInt32 v2) {
+            BigUInt<N> ret = v1.Copy();
 
             ret.CarryAdd(0, v2);
 
             return ret;
         }
 
-        public static BigUInt<N, K> Sub(BigUInt<N, K> v1, UInt32 v2) {
-            BigUInt<N, K> ret = v1.Copy();
+        public static BigUInt<N> Sub(BigUInt<N> v1, UInt32 v2) {
+            BigUInt<N> ret = v1.Copy();
 
             ret.CarrySub(0, v2);
 
             return ret;
         }
 
-        public static BigUInt<N, K> Mul(BigUInt<N, K> v1, BigUInt<N, K> v2) {
-            BigUInt<N, K> ret = Zero.Copy();
+        public static BigUInt<N> Mul(BigUInt<N> v1, BigUInt<N> v2) {
+            BigUInt<N> ret = Zero.Copy();
 
             int v1_digits = v1.Digits, v2_digits = v2.Digits;
 
@@ -100,8 +100,8 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static BigUInt<N, K> Mul(UInt64 n, BigUInt<N, K> v) {
-            BigUInt<N, K> ret = Zero.Copy();
+        public static BigUInt<N> Mul(UInt64 n, BigUInt<N> v) {
+            BigUInt<N> ret = Zero.Copy();
 
             (UInt32 v11, UInt32 v10) = UIntUtil.Unpack(n);
 
@@ -130,12 +130,12 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static BigUInt<N, K> Mul(BigUInt<N, K> v, UInt64 n) { 
+        public static BigUInt<N> Mul(BigUInt<N> v, UInt64 n) { 
             return Mul(n, v);
         }
 
-        public static BigUInt<N, Pow2.N2> ExpandMul(BigUInt<N, Pow2.N1> v1, BigUInt<N, Pow2.N1> v2) {
-            BigUInt<N, Pow2.N2> ret = BigUInt<N, Pow2.N2>.Zero.Copy();
+        public static BigUInt<Double<N>> ExpandMul(BigUInt<N> v1, BigUInt<N> v2) {
+            BigUInt<Double<N>> ret = BigUInt<Double<N>>.Zero.Copy();
 
             int v1_digits = v1.Digits, v2_digits = v2.Digits;
 
@@ -159,7 +159,7 @@ namespace MultiPrecision {
             return ret;
         }
 
-        public static (BigUInt<N, K> div, BigUInt<N, K> rem) Div(BigUInt<N, K> v1, BigUInt<N, K> v2) {
+        public static (BigUInt<N> div, BigUInt<N> rem) Div(BigUInt<N> v1, BigUInt<N> v2) {
             if (v2.IsZero) {
                 throw new DivideByZeroException();
             }
@@ -167,9 +167,9 @@ namespace MultiPrecision {
             int lzc_v1 = v1.LeadingZeroCount, lzc_v2 = v2.LeadingZeroCount;
             int sft = Math.Min(lzc_v1, lzc_v2 - lzc_v2 / UIntUtil.UInt32Bits * UIntUtil.UInt32Bits);
 
-            BigUInt<N, K> v1_sft = LeftShift(v1, sft), v2_sft = LeftShift(v2, sft);
+            BigUInt<N> v1_sft = LeftShift(v1, sft), v2_sft = LeftShift(v2, sft);
 
-            BigUInt<N, K> div = Zero.Copy(), rem = v1_sft;
+            BigUInt<N> div = Zero.Copy(), rem = v1_sft;
 
             UInt64 denom = 0;
             int denom_digits = v2_sft.Digits;
@@ -193,7 +193,7 @@ namespace MultiPrecision {
                 div.CarryAdd(i - denom_digits + 1, nh);
                 div.CarryAdd(i - denom_digits, nl);
 
-                BigUInt<N, K> sub = Mul(n, v2_sft);
+                BigUInt<N> sub = Mul(n, v2_sft);
                 sub.LeftBlockShift(i - denom_digits);
 
                 rem.Sub(sub);
@@ -211,7 +211,7 @@ namespace MultiPrecision {
                 div.CarryAdd(1, nh);
                 div.CarryAdd(0, nl);
 
-                BigUInt<N, K> sub = Mul(n, v2_sft);
+                BigUInt<N> sub = Mul(n, v2_sft);
                 rem.Sub(sub);
 
                 if (n == 0) {
@@ -233,8 +233,8 @@ namespace MultiPrecision {
             return (div, rem);
         }
 
-        public static BigUInt<N, K> RoundDiv(BigUInt<N, K> v1, BigUInt<N, K> v2) {
-            (BigUInt<N, K> div, BigUInt<N, K> rem) = Div(v1, v2);
+        public static BigUInt<N> RoundDiv(BigUInt<N> v1, BigUInt<N> v2) {
+            (BigUInt<N> div, BigUInt<N> rem) = Div(v1, v2);
 
             rem.LeftShift(1);
             if (rem >= v2) {

@@ -15,5 +15,20 @@ namespace MultiPrecisionTest.Constants {
 
             TestTool.Tolerance(Math.Sqrt(2), sqrt2);
         }
+
+        [TestMethod]
+        public void Sqrt2DigitsTest() {
+            Console.WriteLine(MultiPrecision<Pow2.N8>.Sqrt2);
+            Console.WriteLine(MultiPrecision<Pow2.N8>.Sqrt2.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N16>.Sqrt2);
+            Console.WriteLine(MultiPrecision<Pow2.N16>.Sqrt2.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N32>.Sqrt2);
+            Console.WriteLine(MultiPrecision<Pow2.N32>.Sqrt2.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N64>.Sqrt2);
+            Console.WriteLine(MultiPrecision<Pow2.N64>.Sqrt2.ToHexcode());
+        }
     }
 }

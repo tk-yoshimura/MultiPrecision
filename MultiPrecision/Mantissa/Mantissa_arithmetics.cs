@@ -32,33 +32,33 @@ namespace MultiPrecision {
         }
 
         public static Mantissa<N> Add(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Add(v1.value, v2.value));
+            return new Mantissa<N>(BigUInt<N>.Add(v1.value, v2.value));
         }
 
         public static Mantissa<N> Sub(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Sub(v1.value, v2.value));
+            return new Mantissa<N>(BigUInt<N>.Sub(v1.value, v2.value));
         }
 
         public static Mantissa<N> Add(Mantissa<N> v1, UInt32 v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Add(v1.value, v2));
+            return new Mantissa<N>(BigUInt<N>.Add(v1.value, v2));
         }
 
         public static Mantissa<N> Sub(Mantissa<N> v1, UInt32 v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.Sub(v1.value, v2));
+            return new Mantissa<N>(BigUInt<N>.Sub(v1.value, v2));
         }
 
         public static Accumulator<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Accumulator<N>(BigUInt<N, Pow2.N1>.ExpandMul(v1.value, v2.value));
+            return new Accumulator<N>(BigUInt<N>.ExpandMul(v1.value, v2.value));
         }
 
         public static (Mantissa<N> div, Mantissa<N> rem) Div(Mantissa<N> v1, Mantissa<N> v2) {
-            (BigUInt<N, Pow2.N1> div, BigUInt<N, Pow2.N1> rem) = BigUInt<N, Pow2.N1>.Div(v1.value, v2.value);
+            (BigUInt<N> div, BigUInt<N> rem) = BigUInt<N>.Div(v1.value, v2.value);
 
             return (new Mantissa<N>(div), new Mantissa<N>(rem));
         }
 
         public static Mantissa<N> RoundDiv(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Mantissa<N>(BigUInt<N, Pow2.N1>.RoundDiv(v1.value, v2.value));
+            return new Mantissa<N>(BigUInt<N>.RoundDiv(v1.value, v2.value));
         }
     }
 }

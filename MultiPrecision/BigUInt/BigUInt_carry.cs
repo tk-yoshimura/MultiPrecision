@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe void CarryAdd(int dig, UInt32 v) {

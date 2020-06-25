@@ -7,49 +7,49 @@ namespace MultiPrecision {
     [DebuggerDisplay("{ToHexcode()}")]
     internal sealed partial class Accumulator<N> : ICloneable where N : struct, IConstant {
 
-        private readonly BigUInt<N, Pow2.N2> value;
+        private readonly BigUInt<Double<N>> value;
 
-        public static int Length { get; } = BigUInt<N, Pow2.N2>.Length;
-        public static int Bits { get; } = BigUInt<N, Pow2.N2>.Bits;
-        public static int MaxDecimalDigits { get; } = BigUInt<N, Pow2.N2>.MaxDecimalDigits;
+        public static int Length { get; } = BigUInt<Double<N>>.Length;
+        public static int Bits { get; } = BigUInt<Double<N>>.Bits;
+        public static int MaxDecimalDigits { get; } = BigUInt<Double<N>>.MaxDecimalDigits;
         public ReadOnlyCollection<UInt32> Value => value.Value;
 
         public Accumulator() {
-            this.value = new BigUInt<N, Pow2.N2>();
+            this.value = new BigUInt<Double<N>>();
         }
 
         public Accumulator(UInt32 v) : this() {
-            this.value = new BigUInt<N, Pow2.N2>(v);
+            this.value = new BigUInt<Double<N>>(v);
         }
 
         public Accumulator(UInt64 v) : this() {
-            this.value = new BigUInt<N, Pow2.N2>(v);
+            this.value = new BigUInt<Double<N>>(v);
         }
 
         public Accumulator(UInt32[] arr, bool enable_clone = true) {
-            this.value = new BigUInt<N, Pow2.N2>(arr, enable_clone);
+            this.value = new BigUInt<Double<N>>(arr, enable_clone);
         }
 
         public Accumulator(ReadOnlyCollection<UInt32> arr) {
-            this.value = new BigUInt<N, Pow2.N2>(arr);
+            this.value = new BigUInt<Double<N>>(arr);
         }
 
-        public Accumulator(BigUInt<N, Pow2.N2> value) {
+        public Accumulator(BigUInt<Double<N>> value) {
             this.value = value;
         }
 
         public Accumulator(Mantissa<N> n, Int64 sft = 0) {
             if (sft == 0) {
-                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false);
+                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false);
             }
             else if (sft > 0) {
-                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) << checked((int)sft);
+                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false) << checked((int)sft);
             }
             else if (sft < 0 && sft > -Bits) {
-                this.value = new BigUInt<N, Pow2.N2>(n.Value, 0, carry: false) >> (int)-sft;
+                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false) >> (int)-sft;
             }
             else {
-                this.value = BigUInt<N, Pow2.N2>.Zero;
+                this.value = BigUInt<Double<N>>.Zero;
             }
         }
 

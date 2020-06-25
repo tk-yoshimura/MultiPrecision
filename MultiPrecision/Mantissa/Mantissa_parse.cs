@@ -3,7 +3,7 @@
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
-        public Mantissa(string s) : this(new BigUInt<N, Pow2.N1>(s)) { }
+        public Mantissa(string s) : this(new BigUInt<N>(s)) { }
 
         public static Mantissa<N> Parse(string s) {
             return new Mantissa<N>(s);

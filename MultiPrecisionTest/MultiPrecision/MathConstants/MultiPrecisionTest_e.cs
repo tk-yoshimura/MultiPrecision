@@ -15,5 +15,20 @@ namespace MultiPrecisionTest.Constants {
 
             TestTool.Tolerance(Math.E, e);
         }
+
+        [TestMethod]
+        public void EDigitsTest() {
+            Console.WriteLine(MultiPrecision<Pow2.N8>.E);
+            Console.WriteLine(MultiPrecision<Pow2.N8>.E.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N16>.E);
+            Console.WriteLine(MultiPrecision<Pow2.N16>.E.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N32>.E);
+            Console.WriteLine(MultiPrecision<Pow2.N32>.E.ToHexcode());
+
+            Console.WriteLine(MultiPrecision<Pow2.N64>.E);
+            Console.WriteLine(MultiPrecision<Pow2.N64>.E.ToHexcode());
+        }
     }
 }

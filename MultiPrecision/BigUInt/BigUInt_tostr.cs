@@ -5,7 +5,7 @@ using System.Linq;
 namespace MultiPrecision {
 
     [DebuggerDisplay("{ToHexcode()}")]
-    internal sealed partial class BigUInt<N, K> {
+    internal sealed partial class BigUInt<N> {
 
         public override string ToString() {
             int bin_digits = (int)Digits, dec_digits = 0;
