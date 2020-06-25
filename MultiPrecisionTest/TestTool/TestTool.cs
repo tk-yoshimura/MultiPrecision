@@ -128,6 +128,15 @@ namespace MultiPrecisionTest {
             }
         }
 
+        public static IEnumerable<MultiPrecision<N>> LimitSet<N>() where N : struct, IConstant { 
+            for(int i = 1000; i <= 10000; i += 1000) { 
+                yield return MultiPrecision<N>.Pow10(i);
+                yield return -MultiPrecision<N>.Pow10(i);
+                yield return MultiPrecision<N>.Pow10(-i);
+                yield return -MultiPrecision<N>.Pow10(-i);
+            }
+        }
+
         public static void Tolerance<N>(double expected, MultiPrecision<N> actual, double minerr = 1e-10, double rateerr = 1e-8, bool ignore_expected_nan = false, bool ignore_sign = false) where N : struct, IConstant {
             if (double.IsNaN(expected)) {
                 if (!ignore_expected_nan) { 
