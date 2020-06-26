@@ -24,7 +24,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 ## Types
 
 |type|mantissa bits|significant digits|note|
-|----|----|----|
+|----|----|----|----|
 |MultiPrecision&lt;Pow2.N4&gt;|128|34|Fastest|
 |MultiPrecision&lt;Pow2.N8&gt;|256|73|Fast|
 |MultiPrecision&lt;Pow2.N16&gt;|512|150|Standard|
