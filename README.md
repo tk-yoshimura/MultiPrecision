@@ -82,10 +82,10 @@ MaxValue: &plusmn;8.808065x10^646456992
 |array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Average()|
 |array min|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Min()|
 |array max|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Max()|
-|Pi|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.PI|
-|Napier's E|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.E|
-|Sqrt(2)|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Sqrt2|
-|Euler's Gamma|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.EulerGamma|
+|Pi|N/A|N/A||MultiPrecision&lt;*N*&gt;.PI|
+|Napier's E|N/A|N/A||MultiPrecision&lt;*N*&gt;.E|
+|Sqrt(2)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Sqrt2|
+|Euler's Gamma|N/A|N/A||MultiPrecision&lt;*N*&gt;.EulerGamma|
 
 ## Casts
 
