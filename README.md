@@ -34,7 +34,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;Pow2.N256&gt;|8192|2462|Very slow|
 |MultiPrecision&lt;Pow2.N512&gt;|16384|4928||
 |MultiPrecision&lt;Pow2.N1024&gt;|32768|9860|Not recommended|
-|MultiPrecision&lt;*N*&gt;|*Length* x 32|*Length* x 9.6| public struct *N* &#x3A; IConstant &#x7B; <br/>&emsp; public int Value &#x3D;&#x3E; *Length*&#x3B; <br/> &#x7D; |
+|MultiPrecision&lt;*N*&gt;|*Length* x 32|*Length* x 9.6 - 4| public struct *N* &#x3A; IConstant &#x7B; <br/>&emsp; public int Value &#x3D;&#x3E; *Length*&#x3B; <br/> &#x7D; |
 
 ## Functions
 
