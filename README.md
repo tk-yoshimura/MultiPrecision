@@ -23,17 +23,18 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 ## Types
 
-|type|mantissa bits|significant digits|
+|type|mantissa bits|significant digits|note|
 |----|----|----|
-|MultiPrecision&lt;Pow2.N4&gt;|128|34|
-|MultiPrecision&lt;Pow2.N8&gt;|256|73|
-|MultiPrecision&lt;Pow2.N16&gt;|512|150|
-|MultiPrecision&lt;Pow2.N32&gt;|1024|304|
-|MultiPrecision&lt;Pow2.N64&gt;|2048|612|
-|MultiPrecision&lt;Pow2.N128&gt;|4096|1229|
-|MultiPrecision&lt;Pow2.N256&gt;|8192|2462|
-|MultiPrecision&lt;Pow2.N512&gt;|16384|4928|
-|MultiPrecision&lt;Pow2.N1024&gt;|32768|9860|
+|MultiPrecision&lt;Pow2.N4&gt;|128|34|Fastest|
+|MultiPrecision&lt;Pow2.N8&gt;|256|73|Fast|
+|MultiPrecision&lt;Pow2.N16&gt;|512|150|Standard|
+|MultiPrecision&lt;Pow2.N32&gt;|1024|304||
+|MultiPrecision&lt;Pow2.N64&gt;|2048|612|Slow|
+|MultiPrecision&lt;Pow2.N128&gt;|4096|1229||
+|MultiPrecision&lt;Pow2.N256&gt;|8192|2462|Very slow|
+|MultiPrecision&lt;Pow2.N512&gt;|16384|4928||
+|MultiPrecision&lt;Pow2.N1024&gt;|32768|9860|Not recommended|
+|MultiPrecision&lt;N&gt;|N x 32|N x 9.6| public struct N &#x3A; IConstant &#x7B; public int Value &#x3D;&#x3E; *Length*&#x3B; &#x7D; |
 
 ## Functions
 
