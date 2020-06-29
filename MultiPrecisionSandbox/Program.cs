@@ -182,5 +182,42 @@ namespace MultiPrecisionSandbox {
 
             return vs;
         }
+
+        static UInt32[] FinalizeSub(Vector256<UInt64>[] us, int length) {
+            UInt32[] vs = new UInt32[length];
+
+            UInt32 carry = 0u;
+
+            for(int i = 0, k = 0; i < us.Length; i++) {
+                Vector256<UInt32> u = us[i].AsUInt32();
+
+                for(int j = 0; j < Vector256<UInt64>.Count && k < length; j++, k++) { 
+                    UInt32 n = u.GetElement(j * 2), c = u.GetElement(j * 2 + 1);
+
+                    if(c == 0) {
+                        if(n >= carry) { 
+                            vs[k] = unchecked(n - carry);
+                            carry = 0u;
+                        }
+                        else {
+                            vs[k] = unchecked((~carry) + n + 1);
+                            carry = 1u;
+                        }
+                    }
+                    else {
+                        if(n >= carry) { 
+                            vs[k] = unchecked(n - carry);
+                            carry = c;
+                        }
+                        else {
+                            vs[k] = unchecked((~carry) + n + 1);
+                            carry = c + 1u;
+                        }
+                    }
+                }
+            }
+
+            return vs;
+        }
     }
 }
