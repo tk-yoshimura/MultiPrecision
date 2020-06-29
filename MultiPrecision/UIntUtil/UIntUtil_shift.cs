@@ -27,7 +27,7 @@ namespace MultiPrecision {
             }
 
             uint count = (uint)(value.Length - sftdev - 1);
-            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+            uint count_sets = Mask256.UInt32Sets(count), count_rems = Mask256.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
                 if (count_rems > 0) {
@@ -35,21 +35,21 @@ namespace MultiPrecision {
                     Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
 #endif
 
-                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> mask = Mask256.LSV(count_rems);
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + count_sets, mask), (byte)(UInt32Bits - sftrem));
                     Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + count_sets + 1, mask), (byte)sftrem);
 
                     Avx2.MaskStore(v + count_sets + sftdev + 1, mask, Avx2.Or(ls, ms));
                 }
-                for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                for (uint i = count_sets; i >= Mask256.MM256UInt32s; i -= Mask256.MM256UInt32s) {
 #if DEBUG
                     Debug<IndexOutOfRangeException>.Assert(checked(i + sftdev + 1) <= value.Length);
 #endif
 
-                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i - Mask.MM256UInt32s), (byte)(UInt32Bits - sftrem));
-                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + 1 - Mask.MM256UInt32s), (byte)sftrem);
+                    Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i - Mask256.MM256UInt32s), (byte)(UInt32Bits - sftrem));
+                    Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.LoadVector256(v + i + 1 - Mask256.MM256UInt32s), (byte)sftrem);
 
-                    Avx.Store(v + i + sftdev + 1 - Mask.MM256UInt32s, Avx2.Or(ls, ms));
+                    Avx.Store(v + i + sftdev + 1 - Mask256.MM256UInt32s, Avx2.Or(ls, ms));
                 }
 
 #if DEBUG
@@ -78,12 +78,12 @@ namespace MultiPrecision {
             }
 
             uint count = (uint)(value.Length - sftdev - 1);
-            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+            uint count_sets = Mask256.UInt32Sets(count), count_rems = Mask256.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                for (uint i = 0; i < count_sets; i += Mask256.MM256UInt32s) {
 #if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(i + sftdev + 1 + Mask.MM256UInt32s) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sftdev + 1 + Mask256.MM256UInt32s) <= value.Length);
 #endif
 
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.LoadVector256(v + i + sftdev), (byte)sftrem);
@@ -97,7 +97,7 @@ namespace MultiPrecision {
                     Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sftdev + 1 + count_rems) <= value.Length);
 #endif
 
-                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> mask = Mask256.LSV(count_rems);
                     Vector256<UInt32> ls = Avx2.ShiftRightLogical(Avx2.MaskLoad(v + count_sets + sftdev, mask), (byte)sftrem);
                     Vector256<UInt32> ms = Avx2.ShiftLeftLogical(Avx2.MaskLoad(v + count_sets + sftdev + 1, mask), (byte)(UInt32Bits - sftrem));
 
@@ -127,7 +127,7 @@ namespace MultiPrecision {
             }
 
             uint count = (uint)(value.Length - sft);
-            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+            uint count_sets = Mask256.UInt32Sets(count), count_rems = Mask256.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
                 if (count_rems > 0) {
@@ -135,16 +135,16 @@ namespace MultiPrecision {
                     Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sft + count_rems) <= value.Length);
 #endif
 
-                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> mask = Mask256.LSV(count_rems);
                     Avx2.MaskStore(v + count_sets + sft, mask, Avx2.MaskLoad(v + count_sets, mask));
 
                 }
-                for (uint i = count_sets; i >= Mask.MM256UInt32s; i -= Mask.MM256UInt32s) {
+                for (uint i = count_sets; i >= Mask256.MM256UInt32s; i -= Mask256.MM256UInt32s) {
 #if DEBUG
                     Debug<IndexOutOfRangeException>.Assert(checked(i + sft) <= value.Length);
 #endif
 
-                    Avx.Store(v + i + sft - Mask.MM256UInt32s, Avx2.LoadVector256(v + i - Mask.MM256UInt32s));
+                    Avx.Store(v + i + sft - Mask256.MM256UInt32s, Avx2.LoadVector256(v + i - Mask256.MM256UInt32s));
                 }
             }
 
@@ -164,12 +164,12 @@ namespace MultiPrecision {
             }
 
             uint count = (uint)(value.Length - sft);
-            uint count_sets = Mask.UInt32Sets(count), count_rems = Mask.UInt32Rems(count);
+            uint count_sets = Mask256.UInt32Sets(count), count_rems = Mask256.UInt32Rems(count);
 
             fixed (UInt32* v = value) {
-                for (uint i = 0; i < count_sets; i += Mask.MM256UInt32s) {
+                for (uint i = 0; i < count_sets; i += Mask256.MM256UInt32s) {
 #if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(i + sft + Mask.MM256UInt32s) <= value.Length);
+                    Debug<IndexOutOfRangeException>.Assert(checked(i + sft + Mask256.MM256UInt32s) <= value.Length);
 #endif
 
                     Avx.Store(v + i, Avx2.LoadVector256(v + i + sft));
@@ -179,7 +179,7 @@ namespace MultiPrecision {
                     Debug<IndexOutOfRangeException>.Assert(checked(count_sets + sft + count_rems) <= value.Length);
 #endif
 
-                    Vector256<UInt32> mask = Mask.LSV(count_rems);
+                    Vector256<UInt32> mask = Mask256.LSV(count_rems);
                     Avx2.MaskStore(v + count_sets, mask, Avx2.MaskLoad(v + count_sets + sft, mask));
                 }
             }
