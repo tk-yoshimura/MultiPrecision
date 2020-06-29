@@ -22,13 +22,15 @@ namespace MultiPrecisionSandbox {
             };
                         
             Vector256<UInt32>[] vs = ToVector(arr);
+            Vector256<UInt64>[] us = new Vector256<UInt64>[9];
 
             for(uint i = 0; i <= 16; i++) { 
-                Vector256<UInt64>[] us = new Vector256<UInt64>[8];
                 Add(us, vs, i);
 
                 Console.WriteLine(i);
             }
+
+            UInt32[] n = FinalizeAdd(us, 36);
 
             Console.WriteLine("END");
             Console.Read();
@@ -129,6 +131,56 @@ namespace MultiPrecisionSandbox {
                     s[j + 1] = Avx2.Add(s[j + 1], Avx2.And(u, mr));
                 }
             }
+        }
+
+        static void Sub(Vector256<UInt64>[] s, Vector256<UInt32>[] v, uint shift) {
+            uint shift_sets = shift / (uint)Vector256<UInt64>.Count;
+            uint shift_rems = shift % (uint)Vector256<UInt64>.Count;
+
+            if(shift_rems == 0) { 
+                for(uint i = 0, j = shift_sets; i < v.Length; i++, j++) {
+                    s[j] = Avx2.Subtract(s[j], v[i].AsUInt64());
+                }
+            }
+            else{
+                Vector256<UInt64> ml = UIntUtil.Mask256.MSV(shift_rems * 2).AsUInt64();
+                Vector256<UInt64> mr = UIntUtil.Mask256.LSV(shift_rems * 2).AsUInt64();
+
+                byte mm_perm = shift_rems switch{
+                    1 => 0x93,
+                    2 => 0x4E,
+                    3 => 0x39,
+                    _ => throw new ArgumentException(nameof(shift_rems))
+                };
+
+                for(uint i = 0, j = shift_sets; i < v.Length; i++, j++) {
+                    Vector256<UInt64> u = Avx2.Permute4x64(v[i].AsUInt64(), mm_perm);
+
+                    s[j] = Avx2.Subtract(s[j], Avx2.And(u, ml));
+                    s[j + 1] = Avx2.Subtract(s[j + 1], Avx2.And(u, mr));
+                }
+            }
+        }
+
+        static UInt32[] FinalizeAdd(Vector256<UInt64>[] us, int length) {
+            UInt32[] vs = new UInt32[length];
+
+            UInt32 carry = 0u, v;
+
+            for(int i = 0, k = 0; i < us.Length; i++) {
+                Vector256<UInt32> u = us[i].AsUInt32();
+
+                for(int j = 0; j < Vector256<UInt64>.Count && k < length; j++, k++) { 
+                    UInt32 n = u.GetElement(j * 2), c = u.GetElement(j * 2 + 1);
+
+                    (carry, v) = UIntUtil.Unpack((UInt64)n + (UInt64)carry);
+
+                    vs[k] = v;
+                    carry += c;
+                }
+            }
+
+            return vs;
         }
     }
 }
