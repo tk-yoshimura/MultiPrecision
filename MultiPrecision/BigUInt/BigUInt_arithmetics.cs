@@ -77,33 +77,30 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<N> Mul(BigUInt<N> v1, BigUInt<N> v2) {
-            Vector256<UInt32>[] vs = UIntUtil.ToVector(v1.value);
-            Vector256<UInt64>[] ws = new Vector256<UInt64>[vs.Length * 2 + 1];
+            BigUInt<Double<N>> v = ExpandMul(v1, v2);
 
-            uint v2_digits = (uint)v2.Digits;
-
-            for (uint dig2 = 0; dig2 < v2_digits; dig2++) {
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v2.value[dig2], Length);
-
-                (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
-
-                UIntUtil.Add(ws, lo, dig2);
-                UIntUtil.Add(ws, hi, dig2 + 1);
+            if(v.Digits > Length) { 
+                throw new OverflowException();
             }
 
-            UInt32[] arr = UIntUtil.FinalizeAdd(ws, Length);
-
-            return new BigUInt<N>(arr, enable_clone: false);
+            return new BigUInt<N>(v.value[..Length], enable_clone: false);
         }
 
         public static BigUInt<N> Mul(UInt64 n, BigUInt<N> v) {
+            if(n == 0) {
+                return Zero.Copy();
+            }
+
             (UInt32 v11, UInt32 v10) = UIntUtil.Unpack(n);
 
+            int digits = v.Digits;
+
+            Vector256<UInt64>[] ws = UIntUtil.AllocMulBuffer(Length + 2);
+
             Vector256<UInt32>[] vs = UIntUtil.ToVector(v.value);
-            Vector256<UInt64>[] ws = new Vector256<UInt64>[vs.Length + 1];
 
             if(v10 != 0) { 
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v10, Length);
+                Vector256<UInt32>[] us = UIntUtil.ToVector(v10, digits);
 
                 (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
 
@@ -112,7 +109,7 @@ namespace MultiPrecision {
             }
 
             if(v11 != 0) { 
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v11, Length);
+                Vector256<UInt32>[] us = UIntUtil.ToVector(v11, digits);
 
                 (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
 
@@ -120,9 +117,13 @@ namespace MultiPrecision {
                 UIntUtil.Add(ws, hi, 2);
             }
 
-            UInt32[] arr = UIntUtil.FinalizeAdd(ws, Length);
+            UInt32[] arr = UIntUtil.FinalizeAdd(ws, Length + 2);
 
-            return new BigUInt<N>(arr, enable_clone: false);
+            if(UIntUtil.Digits(arr) > Length) { 
+                throw new OverflowException();
+            }
+
+            return new BigUInt<N>(arr[..Length], enable_clone: false);
         }
 
         public static BigUInt<N> Mul(BigUInt<N> v, UInt64 n) { 
@@ -130,13 +131,15 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<Double<N>> ExpandMul(BigUInt<N> v1, BigUInt<N> v2) {
-            Vector256<UInt32>[] vs = UIntUtil.ToVector(v1.value);
-            Vector256<UInt64>[] ws = new Vector256<UInt64>[vs.Length * 2 + 1];
+            Vector256<UInt64>[] ws = UIntUtil.AllocMulBuffer(Length * 2);
 
+            Vector256<UInt32>[] vs = UIntUtil.ToVector(v1.value);
+
+            int v1_digits = v1.Digits;
             uint v2_digits = (uint)v2.Digits;
 
             for (uint dig2 = 0; dig2 < v2_digits; dig2++) {
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v2.value[dig2], Length);
+                Vector256<UInt32>[] us = UIntUtil.ToVector(v2.value[dig2], v1_digits);
 
                 (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
 

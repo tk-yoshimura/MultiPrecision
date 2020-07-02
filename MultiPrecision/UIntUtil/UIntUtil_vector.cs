@@ -7,13 +7,20 @@ namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static Vector256<UInt64>[] AllocMulBuffer(int length) { 
+            return new Vector256<UInt64>[(length + Vector256<UInt64>.Count - 1) / Vector256<UInt64>.Count + 1];
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe Vector256<UInt32>[] ToVector(UInt32[] arr) { 
-            Vector256<UInt32>[] vs = new Vector256<UInt32>[(arr.Length + Vector256<UInt64>.Count - 1) / Vector256<UInt64>.Count];
+            int digits = Digits(arr);
+
+            Vector256<UInt32>[] vs = new Vector256<UInt32>[(digits + Vector256<UInt64>.Count - 1) / Vector256<UInt64>.Count];
 
             fixed(UInt32* p = arr) { 
                 fixed(Vector256<UInt32> *v = vs) { 
 
-                    if(arr.Length % Vector256<UInt64>.Count == 0) { 
+                    if(digits % Vector256<UInt64>.Count == 0) { 
                         for(int i = 0, j = 0; i < vs.Length; i++, j += Vector256<UInt64>.Count) {
                             v[i] = Avx2.ConvertToVector256Int64(Avx.LoadVector128(p + j)).AsUInt32();
                         }
@@ -24,7 +31,7 @@ namespace MultiPrecision {
                             v[i] = Avx2.ConvertToVector256Int64(Avx.LoadVector128(p + j)).AsUInt32();
                         }
 
-                        v[i] = Avx2.ConvertToVector256Int64(Avx2.MaskLoad(p + j, Mask128.LSV((uint)(arr.Length - j)))).AsUInt32();
+                        v[i] = Avx2.ConvertToVector256Int64(Avx2.MaskLoad(p + j, Mask128.LSV((uint)(digits - j)))).AsUInt32();
                     }
                 }
             }
