@@ -21,15 +21,33 @@ namespace MultiPrecision {
             }
 
             string num = mantissa_dec.ToString().TrimEnd('0');
+            
+            if (exponent_dec >= 8 || exponent_dec <= -4 || exponent_dec == 0) {
+                if (num.Length >= 2) {
+                    num = num.Insert(1, ".");
+                }
 
-            if (num.Length >= 2) {
-                num = num.Insert(1, ".");
+                if(exponent_dec != 0) { 
+                    return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
+                }
+                else { 
+                    return $"{(sign == Sign.Plus ? "" : "-")}{num}";
+                }
             }
+            else if (exponent_dec < 0) {
+                num = new string('0', checked((int)-exponent_dec)) + num;
+                num = num.Insert(1, ".");
 
-            if (exponent_dec != 0) {
-                return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
+                return $"{(sign == Sign.Plus ? "" : "-")}{num}";
             }
             else {
+                if (num.Length < checked((int)exponent_dec + 1)) {
+                    num += new string('0', checked((int)exponent_dec - num.Length + 1));
+                }
+                else if (num.Length > checked((int)exponent_dec + 1)) {
+                    num = num.Insert(checked((int)exponent_dec + 1), ".");
+                }
+
                 return $"{(sign == Sign.Plus ? "" : "-")}{num}";
             }
         }

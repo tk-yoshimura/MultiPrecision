@@ -69,6 +69,38 @@ namespace MultiPrecisionTest {
 
                 n2 /= 2;
             }
+
+            MultiPrecision<N> p3 = 3;
+            for (int i = 0; i < 32; i++) {
+                yield return p3 / 7;
+                yield return -p3 / 7;
+
+                p3 *= 4;
+            }
+
+            MultiPrecision<N> n3 = 3;
+            for (int i = 0; i < 32; i++) {
+                yield return n3 / 7;
+                yield return -n3 / 7;
+
+                n3 /= 4;
+            }
+
+            MultiPrecision<N> p4 = 4;
+            for (int i = 0; i < 32; i++) {
+                yield return p4 / 5;
+                yield return -p4 / 5;
+
+                p4 *= 4;
+            }
+
+            MultiPrecision<N> n4 = 4;
+            for (int i = 0; i < 32; i++) {
+                yield return n4 / 5;
+                yield return -n4 / 5;
+
+                n4 /= 4;
+            }
         }
 
         public static IEnumerable<MultiPrecision<N>> PositiveRangeSet<N>() where N : struct, IConstant { 
@@ -104,6 +136,63 @@ namespace MultiPrecisionTest {
                 yield return n2;
 
                 n2 /= 2;
+            }
+        }
+
+        public static IEnumerable<MultiPrecision<N>> ShortRangeSet<N>() where N : struct, IConstant { 
+            yield return MultiPrecision<N>.Zero;
+
+            for (Int64 i = 1; i <= 100000; i *= 10) {
+                yield return i;
+                yield return -i;
+            }
+
+            MultiPrecision<N> p = 1;
+            for (int i = 0; i < 8; i++) {
+                yield return p;
+                yield return -p;
+
+                p *= 2;
+            }
+
+            MultiPrecision<N> n = 1;
+            for (int i = 0; i < 8; i++) {
+                yield return n;
+                yield return -n;
+
+                n /= 2;
+            }
+
+            MultiPrecision<N> p2 = 255;
+            for (int i = 0; i < 8; i++) {
+                yield return p2;
+                yield return -p2;
+
+                p2 *= 2;
+            }
+
+            MultiPrecision<N> n2 = 255;
+            for (int i = 0; i < 8; i++) {
+                yield return n2;
+                yield return -n2;
+
+                n2 /= 2;
+            }
+
+            MultiPrecision<N> p3 = 255;
+            for (int i = 0; i < 4; i++) {
+                yield return p3 / 7;
+                yield return -p3 / 7;
+
+                p3 *= 4;
+            }
+
+            MultiPrecision<N> n3 = 255;
+            for (int i = 0; i < 4; i++) {
+                yield return n3 / 7;
+                yield return -n3 / 7;
+
+                n3 /= 4;
             }
         }
 

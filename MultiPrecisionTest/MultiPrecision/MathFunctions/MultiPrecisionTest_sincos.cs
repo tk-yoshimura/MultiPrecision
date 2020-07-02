@@ -8,46 +8,46 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void CosHalfPITest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void CosPITest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosPI(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, minerr:1e-4, ignore_sign: true);
+                TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void SinPITest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinPI(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, minerr:1e-4, ignore_sign: true);
+                TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void TanPITest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
                 if(x * 2 == MultiPrecision<Pow2.N8>.Truncate(x * 2)) { 
                     continue;
                 }
@@ -57,46 +57,46 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Tan((double)x * Math.PI), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Tan((double)x * Math.PI), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void CosTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cos(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Cos((double)x), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Cos((double)x), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void SinTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sin(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Sin((double)x), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Sin((double)x), y, minerr:1e-5, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void TanTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach(MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) { 
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tan(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Tan((double)x), y, ignore_sign: true);
+                TestTool.Tolerance(Math.Tan((double)x), y, minerr:1e-5, ignore_sign: true);
             }
         }
 

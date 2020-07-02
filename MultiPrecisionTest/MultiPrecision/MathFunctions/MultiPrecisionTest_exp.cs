@@ -28,7 +28,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
                 
-                TestTool.Tolerance(Math.Exp((double)x) - 1, y);
+                TestTool.Tolerance(Math.Exp((double)x) - 1, y, ignore_sign: true);
             }
         }
 

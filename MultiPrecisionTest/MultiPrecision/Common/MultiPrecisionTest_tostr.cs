@@ -28,6 +28,7 @@ namespace MultiPrecisionTest.Common {
                     Console.WriteLine(u.ToString());
 
                     Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 20));
+                    Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
                 }
             }
 
@@ -47,6 +48,7 @@ namespace MultiPrecisionTest.Common {
                     Console.WriteLine(u.ToString());
 
                     Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(v, u, 20));
+                    Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
                 }
             }
         }
