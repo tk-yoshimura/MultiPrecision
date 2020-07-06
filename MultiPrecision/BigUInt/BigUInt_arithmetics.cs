@@ -91,33 +91,11 @@ namespace MultiPrecision {
                 return Zero.Copy();
             }
 
-            (UInt32 v11, UInt32 v10) = UIntUtil.Unpack(n);
+            UInt32[] u = new UInt32[2];
 
-            int digits = v.Digits;
+            (u[1], u[0]) = UIntUtil.Unpack(n);
 
-            Vector256<UInt64>[] ws = UIntUtil.AllocMulBuffer(Length + 2);
-
-            Vector256<UInt32>[] vs = UIntUtil.ToVector(v.value);
-
-            if(v10 != 0) { 
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v10, digits);
-
-                (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
-
-                UIntUtil.Add(ws, lo, 0);
-                UIntUtil.Add(ws, hi, 1);
-            }
-
-            if(v11 != 0) { 
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v11, digits);
-
-                (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
-
-                UIntUtil.Add(ws, lo, 1);
-                UIntUtil.Add(ws, hi, 2);
-            }
-
-            UInt32[] arr = UIntUtil.FinalizeAdd(ws, Length + 2);
+            UInt32[] arr = UIntUtil.Vector.Mul(v.value, u);
 
             if(UIntUtil.Digits(arr) > Length) { 
                 throw new OverflowException();
@@ -131,23 +109,7 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<Double<N>> ExpandMul(BigUInt<N> v1, BigUInt<N> v2) {
-            Vector256<UInt64>[] ws = UIntUtil.AllocMulBuffer(Length * 2);
-
-            Vector256<UInt32>[] vs = UIntUtil.ToVector(v1.value);
-
-            int v1_digits = v1.Digits;
-            uint v2_digits = (uint)v2.Digits;
-
-            for (uint dig2 = 0; dig2 < v2_digits; dig2++) {
-                Vector256<UInt32>[] us = UIntUtil.ToVector(v2.value[dig2], v1_digits);
-
-                (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = UIntUtil.Mul(vs, us);
-
-                UIntUtil.Add(ws, lo, dig2);
-                UIntUtil.Add(ws, hi, dig2 + 1);
-            }
-
-            UInt32[] arr = UIntUtil.FinalizeAdd(ws, Length * 2);
+            UInt32[] arr = UIntUtil.Vector.Mul(v1.value, v2.value);
 
             return new BigUInt<Double<N>>(arr, enable_clone: false);
         }
