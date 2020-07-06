@@ -102,8 +102,8 @@ namespace MultiPrecision {
                 int shift_rems = shift % Vector256<UInt64>.Count;
 
                 if(shift_rems == 0) { 
-                    for(int i = 0, j = shift_sets; i < v.Length; i++, j++) {
-                        s[j] = Avx2.Add(s[j], v[i].AsUInt64());
+                    for(int i = 0, store_idx = shift_sets; i < v.Length; i++, store_idx++) {
+                        s[store_idx] = Avx2.Add(s[store_idx], v[i].AsUInt64());
                     }
                 }
                 else{
