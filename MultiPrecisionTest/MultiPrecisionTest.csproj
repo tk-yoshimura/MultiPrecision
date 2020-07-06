@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Debug\netcoreapp3.1\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecision\bin\Release\netcoreapp3.1\MultiPrecision.dll</HintPath>
     </Reference>
   </ItemGroup>
 
