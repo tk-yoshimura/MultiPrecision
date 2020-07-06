@@ -2,11 +2,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using MultiPrecision;
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
 
 namespace MultiPrecisionTest.Common {
     public partial class MultiPrecisionTest {

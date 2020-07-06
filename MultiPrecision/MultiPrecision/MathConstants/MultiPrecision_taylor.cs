@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {

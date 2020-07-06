@@ -6,16 +6,35 @@ using System.Runtime.Intrinsics.X86;
 namespace MultiPrecision {
     internal static partial class UIntUtil {
 
-        public static partial class Vector { 
+        public static partial class Vector {
+
+#pragma warning disable IDE1006
+            private const byte MM_PERM_CBAD = 0x93;
+            private const byte MM_PERM_BADC = 0x4E;
+            private const byte MM_PERM_ADCB = 0x39;
+            private const byte MM_PERM_CDAB = 0xB1;
+#pragma warning restore IDE1006
+
+            private static readonly Vector256<UInt32> lower_mask;
+
+            static unsafe Vector() {
+                UInt32[] value = new UInt32[] { ~0u, 0u, ~0u, 0u, ~0u, 0u, ~0u, 0u };
+
+                fixed (UInt32* v = value) {
+                    lower_mask = Avx.LoadVector256(v);
+                }
+            }
 
             public static unsafe UInt32[] Mul(UInt32[] v1, UInt32[] v2) { 
                 Vector256<UInt64>[] ws = AllocMulBuffer(checked(v1.Length + v2.Length));
 
                 Vector256<UInt32>[] vs = ToVector(v1);
 
-                int v2_digits = Digits(v2);
+                for (int dig2 = 0; dig2 < v2.Length; dig2++) {
+                    if(v2[dig2] == 0) { 
+                        continue;
+                    }
 
-                for (int dig2 = 0; dig2 < v2_digits; dig2++) {
                     (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v2[dig2]);
 
                     Add(ws, lo, dig2);
@@ -67,10 +86,10 @@ namespace MultiPrecision {
                 Vector256<UInt32> u = Avx2.ConvertToVector256Int64(Vector128.Create(n)).AsUInt32();
 
                 for(int i = 0; i < v.Length; i++) { 
-                    Vector256<UInt64> c = Avx2.Multiply(v[i], u);
+                    Vector256<UInt32> c = Avx2.Multiply(v[i], u).AsUInt32();
 
-                    w_hi[i] = Avx2.ShiftRightLogical(c, UInt32Bits).AsUInt32();
-                    w_lo[i] = Avx2.ShiftRightLogical(Avx2.ShiftLeftLogical(c, UInt32Bits), UInt32Bits).AsUInt32();
+                    w_hi[i] = Avx2.And(Avx2.Shuffle(c, MM_PERM_CDAB), lower_mask);
+                    w_lo[i] = Avx2.And(c, lower_mask);
                 }
 
                 return (w_hi, w_lo);
@@ -91,9 +110,9 @@ namespace MultiPrecision {
                     Vector256<UInt64> mr = Mask256.LSV(checked((uint)(shift_rems * 2))).AsUInt64();
 
                     byte mm_perm = shift_rems switch{
-                        1 => 0x93,
-                        2 => 0x4E,
-                        3 => 0x39,
+                        1 => MM_PERM_CBAD,
+                        2 => MM_PERM_BADC,
+                        3 => MM_PERM_ADCB,
                         _ => throw new ArgumentException(nameof(shift_rems))
                     };
 

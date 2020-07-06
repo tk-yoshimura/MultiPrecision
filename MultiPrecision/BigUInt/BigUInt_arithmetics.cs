@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Intrinsics;
 
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N> {
@@ -89,6 +88,9 @@ namespace MultiPrecision {
         public static BigUInt<N> Mul(UInt64 n, BigUInt<N> v) {
             if(n == 0) {
                 return Zero.Copy();
+            }
+            if(n == 1) {
+                return v.Copy();
             }
 
             UInt32[] u = new UInt32[2];
