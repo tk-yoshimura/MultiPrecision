@@ -127,16 +127,18 @@ namespace MultiPrecision {
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static UInt32[] Carry(Vector256<UInt64>[] us, int length) {
-                UInt32[] vs = new UInt32[length];
+            private static unsafe UInt32[] Carry(Vector256<UInt64>[] us, int length) {
+                UInt32[] vs = new UInt32[length], u = new UInt32[Vector256<UInt32>.Count];
 
                 UInt32 carry = 0u, v;
 
                 for(int i = 0, k = 0; i < us.Length; i++) {
-                    Vector256<UInt32> u = us[i].AsUInt32();
+                    fixed(UInt32 *p = u) { 
+                        Avx2.Store(p, us[i].AsUInt32());
+                    }
 
                     for(int j = 0; j < Vector256<UInt64>.Count && k < length; j++, k++) { 
-                        UInt32 n = u.GetElement(j * 2), c = u.GetElement(j * 2 + 1);
+                        UInt32 n = u[j * 2], c = u[j * 2 + 1];
 
                         (carry, v) = Unpack((UInt64)n + (UInt64)carry);
 
