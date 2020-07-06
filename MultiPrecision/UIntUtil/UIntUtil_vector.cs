@@ -9,6 +9,7 @@ namespace MultiPrecision {
         public static partial class Vector {
 
 #pragma warning disable IDE1006
+            // zmminitrin.h
             private const byte MM_PERM_CBAD = 0x93;
             private const byte MM_PERM_BADC = 0x4E;
             private const byte MM_PERM_ADCB = 0x39;
