@@ -26,7 +26,7 @@ namespace MultiPrecision {
                 }
             }
 
-            public static unsafe UInt32[] Mul(UInt32[] v1, UInt32[] v2) { 
+            public static UInt32[] Mul(UInt32[] v1, UInt32[] v2) { 
                 Vector256<UInt64>[] ws = AllocMulBuffer(checked(v1.Length + v2.Length));
 
                 Vector256<UInt32>[] vs = ToVector(v1);
