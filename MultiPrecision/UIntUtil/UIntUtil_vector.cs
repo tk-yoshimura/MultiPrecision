@@ -108,7 +108,7 @@ namespace MultiPrecision {
                 }
                 else{
                     Vector256<UInt64> ml = Mask256.MSV(checked((uint)(shift_rems * 2))).AsUInt64();
-                    Vector256<UInt64> mr = Mask256.LSV(checked((uint)(shift_rems * 2))).AsUInt64();
+                    Vector256<UInt64> mh = Mask256.LSV(checked((uint)(shift_rems * 2))).AsUInt64();
 
                     byte mm_perm = shift_rems switch{
                         1 => MM_PERM_CBAD,
@@ -117,12 +117,26 @@ namespace MultiPrecision {
                         _ => throw new ArgumentException(nameof(shift_rems))
                     };
 
-                    for(int i = 0, j = shift_sets; i < v.Length; i++, j++) {
-                        Vector256<UInt64> u = Avx2.Permute4x64(v[i].AsUInt64(), mm_perm);
+                    int store_idx = shift_sets;
+                    Vector256<UInt64> uh, ul, u;
 
-                        s[j] = Avx2.Add(s[j], Avx2.And(u, ml));
-                        s[j + 1] = Avx2.Add(s[j + 1], Avx2.And(u, mr));
+                    u = Avx2.Permute4x64(v[0].AsUInt64(), mm_perm);
+                    ul = Avx2.And(u, ml);
+
+                    s[store_idx] = Avx2.Add(s[store_idx], ul);
+                    store_idx++;
+
+                    for(int i = 1; i < v.Length; i++) {
+                        uh = Avx2.And(u, mh);
+                        u = Avx2.Permute4x64(v[i].AsUInt64(), mm_perm);
+                        ul = Avx2.And(u, ml);
+
+                        s[store_idx] = Avx2.Add(s[store_idx], Avx2.Or(uh, ul));
+                        store_idx++;
                     }
+
+                    uh = Avx2.And(u, mh);
+                    s[store_idx] = Avx2.Add(s[store_idx], uh);
                 }
             }
 
