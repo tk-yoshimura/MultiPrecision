@@ -16,12 +16,12 @@ namespace MultiPrecision {
             return Pow2(y * Log2(x));
         }
 
-        public static MultiPrecision<N> Pow(MultiPrecision<N> x, int n) {
+        public static MultiPrecision<N> Pow(MultiPrecision<N> x, long n) {
             if(n == 0) { 
                 return One;
             }
 
-            int abs_n = Math.Abs(n);
+            long abs_n = Math.Abs(n);
             MultiPrecision<N> y = One, z = x;
 
             while(abs_n > 0) { 
