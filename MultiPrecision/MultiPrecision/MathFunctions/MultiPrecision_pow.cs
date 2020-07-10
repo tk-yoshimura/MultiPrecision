@@ -1,4 +1,6 @@
-﻿namespace MultiPrecision {
+﻿using System;
+
+namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
@@ -12,6 +14,26 @@
             }
 
             return Pow2(y * Log2(x));
+        }
+
+        public static MultiPrecision<N> Pow(MultiPrecision<N> x, int n) {
+            if(n == 0) { 
+                return One;
+            }
+
+            int abs_n = Math.Abs(n);
+            MultiPrecision<N> y = One, z = x;
+
+            while(abs_n > 0) { 
+                if((abs_n & 1) == 1) { 
+                    y *= z;
+                }
+
+                z *= z;
+                abs_n >>= 1;
+            }
+
+            return (n > 0) ? y : (One / y); 
         }
     }
 }

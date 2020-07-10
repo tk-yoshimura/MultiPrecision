@@ -37,6 +37,13 @@ namespace MultiPrecisionTest.Functions {
                 
                 TestTool.Tolerance(Math.Pow((double)x, -1.5), y);
             }
+
+            foreach(MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { -1.5, -1, -0.75, 0, 0.75, 1, 1.5 }) { 
+                for(int n = -100; n <= 100; n++) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);                
+                    TestTool.Tolerance(Math.Pow((double)x, n), y);
+                }
+            }
         }
 
         [TestMethod]
