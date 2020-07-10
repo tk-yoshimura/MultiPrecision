@@ -26,7 +26,7 @@ namespace MultiPrecision {
             while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
                 t = MultiPrecision<Plus1<N>>.One / v;
 
-                if (t.IsZero) { 
+                if (t.IsZero) {
                     break;
                 }
 

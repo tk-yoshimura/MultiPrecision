@@ -87,7 +87,7 @@ namespace MultiPrecision {
                 if (is_erf) {
                     y = -ErfErfcCore(-x, is_erf: true);
                 }
-                else { 
+                else {
                     y = 2 - ErfErfcCore(-x, is_erf: false);
                 }
             }

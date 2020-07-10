@@ -8,17 +8,17 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> Gamma(MultiPrecision<N> x) {
 
-            if (x.IsZero) { 
+            if (x.IsZero) {
                 return NaN;
             }
 
-            if(x.Sign == Sign.Plus){
+            if (x.Sign == Sign.Plus) {
                 MultiPrecision<Plus1<N>> y;
-                
-                if(x >= Integer(Consts.LogGamma.ApproxThreshold)) {
+
+                if (x >= Integer(Consts.LogGamma.ApproxThreshold)) {
                     y = MultiPrecision<Plus1<N>>.Exp(LogGammaSterlingApprox(x));
                 }
-                else{
+                else {
                     MultiPrecision<N> x_int = Floor(x), x_frac = x - x_int;
                     MultiPrecision<N> z = x_frac + Consts.LogGamma.ApproxThreshold;
                     MultiPrecision<Plus1<N>> w = MultiPrecision<Plus1<N>>.Exp(LogGammaSterlingApprox(z));
@@ -27,7 +27,7 @@ namespace MultiPrecision {
 
                     MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.One;
 
-                    for(long i = (long)x_int; i < Consts.LogGamma.ApproxThreshold; i++) { 
+                    for (long i = (long)x_int; i < Consts.LogGamma.ApproxThreshold; i++) {
                         z_expand -= MultiPrecision<Plus1<N>>.One;
                         s *= z_expand;
                     }
@@ -37,8 +37,8 @@ namespace MultiPrecision {
 
                 return RoundMantissa(MultiPrecisionUtil.Convert<N, Plus1<N>>(y), Bits - Consts.LogGamma.RoundBits);
             }
-            else { 
-                if(x == Truncate(x)) { 
+            else {
+                if (x == Truncate(x)) {
                     return NaN;
                 }
 
@@ -49,11 +49,11 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {
-            if(!(x > Zero)) { 
+            if (!(x > Zero)) {
                 return NaN;
             }
 
-            if(x < Integer(Consts.LogGamma.NearOneThreshold)) {
+            if (x < Integer(Consts.LogGamma.NearOneThreshold)) {
                 return Log(Gamma(x));
             }
 
@@ -199,13 +199,13 @@ namespace MultiPrecision {
                     FixRoundBits();
                 }
 
-                public static void FixRoundBits() { 
+                public static void FixRoundBits() {
                     MultiPrecision<N> y1 = Gamma(One), y2 = Gamma(2), y3 = Gamma(3);
 
-                    while(RoundBits < Bits / 2) { 
-                        if(RoundMantissa(y1, Bits - RoundBits) != One
+                    while (RoundBits < Bits / 2) {
+                        if (RoundMantissa(y1, Bits - RoundBits) != One
                         || RoundMantissa(y2, Bits - RoundBits) != One
-                        || RoundMantissa(y3, Bits - RoundBits) != 2) { 
+                        || RoundMantissa(y3, Bits - RoundBits) != 2) {
 
                             RoundBits++;
                         }

@@ -7,16 +7,16 @@ namespace MultiPrecision {
 
         public static MultiPrecision<Ndst> Convert<Ndst, Nsrc>(MultiPrecision<Nsrc> v) where Nsrc : struct, IConstant where Ndst : struct, IConstant {
             if (!v.IsFinite) {
-                if (v.IsNaN) { 
+                if (v.IsNaN) {
                     return MultiPrecision<Ndst>.NaN;
                 }
                 return v.Sign == Sign.Plus ? MultiPrecision<Ndst>.PositiveInfinity : MultiPrecision<Ndst>.NegativeInfinity;
             }
-            
-            if(MultiPrecision<Nsrc>.Length == MultiPrecision<Ndst>.Length) { 
+
+            if (MultiPrecision<Nsrc>.Length == MultiPrecision<Ndst>.Length) {
                 return new MultiPrecision<Ndst>(v.Sign, v.Exponent, v.Mantissa.ToArray());
             }
-            
+
             UInt32[] mantissa = new UInt32[MultiPrecision<Ndst>.Length];
 
             if (MultiPrecision<Nsrc>.Length <= MultiPrecision<Ndst>.Length) {

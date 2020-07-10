@@ -34,7 +34,7 @@ namespace MultiPrecision {
             this.value = new BigUInt<N>(arr);
         }
 
-        public Mantissa(BigUInt<N>value) {
+        public Mantissa(BigUInt<N> value) {
             this.value = value;
         }
 

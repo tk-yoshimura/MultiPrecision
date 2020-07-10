@@ -21,8 +21,8 @@ namespace MultiPrecision {
             const int decimals = 9;
 
             UInt32[] dec = new UInt32[(s.Length + decimals - 1) / decimals];
-            for(int i = 0, idx = s.Length - decimals; i < dec.Length; i++, idx -= decimals) { 
-                if(idx >= 0) { 
+            for (int i = 0, idx = s.Length - decimals; i < dec.Length; i++, idx -= decimals) {
+                if (idx >= 0) {
                     dec[i] = UInt32.Parse(s.Substring(idx, decimals), NumberStyles.Integer, CultureInfo.InvariantCulture);
                 }
                 else {
@@ -33,7 +33,7 @@ namespace MultiPrecision {
             int bin_digits = 0;
 
             for (int j = dec.Length - 1; j >= 0; j--) {
-                if(bin_digits > Length) { 
+                if (bin_digits > Length) {
                     throw new OverflowException();
                 }
 
@@ -43,7 +43,7 @@ namespace MultiPrecision {
                     (carry, value[i]) = UIntUtil.Unpack(res);
                 }
                 if (carry > 0) {
-                    if(bin_digits >= Length) { 
+                    if (bin_digits >= Length) {
                         throw new OverflowException();
                     }
 
@@ -51,7 +51,7 @@ namespace MultiPrecision {
                     bin_digits++;
 
                     if (carry > 0) {
-                        if(bin_digits >= Length) { 
+                        if (bin_digits >= Length) {
                             throw new OverflowException();
                         }
 

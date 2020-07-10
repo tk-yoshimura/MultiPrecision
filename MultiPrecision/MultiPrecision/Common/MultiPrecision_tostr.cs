@@ -21,16 +21,16 @@ namespace MultiPrecision {
             }
 
             string num = mantissa_dec.ToString().TrimEnd('0');
-            
+
             if (exponent_dec >= 8 || exponent_dec <= -4 || exponent_dec == 0) {
                 if (num.Length >= 2) {
                     num = num.Insert(1, ".");
                 }
 
-                if(exponent_dec != 0) { 
+                if (exponent_dec != 0) {
                     return $"{(sign == Sign.Plus ? "" : "-")}{num}e{exponent_dec}";
                 }
-                else { 
+                else {
                     return $"{(sign == Sign.Plus ? "" : "-")}{num}";
                 }
             }
@@ -84,7 +84,7 @@ namespace MultiPrecision {
             return $"{(sign == Sign.Plus ? "" : "-")}{num}{format[0]}{exponent_dec}";
         }
 
-        public string ToString(string format) { 
+        public string ToString(string format) {
             return ToString(format, null);
         }
 

@@ -16,7 +16,7 @@
         }
 
         public static MultiPrecision<N> Expm1(MultiPrecision<N> x) {
-            if(x.Exponent >= 0) { 
+            if (x.Exponent >= 0) {
                 return Exp(x) - 1;
             }
 
@@ -24,11 +24,11 @@
             MultiPrecision<Plus1<N>> z = x_expand;
             MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Zero;
 
-            foreach(MultiPrecision<Plus1<N>> t in TaylorTable) { 
+            foreach (MultiPrecision<Plus1<N>> t in TaylorTable) {
                 MultiPrecision<Plus1<N>> dy = t * z;
                 y += dy;
 
-                if(dy.IsZero || y.Exponent - dy.Exponent > Bits) {
+                if (dy.IsZero || y.Exponent - dy.Exponent > Bits) {
                     break;
                 }
 

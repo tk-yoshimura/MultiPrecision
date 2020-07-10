@@ -70,7 +70,7 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<N> CreateInteger(Sign sign, UInt64 num) {
-            if(num == 0u) {
+            if (num == 0u) {
                 return sign == Sign.Plus ? Zero : MinusZero;
             }
 
@@ -111,7 +111,7 @@ namespace MultiPrecision {
             return Sign.GetHashCode() ^ exponent.GetHashCode() ^ mantissa.GetHashCode();
         }
 
-        public string ToHexcode() { 
+        public string ToHexcode() {
             return $"{Sign} {Exponent}, {UIntUtil.ToHexcode(Mantissa)}";
         }
     }

@@ -3,10 +3,10 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sinh(MultiPrecision<N> x) {
-            if(x.Exponent < 0) { 
+            if (x.Exponent < 0) {
                 return Ldexp(Expm1(x) - Expm1(-x), -1);
             }
-            else { 
+            else {
                 return Ldexp(Exp(x) - Exp(-x), -1);
             }
         }

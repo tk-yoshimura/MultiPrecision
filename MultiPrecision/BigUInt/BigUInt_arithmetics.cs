@@ -78,7 +78,7 @@ namespace MultiPrecision {
         public static BigUInt<N> Mul(BigUInt<N> v1, BigUInt<N> v2) {
             BigUInt<Double<N>> v = ExpandMul(v1, v2);
 
-            if(v.Digits > Length) { 
+            if (v.Digits > Length) {
                 throw new OverflowException();
             }
 
@@ -86,10 +86,10 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<N> Mul(UInt64 n, BigUInt<N> v) {
-            if(n == 0) {
+            if (n == 0) {
                 return Zero.Copy();
             }
-            if(n == 1) {
+            if (n == 1) {
                 return v.Copy();
             }
 
@@ -99,14 +99,14 @@ namespace MultiPrecision {
 
             UInt32[] arr = UIntUtil.Vector.Mul(v.value, u);
 
-            if(UIntUtil.Digits(arr) > Length) { 
+            if (UIntUtil.Digits(arr) > Length) {
                 throw new OverflowException();
             }
 
             return new BigUInt<N>(arr[..Length], enable_clone: false);
         }
 
-        public static BigUInt<N> Mul(BigUInt<N> v, UInt64 n) { 
+        public static BigUInt<N> Mul(BigUInt<N> v, UInt64 n) {
             return Mul(n, v);
         }
 

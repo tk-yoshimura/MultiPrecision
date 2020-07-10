@@ -15,7 +15,7 @@ namespace MultiPrecision {
                 public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
 
                 public static void Initialize() {
-                    Table = new Dictionary<int, MultiPrecision<N>>() { 
+                    Table = new Dictionary<int, MultiPrecision<N>>() {
                         { -13, Div(-1, 12) },
                         { -11, Div(691, 32760) },
                         { -9, Div(-1, 132) },

@@ -52,10 +52,10 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
-            if(keep_bits < 1) { 
+            if (keep_bits < 1) {
                 throw new ArgumentException(nameof(keep_bits));
             }
-            if(Bits <= keep_bits || x.mantissa.IsZero || x.IsNaN) {
+            if (Bits <= keep_bits || x.mantissa.IsZero || x.IsNaN) {
                 return x;
             }
 
