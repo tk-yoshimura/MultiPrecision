@@ -86,14 +86,15 @@ namespace MultiPrecision {
 
                 Vector256<UInt32>[] w_hi = new Vector256<UInt32>[v.Length], w_lo = new Vector256<UInt32>[v.Length];
                 Vector256<UInt32> u = Avx2.ConvertToVector256Int64(Vector128.Create(n)).AsUInt32();
+                Vector256<UInt32> mask = lower_mask;
 
                 fixed (Vector256<UInt32>* pv = v, pw_hi = w_hi, pw_lo = w_lo) {
 
                     for (int i = 0; i < v.Length; i++) {
                         Vector256<UInt32> c = Avx2.Multiply(pv[i], u).AsUInt32();
 
-                        pw_hi[i] = Avx2.And(Avx2.Shuffle(c, MM_PERM_CDAB), lower_mask);
-                        pw_lo[i] = Avx2.And(c, lower_mask);
+                        pw_hi[i] = Avx2.And(Avx2.Shuffle(c, MM_PERM_CDAB), mask);
+                        pw_lo[i] = Avx2.And(c, mask);
                     }
 
                 }
