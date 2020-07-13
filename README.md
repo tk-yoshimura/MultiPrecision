@@ -87,6 +87,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |Napier's E|N/A|N/A||MultiPrecision&lt;*N*&gt;.E|
 |Sqrt(2)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Sqrt2|
 |Euler's Gamma|N/A|N/A||MultiPrecision&lt;*N*&gt;.EulerGamma|
+|&zeta(3)|N/A|N/A|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
+|&zeta(5)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Zeta5|
+|&zeta(7)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Zeta7|
 
 ## Casts
 
