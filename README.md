@@ -45,7 +45,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |log2|&#40;0,+inf&#41;|0||MultiPrecision&lt;*N*&gt;.Log2(x)|
 |log|&#40;0,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Log(x)|
 |log10|&#40;0,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Log10(x)|
-|log1p|&#40;0,+inf&#41;|1|log(1+x)|MultiPrecision&lt;*N*&gt;.Log1p(x)|
+|log1p|&#40;-1,+inf&#41;|1|log(1+x)|MultiPrecision&lt;*N*&gt;.Log1p(x)|
 |pow2|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;*N*&gt;.Pow2(x)|
 |pow|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Pow(x, y)|
 |pow10|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Pow10(x)|
