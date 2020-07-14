@@ -3,6 +3,7 @@
 
 ## Requirement
 .NET Core 3.1
+
 AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 
 ## Install
