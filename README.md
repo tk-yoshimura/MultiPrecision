@@ -83,13 +83,18 @@ MaxValue: &plusmn;8.808065x10^646456992
 |array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Average()|
 |array min|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Min()|
 |array max|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Max()|
-|Pi|N/A|N/A||MultiPrecision&lt;*N*&gt;.PI|
-|Napier's E|N/A|N/A||MultiPrecision&lt;*N*&gt;.E|
-|Sqrt(2)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Sqrt2|
-|Euler's Gamma|N/A|N/A||MultiPrecision&lt;*N*&gt;.EulerGamma|
-|&zeta;(3)|N/A|N/A|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
-|&zeta;(5)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Zeta5|
-|&zeta;(7)|N/A|N/A||MultiPrecision&lt;*N*&gt;.Zeta7|
+
+## Constants
+
+|constant|value|note|usage|
+|----|----|----|----|
+|Pi|3.141592653589793238462...||MultiPrecision&lt;*N*&gt;.PI|
+|Napier's E|2.718281828459045235360...||MultiPrecision&lt;*N*&gt;.E|
+|Sqrt(2)|1.414213562373095048801...||MultiPrecision&lt;*N*&gt;.Sqrt2|
+|Euler's Gamma|0.577215664901532860606...||MultiPrecision&lt;*N*&gt;.EulerGamma|
+|&zeta;(3)|1.202056903159594285399...|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
+|&zeta;(5)|1.036927755143369926331...||MultiPrecision&lt;*N*&gt;.Zeta5|
+|&zeta;(7)|1.008349277381922826839...||MultiPrecision&lt;*N*&gt;.Zeta7|
 
 ## Casts
 
