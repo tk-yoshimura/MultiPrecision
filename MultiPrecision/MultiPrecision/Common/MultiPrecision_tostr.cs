@@ -106,13 +106,14 @@ namespace MultiPrecision {
 
             MultiPrecision<N> exponent = Consts.log10_2 * Exponent;
             MultiPrecision<N> exponent_int = Floor(exponent);
-            MultiPrecision<N> exponent_frac = Ldexp(Pow(Integer(5), -(long)exponent_int), Exponent - (long)exponent_int);
+            Int64 exponent_dec = (Int64)exponent_int;
+
+            MultiPrecision<N> exponent_frac = Ldexp(Pow(Integer(5), -exponent_dec), checked(Exponent - exponent_dec));
             
 #if DEBUG
             Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10);
 #endif
 
-            Int64 exponent_dec = (Int64)exponent_int;
 
             Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa);
 
