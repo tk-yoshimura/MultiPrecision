@@ -106,17 +106,7 @@ namespace MultiPrecision {
 
             MultiPrecision<N> exponent = Consts.log10_2 * Exponent;
             MultiPrecision<N> exponent_int = Floor(exponent);
-            MultiPrecision<N> exponent_frac;
-
-            if (this.exponent < 100) {
-                exponent_frac = Ldexp(Pow(Integer(10), -(long)exponent_int - 2), Exponent) * Integer(100);
-            }
-            else if (this.exponent < ExponentMax - 100) {
-                exponent_frac = Ldexp(Pow(Integer(10), -(long)exponent_int), Exponent);
-            }
-            else { 
-                exponent_frac = Ldexp(Pow(Integer(10), -(long)exponent_int + 2), Exponent) / Integer(100);
-            }
+            MultiPrecision<N> exponent_frac = Ldexp(Pow(Integer(5), -(long)exponent_int), Exponent - (long)exponent_int);
             
 #if DEBUG
             Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10);

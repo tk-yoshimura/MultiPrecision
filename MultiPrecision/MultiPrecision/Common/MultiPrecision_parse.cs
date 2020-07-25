@@ -69,16 +69,9 @@ namespace MultiPrecision {
                 return mantissa;
             }
 
-            if (p < -DecimalDigits || p > DecimalDigits) {
-                MultiPrecision<N> exponent = Pow(10, p);
+            MultiPrecision<N> exponent = Pow(5, p);
 
-                return mantissa * exponent;
-            }
-            else {
-                MultiPrecision<N> exponent = CreateInteger(Sign.Plus, Accumulator<N>.Decimal(checked((int)Math.Abs(p))));
-
-                return (p < 0) ? (mantissa / exponent) : (mantissa * exponent);
-            }
+            return Ldexp(mantissa * exponent, p);
         }
     }
 }
