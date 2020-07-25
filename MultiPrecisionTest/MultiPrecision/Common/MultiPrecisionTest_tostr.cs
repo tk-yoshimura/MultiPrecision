@@ -51,6 +51,42 @@ namespace MultiPrecisionTest.Common {
                     Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
                 }
             }
+
+            for (long i = int.MinValue; i < int.MinValue + 120; i++) {
+                MultiPrecision<Pow2.N8> v = new MultiPrecision<Pow2.N8>(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
+
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
+
+                Console.WriteLine(sign);
+                Console.WriteLine(exponent_dec);
+                Console.WriteLine(mantissa_dec);
+                Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
+                Console.WriteLine(v.ToString("e10"));
+
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
+                Console.WriteLine(u.ToString());
+
+                Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
+            }
+
+            for (long i = int.MaxValue - 120; i <= int.MaxValue; i++) {
+                MultiPrecision<Pow2.N8> v = new MultiPrecision<Pow2.N8>(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
+
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
+
+                Console.WriteLine(sign);
+                Console.WriteLine(exponent_dec);
+                Console.WriteLine(mantissa_dec);
+                Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
+                Console.WriteLine(v.ToString("e10"));
+
+                MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
+                Console.WriteLine(u.ToString());
+
+                Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
+            }
         }
     }
 }
