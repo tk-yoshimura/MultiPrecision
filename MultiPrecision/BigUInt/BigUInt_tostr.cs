@@ -14,18 +14,18 @@ namespace MultiPrecision {
             UInt32[] dec = new UInt32[checked(bin_digits * 10 / 9 + 2)];
 
             for (int j = bin_digits - 1; j >= 0; j--) {
+
                 UInt32 carry = value[j];
+
                 for (int i = 0; i < dec_digits; i++) {
                     UInt64 res = UIntUtil.Pack(dec[i], carry);
 
-                    dec[i] = (UInt32)(res % UIntUtil.UInt32MaxDecimal);
-                    carry = (UInt32)(res / UIntUtil.UInt32MaxDecimal);
+                    (carry, dec[i]) = UIntUtil.DecimalUnpack(res);
                 }
-                if (carry > 0) {
-                    dec[dec_digits] = (UInt32)(carry % UIntUtil.UInt32MaxDecimal);
-                    dec_digits++;
 
-                    carry = (UInt32)(carry / UIntUtil.UInt32MaxDecimal);
+                if (carry > 0) {
+                    (carry, dec[dec_digits]) = UIntUtil.DecimalUnpack(carry);
+                    dec_digits++;
 
                     if (carry > 0) {
                         dec[dec_digits] = carry;

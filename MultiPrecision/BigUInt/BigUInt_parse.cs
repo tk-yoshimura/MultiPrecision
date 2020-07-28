@@ -38,10 +38,13 @@ namespace MultiPrecision {
                 }
 
                 UInt32 carry = dec[j];
+
                 for (int i = 0; i < bin_digits; i++) {
-                    UInt64 res = (UInt64)value[i] * UIntUtil.UInt32MaxDecimal + (UInt64)carry;
+                    UInt64 res = UIntUtil.DecimalPack(value[i], carry);
+
                     (carry, value[i]) = UIntUtil.Unpack(res);
                 }
+
                 if (carry > 0) {
                     if (bin_digits >= Length) {
                         throw new OverflowException();
