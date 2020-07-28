@@ -5,15 +5,15 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sin(MultiPrecision<N> x) {
-            return SinPI(x * InvertPI);
+            return SinPI(x * RcpPI);
         }
 
         public static MultiPrecision<N> Cos(MultiPrecision<N> x) {
-            return CosPI(x * InvertPI);
+            return CosPI(x * RcpPI);
         }
 
         public static MultiPrecision<N> Tan(MultiPrecision<N> x) {
-            return TanPI(x * InvertPI);
+            return TanPI(x * RcpPI);
         }
 
         public static MultiPrecision<N> SinPI(MultiPrecision<N> x) {

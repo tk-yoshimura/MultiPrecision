@@ -5,7 +5,7 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
-            public static MultiPrecision<N> pi = null, inv_pi = null;
+            public static MultiPrecision<N> pi = null, rcp_pi = null;
         }
 
         public static MultiPrecision<N> PI {
@@ -18,13 +18,13 @@ namespace MultiPrecision {
             }
         }
 
-        public static MultiPrecision<N> InvertPI {
+        public static MultiPrecision<N> RcpPI {
             get {
-                if (Consts.inv_pi is null) {
-                    Consts.inv_pi = MultiPrecisionUtil.Convert<N, Plus1<N>>(MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.PI);
+                if (Consts.rcp_pi is null) {
+                    Consts.rcp_pi = MultiPrecisionUtil.Convert<N, Plus1<N>>(MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.PI);
                 }
 
-                return Consts.inv_pi;
+                return Consts.rcp_pi;
             }
         }
 

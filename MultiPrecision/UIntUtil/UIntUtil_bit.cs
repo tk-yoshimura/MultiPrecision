@@ -7,46 +7,6 @@ namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetMSB([DisallowNull] UInt32[] v, int pos) {
-            int posdev = pos / UInt32Bits;
-            int posrem = pos % UInt32Bits;
-
-            UInt32 mask = 1u << (UInt32Bits - posrem - 1);
-
-            v[v.Length - posdev - 1] |= mask;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ResetMSB([DisallowNull] UInt32[] v, int pos) {
-            int posdev = pos / UInt32Bits;
-            int posrem = pos % UInt32Bits;
-
-            UInt32 mask = 1u << (UInt32Bits - posrem - 1);
-
-            v[v.Length - posdev - 1] &= ~mask;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt32 GetMSB([DisallowNull] UInt32[] v, int pos) {
-            int posdev = pos / UInt32Bits;
-            int posrem = pos % UInt32Bits;
-
-            return (v[v.Length - posdev - 1] >> (UInt32Bits - posrem - 1)) & 1;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void FlushMSB([DisallowNull] UInt32[] v, int pos) {
-            int posdev = pos / UInt32Bits;
-            int posrem = pos % UInt32Bits;
-
-            int mask_index = posdev;
-
-            v[mask_index] = (v[mask_index] << (UInt32Bits - posrem - 1)) >> (UInt32Bits - posrem - 1);
-
-            Zeroset(v, (uint)(mask_index + 1), (uint)(v.Length - mask_index - 1));
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SetLSB([DisallowNull] UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
             int posrem = pos % UInt32Bits;

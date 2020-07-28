@@ -16,34 +16,6 @@ namespace MultiPrecisionTest.UIntUtils {
             UInt32[] vs = new UInt32[length];
 
             for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
-                Assert.AreEqual(0u, UIntUtil.GetMSB(vs, i));
-
-                UIntUtil.SetMSB(vs, i);
-
-                Assert.AreEqual(1u, UIntUtil.GetMSB(vs, i));
-
-                Console.WriteLine(UIntUtil.ToHexcode(vs));
-            }
-
-            for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
-                Assert.AreEqual(1u, UIntUtil.GetMSB(vs, i));
-
-                UIntUtil.ResetMSB(vs, i);
-
-                Assert.AreEqual(0u, UIntUtil.GetMSB(vs, i));
-
-                Console.WriteLine(UIntUtil.ToHexcode(vs));
-            }
-
-            for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
-                UInt32[] us = Enumerable.Repeat(0xFFFFFFFFu, length).ToArray();
-
-                UIntUtil.FlushMSB(us, i);
-
-                Console.WriteLine(UIntUtil.ToHexcode(us));
-            }
-
-            for (int i = 0; i < length * UIntUtil.UInt32Bits; i++) {
                 Assert.AreEqual(0u, UIntUtil.GetLSB(vs, i));
 
                 UIntUtil.SetLSB(vs, i);

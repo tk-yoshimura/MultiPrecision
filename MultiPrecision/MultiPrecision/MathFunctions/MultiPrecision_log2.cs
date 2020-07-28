@@ -23,10 +23,12 @@ namespace MultiPrecision {
             Int64 exponent = x.Exponent;
             UInt32[] mantissa = new UInt32[Accumulator<N>.Length];
 
-            for (int i = 0, init = Mantissa<N>.Bits; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++) {
+            for (int i = 0, init = Mantissa<N>.Bits, j = mantissa.Length - 1, k = 1; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++, k++) {
                 v *= v;
+                mantissa[j] <<= 1;
+
                 if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
-                    UIntUtil.SetMSB(mantissa, i);
+                    mantissa[j] |= 1u;
 
                     v = Accumulator<N>.RightRoundBlockShift(v, Mantissa<N>.Length);
 
@@ -36,6 +38,11 @@ namespace MultiPrecision {
                 }
                 else {
                     v = Accumulator<N>.RightRoundShift(v, Mantissa<N>.Bits - 1);
+                }
+
+                if (k >= UIntUtil.UInt32Bits) {
+                    j--;
+                    k = 0;
                 }
             }
 

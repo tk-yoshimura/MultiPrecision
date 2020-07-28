@@ -4,14 +4,8 @@ using System.Linq;
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
-        private static partial class Consts {
-            public static MultiPrecision<N> log2 = null;
-        }
 
         public static MultiPrecision<N> Pow2(MultiPrecision<N> x) {
-            if (Consts.log2 is null) {
-                Consts.log2 = Log(2);
-            }
 
             if (x.IsNaN) {
                 return NaN;
@@ -35,7 +29,7 @@ namespace MultiPrecision {
 
             MultiPrecision<N> x_frac = x - x_int;
 
-            MultiPrecision<N> v = Consts.log2 * x_frac;
+            MultiPrecision<N> v = Ln2 * x_frac;
 
             if (v.IsZero || v.Exponent < int.MinValue) {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);

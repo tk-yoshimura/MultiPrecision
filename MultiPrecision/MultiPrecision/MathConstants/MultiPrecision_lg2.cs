@@ -5,16 +5,16 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
-            public static MultiPrecision<N> lg2 = null;
+            public static MultiPrecision<N> lg_2 = null;
         }
 
         public static MultiPrecision<N> Lg2 {
             get {
-                if (Consts.lg2 is null) {
-                    Consts.lg2 = GenerateLg2();
+                if (Consts.lg_2 is null) {
+                    Consts.lg_2 = GenerateLg2();
                 }
 
-                return Consts.lg2;
+                return Consts.lg_2;
             }
         }
 
