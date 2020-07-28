@@ -92,10 +92,6 @@ namespace MultiPrecision {
             const int presicion = 2;
             const UInt64 presicion_pow10 = 100, presicion_p1_pow10 = presicion_pow10 * 10;
 
-            if (Consts.log10_2 is null) {
-                Consts.log10_2 = One / Log2(10);
-            }
-
             if (digits > DecimalDigits) {
                 throw new ArgumentException(nameof(digits));
             }
@@ -104,7 +100,7 @@ namespace MultiPrecision {
                 return (Sign, 0, Accumulator<N>.Zero);
             }
 
-            MultiPrecision<N> exponent = Consts.log10_2 * Exponent;
+            MultiPrecision<N> exponent = Lg2 * Exponent;
             MultiPrecision<N> exponent_int = Floor(exponent);
             Int64 exponent_dec = (Int64)exponent_int;
 

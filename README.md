@@ -93,6 +93,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |Pi|3.141592653589793238462...||MultiPrecision&lt;*N*&gt;.PI|
 |Napier's E|2.718281828459045235360...||MultiPrecision&lt;*N*&gt;.E|
 |Sqrt(2)|1.414213562373095048801...||MultiPrecision&lt;*N*&gt;.Sqrt2|
+|lg(2)|0.301029995663981195213...|log10(2)|MultiPrecision&lt;*N*&gt;.Lg2|
+|lb(10)|3.321928094887362347870...|log2(10)|MultiPrecision&lt;*N*&gt;.Lb10|
 |Euler's Gamma|0.577215664901532860606...||MultiPrecision&lt;*N*&gt;.EulerGamma|
 |&zeta;(3)|1.202056903159594285399...|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
 |&zeta;(5)|1.036927755143369926331...||MultiPrecision&lt;*N*&gt;.Zeta5|

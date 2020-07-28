@@ -1,19 +1,35 @@
 ﻿using MultiPrecision;
 
 using System;
+using System.IO;
+using System.Linq;
 
 namespace MultiPrecisionSandbox {
-    using MP = MultiPrecision<Pow2.N8>;
+    using MP = MultiPrecision<Plus1<Plus1<Pow2.N1024>>>;
 
     class Program {
 
         static void Main(string[] args) {
-            MP omega = 1;
+            const int sets = 16;
 
-            for(int i = 0; i < 256; i++) { 
-                omega = MP.Exp(-omega);
+            MP x = 1 / MP.Log2(10);
 
-                Console.WriteLine(omega);
+            using (StreamWriter sw = new StreamWriter($"lg2_hex.txt")) {
+                sw.WriteLine(x.ToHexcode());
+
+                var xs = x.Mantissa.Reverse().ToArray();
+
+                for (int i = 0, k = 0; i < xs.Length; i += sets) {
+                    for (int j = 0; j < sets && k < xs.Length; j++, k++) {
+                        sw.Write($"0x{xs[k]:X8}u, ");
+                    }
+
+                    sw.Write("\n");
+                }
+
+                sw.Flush();
+
+                sw.WriteLine(x);
             }
 
             Console.WriteLine("END");
