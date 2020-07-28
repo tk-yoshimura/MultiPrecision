@@ -12,9 +12,9 @@ namespace MultiPrecisionSandbox {
         static void Main(string[] args) {
             const int sets = 16;
 
-            MP x = 1 / MP.Log2(10);
+            MP x = MP.Log(2);
 
-            using (StreamWriter sw = new StreamWriter($"lg2_hex.txt")) {
+            using (StreamWriter sw = new StreamWriter($"log2_hex.txt")) {
                 sw.WriteLine(x.ToHexcode());
 
                 var xs = x.Mantissa.Reverse().ToArray();

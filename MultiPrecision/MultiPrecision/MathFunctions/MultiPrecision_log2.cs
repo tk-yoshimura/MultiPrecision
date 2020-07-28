@@ -23,27 +23,29 @@ namespace MultiPrecision {
             Int64 exponent = x.Exponent;
             UInt32[] mantissa = new UInt32[Accumulator<N>.Length];
 
-            for (int i = 0, init = Mantissa<N>.Bits, j = mantissa.Length - 1, k = 1; i < Accumulator<N>.Bits && i <= init + Mantissa<N>.Bits; i++, k++) {
-                v *= v;
-                mantissa[j] <<= 1;
+            for (int i = mantissa.Length - 1, p = 0, first_setbit = Mantissa<N>.Bits; i >= 0 && p <= first_setbit + Mantissa<N>.Bits; i--) {
 
-                if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
-                    mantissa[j] |= 1u;
+                UInt32 m = 0;
 
-                    v = Accumulator<N>.RightRoundBlockShift(v, Mantissa<N>.Length);
+                for (int j = 0; j < UIntUtil.UInt32Bits && p <= first_setbit + Mantissa<N>.Bits; j++, p++) {
+                    v *= v;
+                    m <<= 1;
 
-                    if (init >= Mantissa<N>.Bits) {
-                        init = i;
+                    if (v.Value[Accumulator<N>.Length - 1] > UIntUtil.UInt32Round) {
+                        m |= 1u;
+
+                        v = Accumulator<N>.RightRoundBlockShift(v, Mantissa<N>.Length);
+
+                        if (first_setbit >= Mantissa<N>.Bits) {
+                            first_setbit = p;
+                        }
+                    }
+                    else {
+                        v = Accumulator<N>.RightRoundShift(v, Mantissa<N>.Bits - 1);
                     }
                 }
-                else {
-                    v = Accumulator<N>.RightRoundShift(v, Mantissa<N>.Bits - 1);
-                }
 
-                if (k >= UIntUtil.UInt32Bits) {
-                    j--;
-                    k = 0;
-                }
+                mantissa[i] = m;
             }
 
             Accumulator<N> mantissa_acc = new Accumulator<N>(mantissa, enable_clone: false);
