@@ -12,16 +12,7 @@ namespace MultiPrecision {
         public static Mantissa<N> Full { get; } = new Mantissa<N>(BigUInt<N>.Full);
 
         private static partial class Consts {
-            public static Dictionary<UInt64, Mantissa<N>> integers = new Dictionary<UInt64, Mantissa<N>>();
             public static Dictionary<int, Mantissa<N>> decimals = new Dictionary<int, Mantissa<N>>();
-        }
-
-        public static Mantissa<N> Integer(UInt64 n) {
-            if (!Consts.integers.ContainsKey(n)) {
-                Consts.integers.Add(n, new Mantissa<N>(BigUInt<N>.Integer(n)));
-            }
-
-            return Consts.integers[n];
         }
 
         public static Mantissa<N> Decimal(int digits) {

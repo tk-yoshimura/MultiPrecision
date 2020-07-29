@@ -15,7 +15,7 @@ namespace MultiPrecision {
             if (x.Sign == Sign.Plus) {
                 MultiPrecision<Plus1<N>> y;
 
-                if (x >= Integer(Consts.LogGamma.ApproxThreshold)) {
+                if (x >= Consts.LogGamma.ApproxThreshold) {
                     y = MultiPrecision<Plus1<N>>.Exp(LogGammaSterlingApprox(x));
                 }
                 else {
@@ -53,13 +53,13 @@ namespace MultiPrecision {
                 return NaN;
             }
 
-            if (x < Integer(Consts.LogGamma.NearOneThreshold)) {
+            if (x < Consts.LogGamma.NearOneThreshold) {
                 return Log(Gamma(x));
             }
 
             MultiPrecision<Plus1<N>> y;
 
-            if (x >= Integer(Consts.LogGamma.ApproxThreshold)) {
+            if (x >= Consts.LogGamma.ApproxThreshold) {
                 y = LogGammaSterlingApprox(x);
             }
             else {

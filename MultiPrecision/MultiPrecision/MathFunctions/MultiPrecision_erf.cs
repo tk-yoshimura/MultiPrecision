@@ -24,7 +24,7 @@ namespace MultiPrecision {
                 return One;
             }
             if (!x.IsFinite) {
-                return x.Sign == Sign.Plus ? Zero : Integer(2);
+                return x.Sign == Sign.Plus ? Zero : 2;
             }
 
             MultiPrecision<Plus1<N>> y = ErfErfcCore(x, is_erf: false);

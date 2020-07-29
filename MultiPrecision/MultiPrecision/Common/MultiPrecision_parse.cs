@@ -69,7 +69,7 @@ namespace MultiPrecision {
                 return mantissa;
             }
 
-            MultiPrecision<N> exponent = Pow(Integer(5), p);
+            MultiPrecision<N> exponent = Pow(5, p);
 
             return Ldexp(mantissa * exponent, p);
         }

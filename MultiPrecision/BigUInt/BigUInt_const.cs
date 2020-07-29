@@ -10,16 +10,7 @@ namespace MultiPrecision {
         public static BigUInt<N> Full { get; } = new BigUInt<N>(Enumerable.Repeat(~0u, Length).ToArray());
 
         private static partial class Consts {
-            public static Dictionary<UInt64, BigUInt<N>> integers = new Dictionary<UInt64, BigUInt<N>>();
             public static Dictionary<int, BigUInt<N>> decimals = new Dictionary<int, BigUInt<N>>();
-        }
-
-        public static BigUInt<N> Integer(UInt64 n) {
-            if (!Consts.integers.ContainsKey(n)) {
-                Consts.integers.Add(n, n);
-            }
-
-            return Consts.integers[n];
         }
 
         public static BigUInt<N> Decimal(int digits) {

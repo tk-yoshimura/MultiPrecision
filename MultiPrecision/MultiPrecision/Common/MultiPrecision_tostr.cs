@@ -90,7 +90,6 @@ namespace MultiPrecision {
 
         internal (Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec) ToStringCore(int digits) {
             const int presicion = 2;
-            const UInt64 presicion_pow10 = 100, presicion_p1_pow10 = presicion_pow10 * 10;
 
             if (digits > DecimalDigits) {
                 throw new ArgumentException(nameof(digits));
@@ -104,7 +103,7 @@ namespace MultiPrecision {
             MultiPrecision<N> exponent_int = Floor(exponent);
             Int64 exponent_dec = (Int64)exponent_int;
 
-            MultiPrecision<N> exponent_frac = Ldexp(Pow(Integer(5), -exponent_dec), checked(Exponent - exponent_dec));
+            MultiPrecision<N> exponent_frac = Ldexp(Pow(5, -exponent_dec), checked(Exponent - exponent_dec));
             
 #if DEBUG
             Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10);
@@ -118,10 +117,10 @@ namespace MultiPrecision {
 
             if (mantissa_dec >= Accumulator<N>.Decimal(digits + presicion + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_p1_pow10));
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Decimal(presicion + 1));
             }
             else {
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Integer(presicion_pow10));
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Decimal(presicion));
             }
             if (mantissa_dec == Accumulator<N>.Decimal(digits + 1)) {
                 exponent_dec = checked(exponent_dec + 1);

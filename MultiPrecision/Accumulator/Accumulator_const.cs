@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
@@ -11,16 +10,7 @@ namespace MultiPrecision {
         public static Accumulator<N> Full { get; } = new Accumulator<N>(BigUInt<Double<N>>.Full);
 
         private static partial class Consts {
-            public static Dictionary<UInt64, Accumulator<N>> integers = new Dictionary<UInt64, Accumulator<N>>();
             public static Dictionary<int, Accumulator<N>> decimals = new Dictionary<int, Accumulator<N>>();
-        }
-
-        public static Accumulator<N> Integer(UInt64 n) {
-            if (!Consts.integers.ContainsKey(n)) {
-                Consts.integers.Add(n, new Accumulator<N>(BigUInt<Double<N>>.Integer(n)));
-            }
-
-            return Consts.integers[n];
         }
 
         public static Accumulator<N> Decimal(int digits) {
