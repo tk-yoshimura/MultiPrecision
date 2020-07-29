@@ -104,6 +104,10 @@ namespace MultiPrecision {
                 public static ReadOnlyCollection<MultiPrecision<Plus1<N>>> Table { private set; get; } = null;
 
                 public static void Initialize() {
+                    if(Length > 64) { 
+                        throw new ArgumentOutOfRangeException(nameof(Length));
+                    }
+
                     List<MultiPrecision<Plus1<N>>> table = new List<MultiPrecision<Plus1<N>>>();
 
                     MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;

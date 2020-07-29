@@ -124,6 +124,10 @@ namespace MultiPrecision {
                 public static ReadOnlyCollection<MultiPrecision<Plus1<N>>> SterlingTable { private set; get; } = null;
 
                 public static void Initialize() {
+                    if(Length > 64) { 
+                        throw new ArgumentOutOfRangeException(nameof(Length));
+                    }
+
                     C0 = MultiPrecision<Plus1<N>>.Ldexp(MultiPrecision<Plus1<N>>.Log(MultiPrecision<Plus1<N>>.Ldexp(MultiPrecision<Plus1<N>>.PI, 1)), -1);
 
                     MultiPrecision<Plus1<N>>[] sterling_table = new MultiPrecision<Plus1<N>>[] {
