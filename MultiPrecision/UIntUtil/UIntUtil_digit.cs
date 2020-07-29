@@ -17,5 +17,33 @@ namespace MultiPrecision {
 
             return 1;
         }
+    
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe int Sparseness([DisallowNull] UInt32[] value) {
+            int cnt = 0;
+
+            fixed (UInt32* v = value) {
+                for (int i = 0; i < value.Length; i++) {
+                    if (v[i] == 0) {
+                        cnt++;
+                    }
+                }
+            }
+
+            return cnt;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static unsafe int FirstZeros([DisallowNull] UInt32[] value) {
+            fixed (UInt32* v = value) {
+                for (int i = 0; i < value.Length; i++) {
+                    if (v[i] != 0) {
+                        return i;
+                    }
+                }
+            }
+
+            return 0;
+        }
     }
 }

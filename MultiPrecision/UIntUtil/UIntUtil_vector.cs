@@ -29,17 +29,33 @@ namespace MultiPrecision {
             public static UInt32[] Mul(UInt32[] v1, UInt32[] v2) {
                 Vector256<UInt64>[] ws = AllocMulBuffer(checked(v1.Length + v2.Length));
 
-                Vector256<UInt32>[] vs = ToVector(v1);
+                if(Sparseness(v1) < Sparseness(v2)) { 
+                    (Vector256<UInt32>[] vs, int dig1) = ToVector(v1);
 
-                for (int dig2 = 0; dig2 < v2.Length; dig2++) {
-                    if (v2[dig2] == 0) {
-                        continue;
+                    for (int dig2 = 0; dig2 < v2.Length; dig2++) {
+                        if (v2[dig2] == 0) {
+                            continue;
+                        }
+
+                        (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v2[dig2]);
+
+                        Add(ws, lo, dig1 + dig2);
+                        Add(ws, hi, dig1 + dig2 + 1);
                     }
+                }
+                else { 
+                    (Vector256<UInt32>[] vs, int dig2) = ToVector(v2);
 
-                    (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v2[dig2]);
+                    for (int dig1 = 0; dig1 < v1.Length; dig1++) {
+                        if (v1[dig1] == 0) {
+                            continue;
+                        }
 
-                    Add(ws, lo, dig2);
-                    Add(ws, hi, dig2 + 1);
+                        (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v1[dig1]);
+
+                        Add(ws, lo, dig1 + dig2);
+                        Add(ws, hi, dig1 + dig2 + 1);
+                    }
                 }
 
                 UInt32[] w = Carry(ws, checked(v1.Length + v2.Length));
@@ -53,22 +69,22 @@ namespace MultiPrecision {
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            private static unsafe Vector256<UInt32>[] ToVector(UInt32[] arr) {
-                int digits = Digits(arr);
+            private static unsafe (Vector256<UInt32>[], int shift) ToVector(UInt32[] arr) {
+                int first_zeros = FirstZeros(arr), digits = Digits(arr);
 
-                Vector256<UInt32>[] v = new Vector256<UInt32>[(digits + Vector256<UInt64>.Count - 1) / Vector256<UInt64>.Count];
+                Vector256<UInt32>[] v = new Vector256<UInt32>[(digits - first_zeros + Vector256<UInt64>.Count - 1) / Vector256<UInt64>.Count];
 
                 fixed (UInt32* p = arr) {
                     fixed (Vector256<UInt32>* pv = v) {
 
-                        if (digits % Vector256<UInt64>.Count == 0) {
-                            for (int i = 0, j = 0; i < v.Length; i++, j += Vector256<UInt64>.Count) {
+                        if ((digits - first_zeros) % Vector256<UInt64>.Count == 0) {
+                            for (int i = 0, j = first_zeros; i < v.Length; i++, j += Vector256<UInt64>.Count) {
                                 pv[i] = Avx2.ConvertToVector256Int64(Avx.LoadVector128(p + j)).AsUInt32();
                             }
                         }
                         else {
                             int i, j;
-                            for (i = 0, j = 0; i < v.Length - 1; i++, j += Vector256<UInt64>.Count) {
+                            for (i = 0, j = first_zeros; i < v.Length - 1; i++, j += Vector256<UInt64>.Count) {
                                 pv[i] = Avx2.ConvertToVector256Int64(Avx.LoadVector128(p + j)).AsUInt32();
                             }
 
@@ -78,7 +94,7 @@ namespace MultiPrecision {
                     }
                 }
 
-                return v;
+                return (v, first_zeros);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]

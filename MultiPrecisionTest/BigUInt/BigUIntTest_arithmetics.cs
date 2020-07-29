@@ -73,6 +73,14 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
+                if(random.Next(2) < 1) { 
+                    value1[0] = 0;
+                }
+
+                if(random.Next(2) < 1) { 
+                    value2[0] = 0;
+                }
+
                 BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
                 BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
                 BigInteger bi1 = v1, bi2 = v2;
