@@ -93,9 +93,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |Pi|3.141592653589793238462...||MultiPrecision&lt;*N*&gt;.PI|
 |Napier's E|2.718281828459045235360...||MultiPrecision&lt;*N*&gt;.E|
 |Sqrt(2)|1.414213562373095048801...||MultiPrecision&lt;*N*&gt;.Sqrt2|
-|lg(2)|0.301029995663981195213...|log10(2), lg:ISO 80000-2|MultiPrecision&lt;*N*&gt;.Lg2|
-|lb(10)|3.321928094887362347870...|log2(10), lb:ISO 80000-2|MultiPrecision&lt;*N*&gt;.Lb10|
-|log(2)|0.693147180559945309417...|log(2)|MultiPrecision&lt;*N*&gt;.Ln2|
+|lg(2)|0.301029995663981195213...|log10(2), lg:=log10 (ISO 80000-2-12.6)|MultiPrecision&lt;*N*&gt;.Lg2|
+|lb(10)|3.321928094887362347870...|log2(10), lb:=log2 (ISO 80000-2-12.7)|MultiPrecision&lt;*N*&gt;.Lb10|
+|log(2)|0.693147180559945309417...|log(2), ln:=log (ISO 80000-2-12.5)|MultiPrecision&lt;*N*&gt;.Ln2|
 |log2(e)|1.442695040888963407359...|log2(e)|MultiPrecision&lt;*N*&gt;.LbE|
 |Euler's Gamma|0.577215664901532860606...||MultiPrecision&lt;*N*&gt;.EulerGamma|
 |&zeta;(3)|1.202056903159594285399...|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
