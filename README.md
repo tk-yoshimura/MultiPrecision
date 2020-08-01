@@ -1,5 +1,5 @@
 # MultiPrecision
- Float multi precision arithmetic implements 
+ Float multi precision arithmetic implements
 
 ## Requirement
 .NET Core 3.1
