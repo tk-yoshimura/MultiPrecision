@@ -204,12 +204,10 @@ namespace MultiPrecision {
                 }
 
                 public static void FixRoundBits() {
-                    MultiPrecision<N> y1 = Gamma(One), y2 = Gamma(2), y3 = Gamma(3);
+                    MultiPrecision<N> y1 = Gamma(One), y2 = Gamma(2);
 
                     while (RoundBits < Bits / 2) {
-                        if (RoundMantissa(y1, Bits - RoundBits) != One
-                        || RoundMantissa(y2, Bits - RoundBits) != One
-                        || RoundMantissa(y3, Bits - RoundBits) != 2) {
+                        if (RoundMantissa(y1, Bits - RoundBits) != One || RoundMantissa(y2, Bits - RoundBits) != One) {
 
                             RoundBits++;
                         }

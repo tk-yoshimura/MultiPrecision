@@ -29,33 +29,17 @@ namespace MultiPrecision {
             public static UInt32[] Mul(UInt32[] v1, UInt32[] v2) {
                 Vector256<UInt64>[] ws = AllocMulBuffer(checked(v1.Length + v2.Length));
 
-                if(Sparseness(v1) < Sparseness(v2)) { 
-                    (Vector256<UInt32>[] vs, int dig1) = ToVector(v1);
+                (Vector256<UInt32>[] vs, int dig1) = ToVector(v1);
 
-                    for (int dig2 = 0; dig2 < v2.Length; dig2++) {
-                        if (v2[dig2] == 0) {
-                            continue;
-                        }
-
-                        (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v2[dig2]);
-
-                        Add(ws, lo, dig1 + dig2);
-                        Add(ws, hi, dig1 + dig2 + 1);
+                for (int dig2 = 0; dig2 < v2.Length; dig2++) {
+                    if (v2[dig2] == 0) {
+                        continue;
                     }
-                }
-                else { 
-                    (Vector256<UInt32>[] vs, int dig2) = ToVector(v2);
 
-                    for (int dig1 = 0; dig1 < v1.Length; dig1++) {
-                        if (v1[dig1] == 0) {
-                            continue;
-                        }
+                    (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v2[dig2]);
 
-                        (Vector256<UInt32>[] hi, Vector256<UInt32>[] lo) = Mul(vs, v1[dig1]);
-
-                        Add(ws, lo, dig1 + dig2);
-                        Add(ws, hi, dig1 + dig2 + 1);
-                    }
+                    Add(ws, lo, dig1 + dig2);
+                    Add(ws, hi, dig1 + dig2 + 1);
                 }
 
                 UInt32[] w = Carry(ws, checked(v1.Length + v2.Length));
