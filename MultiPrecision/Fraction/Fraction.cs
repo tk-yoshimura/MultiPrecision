@@ -6,16 +6,28 @@ namespace MultiPrecision {
         public BigInteger Numer { private set; get; }
         public BigInteger Denom { private set; get; }
 
+        public Fraction(long n) : this(new BigInteger(n)) { }
+
         public Fraction(BigInteger n) { 
             this.Numer = n;
             this.Denom = 1;
         }
+
+        public Fraction(long numer, long denom) : this(new BigInteger(numer), new BigInteger(denom)) { }
 
         public Fraction(BigInteger numer, BigInteger denom) { 
             this.Numer = numer;
             this.Denom = denom;
 
             Reduce();
+        }
+
+        public static implicit operator Fraction(long n) { 
+            return new Fraction(n);
+        }
+
+        public static implicit operator Fraction(BigInteger n) { 
+            return new Fraction(n);
         }
 
         public static Fraction operator+(Fraction v1, Fraction v2) { 
@@ -39,7 +51,7 @@ namespace MultiPrecision {
         }
 
         public static Fraction operator/(Fraction v, BigInteger n) { 
-            return new Fraction(v.Numer, v.Denom / n);
+            return new Fraction(v.Numer, v.Denom * n);
         }
 
         public void Reduce() { 
@@ -75,7 +87,7 @@ namespace MultiPrecision {
         }
 
         public override string ToString() {
-            return $"{Numer}/{Denom}";
+            return Denom != 1 ? $"{Numer}/{Denom}" : $"{Numer}";
         }
 
         public override int GetHashCode() {
