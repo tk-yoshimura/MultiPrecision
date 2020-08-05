@@ -99,9 +99,9 @@ namespace MultiPrecision {
         }
 
         public MultiPrecision<N> ToMultiPrecision<N>() where N : struct, IConstant { 
-            MultiPrecision<N> n = $"{Numer}", d = $"{Denom}";
+            MultiPrecision<Plus1<N>> n = $"{Numer}", d = $"{Denom}";
 
-            return n / d;
+            return MultiPrecisionUtil.Convert<N, Plus1<N>>(n / d);
         }
     }
 }
