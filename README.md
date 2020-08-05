@@ -102,6 +102,13 @@ MaxValue: &plusmn;8.808065x10^646456992
 |&zeta;(5)|1.036927755143369926331...||MultiPrecision&lt;*N*&gt;.Zeta5|
 |&zeta;(7)|1.008349277381922826839...||MultiPrecision&lt;*N*&gt;.Zeta7|
 
+## Seqence
+
+|seqence|note|usage|
+|----|----|----|
+|Taylor|1/n!|MultiPrecision&lt;*N*&gt;.TaylorSequence|
+|Bernoulli|B(2k)|MultiPrecision&lt;*N*&gt;.BernoulliSequence|
+
 ## Casts
 
 - long
