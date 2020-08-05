@@ -4,20 +4,20 @@ using System.Collections.ObjectModel;
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> taylor_table = null;
+        private static ReadOnlyCollection<MultiPrecision<N>> taylor_sequence = null;
 
-        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> TaylorTable {
+        public static ReadOnlyCollection<MultiPrecision<N>> TaylorSequence {
             get {
-                if (taylor_table is null) {
-                    taylor_table = GenerateTaylorTable();
+                if (taylor_sequence is null) {
+                    taylor_sequence = GenerateTaylorSequence();
                 }
 
-                return taylor_table;
+                return taylor_sequence;
             }
         }
 
-        private static ReadOnlyCollection<MultiPrecision<Plus1<N>>> GenerateTaylorTable() {
-            List<MultiPrecision<Plus1<N>>> table = new List<MultiPrecision<Plus1<N>>>();
+        private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorSequence() {
+            List<MultiPrecision<N>> table = new List<MultiPrecision<N>>();
 
             MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
             MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.One;
@@ -30,7 +30,7 @@ namespace MultiPrecision {
                     break;
                 }
 
-                table.Add(t);
+                table.Add(MultiPrecisionUtil.Convert<N, Plus1<N>>(t));
                 d += 1;
                 v *= d;
             }

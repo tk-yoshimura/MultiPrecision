@@ -17,7 +17,7 @@
             MultiPrecision<Plus1<N>> z = x_expand;
             MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Zero;
 
-            foreach (MultiPrecision<Plus1<N>> t in TaylorTable) {
+            foreach (MultiPrecision<Plus1<N>> t in MultiPrecision<Plus1<N>>.TaylorSequence) {
                 MultiPrecision<Plus1<N>> dy = t * z;
                 y += dy;
 
