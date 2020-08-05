@@ -10,9 +10,9 @@ namespace MultiPrecisionSandbox {
     class Program {
 
         static void Main(string[] args) {
-            var seq = MP.BernoulliSequence;
+            var seq = MP.StirlingSequence;
 
-            using(StreamWriter sw = new StreamWriter("bernoulli.txt")) { 
+            using(StreamWriter sw = new StreamWriter("stirling.txt")) { 
                 foreach(var s in seq) { 
                     sw.WriteLine(s);
                 }
