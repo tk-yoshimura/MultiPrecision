@@ -5,31 +5,17 @@ using System.IO;
 using System.Linq;
 
 namespace MultiPrecisionSandbox {
-    using MP = MultiPrecision<Plus1<Plus1<Pow2.N1024>>>;
+    using MP = MultiPrecision<Pow2.N8>;
 
     class Program {
 
         static void Main(string[] args) {
-            const int sets = 16;
+            var seq = MP.BernoulliSequence;
 
-            MP x = MP.Log(2);
-
-            using (StreamWriter sw = new StreamWriter($"log2_hex.txt")) {
-                sw.WriteLine(x.ToHexcode());
-
-                var xs = x.Mantissa.Reverse().ToArray();
-
-                for (int i = 0, k = 0; i < xs.Length; i += sets) {
-                    for (int j = 0; j < sets && k < xs.Length; j++, k++) {
-                        sw.Write($"0x{xs[k]:X8}u, ");
-                    }
-
-                    sw.Write("\n");
+            using(StreamWriter sw = new StreamWriter("bernoulli.txt")) { 
+                foreach(var s in seq) { 
+                    sw.WriteLine(s);
                 }
-
-                sw.Flush();
-
-                sw.WriteLine(x);
             }
 
             Console.WriteLine("END");
