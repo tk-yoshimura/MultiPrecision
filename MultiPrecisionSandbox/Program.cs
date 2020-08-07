@@ -10,14 +10,26 @@ namespace MultiPrecisionSandbox {
 
         static void Main(string[] args) {
 
-            for (int n = 2; n <= 1024; n = (n < 32) ? n + 1 : n * 2) {
+            for (int n = 1; n <= 1024; n++) {
 
-                Fraction[,] c = CoefMatrix(n);
-                Fraction[,] v = Inverse(c);
+                (Fraction[,] c, Fraction[] u) = Coef(n);
+                Fraction[,] w = Inverse(c);
 
-                using (StreamWriter sw = new StreamWriter($"cn_{n}.txt")) {
+                Fraction[] r = new Fraction[n];
+
+                for (int i = 0; i < n; i++) {
+                    Fraction x = 0;
+
+                    for (int j = 0; j < n; j++) {
+                        x += w[j, i] * u[j];
+                    }
+
+                    r[i] = x;
+                }
+
+                using (StreamWriter sw = new StreamWriter($"lanczos_{n}.txt")) {
                     for (int i = 0; i < n; i++) {
-                        sw.WriteLine(v[0, i]);
+                        sw.WriteLine(r[i]);
                     }
                 }
 
@@ -28,17 +40,25 @@ namespace MultiPrecisionSandbox {
             Console.Read();
         }
 
-        public static Fraction[,] CoefMatrix(int n) {
+        public static (Fraction[,] c, Fraction[] u) Coef(int n) {
 
             BigInteger[] m = new BigInteger[n + 1];
+            BigInteger[] v = new BigInteger[n + 1];
             m[0] = 1;
+
+            v[0] = 0;
 
             for (int i = 1; i <= n; i++) {
                 for (int j = i - 2; j >= 0; j--) {
                     m[j + 1] = m[j] + m[j + 1] * i;
+
+                    v[j + 2] = v[j + 1] - v[j + 2] * (i - 1);
                 }
                 m[0] *= i;
                 m[i] = 1;
+
+                v[1] *= -(i - 1);
+                v[i] = 1;
             }
 
             Fraction[,] c = new Fraction[n, n];
@@ -55,10 +75,16 @@ namespace MultiPrecisionSandbox {
                 }
             }
 
-            return c;
+            Fraction[] u = new Fraction[n];
+
+            for (int i = 0; i < n; i++) {
+                u[i] = v[i] - m[i];
+            }
+
+            return (c, u);
         }
 
-         public static Fraction[,] Inverse(Fraction[,] m) {
+        public static Fraction[,] Inverse(Fraction[,] m) {
             if (m.GetLength(0) != m.GetLength(1)) {
                 throw new ArgumentException();
             }
