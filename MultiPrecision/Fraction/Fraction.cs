@@ -54,6 +54,10 @@ namespace MultiPrecision {
             return new Fraction(v.Numer, v.Denom * n);
         }
 
+        public static Fraction Abs(Fraction v) {
+            return new Fraction(BigInteger.Abs(v.Numer), v.Denom);
+        }
+
         public void Reduce() { 
             if (Denom == 0){
                 throw new DivideByZeroException();
