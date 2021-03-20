@@ -33,17 +33,7 @@ namespace MultiPrecision {
                 return y;
             }
             else {
-                MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.Coef[0];
-                MultiPrecision<Double<LanczosExpand<N>>> z_ex = (z - 1).Convert<Double<LanczosExpand<N>>>();
-
-                for (int i = 1; i < Consts.Gamma.N; i++) {
-                    MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.Coef[i];
-
-                    x_ex += w / (z_ex + i);
-                }
-
-                MultiPrecision<LanczosExpand<N>> x = x_ex.Convert<LanczosExpand<N>>();
-
+                MultiPrecision<LanczosExpand<N>> x = Ag(z);
                 MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - Consts.Gamma.Point5;
                 MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.G) / MultiPrecision<LanczosExpand<N>>.E;
 
@@ -55,12 +45,46 @@ namespace MultiPrecision {
             }
         }
 
-        public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {
-            if (!(x > Zero)) {
+        public static MultiPrecision<N> LogGamma(MultiPrecision<N> z) {
+            if (!Consts.Gamma.Initialized) {
+                Consts.Gamma.Initialize();
+            }
+
+            if (z.IsNaN || z.IsZero || z.Sign == Sign.Minus) {
                 return NaN;
             }
 
-            throw new NotImplementedException();
+            if (!z.IsFinite) {
+                return PositiveInfinity;
+            }
+
+            if (z.Exponent < 2) {
+                return Log(Gamma(z));
+            }
+
+            MultiPrecision<LanczosExpand<N>> x = MultiPrecision<LanczosExpand<N>>.Log(Ag(z));
+            MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - Consts.Gamma.Point5;
+            MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.G);
+
+            MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - MultiPrecision<LanczosExpand<N>>.One);
+
+            MultiPrecision<N> y = y_ex.Convert<N>();
+
+            return y;
+        }
+
+        private static MultiPrecision<LanczosExpand<N>> Ag(MultiPrecision<N> z) {
+            MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.Coef[0];
+            MultiPrecision<Double<LanczosExpand<N>>> z_ex = (z - 1).Convert<Double<LanczosExpand<N>>>();
+
+            for (int i = 1; i < Consts.Gamma.N; i++) {
+                MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.Coef[i];
+
+                x_ex += w / (z_ex + i);
+            }
+
+            MultiPrecision<LanczosExpand<N>> x = x_ex.Convert<LanczosExpand<N>>();
+            return x;
         }
 
         private static partial class Consts {

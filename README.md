@@ -71,8 +71,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |artanh|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Artanh(x)|
 |erf|&#40;-inf,+inf&#41;|2|*Length* &leq; 64|MultiPrecision&lt;*N*&gt;.Erf(x)|
 |erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 64|MultiPrecision&lt;*N*&gt;.Erfc(x)|
-|loggamma|&#40;0,+inf&#41;|3|Accuracy deteriorates near x=1,2.<br/>*Length* &leq; 64 |MultiPrecision&lt;*N*&gt;.LogGamma(x)|
-|gamma|&#40;-inf,+inf&#41;|3|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 64 |MultiPrecision&lt;*N*&gt;.Gamma(x)|
+|loggamma|&#40;0,+inf&#41;|2<br/>8 *Length* &leq; x|Accuracy deteriorates near x=1,2.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.LogGamma(x)|
+|gamma|&#40;-inf,+inf&#41;|2<br/>8 *Length* &leq; x|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.Gamma(x)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;*N*&gt;.Random(random)|
 |min|N/A|N/A||MultiPrecision&lt;*N*&gt;.Min(x, y)|
@@ -110,6 +110,12 @@ MaxValue: &plusmn;8.808065x10^646456992
 |Bernoulli|B(2k)|MultiPrecision&lt;*N*&gt;.BernoulliSequence|
 |Stirling|Gamma convergent series, Bayes(1763)|MultiPrecision&lt;*N*&gt;.StirlingSequence|
 
+## Coefficient
+
+|sequence|note|usage|
+|----|----|----|
+|Chebyshev|C(n, m)|MultiPrecision&lt;*N*&gt;.ChebyshevCoef|
+
 ## Casts
 
 - long
@@ -136,7 +142,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 ## I/O
 
-BinaryWriter, BinaryReader, Serialize
+BinaryWriter, BinaryReader
 
 ## Licence
 [MIT](https://github.com/tk-yoshimura/MultiPrecision/blob/master/LICENSE)

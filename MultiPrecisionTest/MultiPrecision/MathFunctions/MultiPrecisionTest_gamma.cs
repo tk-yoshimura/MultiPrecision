@@ -373,6 +373,7 @@ namespace MultiPrecisionTest.Functions {
         public void GammaUnnormalValueTest() {
             MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
                 MultiPrecision<Pow2.N8>.NaN,
+                0
                 -1,
                 -2,
                 MultiPrecision<Pow2.N8>.NegativeInfinity
@@ -390,6 +391,34 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> v in infs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(v);
+
+                Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, y);
+            }
+        }
+
+        [TestMethod]
+        public void LogGammaUnnormalValueTest() {
+            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.NaN,
+                0,
+                -0.5,
+                -1,
+                -2,
+                MultiPrecision<Pow2.N8>.NegativeInfinity
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in nans) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(v);
+
+                Assert.IsTrue(y.IsNaN);
+            }
+
+            MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.PositiveInfinity,
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in infs) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(v);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, y);
             }
