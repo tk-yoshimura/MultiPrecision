@@ -2,7 +2,7 @@
  Float multi precision arithmetic implements
 
 ## Requirement
-.NET Core 3.1
+.NET 5.0
 
 AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 

@@ -22,13 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Release\net5.0\MultiPrecision.dll</HintPath>
-    </Reference>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Reference Include="MultiPrecision">
+      <HintPath>..\MultiPrecision\bin\Release\net5.0\MultiPrecision.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiPrecision", "MultiPrecision\MultiPrecision.csproj", "{C577342B-A097-4934-B11D-9ABF7DDB6F3C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiPrecisionTest", "MultiPrecisionTest\MultiPrecisionTest.csproj", "{39C8E6B4-E0B7-4D19-97A2-13658ACDF35B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C577342B-A097-4934-B11D-9ABF7DDB6F3C} = {C577342B-A097-4934-B11D-9ABF7DDB6F3C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

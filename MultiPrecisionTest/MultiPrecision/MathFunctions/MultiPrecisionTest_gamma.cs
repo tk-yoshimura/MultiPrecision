@@ -28,7 +28,7 @@ namespace MultiPrecisionTest.Functions {
             }
             else {
                 z -= 1;
-                double x = 1 - double.Epsilon;
+                double x = 0.99999999999980993;
                 for (int i = 0; i < p.Length; i++) {
                     x += p[i] / (z + i + 1);
                 }
@@ -214,13 +214,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void GammaBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 1, 2, 3, 4, 32, 64 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0.5, 1 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    if (x <= 0 && x == MultiPrecision<Pow2.N8>.Truncate(x)) {
-                        continue;
-                    }
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
@@ -252,8 +249,32 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N4>> x = i;
+                MultiPrecision<Plus1<Pow2.N4>> y = MultiPrecision<Plus1<Pow2.N4>>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N8> x = i;
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N8>> x = i;
+                MultiPrecision<Plus1<Pow2.N8>> y = MultiPrecision<Plus1<Pow2.N8>>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -276,8 +297,32 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N16>> x = i;
+                MultiPrecision<Plus1<Pow2.N16>> y = MultiPrecision<Plus1<Pow2.N16>>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N32> x = i;
                 MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N32>> x = i;
+                MultiPrecision<Plus1<Pow2.N32>> y = MultiPrecision<Plus1<Pow2.N32>>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -297,6 +342,56 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
 
                 Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N64>> x = i;
+                MultiPrecision<Plus1<Pow2.N64>> y = MultiPrecision<Plus1<Pow2.N64>>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Pow2.N128> x = i;
+                MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+        }
+
+        [TestMethod]
+        public void GammaUnnormalValueTest() {
+            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.NaN,
+                -1,
+                -2,
+                MultiPrecision<Pow2.N8>.NegativeInfinity
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in nans) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(v);
+
+                Assert.IsTrue(y.IsNaN);
+            }
+
+            MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {
+                MultiPrecision<Pow2.N8>.PositiveInfinity,
+            };
+
+            foreach (MultiPrecision<Pow2.N8> v in infs) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(v);
+
+                Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, y);
             }
         }
     }

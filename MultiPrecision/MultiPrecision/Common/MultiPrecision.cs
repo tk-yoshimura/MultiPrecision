@@ -103,6 +103,10 @@ namespace MultiPrecision {
             return new MultiPrecision<N>(Sign, exponent, mantissa);
         }
 
+        public MultiPrecision<Ndst> Convert<Ndst>() where Ndst : struct, IConstant {
+            return MultiPrecisionUtil.Convert<Ndst, N>(this);
+        }
+
         public override bool Equals(object obj) {
             return (obj is MultiPrecision<N> n) && (n == this || (n.IsNaN && this.IsNaN));
         }
