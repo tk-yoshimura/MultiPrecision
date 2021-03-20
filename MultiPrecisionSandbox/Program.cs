@@ -5,12 +5,12 @@ using System.IO;
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            GammaApproxSummary<Pow2.N4>("gamma_n4.txt");
-            GammaApproxSummary<Pow2.N8>("gamma_n8.txt");
-            GammaApproxSummary<Pow2.N16>("gamma_n16.txt");
-            GammaApproxSummary<Pow2.N32>("gamma_n32.txt");
-            GammaApproxSummary<Pow2.N64>("gamma_n64.txt");
-            GammaApproxSummary<Pow2.N128>("gamma_n128.txt");
+            GammaNearOnes<Pow2.N4>("gamma_n4_nearones.csv");
+            GammaNearOnes<Pow2.N8>("gamma_n8_nearones.csv");
+            GammaNearOnes<Pow2.N16>("gamma_n16_nearones.csv");
+            GammaNearOnes<Pow2.N32>("gamma_n32_nearones.csv");
+            GammaNearOnes<Pow2.N64>("gamma_n64_nearones.csv");
+            GammaNearOnes<Pow2.N128>("gamma_n128_nearones.csv");
         }
 
         private static void GammaApproxSummary<N>(string filepath) where N : struct, IConstant {
@@ -38,6 +38,26 @@ namespace MultiPrecisionSandbox {
                             }
                         }
                     }
+
+                    Console.Write(".");
+                }
+            }
+
+            Console.WriteLine(string.Empty);
+        }
+
+        private static void GammaNearOnes<N>(string filepath) where N : struct, IConstant {
+            Console.WriteLine(MultiPrecision<N>.Length);
+
+            using (StreamWriter sw = new StreamWriter(filepath)) {
+                sw.WriteLine("z,gamma(z)");
+                
+                for (int i = 500; i <= 2000; i++) {
+                    MultiPrecision<N> z = ((MultiPrecision<N>)i) / 1000;
+
+                    MultiPrecision<N> y = MultiPrecision<N>.Gamma(z);
+
+                    sw.WriteLine($"{z},{y}");
 
                     Console.Write(".");
                 }

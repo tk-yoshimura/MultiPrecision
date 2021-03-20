@@ -6,7 +6,7 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
-        private static readonly Regex parse_regex = new Regex(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
+        private static readonly Regex parse_regex = new(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
 
         public static implicit operator MultiPrecision<N>(string num) {
             if (!parse_regex.IsMatch(num)) {
@@ -46,7 +46,7 @@ namespace MultiPrecision {
                 mantissa_withoutpoint = mantissa_withoutpoint[..Accumulator<N>.MaxDecimalDigits];
             }
 
-            Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa_withoutpoint);
+            Accumulator<N> mantissa_dec = new(mantissa_withoutpoint);
 
             string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
             if (!Int64.TryParse(exponent, NumberStyles.Integer, CultureInfo.InvariantCulture, out Int64 exponent_dec)) {

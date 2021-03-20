@@ -35,7 +35,7 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
-            Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(v.mantissa, (int)v.Exponent), w = m;
+            Accumulator<N> a = Accumulator<N>.One, m = new(v.mantissa, (int)v.Exponent), w = m;
 
             foreach (var t in Accumulator<N>.TaylorTable) {
                 Accumulator<N> d = w * t;
@@ -49,7 +49,7 @@ namespace MultiPrecision {
 
             (Mantissa<N> n, int sft) = a.Mantissa;
 
-            MultiPrecision<N> y = new MultiPrecision<N>(Sign.Plus, exponent - sft + 1, n, round: false);
+            MultiPrecision<N> y = new(Sign.Plus, exponent - sft + 1, n, round: false);
 
             return y;
         }

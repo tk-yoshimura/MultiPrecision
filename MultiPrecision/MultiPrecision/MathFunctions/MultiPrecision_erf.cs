@@ -108,7 +108,7 @@ namespace MultiPrecision {
                         throw new ArgumentOutOfRangeException(nameof(Length));
                     }
 
-                    List<MultiPrecision<Plus1<N>>> table = new List<MultiPrecision<Plus1<N>>>();
+                    List<MultiPrecision<Plus1<N>>> table = new();
 
                     MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
                     MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.Zero;

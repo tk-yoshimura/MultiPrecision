@@ -141,8 +141,8 @@ namespace MultiPrecision {
                     MultiPrecision<LanczosExpand<N>> g;
                     MultiPrecision<LanczosExpand<N>>[] table;
 
-                    using (MemoryStream stream = new MemoryStream(state)) {
-                        using (BinaryReader reader = new BinaryReader(stream)) {
+                    using (MemoryStream stream = new(state)) {
+                        using (BinaryReader reader = new(stream)) {
                             int length = reader.ReadInt32();
 
                             g = reader.ReadMultiPrecision<LanczosExpand<N>>();

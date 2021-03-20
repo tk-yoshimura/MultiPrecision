@@ -37,7 +37,7 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = Ldexp(x_frac * PI, -1), squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
-            Accumulator<N> a = Accumulator<N>.One, m = new Accumulator<N>(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
+            Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
             Sign s = Sign.Minus;
 
             for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {

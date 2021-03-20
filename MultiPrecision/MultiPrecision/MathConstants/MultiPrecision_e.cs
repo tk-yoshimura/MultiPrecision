@@ -27,7 +27,7 @@ namespace MultiPrecision {
                 );
             }
 
-            Accumulator<N> v = new Accumulator<N>(Mantissa<N>.One, UIntUtil.UInt32Bits - 1);
+            Accumulator<N> v = new(Mantissa<N>.One, UIntUtil.UInt32Bits - 1);
             Accumulator<N> m = v;
             Accumulator<N> i = 2;
 

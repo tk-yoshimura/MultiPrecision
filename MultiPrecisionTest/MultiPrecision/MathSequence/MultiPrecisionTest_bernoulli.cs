@@ -6,11 +6,13 @@ namespace MultiPrecisionTest.Sequences {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void BernoulliTest() {
-            foreach (MultiPrecision<Pow2.N8> v in MultiPrecision<Pow2.N8>.BernoulliSequence) {
-                Console.WriteLine(v);
+            for (int n = 0; n <= 64; n += 4) {
+                Console.WriteLine($"B({2 * n}) = {MultiPrecision<Pow2.N8>.BernoulliSequence(n)}");
             }
 
-
+            for (int n = 0; n <= 64; n++) {
+                Console.WriteLine($"B({2 * n}) = {MultiPrecision<Pow2.N8>.BernoulliSequence(n)}");
+            }
         }
     }
 }

@@ -20,7 +20,7 @@ namespace MultiPrecision {
         public static int TaylorTableShift => Mantissa<N>.Bits - 1;
 
         private static ReadOnlyCollection<Accumulator<N>> GenerateTaylorTable() {
-            List<Accumulator<N>> table = new List<Accumulator<N>>();
+            List<Accumulator<N>> table = new();
 
             Accumulator<N> v = One;
             Accumulator<N> d = 1;

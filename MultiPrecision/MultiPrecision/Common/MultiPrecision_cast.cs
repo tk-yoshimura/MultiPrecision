@@ -28,7 +28,7 @@ namespace MultiPrecision {
                 throw new OverflowException();
             }
 
-            Accumulator<N> acc = new Accumulator<N>(v.mantissa, v.Exponent - Mantissa<N>.Bits + 1);
+            Accumulator<N> acc = new(v.mantissa, v.Exponent - Mantissa<N>.Bits + 1);
 
             if (acc.Digits > 2) {
                 throw new OverflowException();

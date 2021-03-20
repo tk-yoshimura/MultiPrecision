@@ -59,7 +59,7 @@ namespace MultiPrecision {
         }
 
         public static Accumulator<N> MulShift(Accumulator<N> v1, Accumulator<N> v2) {
-            Accumulator<N> v = new Accumulator<N>(BigUInt<Double<N>>.Mul(v1.value, v2.value));
+            Accumulator<N> v = new(BigUInt<Double<N>>.Mul(v1.value, v2.value));
 
             return RightRoundShift(v, Mantissa<N>.Bits - 1);
         }

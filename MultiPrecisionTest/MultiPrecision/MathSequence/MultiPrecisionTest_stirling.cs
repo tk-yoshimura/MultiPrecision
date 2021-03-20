@@ -7,8 +7,12 @@ namespace MultiPrecisionTest.Sequences {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void StirlingTest() {
-            foreach (MultiPrecision<Pow2.N8> v in MultiPrecision<Pow2.N8>.StirlingSequence) {
-                Console.WriteLine(v);
+            for (int n = 4; n <= 64; n += 4) {
+                Console.WriteLine($"S({n}) = {MultiPrecision<Pow2.N8>.StirlingSequence(n)}");
+            }
+
+            for (int n = 1; n <= 64; n++) {
+                Console.WriteLine($"S({n}) = {MultiPrecision<Pow2.N8>.StirlingSequence(n)}");
             }
         }
     }

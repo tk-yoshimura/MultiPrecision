@@ -10,7 +10,7 @@ namespace MultiPrecision {
         public static Accumulator<N> Full { get; } = new Accumulator<N>(BigUInt<Double<N>>.Full);
 
         private static partial class Consts {
-            public static Dictionary<int, Accumulator<N>> decimals = new Dictionary<int, Accumulator<N>>();
+            public static Dictionary<int, Accumulator<N>> decimals = new();
         }
 
         public static Accumulator<N> Decimal(int digits) {

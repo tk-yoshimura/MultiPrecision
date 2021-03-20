@@ -21,7 +21,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
 
-            MultiPrecision<Plus1<N>> v = new MultiPrecision<Plus1<N>>(Sign.Plus, 0, x_expand.mantissa, round: false);
+            MultiPrecision<Plus1<N>> v = new(Sign.Plus, 0, x_expand.mantissa, round: false);
 
             MultiPrecision<Plus1<N>> a = Consts.Rcp.ApproxA + v * Consts.Rcp.ApproxB;
             MultiPrecision<Plus1<N>> h = MultiPrecision<Plus1<N>>.One - v * a;
@@ -37,7 +37,7 @@ namespace MultiPrecision {
                 h_exponent_post = h.exponent;
             }
 
-            MultiPrecision<Plus1<N>> y_expand = new MultiPrecision<Plus1<N>>(x.Sign, -x.Exponent + a.Exponent, a.mantissa, round: false);
+            MultiPrecision<Plus1<N>> y_expand = new(x.Sign, -x.Exponent + a.Exponent, a.mantissa, round: false);
 
             MultiPrecision<N> y = y_expand.Convert<N>();
 

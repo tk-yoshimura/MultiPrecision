@@ -17,7 +17,7 @@ namespace MultiPrecision {
         }
 
         private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorSequence() {
-            List<MultiPrecision<N>> table = new List<MultiPrecision<N>>();
+            List<MultiPrecision<N>> table = new();
 
             MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
             MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.One;

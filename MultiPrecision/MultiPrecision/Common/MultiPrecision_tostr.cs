@@ -110,7 +110,7 @@ namespace MultiPrecision {
 #endif
 
 
-            Accumulator<N> mantissa_dec = new Accumulator<N>(mantissa);
+            Accumulator<N> mantissa_dec = new(mantissa);
 
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + presicion));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));

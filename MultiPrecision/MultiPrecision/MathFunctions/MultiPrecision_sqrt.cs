@@ -22,7 +22,7 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
 
             Int64 exponent = x_expand.Exponent;
-            MultiPrecision<Plus1<N>> v = new MultiPrecision<Plus1<N>>(Sign.Plus, exponent % 2, x_expand.mantissa, round: false);
+            MultiPrecision<Plus1<N>> v = new(Sign.Plus, exponent % 2, x_expand.mantissa, round: false);
 
             MultiPrecision<Plus1<N>> a = Consts.Sqrt.ApproxA + v * (Consts.Sqrt.ApproxB + v * Consts.Sqrt.ApproxC);
             MultiPrecision<Plus1<N>> h = MultiPrecision<Plus1<N>>.One - v * a * a;

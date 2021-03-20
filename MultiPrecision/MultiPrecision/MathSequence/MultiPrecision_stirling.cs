@@ -1,50 +1,51 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<N>> stirling_sequence = null;
-
-        public static ReadOnlyCollection<MultiPrecision<N>> StirlingSequence {
-            get {
-                if (stirling_sequence is null) {
-                    stirling_sequence = GenerateStirlingSequence();
-                }
-
-                return stirling_sequence;
-            }
+        public static MultiPrecision<N> StirlingSequence(int n) {
+            return Stirling.Table(n).ToMultiPrecision<N>();
         }
+    }
 
-        private static ReadOnlyCollection<MultiPrecision<N>> GenerateStirlingSequence() {
-            List<Fraction> table = new List<Fraction>() { new Fraction(1, 12) };
-            BigInteger[] stirling = new BigInteger[] { 1 };
+    static class Stirling {
+        private readonly static List<Fraction> table = new() { new Fraction(1, 12) };
+        static BigInteger[] stirling = new BigInteger[] { 1 };
 
-            for (int n = 2; n <= 256; n++) {
+        public static Fraction Table(int n) {
+            if (n <= 0) {
+                throw new ArgumentOutOfRangeException(nameof(n));
+            }
+            
+            if (n <= table.Count) {
+                return table[n - 1];
+            }
+
+            for (int j = table.Count + 1; j <= n; j++) {
                 BigInteger[] stirling_plus1 = new BigInteger[stirling.Length + 1];
 
-                stirling_plus1[0] = stirling[0] * (n - 1);
+                stirling_plus1[0] = stirling[0] * (j - 1);
                 stirling_plus1[^1] = 1;
 
                 for (int i = 1; i < stirling.Length; i++) {
-                    stirling_plus1[i] = stirling[i - 1] + stirling[i] * (n - 1);
+                    stirling_plus1[i] = stirling[i - 1] + stirling[i] * (j - 1);
                 }
 
                 stirling = stirling_plus1;
 
                 Fraction t = 0;
-                for (int i = 0; i < stirling.Length; i++) {
+                for (long i = 0; i < stirling.Length; i++) {
                     t += new Fraction((i + 1) * stirling[i], checked((i + 2) * (i + 3)));
                 }
-                t /= 2 * n;
+                t /= 2 * j;
 
                 table.Add(t);
             }
 
-            return table.Select((v) => v.ToMultiPrecision<N>()).ToList().AsReadOnly();
+            return table[n - 1];
         }
     }
 }

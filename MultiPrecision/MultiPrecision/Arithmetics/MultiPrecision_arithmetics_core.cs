@@ -9,8 +9,8 @@ namespace MultiPrecision {
                 Int64 d = a.exponent - b.exponent;
 
                 if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1 - (int)d);
+                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
+                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1 - (int)d);
 
                     Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
 
@@ -28,8 +28,8 @@ namespace MultiPrecision {
                 Int64 d = b.exponent - a.exponent;
 
                 if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
+                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1 - (int)d);
+                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
 
                     Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
 
@@ -50,8 +50,8 @@ namespace MultiPrecision {
                 Int64 d = a.exponent - b.exponent;
 
                 if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1 - (int)d);
+                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
+                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1 - (int)d);
 
                     Accumulator<N> c_acc = Accumulator<N>.Sub(a_acc, b_acc);
 
@@ -69,8 +69,8 @@ namespace MultiPrecision {
                 Int64 d = b.exponent - a.exponent;
 
                 if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
+                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1 - (int)d);
+                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
 
                     Accumulator<N> c_acc = Accumulator<N>.Sub(b_acc, a_acc);
 
@@ -85,8 +85,8 @@ namespace MultiPrecision {
                 }
             }
             else {
-                Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits - 1);
-                Accumulator<N> b_acc = new Accumulator<N>(b.n, Mantissa<N>.Bits - 1);
+                Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
+                Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
 
                 Accumulator<N> c_acc = (a.n > b.n) ? Accumulator<N>.Sub(a_acc, b_acc) : Accumulator<N>.Sub(b_acc, a_acc);
 
@@ -114,8 +114,8 @@ namespace MultiPrecision {
         }
 
         internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> a_acc = new Accumulator<N>(a.n, Mantissa<N>.Bits);
-            Accumulator<N> b_acc = new Accumulator<N>(b.n);
+            Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits);
+            Accumulator<N> b_acc = new(b.n);
 
             Accumulator<N> c_acc = Accumulator<N>.RoundDiv(a_acc, b_acc);
 

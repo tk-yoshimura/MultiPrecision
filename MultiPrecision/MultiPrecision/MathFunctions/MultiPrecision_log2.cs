@@ -18,7 +18,7 @@ namespace MultiPrecision {
                 return x.Exponent;
             }
 
-            Accumulator<N> v = new Accumulator<N>(x.mantissa);
+            Accumulator<N> v = new(x.mantissa);
 
             Int64 exponent = x.Exponent;
             UInt32[] mantissa = new UInt32[Accumulator<N>.Length];
@@ -48,7 +48,7 @@ namespace MultiPrecision {
                 mantissa[i] = m;
             }
 
-            Accumulator<N> mantissa_acc = new Accumulator<N>(mantissa, enable_clone: false);
+            Accumulator<N> mantissa_acc = new(mantissa, enable_clone: false);
 
             if (mantissa_acc.IsZero) {
                 return exponent;
@@ -57,7 +57,7 @@ namespace MultiPrecision {
             (Mantissa<N> n, int sft) = mantissa_acc.Mantissa;
 
             MultiPrecision<N> intpart = exponent;
-            MultiPrecision<N> decpart = new MultiPrecision<N>(Sign.Plus, -(Int64)sft - 1, n, round: false);
+            MultiPrecision<N> decpart = new(Sign.Plus, -(Int64)sft - 1, n, round: false);
 
             MultiPrecision<N> y = intpart + decpart;
 

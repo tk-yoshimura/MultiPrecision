@@ -124,7 +124,7 @@ namespace MultiPrecision {
 
                 public static void Initialize() {
                     MultiPrecision<Plus1<N>> n = 1, n_frac = 1, n2_frac = 2;
-                    List<MultiPrecision<Plus1<N>>> fracs = new List<MultiPrecision<Plus1<N>>>();
+                    List<MultiPrecision<Plus1<N>>> fracs = new();
 
                     while (fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
                         fracs.Add((n_frac * n_frac) / (n * n * n2_frac));

@@ -20,7 +20,7 @@ namespace MultiPrecision {
             UInt32[] vs = x.mantissa.Value.ToArray();
 
             UIntUtil.FlushLSB(vs, (int)x.Exponent);
-            MultiPrecision<N> y = new MultiPrecision<N>(x.Sign, x.exponent, new Mantissa<N>(vs, enable_clone: false));
+            MultiPrecision<N> y = new(x.Sign, x.exponent, new Mantissa<N>(vs, enable_clone: false));
 
             return y;
         }
