@@ -104,7 +104,7 @@ namespace MultiPrecision {
             Int64 exponent_dec = (Int64)exponent_int;
 
             MultiPrecision<N> exponent_frac = Ldexp(Pow(5, -exponent_dec), checked(Exponent - exponent_dec));
-            
+
 #if DEBUG
             Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10);
 #endif

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
+using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest {
     public static class TestTool {
@@ -30,7 +28,7 @@ namespace MultiPrecisionTest {
             return vs;
         }
 
-        public static IEnumerable<MultiPrecision<N>> AllRangeSet<N>() where N : struct, IConstant { 
+        public static IEnumerable<MultiPrecision<N>> AllRangeSet<N>() where N : struct, IConstant {
             yield return MultiPrecision<N>.Zero;
 
             for (Int64 i = 1; i <= 100000000000; i *= 10) {
@@ -103,7 +101,7 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static IEnumerable<MultiPrecision<N>> PositiveRangeSet<N>() where N : struct, IConstant { 
+        public static IEnumerable<MultiPrecision<N>> PositiveRangeSet<N>() where N : struct, IConstant {
             yield return MultiPrecision<N>.Zero;
 
             for (Int64 i = 1; i <= 100000000000; i *= 10) {
@@ -139,7 +137,7 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static IEnumerable<MultiPrecision<N>> ShortRangeSet<N>() where N : struct, IConstant { 
+        public static IEnumerable<MultiPrecision<N>> ShortRangeSet<N>() where N : struct, IConstant {
             yield return MultiPrecision<N>.Zero;
 
             for (Int64 i = 1; i <= 100000; i *= 10) {
@@ -196,10 +194,10 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static IEnumerable<MultiPrecision<N>> TruncateSet<N>() where N : struct, IConstant { 
+        public static IEnumerable<MultiPrecision<N>> TruncateSet<N>() where N : struct, IConstant {
             MultiPrecision<N>[] ps = { 0, "0.1", "0.5", "0.9" };
 
-            foreach(var p in ps) { 
+            foreach (var p in ps) {
                 for (Int64 i = 0; i <= 32; i++) {
                     yield return p + i;
                     yield return p - i;
@@ -217,8 +215,8 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static IEnumerable<MultiPrecision<N>> LimitSet<N>() where N : struct, IConstant { 
-            for(int i = 1000; i <= 10000; i += 1000) { 
+        public static IEnumerable<MultiPrecision<N>> LimitSet<N>() where N : struct, IConstant {
+            for (int i = 1000; i <= 10000; i += 1000) {
                 yield return MultiPrecision<N>.Pow10(i);
                 yield return -MultiPrecision<N>.Pow10(i);
                 yield return MultiPrecision<N>.Pow10(-i);
@@ -228,23 +226,23 @@ namespace MultiPrecisionTest {
 
         public static void Tolerance<N>(double expected, MultiPrecision<N> actual, double minerr = 1e-10, double rateerr = 1e-8, bool ignore_expected_nan = false, bool ignore_sign = false) where N : struct, IConstant {
             if (double.IsNaN(expected)) {
-                if (!ignore_expected_nan) { 
+                if (!ignore_expected_nan) {
                     Assert.IsTrue(actual.IsNaN, "unmatch nan");
                 }
 
                 return;
             }
 
-            if (!ignore_sign) { 
+            if (!ignore_sign) {
                 Assert.AreEqual(Math.Sign(expected), Math.Sign((double)actual), "unmatch sign");
             }
-            
-            if (double.IsInfinity(expected)) { 
+
+            if (double.IsInfinity(expected)) {
                 Assert.IsTrue(double.IsInfinity(actual.ToDouble()), "not infinity");
 
                 return;
             }
-            
+
             double delta = minerr + Math.Abs(expected) * rateerr;
 
             Assert.AreEqual(expected, (double)actual, delta);

@@ -21,7 +21,7 @@
             MultiPrecision<Plus1<N>> z = w;
             MultiPrecision<Plus1<N>> s = x_expand - MultiPrecision<Plus1<N>>.One;
 
-            for(long i = 2, f = 2; i < Bits; i += exp_threshold * 2, f += 2){
+            for (long i = 2, f = 2; i < Bits; i += exp_threshold * 2, f += 2) {
                 MultiPrecision<Plus1<N>> dy = z * (s * f - MultiPrecision<Plus1<N>>.One) / checked(f * (f + 1));
                 y += dy;
 

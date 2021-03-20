@@ -9,13 +9,13 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void AbsTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Abs(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Abs((double)x), y);
             }
         }

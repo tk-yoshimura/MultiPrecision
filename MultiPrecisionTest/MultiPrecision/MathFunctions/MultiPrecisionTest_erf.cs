@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
 
-        public static double ErfApprox(double x) { 
+        public static double ErfApprox(double x) {
             double z = Math.Exp(-x * x);
 
             double c = Math.Sqrt(Math.PI) / 2 + z * 31 / 200 - z * z * 341 / 8000;
@@ -16,7 +16,7 @@ namespace MultiPrecisionTest.Functions {
             return 2 / Math.Sqrt(Math.PI) * Math.Sign(x) * Math.Sqrt(1 - z) * c;
         }
 
-        public static double ErfcApprox(double x) { 
+        public static double ErfcApprox(double x) {
             return 1 - ErfApprox(x);
         }
 
@@ -40,14 +40,14 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erf(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
-                TestTool.Tolerance(ErfApprox((double)x), y, minerr:1e-2, ignore_sign: true);
+
+                TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2, ignore_sign: true);
             }
 
             Assert.IsTrue(
@@ -111,14 +111,14 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfcTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erfc(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
-                TestTool.Tolerance(ErfcApprox((double)x), y, minerr:1e-2, ignore_sign: true);
+
+                TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2, ignore_sign: true);
             }
 
             Assert.IsTrue(
@@ -250,7 +250,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(ErfApprox((double)x), y, minerr:1e-2);
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
                 }
 
                 Console.Write("\n");
@@ -271,7 +271,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr:1e-2);
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
                 }
 
                 Console.Write("\n");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace MultiPrecision {
 
@@ -72,6 +73,10 @@ namespace MultiPrecision {
 
         public static implicit operator MultiPrecision<N>(decimal v) {
             return $"{v:e28}";
+        }
+
+        public static implicit operator MultiPrecision<N>(BigInteger bigint) {
+            return $"{bigint}";
         }
 
         public static implicit operator MultiPrecision<N>(Int64 v) {

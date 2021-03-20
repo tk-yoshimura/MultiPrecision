@@ -19,7 +19,7 @@ namespace MultiPrecisionTest.Functions {
                 1.5056327351493116e-7
             };
 
-            if(z <= 0 && z == Math.Truncate(z)) {
+            if (z <= 0 && z == Math.Truncate(z)) {
                 return double.NaN;
             }
 
@@ -66,8 +66,8 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
-                TestTool.Tolerance(LogGammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
+
+                TestTool.Tolerance(LogGammaApprox((double)x), y, rateerr: 1e-5, ignore_sign: true);
             }
 
             Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(1));
@@ -95,14 +95,14 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI)), 
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI)),
                     MultiPrecision<Pow2.N8>.LogGamma(0.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2), 
+                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2),
                     MultiPrecision<Pow2.N8>.LogGamma(1.5),
                     "1e-50"
                 ));
@@ -110,14 +110,14 @@ namespace MultiPrecisionTest.Functions {
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4),
-                    MultiPrecision<Pow2.N8>.LogGamma(2.5), 
+                    MultiPrecision<Pow2.N8>.LogGamma(2.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8),
-                    MultiPrecision<Pow2.N8>.LogGamma(3.5), 
+                    MultiPrecision<Pow2.N8>.LogGamma(3.5),
                     "1e-50"
                 ));
         }
@@ -125,7 +125,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void GammaTest() {
             for (int i = -200; i < 200; i++) {
-                if(i <= 0 && i % 4 == 0) { 
+                if (i <= 0 && i % 4 == 0) {
                     continue;
                 }
 
@@ -134,8 +134,8 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
-                TestTool.Tolerance(GammaApprox((double)x), y, rateerr:1e-5, ignore_sign: true);
+
+                TestTool.Tolerance(GammaApprox((double)x), y, rateerr: 1e-5, ignore_sign: true);
             }
 
             Assert.IsTrue(1 == MultiPrecision<Pow2.N8>.Gamma(1));
@@ -146,28 +146,28 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 4 / 3, 
-                    MultiPrecision<Pow2.N8>.Gamma(-1.5), 
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 4 / 3,
+                    MultiPrecision<Pow2.N8>.Gamma(-1.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * -2, 
-                    MultiPrecision<Pow2.N8>.Gamma(-0.5), 
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * -2,
+                    MultiPrecision<Pow2.N8>.Gamma(-0.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI), 
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI),
                     MultiPrecision<Pow2.N8>.Gamma(0.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2, 
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2,
                     MultiPrecision<Pow2.N8>.Gamma(1.5),
                     "1e-50"
                 ));
@@ -175,14 +175,14 @@ namespace MultiPrecisionTest.Functions {
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4,
-                    MultiPrecision<Pow2.N8>.Gamma(2.5), 
+                    MultiPrecision<Pow2.N8>.Gamma(2.5),
                     "1e-50"
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEquals(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8,
-                    MultiPrecision<Pow2.N8>.Gamma(3.5), 
+                    MultiPrecision<Pow2.N8>.Gamma(3.5),
                     "1e-50"
                 ));
         }
@@ -193,7 +193,7 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    if(x <= 0) { 
+                    if (x <= 0) {
                         continue;
                     }
 
@@ -218,7 +218,7 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    if(x <= 0 && x == MultiPrecision<Pow2.N8>.Truncate(x)) { 
+                    if (x <= 0 && x == MultiPrecision<Pow2.N8>.Truncate(x)) {
                         continue;
                     }
 
@@ -247,7 +247,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(y);
                 Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
-                
+
                 Assert.AreEqual(f, y);
             }
 

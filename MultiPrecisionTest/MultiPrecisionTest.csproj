@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -23,8 +23,12 @@
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Debug\netcoreapp3.1\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecision\bin\Release\net5.0\MultiPrecision.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
   </ItemGroup>
 
 </Project>

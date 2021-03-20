@@ -73,11 +73,11 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                if(random.Next(2) < 1) { 
+                if (random.Next(2) < 1) {
                     value1[0] = 0;
                 }
 
-                if(random.Next(2) < 1) { 
+                if (random.Next(2) < 1) {
                     value2[0] = 0;
                 }
 
@@ -96,7 +96,7 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void MulFullTest() {
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<Pow2.N32>.Length])
                     .Select((_, idx) => idx < BigUInt<Pow2.N32>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -113,7 +113,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<Pow2.N8>.Length])
                     .Select((_, idx) => idx < BigUInt<Pow2.N8>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -130,7 +130,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<N9>.Length])
                     .Select((_, idx) => idx < BigUInt<N9>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -147,7 +147,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<N10>.Length])
                     .Select((_, idx) => idx < BigUInt<N10>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -164,7 +164,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<N11>.Length])
                     .Select((_, idx) => idx < BigUInt<N11>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -181,7 +181,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 UInt32[] value = (new UInt32[BigUInt<N12>.Length])
                     .Select((_, idx) => idx < BigUInt<N12>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
@@ -225,7 +225,7 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void ExpandMulFullTest() {
-            { 
+            {
                 BigUInt<Pow2.N32> v1 = BigUInt<Pow2.N32>.Full;
                 BigUInt<Pow2.N32> v2 = BigUInt<Pow2.N32>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
@@ -238,7 +238,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 BigUInt<Pow2.N8> v1 = BigUInt<Pow2.N8>.Full;
                 BigUInt<Pow2.N8> v2 = BigUInt<Pow2.N8>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
@@ -251,7 +251,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 BigUInt<N9> v1 = BigUInt<N9>.Full;
                 BigUInt<N9> v2 = BigUInt<N9>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
@@ -264,7 +264,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 BigUInt<N10> v1 = BigUInt<N10>.Full;
                 BigUInt<N10> v2 = BigUInt<N10>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
@@ -277,7 +277,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 BigUInt<N11> v1 = BigUInt<N11>.Full;
                 BigUInt<N11> v2 = BigUInt<N11>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
@@ -290,7 +290,7 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bi, v);
             }
 
-            { 
+            {
                 BigUInt<N12> v1 = BigUInt<N12>.Full;
                 BigUInt<N12> v2 = BigUInt<N12>.Full;
                 BigInteger bi1 = v1, bi2 = v2;

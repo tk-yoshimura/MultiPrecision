@@ -130,8 +130,7 @@ namespace MultiPrecision {
                     Vector256<UInt64> ml = Mask256.MSV(checked((uint)(shift_rems * 2))).AsUInt64();
                     Vector256<UInt64> mh = Mask256.LSV(checked((uint)(shift_rems * 2))).AsUInt64();
 
-                    byte mm_perm = shift_rems switch
-                    {
+                    byte mm_perm = shift_rems switch {
                         1 => MM_PERM_CBAD,
                         2 => MM_PERM_BADC,
                         3 => MM_PERM_ADCB,

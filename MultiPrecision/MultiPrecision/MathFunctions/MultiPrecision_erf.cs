@@ -104,7 +104,7 @@ namespace MultiPrecision {
                 public static ReadOnlyCollection<MultiPrecision<Plus1<N>>> Table { private set; get; } = null;
 
                 public static void Initialize() {
-                    if(Length > 64) { 
+                    if (Length > 64) {
                         throw new ArgumentOutOfRangeException(nameof(Length));
                     }
 

@@ -8,13 +8,13 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void SqrtTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sqrt(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Sqrt((double)x), y);
             }
         }
@@ -25,7 +25,7 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    if(x.Sign == Sign.Minus) { 
+                    if (x.Sign == Sign.Minus) {
                         continue;
                     }
 

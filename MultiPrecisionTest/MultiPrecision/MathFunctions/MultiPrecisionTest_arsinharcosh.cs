@@ -9,13 +9,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArsinhTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arsinh(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Asinh((double)x), y);
             }
         }
@@ -29,7 +29,7 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Acosh((double)x), y);
             }
         }
@@ -43,7 +43,7 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Atanh((double)x), y);
             }
         }
@@ -81,7 +81,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
-                    if(x < 1) { 
+                    if (x < 1) {
                         continue;
                     }
 
@@ -107,7 +107,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
-                    if(x < -1 || x > 1) { 
+                    if (x < -1 || x > 1) {
                         continue;
                     }
 

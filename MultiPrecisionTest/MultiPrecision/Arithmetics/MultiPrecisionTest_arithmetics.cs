@@ -9,7 +9,7 @@ namespace MultiPrecisionTest.Arithmetics {
 
     [TestClass]
     public partial class MultiPrecisionTest {
-        MultiPrecision<Pow2.N8>[] vs = {
+        readonly MultiPrecision<Pow2.N8>[] vs = {
             MultiPrecision<Pow2.N8>.Zero,
             MultiPrecision<Pow2.N8>.MinusZero,
             1, 2, 3, 4, 5, 7, 10, 11, 13, 100, 1000,

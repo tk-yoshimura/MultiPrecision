@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Numerics;
 
 namespace MultiPrecisionTest.Common {
     public partial class MultiPrecisionTest {
@@ -55,13 +56,13 @@ namespace MultiPrecisionTest.Common {
             CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
 
             MultiPrecision<Pow2.N8> zero = 0.0;
-            Assert.AreEqual((double)0, (double)zero);
+            Assert.AreEqual(0, (double)zero);
 
             MultiPrecision<Pow2.N8> one = 1.0;
-            Assert.AreEqual((double)1, (double)one);
+            Assert.AreEqual(1, (double)one);
 
             MultiPrecision<Pow2.N8> minus_one = -1.0;
-            Assert.AreEqual((double)-1, (double)minus_one);
+            Assert.AreEqual(-1, (double)minus_one);
 
             MultiPrecision<Pow2.N8> max_value = double.MaxValue;
             Assert.AreEqual(double.MaxValue, (double)max_value);
@@ -94,31 +95,43 @@ namespace MultiPrecisionTest.Common {
 
         [TestMethod]
         public void DecimalTest() {
-            MultiPrecision<Pow2.N8> p5 = (MultiPrecision<Pow2.N8>)0.5m;
+            MultiPrecision<Pow2.N8> p5 = 0.5m;
             Assert.AreEqual(-1, p5.Exponent);
             CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
 
-            MultiPrecision<Pow2.N8> zero = (MultiPrecision<Pow2.N8>)0.0m;
-            Assert.AreEqual((decimal)0, (decimal)zero);
+            MultiPrecision<Pow2.N8> zero = 0.0m;
+            Assert.AreEqual(0, (decimal)zero);
 
-            MultiPrecision<Pow2.N8> one = (MultiPrecision<Pow2.N8>)1.0m;
-            Assert.AreEqual((decimal)1, (decimal)one);
+            MultiPrecision<Pow2.N8> one = 1.0m;
+            Assert.AreEqual(1, (decimal)one);
 
-            MultiPrecision<Pow2.N8> minus_one = (MultiPrecision<Pow2.N8>)(-1.0m);
-            Assert.AreEqual((decimal)-1, (decimal)minus_one);
+            MultiPrecision<Pow2.N8> minus_one = -1.0m;
+            Assert.AreEqual(-1, (decimal)minus_one);
 
-            MultiPrecision<Pow2.N8> pi = (MultiPrecision<Pow2.N8>)(decimal)Math.PI;
+            MultiPrecision<Pow2.N8> pi = (decimal)Math.PI;
             Assert.AreEqual((decimal)Math.PI, (decimal)pi);
 
             for (decimal i = 10; i <= 100000000000; i *= 10) {
-                MultiPrecision<Pow2.N8> m = (MultiPrecision<Pow2.N8>)i;
-                Assert.AreEqual((decimal)i, (decimal)m);
+                MultiPrecision<Pow2.N8> m = i;
+                Assert.AreEqual(i, (decimal)m);
             }
 
             for (decimal i = -10; i >= -100000000000; i *= 10) {
-                MultiPrecision<Pow2.N8> m = (MultiPrecision<Pow2.N8>)i;
-                Assert.AreEqual((decimal)i, (decimal)m);
+                MultiPrecision<Pow2.N8> m = i;
+                Assert.AreEqual(i, (decimal)m);
             }
+        }
+
+        [TestMethod]
+        public void BigIntegerTest() {
+            int x = 1234567890;
+
+            BigInteger bigint = new BigInteger(x) * new BigInteger(x) * new BigInteger(x) * new BigInteger(x);
+
+            MultiPrecision<Pow2.N8> mp1 = (MultiPrecision<Pow2.N8>)x * x * x * x;
+            MultiPrecision<Pow2.N8> mp2 = bigint;
+
+            Assert.AreEqual(mp1, mp2);
         }
     }
 }

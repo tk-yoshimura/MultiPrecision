@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-using MultiPrecision;
+namespace MultiPrecision {
 
-namespace MultiPrecisionSandbox {
-    public static class Chebyshev {
+    public sealed partial class MultiPrecision<N> {
+
+        public static MultiPrecision<N> ChebyshevCoef(int n, int m) {
+            return Chebyshev.Table(n, m);
+        }
+    }
+
+    static class Chebyshev {
         private readonly static Dictionary<(int m, int n), BigInteger> table;
 
         static Chebyshev() {
@@ -16,21 +22,21 @@ namespace MultiPrecisionSandbox {
         }
 
         public static BigInteger Table(int n, int m) {
-            if(n < 1 || m < 1 || n < m) { 
+            if (n < 1 || m < 1 || n < m) {
                 throw new ArgumentOutOfRangeException();
             }
 
-            if((checked(m + n) & 1) == 1) { 
+            if ((checked(m + n) & 1) == 1) {
                 return 0;
             }
-            if(m == 1) {
+            if (m == 1) {
                 return (((n / 2) & 1) == 0) ? 1 : -1;
             }
-            if(n == m) { 
-                return (n >= 2) ? (1 << (n - 2)) : 1;
+            if (n == m) {
+                return (n >= 2) ? (BigInteger.One << (n - 2)) : 1;
             }
 
-            if(table.ContainsKey((n, m))) { 
+            if (table.ContainsKey((n, m))) {
                 return table[(n, m)];
             }
 

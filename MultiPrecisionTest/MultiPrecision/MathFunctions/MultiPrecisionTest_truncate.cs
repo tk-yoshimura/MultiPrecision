@@ -8,39 +8,39 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void TruncateTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Truncate((double)x), y);
             }
         }
 
         [TestMethod]
         public void FloorTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Floor(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Floor((double)x), y);
             }
         }
 
         [TestMethod]
         public void CeilingTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.TruncateSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ceiling(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Ceiling((double)x), y);
             }
         }

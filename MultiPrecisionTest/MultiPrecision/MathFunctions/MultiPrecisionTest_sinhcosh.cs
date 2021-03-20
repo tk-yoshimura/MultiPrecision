@@ -9,39 +9,39 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void TanhTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tanh(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Tanh((double)x), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void SinhTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sinh(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Sinh((double)x), y, ignore_sign: true);
             }
         }
 
         [TestMethod]
         public void CoshTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cosh(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Cosh((double)x), y, ignore_sign: true);
             }
         }

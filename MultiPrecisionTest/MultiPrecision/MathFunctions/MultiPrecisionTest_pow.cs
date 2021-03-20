@@ -8,39 +8,39 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void PowTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, 1.5);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Pow((double)x, 1.5), y);
             }
 
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, 0);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Pow((double)x, 0), y);
             }
 
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.PositiveRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, -1.5);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Pow((double)x, -1.5), y);
             }
 
-            foreach(MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { -1.5, -1, -0.75, 0, 0.75, 1, 1.5 }) { 
-                for(int n = -100; n <= 100; n++) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);                
+            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { -1.5, -1, -0.75, 0, 0.75, 1, 1.5 }) {
+                for (int n = -100; n <= 100; n++) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);
                     TestTool.Tolerance(Math.Pow((double)x, n), y);
                 }
             }

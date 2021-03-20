@@ -9,13 +9,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AtanTest() {
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) { 
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>()) {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Atan((double)x), y);
             }
         }
@@ -29,7 +29,7 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Asin((double)x), y);
             }
         }
@@ -43,7 +43,7 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
-                
+
                 TestTool.Tolerance(Math.Acos((double)x), y);
             }
         }

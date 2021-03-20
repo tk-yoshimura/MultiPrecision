@@ -11,8 +11,8 @@ namespace MultiPrecisionTest.Common {
         [TestMethod]
         public void ToStringTest() {
 
-            foreach(MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>().Concat(TestTool.LimitSet<Pow2.N8>())) {
-                
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.AllRangeSet<Pow2.N8>().Concat(TestTool.LimitSet<Pow2.N8>())) {
+
                 foreach (MultiPrecision<Pow2.N8> v in TestTool.EnumerateNeighbor(x, x.IsZero ? 0 : 2)) {
 
                     (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
@@ -32,7 +32,7 @@ namespace MultiPrecisionTest.Common {
                 }
             }
 
-            foreach(MultiPrecision<Pow2.N16> x in TestTool.AllRangeSet<Pow2.N16>().Concat(TestTool.LimitSet<Pow2.N16>())) { 
+            foreach (MultiPrecision<Pow2.N16> x in TestTool.AllRangeSet<Pow2.N16>().Concat(TestTool.LimitSet<Pow2.N16>())) {
                 foreach (MultiPrecision<Pow2.N16> v in TestTool.EnumerateNeighbor(x, x.IsZero ? 0 : 2)) {
 
                     (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N16> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N16>.DecimalDigits);

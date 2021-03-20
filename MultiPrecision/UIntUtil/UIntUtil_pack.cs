@@ -25,7 +25,7 @@ namespace MultiPrecision {
 #if DEBUG
             checked
 #else
-            unchecked  
+            unchecked
 #endif
             {
                 high = (UInt32)(v / UInt32MaxDecimal);
