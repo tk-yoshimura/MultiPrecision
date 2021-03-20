@@ -131,7 +131,7 @@ namespace MultiPrecision {
 
                     lanczos_coef = table
                         .Select(
-                            (v) => MultiPrecisionUtil.Convert<Double<LanczosExpand<N>>, LanczosExpand<N>>(v)
+                            (v) => v.Convert<Double<LanczosExpand<N>>>()
                         ).ToArray();
 
                     Initialized = true;
@@ -160,9 +160,6 @@ namespace MultiPrecision {
             }
         }
     }
-}
-
-namespace MultiPrecision {
 
     internal struct LanczosExpand<N> : IConstant where N : struct, IConstant {
         public int Value {

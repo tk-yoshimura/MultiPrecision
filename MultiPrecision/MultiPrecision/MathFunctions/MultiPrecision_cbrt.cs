@@ -19,7 +19,7 @@ namespace MultiPrecision {
                 return Zero;
             }
 
-            MultiPrecision<Plus1<N>> x_expand = MultiPrecisionUtil.Convert<Plus1<N>, N>(x);
+            MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
 
             Int64 exponent = x_expand.Exponent;
             MultiPrecision<Plus1<N>> v = new MultiPrecision<Plus1<N>>(Sign.Plus, exponent % 3, x_expand.mantissa, round: false);
@@ -38,7 +38,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> y_expand = MultiPrecision<Plus1<N>>.Ldexp(v * a * a, (int)((exponent - exponent % 3) / 3));
 
-            MultiPrecision<N> y = MultiPrecisionUtil.Convert<N, Plus1<N>>(y_expand);
+            MultiPrecision<N> y = y_expand.Convert<N>();
 
             return (x.Sign == Sign.Plus) ? y : -y;
         }

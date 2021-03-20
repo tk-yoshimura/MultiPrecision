@@ -30,7 +30,7 @@ namespace MultiPrecision {
                     break;
                 }
 
-                table.Add(MultiPrecisionUtil.Convert<N, Plus1<N>>(t));
+                table.Add(t.Convert<N>());
                 d += 1;
                 v *= d;
             }

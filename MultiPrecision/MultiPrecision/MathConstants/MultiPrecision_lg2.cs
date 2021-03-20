@@ -27,7 +27,7 @@ namespace MultiPrecision {
                 );
             }
 
-            return MultiPrecisionUtil.Convert<N, Plus1<N>>(MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.Log2(10));
+            return (MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.Log2(10)).Convert<N>();
         }
 
         private static partial class Consts {

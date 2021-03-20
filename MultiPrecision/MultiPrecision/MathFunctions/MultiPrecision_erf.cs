@@ -16,7 +16,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> y = ErfErfcCore(x, is_erf: true);
 
-            return MultiPrecisionUtil.Convert<N, Plus1<N>>(y);
+            return y.Convert<N>();
         }
 
         public static MultiPrecision<N> Erfc(MultiPrecision<N> x) {
@@ -29,7 +29,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> y = ErfErfcCore(x, is_erf: false);
 
-            return MultiPrecisionUtil.Convert<N, Plus1<N>>(y);
+            return y.Convert<N>();
         }
 
 
@@ -38,7 +38,7 @@ namespace MultiPrecision {
                 Consts.Erf.Initialize();
             }
 
-            MultiPrecision<Plus1<N>> x_expand = MultiPrecisionUtil.Convert<Plus1<N>, N>(x);
+            MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> y;
 
             if (x.Exponent <= 0) {

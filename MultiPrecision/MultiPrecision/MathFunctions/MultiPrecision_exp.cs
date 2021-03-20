@@ -13,7 +13,7 @@
                 return Exp(x) - 1;
             }
 
-            MultiPrecision<Plus1<N>> x_expand = MultiPrecisionUtil.Convert<Plus1<N>, N>(x);
+            MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> z = x_expand;
             MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Zero;
 
@@ -28,7 +28,7 @@
                 z *= x_expand;
             }
 
-            return MultiPrecisionUtil.Convert<N, Plus1<N>>(y);
+            return y.Convert<N>();
         }
     }
 }

@@ -89,7 +89,7 @@ namespace MultiPrecision {
             Debug<ArithmeticException>.Assert(x >= Zero && x < One);
 #endif
 
-            MultiPrecision<Plus1<N>> x_expand = MultiPrecisionUtil.Convert<Plus1<N>, N>(x);
+            MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Zero, dz = MultiPrecision<Plus1<N>>.Zero;
             MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.Ldexp(x_expand * x_expand, 2), t = s;
 
@@ -114,7 +114,7 @@ namespace MultiPrecision {
             Debug<ArithmeticException>.Assert(convergenced);
 #endif
 
-            return Ldexp(MultiPrecisionUtil.Convert<N, Plus1<N>>(z), -1);
+            return Ldexp(z.Convert<N>(), -1);
         }
 
         private static partial class Consts {

@@ -7,8 +7,8 @@ namespace MultiPrecisionTest.Sequences {
         [TestMethod]
         public void ChebyshevTest() {
 
-            for (int n = 1; n <= 64; n++) { 
-                for (int m = 1; m <= n; m++) { 
+            for (int n = 1; n <= 64; n++) {
+                for (int m = 1; m <= n; m++) {
                     Console.WriteLine($"C({n},{m}) = {MultiPrecision<Pow2.N8>.ChebyshevCoef(n, m)}");
                 }
             }

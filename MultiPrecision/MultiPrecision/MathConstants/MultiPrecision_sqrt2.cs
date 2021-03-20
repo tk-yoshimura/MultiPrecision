@@ -42,7 +42,7 @@ namespace MultiPrecision {
             Accumulator<Plus1<N>> acc = Accumulator<Plus1<N>>.RoundDiv(x, y);
             (Mantissa<Plus1<N>> n, int _) = acc.Mantissa;
 
-            return MultiPrecisionUtil.Convert<N, Plus1<N>>(new MultiPrecision<Plus1<N>>(Sign.Plus, exponent: 0, n, round: false));
+            return (new MultiPrecision<Plus1<N>>(Sign.Plus, exponent: 0, n, round: false)).Convert<N>();
         }
 
         private static partial class Consts {
