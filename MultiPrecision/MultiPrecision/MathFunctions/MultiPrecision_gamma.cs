@@ -33,15 +33,28 @@ namespace MultiPrecision {
                 return y;
             }
             else {
-                MultiPrecision<LanczosExpand<N>> x = Ag(z);
-                MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - Consts.Gamma.Point5;
-                MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.G) / MultiPrecision<LanczosExpand<N>>.E;
+                if (z < Consts.Gamma.SterlingThreshold) {
+                    MultiPrecision<LanczosExpand<N>> x = LanczosAg(z);
+                    MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
+                    MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.LanczosG) / MultiPrecision<LanczosExpand<N>>.E;
 
-                MultiPrecision<LanczosExpand<N>> y_ex = MultiPrecision<LanczosExpand<N>>.Pow(t, s) * x;
+                    MultiPrecision<LanczosExpand<N>> y_ex = MultiPrecision<LanczosExpand<N>>.Pow(t, s) * x;
 
-                MultiPrecision<N> y = y_ex.Convert<N>();
+                    MultiPrecision<N> y = y_ex.Convert<N>();
 
-                return y;
+                    return y;
+                }
+                else { 
+                    MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
+
+                    MultiPrecision<SterlingExpand<N>> r = MultiPrecision<SterlingExpand<N>>.Sqrt(2 * MultiPrecision<SterlingExpand<N>>.PI / z_ex);
+                    MultiPrecision<SterlingExpand<N>> p = MultiPrecision<SterlingExpand<N>>.Pow(z_ex / MultiPrecision<SterlingExpand<N>>.E, z_ex);
+                    MultiPrecision<SterlingExpand<N>> s = MultiPrecision<SterlingExpand<N>>.Exp(SterlingTerm(z_ex));
+
+                    MultiPrecision<SterlingExpand<N>> y = r * p * s;
+
+                    return y.Convert<N>();
+                }
             }
         }
 
@@ -62,23 +75,35 @@ namespace MultiPrecision {
                 return Log(Gamma(z));
             }
 
-            MultiPrecision<LanczosExpand<N>> x = MultiPrecision<LanczosExpand<N>>.Log(Ag(z));
-            MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - Consts.Gamma.Point5;
-            MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.G);
+            if (z < Consts.Gamma.SterlingThreshold) {
+                MultiPrecision<LanczosExpand<N>> x = MultiPrecision<LanczosExpand<N>>.Log(LanczosAg(z));
+                MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
+                MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.LanczosG);
 
-            MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - MultiPrecision<LanczosExpand<N>>.One);
+                MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - MultiPrecision<LanczosExpand<N>>.One);
 
-            MultiPrecision<N> y = y_ex.Convert<N>();
+                MultiPrecision<N> y = y_ex.Convert<N>();
 
-            return y;
+                return y;
+            }
+            else { 
+                MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
+
+                MultiPrecision<SterlingExpand<N>> p = (z_ex - MultiPrecision<SterlingExpand<N>>.Point5) * MultiPrecision<SterlingExpand<N>>.Log(z_ex);
+                MultiPrecision<SterlingExpand<N>> s = SterlingTerm(z_ex);
+
+                MultiPrecision<SterlingExpand<N>> y = Consts.Gamma.SterlingLogBias - z_ex + p + s;
+
+                return y.Convert<N>();
+            }
         }
 
-        private static MultiPrecision<LanczosExpand<N>> Ag(MultiPrecision<N> z) {
-            MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.Coef[0];
+        private static MultiPrecision<LanczosExpand<N>> LanczosAg(MultiPrecision<N> z) {
+            MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.LanczosCoef[0];
             MultiPrecision<Double<LanczosExpand<N>>> z_ex = (z - 1).Convert<Double<LanczosExpand<N>>>();
 
-            for (int i = 1; i < Consts.Gamma.N; i++) {
-                MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.Coef[i];
+            for (int i = 1; i < Consts.Gamma.LanczosN; i++) {
+                MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.LanczosCoef[i];
 
                 x_ex += w / (z_ex + i);
             }
@@ -87,19 +112,51 @@ namespace MultiPrecision {
             return x;
         }
 
+        private static MultiPrecision<SterlingExpand<N>> SterlingTerm(MultiPrecision<SterlingExpand<N>> z) {
+            MultiPrecision<SterlingExpand<N>> v = 1 / z;
+            MultiPrecision<SterlingExpand<N>> w = v * v;
+
+            MultiPrecision<SterlingExpand<N>> x = 0, u = 1;
+
+            foreach (MultiPrecision<SterlingExpand<N>> s in Consts.Gamma.SterlingCoef) {
+                x += u * s;
+                u *= w;
+            }
+
+            MultiPrecision<SterlingExpand<N>> y = x * v;
+
+            return y;
+        }
+
         private static partial class Consts {
             public static class Gamma {
-                private static MultiPrecision<LanczosExpand<N>> p5 = null, lanczos_g = null;
+                private static MultiPrecision<LanczosExpand<N>> lanczos_g = null;
                 private static MultiPrecision<Double<LanczosExpand<N>>>[] lanczos_coef = null;
 
-                public static MultiPrecision<LanczosExpand<N>> Point5 => p5;
-                public static MultiPrecision<LanczosExpand<N>> G => lanczos_g;
-                public static int N => lanczos_coef.Length;
-                public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> Coef => lanczos_coef;
+                private static MultiPrecision<N> sterling_threshold = null;
+                private static MultiPrecision<SterlingExpand<N>> sterling_logbias = null;
+                private static MultiPrecision<SterlingExpand<N>>[] sterling_coef = null;
+
+                public static MultiPrecision<LanczosExpand<N>> LanczosG => lanczos_g;
+                public static int LanczosN => lanczos_coef.Length;
+                public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> LanczosCoef => lanczos_coef;
+
+                public static int SterlingN => sterling_coef.Length;
+
+                public static MultiPrecision<N> SterlingThreshold => sterling_threshold;
+                public static MultiPrecision<SterlingExpand<N>> SterlingLogBias => sterling_logbias;
+                public static IReadOnlyList<MultiPrecision<SterlingExpand<N>>> SterlingCoef => sterling_coef;
 
                 public static bool Initialized { private set; get; } = false;
 
                 public static void Initialize() {
+                    InitializeLanczos();
+                    InitializeSterling();
+
+                    Initialized = true;
+                }
+
+                private static void InitializeLanczos() {
                     byte[] state = null;
 
                     if (Length <= 4) {
@@ -124,20 +181,17 @@ namespace MultiPrecision {
                         throw new ArgumentOutOfRangeException(nameof(Length));
                     }
 
-                    (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) = ReadState(state);
+                    (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) = ReadLanczosState(state);
 
-                    p5 = MultiPrecision<LanczosExpand<N>>.Ldexp(MultiPrecision<LanczosExpand<N>>.One, -1);
                     lanczos_g = g;
 
                     lanczos_coef = table
                         .Select(
                             (v) => v.Convert<Double<LanczosExpand<N>>>()
                         ).ToArray();
-
-                    Initialized = true;
                 }
 
-                private static (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) ReadState(byte[] state) {
+                private static (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) ReadLanczosState(byte[] state) {
                     MultiPrecision<LanczosExpand<N>> g;
                     MultiPrecision<LanczosExpand<N>>[] table;
 
@@ -156,6 +210,48 @@ namespace MultiPrecision {
                     }
 
                     return (g, table);
+                }
+
+                private static void InitializeSterling() {
+                    int terms;
+
+                    if (Length <= 4) {
+                        terms = 10;
+                        sterling_threshold = 150;
+                    }
+                    else if (Length <= 8) {
+                        terms = 26;
+                        sterling_threshold = 100;
+                    }
+                    else if (Length <= 16) {
+                        terms = 62;
+                        sterling_threshold = 128;
+                    }
+                    else if (Length <= 32) {
+                        terms = 124;
+                        sterling_threshold = 250;
+                    }
+                    else if (Length <= 64) {
+                        terms = 258;
+                        sterling_threshold = 472;
+                    }
+                    else if (Length <= 128) {
+                        terms = 518;
+                        sterling_threshold = 936;
+                    }
+                    else {
+                        throw new ArgumentOutOfRangeException(nameof(Length));
+                    }
+
+                    sterling_logbias = MultiPrecision<SterlingExpand<N>>.Log(
+                        MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.PI * 2)
+                    );
+
+                    sterling_coef = new MultiPrecision<SterlingExpand<N>>[terms];
+
+                    for (int i = 0, k = 1; i < sterling_coef.Length; i++, k++) {
+                        sterling_coef[i] = MultiPrecision<SterlingExpand<N>>.BernoulliSequence(k) / checked((2 * k) * (2 * k - 1));
+                    }
                 }
             }
         }
@@ -182,6 +278,35 @@ namespace MultiPrecision {
                 }
                 else if (length <= 128) {
                     return 160;
+                }
+                else {
+                    throw new ArgumentOutOfRangeException(nameof(N));
+                }
+            }
+        }
+    }
+
+    internal struct SterlingExpand<N> : IConstant where N : struct, IConstant {
+        public int Value {
+            get {
+                int length = default(N).Value;
+                if (length <= 4) {
+                    return 8;
+                }
+                else if (length <= 8) {
+                    return 16;
+                }
+                else if (length <= 16) {
+                    return 32;
+                }
+                else if (length <= 32) {
+                    return 64;
+                }
+                else if (length <= 64) {
+                    return 128;
+                }
+                else if (length <= 128) {
+                    return 256;
                 }
                 else {
                     throw new ArgumentOutOfRangeException(nameof(N));

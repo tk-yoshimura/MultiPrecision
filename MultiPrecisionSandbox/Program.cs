@@ -5,71 +5,45 @@ using System.IO;
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            using (StreamWriter sw = new StreamWriter("consts.txt")) {
-                sw.WriteLine("ln2=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Ln2.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Ln2.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Ln2}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Ln2}");
-                sw.Flush();
+            GammaApproxSummary<Pow2.N4>("gamma_2_n4.txt");
+            GammaApproxSummary<Pow2.N8>("gamma_2_n8.txt");
+            GammaApproxSummary<Pow2.N16>("gamma_2_n16.txt");
+            GammaApproxSummary<Pow2.N32>("gamma_2_n32.txt");
+            GammaApproxSummary<Pow2.N64>("gamma_2_n64.txt");
+            GammaApproxSummary<Pow2.N128>("gamma_2_n128.txt");
+        }
 
-                sw.WriteLine("lb10=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lb10.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lb10.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lb10}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lb10}");
-                sw.Flush();
+        private static void GammaApproxSummary<N>(string filepath) where N : struct, IConstant {
+            Console.WriteLine(MultiPrecision<N>.Length);
 
-                sw.WriteLine("lg2=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lg2.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lg2.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lg2}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lg2}");
-                sw.Flush();
+            using (StreamWriter sw = new StreamWriter(filepath)) {
+                for (int z2 = 1; z2 <= 2000; z2++) {
+                    MultiPrecision<N> z = MultiPrecision<N>.Ldexp(z2, -1);
 
-                sw.WriteLine("lbe=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.LbE.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.LbE.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.LbE}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.LbE}");
-                sw.Flush();
+                    MultiPrecision<N> y_expected = GammaExpects<N>.Gamma(z2);
+                    MultiPrecision<N> y_actual = MultiPrecision<N>.Gamma(z);
 
-                sw.WriteLine("pi=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.PI.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.PI.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.PI}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.PI}");
-                sw.Flush();
+                    MultiPrecision<N> err = MultiPrecision<N>.Abs(y_expected - y_actual);
 
-                sw.WriteLine("rcp_pi=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.RcpPI.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.RcpPI.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.RcpPI}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.RcpPI}");
-                sw.Flush();
+                    sw.WriteLine($"gamma({z2 * 0.5:F1})");
+                    sw.WriteLine($"  true   : {y_expected}");
+                    sw.WriteLine($"  approx : {y_actual}");
+                    sw.WriteLine($"  err    : {err}");
 
-                sw.WriteLine("sqrt2=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Sqrt2.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Sqrt2.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Sqrt2}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Sqrt2}");
-                sw.Flush();
+                    if (y_expected != y_actual) {
+                        for (int keepbits = MultiPrecision<N>.Bits; keepbits > 0; keepbits--) {
+                            if (MultiPrecision<N>.RoundMantissa(y_expected, keepbits) == MultiPrecision<N>.RoundMantissa(y_actual, keepbits)) {
+                                sw.WriteLine($"  matchbits : {keepbits}");
+                                break;
+                            }
+                        }
+                    }
 
-                sw.WriteLine("e=");
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.E.ToHexcode()}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.E.ToHexcode()}");
-                sw.Flush();
-                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.E}");
-                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.E}");
-                sw.Flush();
+                    Console.Write(".");
+                }
             }
+
+            Console.WriteLine(string.Empty);
         }
     }
 }

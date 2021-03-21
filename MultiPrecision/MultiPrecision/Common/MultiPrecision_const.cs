@@ -2,7 +2,7 @@
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
-            public static MultiPrecision<N> zero = null, minus_zero = null, one = null, minus_one = null, nan = null;
+            public static MultiPrecision<N> zero = null, minus_zero = null, one = null, minus_one = null, nan = null, p5 = null;
             public static MultiPrecision<N> max_value = null, min_value = null, positive_inf = null, negative_inf = null;
             public static MultiPrecision<N> epsilon = null;
         }
@@ -34,6 +34,16 @@
                 }
 
                 return Consts.one;
+            }
+        }
+
+        public static MultiPrecision<N> Point5 {
+            get {
+                if (Consts.p5 is null) {
+                    Consts.p5 = Ldexp(One, -1);
+                }
+
+                return Consts.p5;
             }
         }
 

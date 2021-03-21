@@ -7,55 +7,88 @@ using System;
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
 
-        public static double GammaApprox(double z) {
-            double[] p = {
-                676.5203681218851,
-                -1259.1392167224028,
-                771.32342877765313,
-                -176.61502916214059,
-                12.507343278686905,
-                -0.13857109526572012,
-                9.9843695780195716e-6,
-                1.5056327351493116e-7
-            };
+        public static class Approx {
+            public static double Gamma(double z) { 
+                if (z <= 0 && z == Math.Truncate(z)) {
+                    return double.NaN;
+                }
 
-            if (z <= 0 && z == Math.Truncate(z)) {
-                return double.NaN;
+                if (z < 0.5) {
+                    return Math.PI / (Math.Sin(Math.PI * z) * Gamma(1 - z));
+                }
+                else {
+                    double x = Ag(z);
+                    double t = z + G - 1.5;
+
+                    return Math.Sqrt(2 * Math.PI) * Math.Pow(t, z - 0.5) * Math.Exp(-t) * x;
+                }
             }
 
-            if (z < 0.5) {
-                return Math.PI / (Math.Sin(Math.PI * z) * GammaApprox(1 - z));
+            public static double LogGamma(double z) {
+                if (z <= 0) {
+                    return double.NaN;
+                }
+                if (z < 4) {
+                    return Math.Log(Gamma(z));
+                }
+
+                double x = Ag(z);
+                double t = z + G - 1.5;
+
+                return Math.Log(Math.Sqrt(2 * Math.PI)) + Math.Log(t) * (z - 0.5) - t + Math.Log(x);
             }
-            else {
-                z -= 1;
+
+            private static double Ag(double z) {
+                double[] p = {
+                    676.5203681218851,
+                    -1259.1392167224028,
+                    771.32342877765313,
+                    -176.61502916214059,
+                    12.507343278686905,
+                    -0.13857109526572012,
+                    9.9843695780195716e-6,
+                    1.5056327351493116e-7
+                };
+
                 double x = 0.99999999999980993;
                 for (int i = 0; i < p.Length; i++) {
-                    x += p[i] / (z + i + 1);
+                    x += p[i] / (z + i);
                 }
-                double t = z + p.Length - 0.5;
 
-                return Math.Sqrt(2 * Math.PI) * Math.Pow(t, (z + 0.5)) * Math.Exp(-t) * x;
+                return x;
             }
-        }
 
-        public static double LogGammaApprox(double z) {
-            return z >= 0 ? Math.Log(GammaApprox(z)) : double.NaN;
+            private static double G => 8;
         }
 
         [TestMethod]
         public void GammaApproxTest() {
-            Assert.AreEqual(1, GammaApprox(1), 1e-5);
-            Assert.AreEqual(1, GammaApprox(2), 1e-5);
-            Assert.AreEqual(2, GammaApprox(3), 1e-5);
-            Assert.AreEqual(6, GammaApprox(4), 1e-5);
-            Assert.AreEqual(24, GammaApprox(5), 1e-5);
+            Assert.AreEqual(1, Approx.Gamma(1), 1e-10);
+            Assert.AreEqual(1, Approx.Gamma(2), 1e-10);
+            Assert.AreEqual(2, Approx.Gamma(3), 1e-10);
+            Assert.AreEqual(6, Approx.Gamma(4), 1e-10);
+            Assert.AreEqual(24, Approx.Gamma(5), 1e-10);
 
-            Assert.AreEqual(Math.Sqrt(Math.PI) * 4 / 3, GammaApprox(-1.5), 1e-5);
-            Assert.AreEqual(Math.Sqrt(Math.PI) * -2, GammaApprox(-0.5), 1e-5);
-            Assert.AreEqual(Math.Sqrt(Math.PI), GammaApprox(0.5), 1e-5);
-            Assert.AreEqual(Math.Sqrt(Math.PI) / 2, GammaApprox(1.5), 1e-5);
-            Assert.AreEqual(Math.Sqrt(Math.PI) * 3 / 4, GammaApprox(2.5), 1e-5);
-            Assert.AreEqual(Math.Sqrt(Math.PI) * 15 / 8, GammaApprox(3.5), 1e-5);
+            Assert.AreEqual(Math.Sqrt(Math.PI) * 4 / 3, Approx.Gamma(-1.5), 1e-10);
+            Assert.AreEqual(Math.Sqrt(Math.PI) * -2, Approx.Gamma(-0.5), 1e-10);
+            Assert.AreEqual(Math.Sqrt(Math.PI), Approx.Gamma(0.5), 1e-10);
+            Assert.AreEqual(Math.Sqrt(Math.PI) / 2, Approx.Gamma(1.5), 1e-10);
+            Assert.AreEqual(Math.Sqrt(Math.PI) * 3 / 4, Approx.Gamma(2.5), 1e-10);
+            Assert.AreEqual(Math.Sqrt(Math.PI) * 15 / 8, Approx.Gamma(3.5), 1e-10);
+        }
+
+        [TestMethod]
+        public void LogGammaApproxTest() {
+            Assert.AreEqual(Math.Log(1), Approx.LogGamma(1), 1e-10);
+            Assert.AreEqual(Math.Log(1), Approx.LogGamma(2), 1e-10);
+            Assert.AreEqual(Math.Log(2), Approx.LogGamma(3), 1e-10);
+            Assert.AreEqual(Math.Log(6), Approx.LogGamma(4), 1e-10);
+            Assert.AreEqual(Math.Log(24), Approx.LogGamma(5), 1e-10);
+
+            Assert.AreEqual(Math.Log(Math.Sqrt(Math.PI)), Approx.LogGamma(0.5), 1e-10);
+            Assert.AreEqual(Math.Log(Math.Sqrt(Math.PI) / 2), Approx.LogGamma(1.5), 1e-10);
+            Assert.AreEqual(Math.Log(Math.Sqrt(Math.PI) * 3 / 4), Approx.LogGamma(2.5), 1e-10);
+            Assert.AreEqual(Math.Log(Math.Sqrt(Math.PI) * 15 / 8), Approx.LogGamma(3.5), 1e-10);
         }
 
         [TestMethod]
@@ -67,7 +100,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
 
-                TestTool.Tolerance(LogGammaApprox((double)x), y, rateerr: 1e-5, ignore_sign: true);
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, rateerr: 1e-5, ignore_sign: true);
             }
 
             Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(1));
@@ -135,7 +168,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
 
-                TestTool.Tolerance(GammaApprox((double)x), y, rateerr: 1e-5, ignore_sign: true);
+                TestTool.Tolerance(Approx.Gamma((double)x), y, rateerr: 1e-5, ignore_sign: true);
             }
 
             Assert.IsTrue(1 == MultiPrecision<Pow2.N8>.Gamma(1));
@@ -205,7 +238,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(LogGammaApprox((double)x), y, ignore_sign: true);
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");
@@ -227,10 +260,172 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(GammaApprox((double)x), y, ignore_sign: true);
+                    TestTool.Tolerance(Approx.Gamma((double)x), y, ignore_sign: true);
                 }
 
                 Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void GammaApproxBorderTest() {
+            foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
+
+                MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N4>.Log(y), ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N8>.Log(y), ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+
+                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N16>.Log(y), ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+
+                MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N32>.Log(y), ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+
+                MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N64>.Log(y), ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+
+                MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N128>.Log(y), ignore_sign: true);
+            }
+        }
+
+        [TestMethod]
+        public void LogGammaApproxBorderTest() {
+            foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
+
+                MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+
+                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+
+                MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+
+                MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+            }
+
+            foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+
+                MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.LogGamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
             }
         }
 
