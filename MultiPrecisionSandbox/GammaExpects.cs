@@ -4,10 +4,6 @@ using System.Collections.Generic;
 
 namespace MultiPrecisionSandbox {
 
-    internal struct Double<N> : IConstant where N : struct, IConstant {
-        public int Value => checked(default(N).Value * 2);
-    }
-
     static class GammaExpects<N> where N : struct, IConstant {
         private static readonly MultiPrecision<N> sqrt_pi;
         private static readonly Dictionary<int, MultiPrecision<Double<N>>> table;
