@@ -96,7 +96,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |lg(2)|0.301029995663981195213...|log10(2)<br/>lg:=log10 (ISO 80000-2-12.6)|MultiPrecision&lt;*N*&gt;.Lg2|
 |lb(10)|3.321928094887362347870...|log2(10)<br/> lb:=log2 (ISO 80000-2-12.7)|MultiPrecision&lt;*N*&gt;.Lb10|
 |log(2)|0.693147180559945309417...|log(2)<br/>ln:=log (ISO 80000-2-12.5)|MultiPrecision&lt;*N*&gt;.Ln2|
-|log2(e)|1.442695040888963407359...|log2(e)|MultiPrecision&lt;*N*&gt;.LbE|
+|lb(e)|1.442695040888963407359...|log2(e)|MultiPrecision&lt;*N*&gt;.LbE|
 |Euler's Gamma|0.577215664901532860606...||MultiPrecision&lt;*N*&gt;.EulerGamma|
 |&zeta;(3)|1.202056903159594285399...|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
 |&zeta;(5)|1.036927755143369926331...||MultiPrecision&lt;*N*&gt;.Zeta5|
