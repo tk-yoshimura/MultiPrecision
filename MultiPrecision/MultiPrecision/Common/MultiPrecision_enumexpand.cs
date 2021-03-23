@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -39,6 +40,44 @@ namespace MultiPrecision {
             }
 
             return max;
+        }
+
+        public static int MinIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
+            if (source.Count() <= 0) {
+                throw new ArgumentException("operations on empty arrays");
+            }
+
+            MultiPrecision<N> min = MultiPrecision<N>.NaN;
+
+            int index = 0, min_index = 0;
+            foreach (var v in source) {
+                if (!(min <= v)) {
+                    min = v;
+                    min_index = index;
+                }
+                index++;
+            }
+
+            return min_index;
+        }
+
+        public static int MaxIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
+            if (source.Count() <= 0) {
+                throw new ArgumentException("operations on empty arrays");
+            }
+            
+            MultiPrecision<N> max = MultiPrecision<N>.NaN;
+
+            int index = 0, max_index = 0;
+            foreach (var v in source) {
+                if (!(max >= v)) {
+                    max = v;
+                    max_index = index;
+                }
+                index++;
+            }
+
+            return max_index;
         }
     }
 }
