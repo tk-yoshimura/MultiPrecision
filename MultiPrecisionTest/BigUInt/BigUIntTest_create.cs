@@ -19,7 +19,7 @@ namespace MultiPrecisionTest.BigUInt {
             BigUInt<Pow2.N4> n5 = 2u;
             BigUInt<Pow2.N4> n6 = 0x12345678ABCDEFul;
             BigUInt<Pow2.N4> n7 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value1));
-            BigUInt<Pow2.N4> n8 = new BigUInt<Pow2.N4>(value2, 2);
+            BigUInt<Pow2.N4> n8 = new BigUInt<Pow2.N4>(value2, -2);
             BigUInt<Pow2.N4> n9 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 2, carry: false);
             BigUInt<Pow2.N4> n10 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 2, carry: true);
             BigUInt<Pow2.N4> n11 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 1, carry: false);
@@ -28,6 +28,9 @@ namespace MultiPrecisionTest.BigUInt {
             BigUInt<Pow2.N4> n14 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 3, carry: true);
             BigUInt<Pow2.N4> n15 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 0, carry: false);
             BigUInt<Pow2.N4> n16 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), 0, carry: true);
+            BigUInt<Pow2.N4> n17 = new BigUInt<Pow2.N4>(value1, 0);
+            BigUInt<Pow2.N8> n18 = new BigUInt<Pow2.N8>(value1, 1);
+            BigUInt<Pow2.N8> n19 = new BigUInt<Pow2.N8>(value1, 0);
 
             value1[1] = 0xFFFFu;
 
@@ -47,6 +50,9 @@ namespace MultiPrecisionTest.BigUInt {
             Console.WriteLine(n14);
             Console.WriteLine(n15);
             Console.WriteLine(n16);
+            Console.WriteLine(n17);
+            Console.WriteLine(n18);
+            Console.WriteLine(n19);
 
             CollectionAssert.AreEqual(new UInt32[] { 0u, 0u, 0u, 0u }, n1.Value);
             CollectionAssert.AreEqual(new UInt32[] { 2u, 0u, 0u, 0u }, n2.Value);
@@ -64,6 +70,9 @@ namespace MultiPrecisionTest.BigUInt {
             CollectionAssert.AreEqual(new UInt32[] { 0x6786u, 0xABC9u, 0xEF0Du, 0u }, n14.Value);
             CollectionAssert.AreEqual(new UInt32[] { 0x3478u, 0xFEDCu, 0x2341u, 0x6785u }, n15.Value);
             CollectionAssert.AreEqual(new UInt32[] { 0x3479u, 0xFEDCu, 0x2341u, 0x6785u }, n16.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u }, n17.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x0000u, 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u, 0x0000u, 0x0000u, 0x0000u }, n18.Value);
+            CollectionAssert.AreEqual(new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u, 0x0000u, 0x0000u, 0x0000u, 0x0000u }, n19.Value);
         }
 
         [TestMethod]
@@ -81,15 +90,11 @@ namespace MultiPrecisionTest.BigUInt {
             });
 
             Assert.ThrowsException<ArgumentException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, 1);
+                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, -1);
             });
 
             Assert.ThrowsException<ArgumentException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, 3);
-            });
-
-            Assert.ThrowsException<ArgumentException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1, -1);
+                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1, 2);
             });
 
             Assert.ThrowsException<ArgumentException>(() => {

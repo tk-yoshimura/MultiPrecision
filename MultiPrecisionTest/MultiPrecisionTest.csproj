@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Release\net5.0\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecision\bin\Debug\net5.0\MultiPrecision.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -24,5 +24,23 @@ namespace MultiPrecision {
 
             return checked((int)cnt);
         }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static int LeadingZeroCount(UInt32 value) {
+            uint cnt = Lzcnt.LeadingZeroCount(value);
+
+            return checked((int)cnt);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static int LeadingZeroCount(UInt64 value) {
+            (UInt32 hi, UInt32 lo) = Unpack(value);
+
+            if (hi == 0) {
+                return LeadingZeroCount(lo) + UInt32Bits;
+            }
+
+            return LeadingZeroCount(hi);
+        }
     }
 }

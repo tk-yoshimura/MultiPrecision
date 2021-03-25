@@ -96,5 +96,36 @@ namespace MultiPrecision {
 
             return true;
         }
+
+        /// <summary>Count leading match bits</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public unsafe static int MatchBits(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+
+#if DEBUG
+            Debug<ArgumentException>.Assert(length == a.Length);
+            Debug<ArgumentException>.Assert(length == b.Length);
+#endif
+            int matches = 0;
+
+            fixed (UInt32* va = a, vb = b) {
+                for (int i = length - 1; i >= 0; i--) {
+                    if (a[i] == b[i]) {
+                        matches += UInt32Bits;
+                    }
+                    else {
+                        if (a[i] >= b[i]) {
+                            matches += LeadingZeroCount(a[i] - b[i]);
+                        }
+                        else { 
+                            matches += LeadingZeroCount(b[i] - a[i]);
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            return matches;
+        }
     }
 }

@@ -40,7 +40,7 @@
         public static MultiPrecision<N> Point5 {
             get {
                 if (Consts.p5 is null) {
-                    Consts.p5 = Ldexp(One, -1);
+                    Consts.p5 = One / 2;
                 }
 
                 return Consts.p5;

@@ -7,6 +7,10 @@
         public int Value => checked(default(N).Value + 1);
     }
 
+    internal struct Plus4<N> : IConstant where N : struct, IConstant {
+        public int Value => checked(default(N).Value + 4);
+    }
+
     internal struct Double<N> : IConstant where N : struct, IConstant {
         public int Value => checked(default(N).Value * 2);
     }

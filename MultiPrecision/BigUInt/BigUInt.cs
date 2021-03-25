@@ -46,11 +46,20 @@ namespace MultiPrecision {
             this.value = arr.ToArray();
         }
 
-        public BigUInt([DisallowNull] UInt32[] arr, int index) : this() {
-            if (arr == null || arr.Length - index != Length || index < 0) {
+        public BigUInt([DisallowNull] UInt32[] arr, int offset) : this() {
+            if (arr == null) {
                 throw new ArgumentException();
             }
-            Array.Copy(arr, index, this.value, 0, Length);
+            if (offset + arr.Length > Length) {
+                throw new ArgumentException(nameof(offset));
+            }
+
+            if (offset >= 0) {
+                Array.Copy(arr, 0, this.value, offset, arr.Length);
+            }
+            else { 
+                Array.Copy(arr, -offset, this.value, 0, offset + arr.Length);
+            }
         }
 
         public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {

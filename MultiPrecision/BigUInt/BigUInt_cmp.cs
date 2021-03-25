@@ -43,5 +43,9 @@ namespace MultiPrecision {
 
             return 1;
         }
+
+        public static int MatchBits(BigUInt<N> a, BigUInt<N> b) {
+            return UIntUtil.MatchBits(Length, a.value, b.value);
+        }
     }
 }

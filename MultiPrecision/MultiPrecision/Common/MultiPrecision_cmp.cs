@@ -77,6 +77,16 @@ namespace MultiPrecision {
         }
 
         public static bool NearlyEqualBits(MultiPrecision<N> a, MultiPrecision<N> b, int ignore_bits) {
+            if (a.IsNaN || b.IsNaN) return false;
+
+            if (a.Sign == b.Sign && a.exponent == b.exponent) {
+                int matchbits = Mantissa<N>.MatchBits(a.mantissa, b.mantissa);
+
+                if ((Bits - matchbits) <= ignore_bits) {
+                    return true;
+                }
+            }
+
             return RoundMantissa(a, Bits - ignore_bits) == RoundMantissa(b, Bits - ignore_bits);
         }
 
