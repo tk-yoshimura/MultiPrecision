@@ -116,7 +116,6 @@ namespace MultiPrecision {
                 if (a.Sign == b.Sign) {
                     return NaN;
                 }
-
                 return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
             }
             if (!b.IsFinite) {
@@ -144,7 +143,6 @@ namespace MultiPrecision {
                 if (!a.IsFinite || !b.IsFinite) {
                     return NaN;
                 }
-
                 return a.Sign == b.Sign ? Zero : MinusZero;
             }
 
@@ -166,9 +164,7 @@ namespace MultiPrecision {
                 if (a.IsZero) {
                     return NaN;
                 }
-                else {
-                    return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
-                }
+                return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
             }
 
             if (!a.IsFinite) {

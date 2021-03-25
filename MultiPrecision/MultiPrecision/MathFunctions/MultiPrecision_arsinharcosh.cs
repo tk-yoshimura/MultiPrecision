@@ -30,7 +30,7 @@
                 return PositiveInfinity;
             }
 
-            MultiPrecision<N> y = Ldexp(Log(One + x) - Log(One - x), -1);
+            MultiPrecision<N> y = (Log(One + x) - Log(One - x)) / 2;
 
             return y;
         }

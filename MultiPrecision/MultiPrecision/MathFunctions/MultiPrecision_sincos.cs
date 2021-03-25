@@ -17,11 +17,11 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> SinPI(MultiPrecision<N> x) {
-            return CosHalfPI(Ldexp(x, 1) + MinusOne);
+            return CosHalfPI(2 * x + MinusOne);
         }
 
         public static MultiPrecision<N> CosPI(MultiPrecision<N> x) {
-            return CosHalfPI(Ldexp(x, 1));
+            return CosHalfPI(2 * x);
         }
 
         public static MultiPrecision<N> TanPI(MultiPrecision<N> x) {
@@ -34,7 +34,7 @@ namespace MultiPrecision {
             }
 
             MultiPrecision<N> x_abs = Abs(x);
-            MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = Ldexp(x_frac * PI, -1), squa_xpi = xpi * xpi;
+            MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
             Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;

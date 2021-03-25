@@ -13,7 +13,7 @@ namespace MultiPrecision {
             }
 
             if (!x.IsFinite) {
-                return x.Sign == Sign.Plus ? Ldexp(PI, -1) : -Ldexp(PI, -1);
+                return x.Sign == Sign.Plus ? PI / 2 : -PI / 2;
             }
 
             if (x <= One && x >= MinusOne) {
@@ -28,10 +28,10 @@ namespace MultiPrecision {
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
                 if (x.Sign == Sign.Plus) {
-                    return Ldexp(PI, -1) - w;
+                    return PI / 2 - w;
                 }
                 else {
-                    return w - Ldexp(PI, -1);
+                    return w - PI / 2;
                 }
             }
         }
@@ -42,24 +42,24 @@ namespace MultiPrecision {
             }
 
             if (x == MinusOne) {
-                return -Ldexp(PI, -1);
+                return -PI / 2;
             }
             if (x == One) {
-                return Ldexp(PI, -1);
+                return PI / 2;
             }
 
-            if (Abs(x) <= Ldexp(Sqrt2, -1)) {
+            if (Abs(x) <= Sqrt2 / 2) {
                 MultiPrecision<N> w = Sqrt(SquareAsin(Abs(x)));
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
                 MultiPrecision<N> z = x / (Sqrt(One - x * x) + One);
-                return Ldexp(Atan(z), 1);
+                return Atan(z) * 2;
             }
         }
 
         public static MultiPrecision<N> Acos(MultiPrecision<N> x) {
-            return Ldexp(PI, -1) - Asin(x);
+            return PI / 2 - Asin(x);
         }
 
         public static MultiPrecision<N> Atan2(MultiPrecision<N> y, MultiPrecision<N> x) {
@@ -75,7 +75,7 @@ namespace MultiPrecision {
             }
             if (Abs(x) <= Abs(y)) {
                 MultiPrecision<N> xy = x / y;
-                return y.Sign == Sign.Plus ? (Ldexp(PI, -1) - Atan(xy)) : (-Ldexp(PI, -1) - Atan(xy));
+                return y.Sign == Sign.Plus ? (PI / 2 - Atan(xy)) : (-PI / 2 - Atan(xy));
             }
             return NaN;
         }
@@ -91,7 +91,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Zero, dz = MultiPrecision<Plus1<N>>.Zero;
-            MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.Ldexp(x_expand * x_expand, 2), t = s;
+            MultiPrecision<Plus1<N>> s = 4 * x_expand * x_expand, t = s;
 
 #if DEBUG
             bool convergenced = false;
@@ -114,7 +114,7 @@ namespace MultiPrecision {
             Debug<ArithmeticException>.Assert(convergenced);
 #endif
 
-            return Ldexp(z.Convert<N>(), -1);
+            return z.Convert<N>() / 2;
         }
 
         private static partial class Consts {

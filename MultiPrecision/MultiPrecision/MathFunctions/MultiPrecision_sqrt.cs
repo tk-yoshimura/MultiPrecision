@@ -30,7 +30,7 @@ namespace MultiPrecision {
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= MultiPrecision<Plus1<N>>.One + h * MultiPrecision<Plus1<N>>.Ldexp(c4 + h + MultiPrecision<Plus1<N>>.Ldexp(h, 1), -3);
+                a *= MultiPrecision<Plus1<N>>.One + h * (c4 + 3 * h) / 8;
                 h = MultiPrecision<Plus1<N>>.One - v * a * a;
 
                 h_exponent_prev = h_exponent_post;

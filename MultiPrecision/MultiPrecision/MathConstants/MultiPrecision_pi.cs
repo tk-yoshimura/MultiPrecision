@@ -46,7 +46,7 @@ namespace MultiPrecision {
                 MultiPrecision<Plus1<N>> a_next = (a + b) / 2;
                 MultiPrecision<Plus1<N>> b_next = MultiPrecision<Plus1<N>>.Sqrt(a * b);
                 MultiPrecision<Plus1<N>> t_next = t - p * (a - a_next) * (a - a_next);
-                MultiPrecision<Plus1<N>> p_next = MultiPrecision<Plus1<N>>.Ldexp(p, 1);
+                MultiPrecision<Plus1<N>> p_next = p * 2;
 
                 a = a_next;
                 b = b_next;
@@ -55,7 +55,7 @@ namespace MultiPrecision {
             }
 
             MultiPrecision<Plus1<N>> c = a + b;
-            MultiPrecision<Plus1<N>> y = c * c / MultiPrecision<Plus1<N>>.Ldexp(t, 2);
+            MultiPrecision<Plus1<N>> y = c * c / (t * 4);
 
             return y.Convert<N>();
         }

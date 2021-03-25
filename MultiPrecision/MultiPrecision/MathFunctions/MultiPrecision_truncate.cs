@@ -48,7 +48,7 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Round(MultiPrecision<N> x) {
-            return Floor(x + Ldexp(One, -1));
+            return Floor(x + Point5);
         }
 
         public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
