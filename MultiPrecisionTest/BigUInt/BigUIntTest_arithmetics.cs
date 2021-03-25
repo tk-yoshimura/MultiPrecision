@@ -523,5 +523,115 @@ namespace MultiPrecisionTest.BigUInt {
                 Assert.AreEqual(bidiv, vdiv);
             }
         }
+
+        [TestMethod]
+        public void DivULongTest() {
+            Random random = new Random(1234);
+
+            for (int i = 0; i <= 50000; i++) {
+                int bits1 = random.Next(BigUInt<Pow2.N32>.Bits / 2 + 1, BigUInt<Pow2.N32>.Bits + 1);
+                int bits2 = random.Next(64);
+
+                UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
+                UInt32[] value2 = UIntUtil.Random(random, 2, bits2);
+
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                UInt64 v2 = UIntUtil.Pack(value2[1], value2[0]);
+                BigInteger bi1 = v1, bi2 = v2;
+
+                if (v2 == 0) {
+                    continue;
+                }
+
+                (BigUInt<Pow2.N32> vdiv, UInt64 vrem)
+                    = BigUInt<Pow2.N32>.Div(v1, v2);
+                BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
+
+                Assert.IsTrue(vrem < v2);
+
+                Assert.AreEqual(birem, vrem, "rem");
+                Assert.AreEqual(bidiv, vdiv, "div");
+
+                Assert.AreEqual(v1, BigUInt<Pow2.N32>.Add(BigUInt<Pow2.N32>.Mul(vdiv, v2), vrem));
+            }
+        }
+
+        [TestMethod]
+        public void DivULongFullTest() {
+
+            for (int sft1 = 0; sft1 < BigUInt<Pow2.N8>.Bits; sft1++) {
+
+                for (int sft2 = 0; sft2 < 64; sft2++) {
+
+                    BigUInt<Pow2.N8> v1 = BigUInt<Pow2.N8>.Full >> sft1;
+                    UInt64 v2 = 0xFFFFFFFFFFFFFFFFul >> sft2;
+                    BigInteger bi1 = v1, bi2 = v2;
+
+                    (BigUInt<Pow2.N8> vdiv, UInt64 vrem)
+                        = BigUInt<Pow2.N8>.Div(v1, v2);
+                    BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
+
+                    Assert.IsTrue(vrem < v2);
+
+                    Assert.AreEqual(birem, vrem, "rem");
+                    Assert.AreEqual(bidiv, vdiv, "div");
+
+                    Assert.AreEqual(v1, BigUInt<Pow2.N8>.Add(BigUInt<Pow2.N8>.Mul(vdiv, v2), vrem));
+
+                }
+            }
+        }
+
+        [TestMethod]
+        public void MulULongTest() {
+            Random random = new Random(1234);
+
+            for (int i = 0; i <= 50000; i++) {
+                int bits1 = random.Next(BigUInt<Pow2.N32>.Bits - 64);
+                int bits2 = random.Next(64);
+
+                UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
+                UInt32[] value2 = UIntUtil.Random(random, 2, bits2);
+
+                if (random.Next(2) < 1) {
+                    value1[0] = 0;
+                }
+
+                if (random.Next(2) < 1) {
+                    value2[0] = 0;
+                }
+
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                UInt64 v2 = UIntUtil.Pack(value2[1], value2[0]);
+                BigInteger bi1 = v1, bi2 = v2;
+
+                BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Mul(v1, v2);
+                BigInteger bi = bi1 * bi2;
+
+                Console.WriteLine(bi);
+                Console.WriteLine(v);
+                Assert.AreEqual(bi, v);
+            }
+        }
+
+        [TestMethod]
+        public void MulULongFullTest() {
+            {
+                UInt32[] value1 = (new UInt32[BigUInt<Pow2.N32>.Length])
+                    .Select((_, idx) => idx < BigUInt<Pow2.N32>.Length - 2 ? 0xFFFFFFFFu : 0
+                ).ToArray();
+
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                UInt64 v2 = 0xFFFFFFFFFFFFFFFFul;
+                BigInteger bi1 = v1, bi2 = v2;
+
+                BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Mul(v1, v2);
+                BigInteger bi = bi1 * bi2;
+
+                Console.WriteLine(bi);
+                Console.WriteLine(v);
+                Assert.AreEqual(bi, v);
+            }
+        }
     }
 }

@@ -220,26 +220,18 @@ namespace MultiPrecision {
 
             int expands = BigUInt<Plus4<N>>.Length - BigUInt<N>.Length;
 
-            BigUInt<Plus4<N>> acc_sft = new(a.mantissa.Value.ToArray(), 0);
-            BigUInt<Plus4<N>> acc_sum = new();
+            BigUInt<Plus4<N>> acc = new(a.mantissa.Value.ToArray(), 0);
 
-            while (abs_b > 0) {
-                if ((abs_b & 1) == 1) {
-                    acc_sum += acc_sft;
-                }
+            acc *= abs_b;
 
-                acc_sft <<= 1;
-                abs_b >>= 1;
-            }
-
-            int lzc = acc_sum.LeadingZeroCount;
-            acc_sum <<= lzc;
+            int lzc = acc.LeadingZeroCount;
+            acc <<= lzc;
             
             Int64 exponent = a.Exponent - lzc + UIntUtil.UInt32Bits * expands;
             Sign sign = (a.Sign == Sign.Plus) ^ (b >= 0) ? Sign.Minus : Sign.Plus;
-            bool round = acc_sum[expands - 1] > UIntUtil.UInt32Round; 
+            bool round = acc[expands - 1] > UIntUtil.UInt32Round; 
 
-            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(acc_sum.Value.Skip(expands).ToArray(), enable_clone:false), round);
+            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone:false), round);
         }
 
         public static MultiPrecision<N> Div(MultiPrecision<N> a, long b) {

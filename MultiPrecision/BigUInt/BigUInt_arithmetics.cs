@@ -23,11 +23,27 @@ namespace MultiPrecision {
             return Mul(a, b);
         }
 
+        public static BigUInt<N> operator *(BigUInt<N> a, UInt64 b) {
+            return Mul(a, b);
+        }
+
+        public static BigUInt<N> operator *(UInt64 a, BigUInt<N> b) {
+            return Mul(a, b);
+        }
+
         public static BigUInt<N> operator /(BigUInt<N> a, BigUInt<N> b) {
             return Div(a, b).div;
         }
 
+        public static BigUInt<N> operator /(BigUInt<N> a, UInt64 b) {
+            return Div(a, b).div;
+        }
+
         public static BigUInt<N> operator %(BigUInt<N> a, BigUInt<N> b) {
+            return Div(a, b).rem;
+        }
+
+        public static UInt64 operator %(BigUInt<N> a, UInt64 b) {
             return Div(a, b).rem;
         }
 
@@ -199,6 +215,71 @@ namespace MultiPrecision {
             }
 
             return div;
+        }
+
+        public static (BigUInt<N> div, UInt64 rem) Div(BigUInt<N> v1, UInt64 v2) {
+            if (v2 == 0) {
+                throw new DivideByZeroException();
+            }
+
+            int lzc_v1 = v1.LeadingZeroCount, lzc_v2 = UIntUtil.LeadingZeroCount(v2);
+            int sft = Math.Min(lzc_v1, lzc_v2 - lzc_v2 / UIntUtil.UInt32Bits * UIntUtil.UInt32Bits);
+
+            BigUInt<N> v1_sft = LeftShift(v1, sft);
+            UInt64 v2_sft = v2 << sft;
+            (UInt32 v2_sft_hi, UInt32 v2_sft_lo) = UIntUtil.Unpack(v2_sft);
+
+            BigUInt<N> div = Zero.Copy(), rem = v1_sft;
+
+            int denom_digits = v2_sft > UInt32.MaxValue ? 2 : 1;
+            UInt64 denom = v2_sft_hi > 0 ? ((UInt64)v2_sft_hi + (v2_sft_lo > 0 ? 1ul : 0ul)) : (UInt64)v2_sft_lo;
+
+            for (int i = Length - 1; i >= denom_digits;) {
+                UInt64 numer = UIntUtil.Pack(rem[i], rem[i - 1]);
+
+                UInt64 n = numer / denom;
+                (UInt32 nh, UInt32 nl) = UIntUtil.Unpack(n);
+                div.CarryAdd(i - denom_digits + 1, nh);
+                div.CarryAdd(i - denom_digits, nl);
+
+                BigUInt<N> sub = new BigUInt<N>(UIntUtil.Mul(n, v2_sft), 0);
+                sub.LeftBlockShift(i - denom_digits);
+
+                rem.Sub(sub);
+
+                if (rem[i] == 0) {
+                    i--;
+                }
+            }
+
+            while (true) {
+                UInt64 numer = rem[denom_digits - 1];
+
+                UInt64 n = numer / denom;
+                (UInt32 nh, UInt32 nl) = UIntUtil.Unpack(n);
+                div.CarryAdd(1, nh);
+                div.CarryAdd(0, nl);
+
+                BigUInt<N> sub = new BigUInt<N>(UIntUtil.Mul(n, v2_sft), 0);
+                rem.Sub(sub);
+
+                if (n == 0) {
+                    break;
+                }
+            }
+
+            if (v2_sft <= rem) {
+                div.CarryAdd(0, 1);
+                rem.Sub(v2_sft);
+            }
+
+            rem.RightShift(sft);
+
+#if DEBUG
+            Debug<ArithmeticException>.Assert(rem < v2);
+#endif
+
+            return (div, UIntUtil.Pack(rem[1], rem[0]));
         }
     }
 }
