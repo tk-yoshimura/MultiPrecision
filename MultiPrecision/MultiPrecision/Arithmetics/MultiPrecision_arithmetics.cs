@@ -9,8 +9,24 @@ namespace MultiPrecision {
             return Add(a, b);
         }
 
+        public static MultiPrecision<N> operator +(MultiPrecision<N> a, long b) {
+            return Add(a, b);
+        }
+
+        public static MultiPrecision<N> operator +(long a, MultiPrecision<N> b) {
+            return Add(b, a);
+        }
+
         public static MultiPrecision<N> operator -(MultiPrecision<N> a, MultiPrecision<N> b) {
             return Sub(a, b);
+        }
+
+        public static MultiPrecision<N> operator -(MultiPrecision<N> a, long b) {
+            return Sub(a, b);
+        }
+
+        public static MultiPrecision<N> operator -(long a, MultiPrecision<N> b) {
+            return Neg(Sub(b, a));
         }
 
         public static MultiPrecision<N> operator *(MultiPrecision<N> a, MultiPrecision<N> b) {
@@ -197,7 +213,7 @@ namespace MultiPrecision {
                 if (b == 0) {
                     return NaN;
                 }
-                return (a.Sign == Sign.Plus) ^ (b > 0) ? NegativeInfinity : PositiveInfinity;
+                return (a.Sign == UIntUtil.Sign(b)) ? PositiveInfinity : NegativeInfinity;
             }
 
             if (b == 0) {
@@ -210,10 +226,10 @@ namespace MultiPrecision {
                 return Neg(a);
             }
 
-            UInt64 abs_b = (b >= 0) ? unchecked((UInt64)b) : ~(unchecked((UInt64)b)) + 1;
+            UInt64 b_abs = UIntUtil.Abs(b);
 
-            if (UIntUtil.IsPower2(abs_b)) {
-                MultiPrecision<N> a_power2 = Ldexp(a, UIntUtil.Power2(abs_b));
+            if (UIntUtil.IsPower2(b_abs)) {
+                MultiPrecision<N> a_power2 = Ldexp(a, UIntUtil.Power2(b_abs));
 
                 return b >= 0 ? a_power2 : Neg(a_power2);
             }
@@ -222,16 +238,17 @@ namespace MultiPrecision {
 
             BigUInt<Plus4<N>> acc = new(a.mantissa.Value.ToArray(), 0);
 
-            acc *= abs_b;
+            acc *= b_abs;
 
             int lzc = acc.LeadingZeroCount;
             acc <<= lzc;
             
             Int64 exponent = a.Exponent - lzc + UIntUtil.UInt32Bits * expands;
-            Sign sign = (a.Sign == Sign.Plus) ^ (b >= 0) ? Sign.Minus : Sign.Plus;
-            bool round = acc[expands - 1] > UIntUtil.UInt32Round; 
+            Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
+            bool round = acc[expands - 1] > UIntUtil.UInt32Round;
+            Mantissa<N> mantissa = new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
-            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone:false), round);
+            return new MultiPrecision<N>(sign, exponent, mantissa, round);
         }
 
         public static MultiPrecision<N> Div(MultiPrecision<N> a, long b) {
@@ -242,10 +259,10 @@ namespace MultiPrecision {
                 if (b == 0) {
                     return NaN;
                 }
-                return (a.Sign == Sign.Plus) ^ (b >= 0) ? MinusZero : Zero;
+                return (a.Sign == UIntUtil.Sign(b)) ? Zero : MinusZero;
             }
             if (!a.IsFinite) {
-                return (a.Sign == Sign.Plus) ^ (b >= 0) ? NegativeInfinity : PositiveInfinity;
+                return (a.Sign == UIntUtil.Sign(b)) ? PositiveInfinity : NegativeInfinity;
             }
 
             if (b == 0) {
@@ -258,10 +275,10 @@ namespace MultiPrecision {
                 return Neg(a);
             }
 
-            UInt64 abs_b = (b >= 0) ? unchecked((UInt64)b) : ~(unchecked((UInt64)b)) + 1;
+            UInt64 b_abs = UIntUtil.Abs(b);
 
-            if (UIntUtil.IsPower2(abs_b)) {
-                MultiPrecision<N> a_power2 = Ldexp(a, -UIntUtil.Power2(abs_b));
+            if (UIntUtil.IsPower2(b_abs)) {
+                MultiPrecision<N> a_power2 = Ldexp(a, -UIntUtil.Power2(b_abs));
 
                 return b >= 0 ? a_power2 : Neg(a_power2);
             }
@@ -270,16 +287,78 @@ namespace MultiPrecision {
 
             BigUInt<Plus4<N>> acc = new(a.mantissa.Value.ToArray(), expands);
 
-            acc /= abs_b;
+            acc /= b_abs;
 
             int lzc = acc.LeadingZeroCount;
             acc <<= lzc;
             
             Int64 exponent = a.Exponent - lzc;
-            Sign sign = (a.Sign == Sign.Plus) ^ (b >= 0) ? Sign.Minus : Sign.Plus;
-            bool round = acc[expands - 1] > UIntUtil.UInt32Round; 
+            Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
+            bool round = acc[expands - 1] > UIntUtil.UInt32Round;
+            Mantissa<N> mantissa = new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
-            return new MultiPrecision<N>(sign, exponent, new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone:false), round);
+            return new MultiPrecision<N>(sign, exponent, mantissa, round);
+        }
+
+        public static MultiPrecision<N> Add(MultiPrecision<N> a, long b) {
+            if (b == 0) {
+                return a;
+            }
+
+            if (a.IsNaN) {
+                return NaN;
+            }
+            if (a.IsZero) {
+                return b;
+            }
+            if (!a.IsFinite) {
+                return a;
+            }
+
+            UInt64 b_abs = UIntUtil.Abs(b);
+
+            if (a.Sign == UIntUtil.Sign(b)) {
+                (Mantissa<N> n, Int64 exponent, bool round) = Add(a.mantissa, b_abs, -a.Exponent);
+
+                return new MultiPrecision<N>(a.Sign, exponent + a.Exponent, n, round);
+            }
+            else {
+                (Mantissa<N> n, Int64 exponent, bool round, Sign sign) = Diff(a.mantissa, b_abs, -a.Exponent);
+
+                return new MultiPrecision<N>(sign == Sign.Plus ? a.Sign : UIntUtil.Sign(b), exponent + a.Exponent, n, round);
+            }
+        }
+
+        public static MultiPrecision<N> Sub(MultiPrecision<N> a, long b) {
+            if (b == 0) {
+                return a;
+            }
+
+            if (a.IsNaN) {
+                return NaN;
+            }
+            if (a.IsZero) {
+                return Neg((MultiPrecision<N>)(b));
+            }
+
+            if (!a.IsFinite) {
+                return a;
+            }
+
+            UInt64 b_abs = UIntUtil.Abs(b);
+
+            if (a.Sign == UIntUtil.Sign(b)) {
+                (Mantissa<N> n, Int64 exponent, bool round, Sign sign) = Diff(a.mantissa, b_abs, -a.Exponent);
+
+                return new MultiPrecision<N>(
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    exponent + a.Exponent, n, round);
+            }
+            else {
+                (Mantissa<N> n, Int64 exponent, bool round) = Add(a.mantissa, b_abs, -a.Exponent);
+
+                return new MultiPrecision<N>(a.Sign, exponent + a.Exponent, n, round);
+            }
         }
     }
 }

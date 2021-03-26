@@ -12,8 +12,8 @@ namespace MultiPrecisionTest.Arithmetics {
         readonly MultiPrecision<Pow2.N8>[] vs = {
             MultiPrecision<Pow2.N8>.Zero,
             MultiPrecision<Pow2.N8>.MinusZero,
-            1, 2, 3, 4, 5, 7, 10, 11, 13, 100, 1000,
-            -1, -2, -3, -4, -5, -7, -10, -11, -13, -100, -1000,
+            1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000,
+            -1, -2, -3, -4, -5, -7, -8, -10, -11, -13, -100, -1000,
             MultiPrecision<Pow2.N8>.One / 2,
             MultiPrecision<Pow2.N8>.One / 3,
             MultiPrecision<Pow2.N8>.One / 4,
@@ -326,6 +326,76 @@ namespace MultiPrecisionTest.Arithmetics {
                         Console.Write("\n");
 
                         Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(c_expect, c_actual, 1));
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void AddLongTest() {
+            MultiPrecision<Pow2.N8>.Add(MultiPrecision<Pow2.N8>.One / 3, -9223372036854775808);
+
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
+                foreach (long b in us) {
+                    MultiPrecision<Pow2.N8> c_actual = MultiPrecision<Pow2.N8>.Add(a, b);
+                    MultiPrecision<Pow2.N8> c_expect = MultiPrecision<Pow2.N8>.Add(a, (MultiPrecision<Pow2.N8>)b);
+
+                    Trace.WriteLine($"{a} + {b} = {c_expect}");
+                    Trace.WriteLine($"{a} + {b} = {c_actual}");
+
+                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                        continue;
+                    }
+
+                    if (a.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{a} + {b} = {c_expect}");
+                            Console.WriteLine($"{a} + {b} = {c_actual}");
+                            Console.Write("\n");
+
+                            Assert.Fail();
+                        }
+                    }
+                    else {
+                        Console.WriteLine($"{a} + {b} = {c_expect}");
+                        Console.WriteLine($"{a} + {b} = {c_actual}");
+                        Console.Write("\n");
+
+                        Assert.AreEqual(c_expect, c_actual);
+                    }
+                }
+            }
+        }
+
+        [TestMethod]
+        public void SubLongTest() {
+            foreach (MultiPrecision<Pow2.N8> a in vs) {
+                foreach (long b in us) {
+                    MultiPrecision<Pow2.N8> c_actual = MultiPrecision<Pow2.N8>.Sub(a, b);
+                    MultiPrecision<Pow2.N8> c_expect = MultiPrecision<Pow2.N8>.Sub(a, (MultiPrecision<Pow2.N8>)b);
+
+                    Trace.WriteLine($"{a} - {b} = {c_expect}");
+                    Trace.WriteLine($"{a} - {b} = {c_actual}");
+
+                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                        continue;
+                    }
+
+                    if (a.IsNaN) {
+                        if (!c_actual.IsNaN) {
+                            Console.WriteLine($"{a} - {b} = {c_expect}");
+                            Console.WriteLine($"{a} - {b} = {c_actual}");
+                            Console.Write("\n");
+
+                            Assert.Fail();
+                        }
+                    }
+                    else {
+                        Console.WriteLine($"{a} - {b} = {c_expect}");
+                        Console.WriteLine($"{a} - {b} = {c_actual}");
+                        Console.Write("\n");
+
+                        Assert.AreEqual(c_expect, c_actual);
                     }
                 }
             }

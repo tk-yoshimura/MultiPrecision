@@ -80,16 +80,9 @@ namespace MultiPrecision {
         }
 
         public static implicit operator MultiPrecision<N>(Int64 v) {
-            if (v >= 0) {
-                UInt64 v_pos = unchecked((UInt64)v);
+            UInt64 v_abs = UIntUtil.Abs(v);
 
-                return CreateInteger(Sign.Plus, v_pos);
-            }
-            else {
-                UInt64 v_neg = ~(unchecked((UInt64)v)) + 1;
-
-                return CreateInteger(Sign.Minus, v_neg);
-            }
+            return CreateInteger((v >= 0) ? Sign.Plus : Sign.Minus, v_abs);
         }
 
         public double ToDouble() {
