@@ -25,16 +25,16 @@ namespace MultiPrecision {
                 return One;
             }
 
-            long abs_n = Math.Abs(n);
+            ulong n_abs = UIntUtil.Abs(n);
             MultiPrecision<N> y = 1, z = x;
 
-            while (abs_n > 0) {
-                if ((abs_n & 1) == 1) {
+            while (n_abs > 0) {
+                if ((n_abs & 1) == 1) {
                     y *= z;
                 }
 
                 z *= z;
-                abs_n >>= 1;
+                n_abs >>= 1;
             }
 
             return (n > 0) ? y : (1 / y);

@@ -44,6 +44,18 @@ namespace MultiPrecisionTest.Functions {
                     TestTool.Tolerance(Math.Pow((double)x, n), y);
                 }
             }
+
+            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { 0, 0.75, 1, 1.5 }) {
+                foreach (long n in new long[] { long.MinValue, long.MaxValue }) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);
+                    if (x == 1) {
+                        Assert.AreEqual(1, y);
+                    }
+                    else {
+                        Assert.AreEqual(n > 0 ^ x > 1, y.IsFinite);
+                    }
+                }
+            }
         }
 
         [TestMethod]

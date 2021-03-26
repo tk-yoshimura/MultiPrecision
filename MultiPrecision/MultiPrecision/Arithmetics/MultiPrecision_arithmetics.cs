@@ -64,10 +64,6 @@ namespace MultiPrecision {
 
             MultiPrecision<N> c = Truncate(a / b) * b;
 
-            if (Abs(a) < Abs(c)) {
-                return NaN;
-            }
-
             return a - c;
         }
 
@@ -346,7 +342,6 @@ namespace MultiPrecision {
             if (a.IsZero) {
                 return Neg(b);
             }
-
             if (!a.IsFinite) {
                 return a;
             }
