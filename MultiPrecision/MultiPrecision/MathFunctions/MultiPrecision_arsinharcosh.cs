@@ -13,7 +13,7 @@
                 return Zero;
             }
 
-            MultiPrecision<N> y = Log(x + Sqrt(x * x + MinusOne));
+            MultiPrecision<N> y = Log(x + Sqrt(x * x - 1));
 
             return y;
         }

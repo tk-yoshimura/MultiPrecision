@@ -22,8 +22,7 @@ namespace MultiPrecision {
         private static ReadOnlyCollection<Accumulator<N>> GenerateTaylorTable() {
             List<Accumulator<N>> table = new();
 
-            Accumulator<N> v = One;
-            Accumulator<N> d = 1;
+            Accumulator<N> v = One, d = 1;
 
             while (table.Count < 1 || !(table.Last().IsZero)) {
                 table.Add(RightRoundShift(v, TaylorTableShift));
