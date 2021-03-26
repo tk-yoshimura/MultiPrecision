@@ -40,6 +40,10 @@ namespace MultiPrecision {
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
+            if ((cycle == 0 || cycle == 2) && x_frac.IsZero){
+                return Zero;
+            }
+
             Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
             Sign s = Sign.Minus;
 
@@ -83,6 +87,10 @@ namespace MultiPrecision {
             MultiPrecision<N> x_abs = Abs(x);
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
+
+            if ((cycle == 1 || cycle == 3) && x_frac.IsZero){
+                return Zero;
+            }
 
             Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
             Sign s = Sign.Minus;

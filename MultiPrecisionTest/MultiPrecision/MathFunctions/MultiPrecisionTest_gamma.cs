@@ -20,13 +20,18 @@ namespace MultiPrecisionTest.Functions {
                     double x = Ag(z);
                     double t = z + G - 1.5;
 
-                    return Math.Sqrt(2 * Math.PI) * Math.Pow(t, z - 0.5) * Math.Exp(-t) * x;
+                    double y = Math.Sqrt(2 * Math.PI) * Math.Pow(t, z - 0.5) * Math.Exp(-t) * x;
+
+                    return y;
                 }
             }
 
             public static double LogGamma(double z) {
-                if (z <= 0) {
+                if (!(z >= 0)) {
                     return double.NaN;
+                }
+                if (z == 0) {
+                    return double.PositiveInfinity;
                 }
                 if (z < 4) {
                     return Math.Log(Gamma(z));
@@ -35,7 +40,9 @@ namespace MultiPrecisionTest.Functions {
                 double x = Ag(z);
                 double t = z + G - 1.5;
 
-                return Math.Log(Math.Sqrt(2 * Math.PI)) + Math.Log(t) * (z - 0.5) - t + Math.Log(x);
+                double y = Math.Log(Math.Sqrt(2 * Math.PI)) + Math.Log(t) * (z - 0.5) - t + Math.Log(x);
+
+                return y;
             }
 
             private static double Ag(double z) {
@@ -100,7 +107,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, rateerr: 1e-5, ignore_sign: true);
+                TestTool.Tolerance(Approx.LogGamma((double)x), y, rateerr: 1e-10, ignore_sign: true);
             }
 
             Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(1));
@@ -168,7 +175,7 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(x);
                 Console.WriteLine(y);
 
-                TestTool.Tolerance(Approx.Gamma((double)x), y, rateerr: 1e-5, ignore_sign: true);
+                TestTool.Tolerance(Approx.Gamma((double)x), y, rateerr: 1e-10, ignore_sign: true);
             }
 
             Assert.IsTrue(1 == MultiPrecision<Pow2.N8>.Gamma(1));
@@ -238,7 +245,9 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    if ((double)x > 0){
+                        TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    }
                 }
 
                 Console.Write("\n");
