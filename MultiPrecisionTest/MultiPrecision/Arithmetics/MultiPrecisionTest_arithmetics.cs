@@ -22,15 +22,35 @@ namespace MultiPrecisionTest.Arithmetics {
             MultiPrecision<Pow2.N8>.MinusOne / 3,
             MultiPrecision<Pow2.N8>.MinusOne / 4,
             MultiPrecision<Pow2.N8>.MinusOne / 5,
+            MultiPrecision<Pow2.N8>.Ldexp(1, -244),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -244),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +244),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +244),
+            MultiPrecision<Pow2.N8>.Ldexp(1, -256),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -256),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +256),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +256),
+            MultiPrecision<Pow2.N8>.Ldexp(1, -264),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -264),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +264),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +264),
+            MultiPrecision<Pow2.N8>.Ldexp(1, -512),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -512),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +512),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +512),
             MultiPrecision<Pow2.N8>.PositiveInfinity,
             MultiPrecision<Pow2.N8>.NegativeInfinity,
             MultiPrecision<Pow2.N8>.NaN,
+            MultiPrecision<Pow2.N8>.Epsilon,
+            -MultiPrecision<Pow2.N8>.Epsilon,
         };
 
         readonly long[] us = {
-            long.MinValue, long.MinValue + 1, -99999999, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
+            long.MinValue, long.MinValue + 1, -9999999999999999, int.MinValue, int.MinValue + 1,
+            -99999999, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
             0,
-            long.MaxValue, 99999999, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
+            long.MaxValue, int.MaxValue, 
+            9999999999999999, 99999999, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
         };
 
 
@@ -141,6 +161,15 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
                         continue;
                     }
+                    if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
+                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) { 
+                        Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
+                        Console.WriteLine($"{a} * {b} = {c_actual}");
+
+                        Console.WriteLine("ignore epsilon");
+
+                        continue;
+                    }
 
                     if (a.IsNaN || b.IsNaN) {
                         if (!c_actual.IsNaN) {
@@ -186,6 +215,15 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{a} / {b} = {c_actual}");
 
                     if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                        continue;
+                    }
+                    if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
+                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) { 
+                        Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
+                        Console.WriteLine($"{a} / {b} = {c_actual}");
+
+                        Console.WriteLine("ignore epsilon");
+
                         continue;
                     }
 
@@ -333,8 +371,6 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void AddLongTest() {
-            MultiPrecision<Pow2.N8>.Add(MultiPrecision<Pow2.N8>.One / 3, -9223372036854775808);
-
             foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (long b in us) {
                     MultiPrecision<Pow2.N8> c_actual = MultiPrecision<Pow2.N8>.Add(a, b);

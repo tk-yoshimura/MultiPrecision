@@ -46,7 +46,7 @@ namespace MultiPrecision {
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Diff((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, Int64 exponent, Sign sign) Diff((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
             if (a.exponent > b.exponent) {
                 Int64 d = a.exponent - b.exponent;
 
@@ -60,10 +60,10 @@ namespace MultiPrecision {
 
                     Int64 exponent = checked(a.exponent - sft + 1);
 
-                    return (n, exponent);
+                    return (n, exponent, Sign.Plus);
                 }
                 else {
-                    return (a.n, a.exponent);
+                    return (a.n, a.exponent, Sign.Plus);
                 }
             }
             else if (a.exponent < b.exponent) {
@@ -79,27 +79,36 @@ namespace MultiPrecision {
 
                     Int64 exponent = checked(b.exponent - sft + 1);
 
-                    return (n, exponent);
+                    return (n, exponent, Sign.Minus);
                 }
                 else {
-                    return (b.n, b.exponent);
+                    return (b.n, b.exponent, Sign.Minus);
                 }
             }
             else {
                 Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
                 Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
+                Accumulator<N> c_acc;
+                Sign sign;
 
-                Accumulator<N> c_acc = (a.n > b.n) ? Accumulator<N>.Sub(a_acc, b_acc) : Accumulator<N>.Sub(b_acc, a_acc);
+                if (a.n >= b.n) {
+                    c_acc = Accumulator<N>.Sub(a_acc, b_acc);
+                    sign = Sign.Plus;
+                }
+                else {
+                    c_acc = Accumulator<N>.Sub(b_acc, a_acc);
+                    sign = Sign.Minus;
+                }
 
                 if (c_acc.IsZero) {
-                    return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax);
+                    return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax, sign);
                 }
                 else {
                     (Mantissa<N> n, int sft) = c_acc.Mantissa;
 
                     Int64 exponent = checked(a.exponent - sft + 1);
 
-                    return (n, exponent);
+                    return (n, exponent, sign);
                 }
             }
         }
@@ -128,13 +137,6 @@ namespace MultiPrecision {
         }
 
         internal static (Mantissa<N> n, Int64 exponent, bool round) Add(Mantissa<N> a, UInt64 b, Int64 relative_exponent) {
-            if (b == 0 || -relative_exponent > Bits) {
-                return (a, 0, round: false);
-            }
-            if (relative_exponent > Bits) {
-                return (b, relative_exponent, round: false);
-            }
-
             int expands = BigUInt<Plus4<N>>.Length - BigUInt<N>.Length;
 
             (UInt32 b_hi, UInt32 b_lo) = UIntUtil.Unpack(b);
@@ -162,13 +164,6 @@ namespace MultiPrecision {
         }
 
         internal static (Mantissa<N> n, Int64 exponent, bool round, Sign sign) Diff(Mantissa<N> a, UInt64 b, Int64 relative_exponent) {
-            if (b == 0 || -relative_exponent > Bits) {
-                return (a, 0, round: false, Sign.Plus);
-            }
-            if (relative_exponent > Bits) {
-                return (b, relative_exponent, round: false, Sign.Minus);
-            }
-
             int expands = BigUInt<Plus4<N>>.Length - BigUInt<N>.Length;
 
             (UInt32 b_hi, UInt32 b_lo) = UIntUtil.Unpack(b);

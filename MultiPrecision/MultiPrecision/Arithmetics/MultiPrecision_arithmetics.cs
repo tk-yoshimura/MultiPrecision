@@ -49,6 +49,10 @@ namespace MultiPrecision {
             return Div(a, b);
         }
 
+        public static MultiPrecision<N> operator /(long a, MultiPrecision<N> b) {
+            return a * Rcp(b);
+        }
+
         public static MultiPrecision<N> operator %(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (b.IsZero || a.IsNaN || b.IsNaN) {
                 return NaN;
@@ -107,9 +111,9 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(a.Sign, exponent, mantissa, round: false);
             }
             else {
-                (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+                (Mantissa<N> mantissa, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((Abs(a) > Abs(b)) ? a.Sign : b.Sign, exponent, mantissa, round: false);
+                return new MultiPrecision<N>(sign == Sign.Plus ? a.Sign : b.Sign, exponent, mantissa, round: false);
             }
         }
 
@@ -139,9 +143,11 @@ namespace MultiPrecision {
             }
 
             if (a.Sign == b.Sign) {
-                (Mantissa<N> mantissa, Int64 exponent) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
+                (Mantissa<N> mantissa, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
-                return new MultiPrecision<N>((a > b) ? Sign.Plus : Sign.Minus, exponent, mantissa, round: false);
+                return new MultiPrecision<N>(
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    exponent, mantissa, round: false);
             }
             else {
                 (Mantissa<N> mantissa, Int64 exponent) = Add((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
@@ -338,7 +344,7 @@ namespace MultiPrecision {
                 return NaN;
             }
             if (a.IsZero) {
-                return Neg((MultiPrecision<N>)(b));
+                return Neg(b);
             }
 
             if (!a.IsFinite) {

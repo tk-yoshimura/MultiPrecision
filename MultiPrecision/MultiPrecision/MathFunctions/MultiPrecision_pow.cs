@@ -26,7 +26,7 @@ namespace MultiPrecision {
             }
 
             long abs_n = Math.Abs(n);
-            MultiPrecision<N> y = One, z = x;
+            MultiPrecision<N> y = 1, z = x;
 
             while (abs_n > 0) {
                 if ((abs_n & 1) == 1) {
@@ -37,7 +37,7 @@ namespace MultiPrecision {
                 abs_n >>= 1;
             }
 
-            return (n > 0) ? y : (One / y);
+            return (n > 0) ? y : (1 / y);
         }
     }
 }

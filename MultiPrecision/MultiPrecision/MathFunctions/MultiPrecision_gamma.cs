@@ -80,7 +80,7 @@ namespace MultiPrecision {
                 MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
                 MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.LanczosG);
 
-                MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - MultiPrecision<LanczosExpand<N>>.One);
+                MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - 1);
 
                 MultiPrecision<N> y = y_ex.Convert<N>();
 

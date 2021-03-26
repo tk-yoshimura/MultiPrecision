@@ -19,12 +19,10 @@ namespace MultiPrecision {
         private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorSequence() {
             List<MultiPrecision<N>> table = new();
 
-            MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
-            MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.One;
-            MultiPrecision<Plus1<N>> t = MultiPrecision<Plus1<N>>.One;
+            MultiPrecision<Plus1<N>> v = 1, d = 1, t = 1;
 
             while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
-                t = MultiPrecision<Plus1<N>>.One / v;
+                t = 1 / v;
 
                 if (t.IsZero) {
                     break;

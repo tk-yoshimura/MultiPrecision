@@ -25,12 +25,12 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> v = new(Sign.Plus, exponent % 3, x_expand.mantissa, round: false);
 
             MultiPrecision<Plus1<N>> a = Consts.Cbrt.ApproxA + v * (Consts.Cbrt.ApproxB + v * Consts.Cbrt.ApproxC);
-            MultiPrecision<Plus1<N>> h = MultiPrecision<Plus1<N>>.One - v * a * a * a;
+            MultiPrecision<Plus1<N>> h = 1 - v * a * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= MultiPrecision<Plus1<N>>.One + h * (Consts.Cbrt.DifferenceA + h * (Consts.Cbrt.DifferenceB + h * Consts.Cbrt.DifferenceC));
-                h = MultiPrecision<Plus1<N>>.One - v * a * a * a;
+                a *= 1 + h * (Consts.Cbrt.DifferenceA + h * (Consts.Cbrt.DifferenceB + h * Consts.Cbrt.DifferenceC));
+                h = 1 - v * a * a * a;
 
                 h_exponent_prev = h_exponent_post;
                 h_exponent_post = h.exponent;

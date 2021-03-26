@@ -37,7 +37,7 @@ namespace MultiPrecision {
                 );
             }
 
-            return (MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.Log2(MultiPrecision<Plus1<N>>.E)).Convert<N>();
+            return (1 / MultiPrecision<Plus1<N>>.Log2(MultiPrecision<Plus1<N>>.E)).Convert<N>();
         }
 
         private static MultiPrecision<N> GenerateLbE() {

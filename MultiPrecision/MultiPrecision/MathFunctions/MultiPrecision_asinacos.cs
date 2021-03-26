@@ -17,14 +17,14 @@ namespace MultiPrecision {
             }
 
             if (x <= One && x >= MinusOne) {
-                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + One);
+                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + 1);
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
-                MultiPrecision<N> invx = One / x;
-                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + One);
+                MultiPrecision<N> invx = 1 / x;
+                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + 1);
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
                 if (x.Sign == Sign.Plus) {
@@ -53,7 +53,7 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
-                MultiPrecision<N> z = x / (Sqrt(One - x * x) + One);
+                MultiPrecision<N> z = x / (Sqrt(1 - x * x) + 1);
                 return Atan(z) * 2;
             }
         }

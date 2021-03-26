@@ -8,10 +8,10 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> Erf(MultiPrecision<N> x) {
             if (x.IsZero) {
-                return Zero;
+                return 0;
             }
             if (!x.IsFinite) {
-                return x.Sign == Sign.Plus ? One : MinusOne;
+                return x.Sign == Sign.Plus ? 1 : -1;
             }
 
             MultiPrecision<Plus1<N>> y = ErfErfcCore(x, is_erf: true);
@@ -21,10 +21,10 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> Erfc(MultiPrecision<N> x) {
             if (x.IsZero) {
-                return One;
+                return 1;
             }
             if (!x.IsFinite) {
-                return x.Sign == Sign.Plus ? Zero : 2;
+                return x.Sign == Sign.Plus ? 0 : 2;
             }
 
             MultiPrecision<Plus1<N>> y = ErfErfcCore(x, is_erf: false);
@@ -42,9 +42,9 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> y;
 
             if (x.Exponent <= 0) {
-                MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.One;
+                MultiPrecision<Plus1<N>> z = 1;
                 MultiPrecision<Plus1<N>> squa_x = x_expand * x_expand;
-                y = MultiPrecision<Plus1<N>>.Zero;
+                y = 0;
 
                 foreach (MultiPrecision<Plus1<N>> t in Consts.Erf.Table) {
                     MultiPrecision<Plus1<N>> dy = t * z;
@@ -60,7 +60,7 @@ namespace MultiPrecision {
                 y *= x_expand * Consts.Erf.G;
 
                 if (!is_erf) {
-                    y = MultiPrecision<Plus1<N>>.One - y;
+                    y = 1 - y;
                 }
             }
             else if (x.Sign == Sign.Plus) {
@@ -80,7 +80,7 @@ namespace MultiPrecision {
                 y = MultiPrecision<Plus1<N>>.Exp(-x_expand * x_expand) / (z + a) * Consts.Erf.C;
 
                 if (is_erf) {
-                    y = MultiPrecision<Plus1<N>>.One - y;
+                    y = 1 - y;
                 }
             }
             else {
@@ -110,14 +110,12 @@ namespace MultiPrecision {
 
                     List<MultiPrecision<Plus1<N>>> table = new();
 
-                    MultiPrecision<Plus1<N>> v = MultiPrecision<Plus1<N>>.One;
-                    MultiPrecision<Plus1<N>> d = MultiPrecision<Plus1<N>>.Zero;
-                    MultiPrecision<Plus1<N>> t = MultiPrecision<Plus1<N>>.One;
+                    MultiPrecision<Plus1<N>> v = 1, d = 0, t = 1;
 
                     long i = 0;
 
                     while (t.Exponent >= -Bits * 2) {
-                        t = ((i & 1) == 0 ? MultiPrecision<Plus1<N>>.One : MultiPrecision<Plus1<N>>.MinusOne) / (v * (2 * i + 1));
+                        t = ((i & 1) == 0 ? 1 : -1) / (v * (2 * i + 1));
 
                         if (t.IsZero) {
                             break;

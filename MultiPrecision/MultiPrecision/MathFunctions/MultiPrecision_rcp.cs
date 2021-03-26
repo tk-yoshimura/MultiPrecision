@@ -24,14 +24,14 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> v = new(Sign.Plus, 0, x_expand.mantissa, round: false);
 
             MultiPrecision<Plus1<N>> a = Consts.Rcp.ApproxA + v * Consts.Rcp.ApproxB;
-            MultiPrecision<Plus1<N>> h = MultiPrecision<Plus1<N>>.One - v * a;
+            MultiPrecision<Plus1<N>> h = 1 - v * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
                 MultiPrecision<Plus1<N>> squa_h = h * h;
 
-                a *= MultiPrecision<Plus1<N>>.One + (MultiPrecision<Plus1<N>>.One + squa_h) * (h + squa_h);
-                h = MultiPrecision<Plus1<N>>.One - v * a;
+                a *= 1 + (1 + squa_h) * (h + squa_h);
+                h = 1 - v * a;
 
                 h_exponent_prev = h_exponent_post;
                 h_exponent_post = h.exponent;

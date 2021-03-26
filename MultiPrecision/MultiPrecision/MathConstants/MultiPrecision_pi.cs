@@ -21,7 +21,7 @@ namespace MultiPrecision {
         public static MultiPrecision<N> RcpPI {
             get {
                 if (Consts.rcp_pi is null) {
-                    Consts.rcp_pi = (MultiPrecision<Plus1<N>>.One / MultiPrecision<Plus1<N>>.PI).Convert<N>();
+                    Consts.rcp_pi = (1 / MultiPrecision<Plus1<N>>.PI).Convert<N>();
                 }
 
                 return Consts.rcp_pi;

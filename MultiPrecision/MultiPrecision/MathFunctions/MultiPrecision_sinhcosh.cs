@@ -17,13 +17,13 @@
 
         public static MultiPrecision<N> Tanh(MultiPrecision<N> x) {
             MultiPrecision<N> x2 = 2 * x;
-            MultiPrecision<N> x2_expm1 = Expm1(x2), x2_expp1 = Exp(x2) + One;
+            MultiPrecision<N> x2_expm1 = Expm1(x2), x2_expp1 = Exp(x2) + 1;
 
             if (x2_expm1.IsFinite && x2_expp1.IsFinite) {
                 return x2_expm1 / x2_expp1;
             }
             else {
-                return One;
+                return 1;
             }
         }
     }
