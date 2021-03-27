@@ -20,6 +20,10 @@ namespace MultiPrecision {
                 MultiPrecision<N> z = Abs(x) / Sqrt(x * x + 1);
                 MultiPrecision<N> w = Sqrt(SquareAsin(z));
 
+                if (w.IsZero) {
+                    return x;
+                }
+
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
@@ -50,6 +54,11 @@ namespace MultiPrecision {
 
             if (Abs(x) <= Sqrt2 / 2) {
                 MultiPrecision<N> w = Sqrt(SquareAsin(Abs(x)));
+
+                if (w.IsZero) {
+                    return x;
+                }
+
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
@@ -73,11 +82,10 @@ namespace MultiPrecision {
                 MultiPrecision<N> yx = y / x;
                 return x.Sign == Sign.Plus ? Atan(yx) : ((y.Sign == Sign.Plus) ? (Atan(yx) + PI) : (Atan(yx) - PI));
             }
-            if (Abs(x) <= Abs(y)) {
+            else {
                 MultiPrecision<N> xy = x / y;
                 return y.Sign == Sign.Plus ? (PI / 2 - Atan(xy)) : (-PI / 2 - Atan(xy));
             }
-            return NaN;
         }
 
         internal static MultiPrecision<N> SquareAsin(MultiPrecision<N> x) {

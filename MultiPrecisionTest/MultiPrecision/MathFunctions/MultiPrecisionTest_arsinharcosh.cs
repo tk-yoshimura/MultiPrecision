@@ -51,7 +51,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void ArsinhBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                0
+                0, -1, 1, -MultiPrecision<Pow2.N8>.Ldexp(1, -256), MultiPrecision<Pow2.N8>.Ldexp(1, -256)
             };
             
             foreach (MultiPrecision<Pow2.N8> b in borders) {

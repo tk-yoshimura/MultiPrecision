@@ -81,7 +81,11 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void AtanBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                MultiPrecision<Pow2.N8>.NegativeInfinity, -2, -1, 0, 1, 2, MultiPrecision<Pow2.N8>.PositiveInfinity
+                MultiPrecision<Pow2.N8>.NegativeInfinity, -2, -1, 
+                -MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
+                0, 
+                +MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
+                1, 2, MultiPrecision<Pow2.N8>.PositiveInfinity
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
@@ -104,9 +108,11 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void AsinBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+                -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, int.MinValue / 2),
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
                 0,
                 MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
+                MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, int.MinValue / 2),
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {

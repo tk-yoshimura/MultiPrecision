@@ -3,7 +3,7 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Arsinh(MultiPrecision<N> x) {
-            MultiPrecision<N> y = Log(x + Sqrt(x * x + 1));
+            MultiPrecision<N> y = Log1p(x + (Sqrt(x * x + 1) - 1));
 
             return y;
         }
@@ -30,7 +30,7 @@
                 return PositiveInfinity;
             }
 
-            MultiPrecision<N> y = (Log(1 + x) - Log(1 - x)) / 2;
+            MultiPrecision<N> y = (Log1p(x) - Log1p(-x)) / 2;
 
             return y;
         }
