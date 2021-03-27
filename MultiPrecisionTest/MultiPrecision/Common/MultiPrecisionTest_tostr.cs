@@ -27,6 +27,9 @@ namespace MultiPrecisionTest.Common {
                     MultiPrecision<Pow2.N8> u = MultiPrecision<Pow2.N8>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N8>.DecimalDigits);
                     Console.WriteLine(u.ToString());
 
+                    Console.WriteLine(v.ToHexcode());
+                    Console.WriteLine(u.ToHexcode());
+
                     Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 14));
                     Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
                 }
@@ -46,6 +49,9 @@ namespace MultiPrecisionTest.Common {
 
                     MultiPrecision<Pow2.N16> u = MultiPrecision<Pow2.N16>.FromStringCore(sign, exponent_dec, mantissa_dec, MultiPrecision<Pow2.N16>.DecimalDigits);
                     Console.WriteLine(u.ToString());
+
+                    Console.WriteLine(v.ToHexcode());
+                    Console.WriteLine(u.ToHexcode());
 
                     Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(v, u, 14));
                     Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);

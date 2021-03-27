@@ -83,5 +83,128 @@ namespace MultiPrecisionTest.Common {
             Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.45", "0.01"));
             Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEquals("1.5", "1.55", "0.01"));
         }
+
+        [TestMethod]
+        public void NearlyEqualBitsTest() {
+            const int g = 8, n = 5;
+
+            MultiPrecision<Pow2.N8>[][] vss = new MultiPrecision<Pow2.N8>[][]{
+                new MultiPrecision<Pow2.N8>[] {
+                    -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(4)),
+                    -MultiPrecision<Pow2.N8>.BitDecrement(4),
+                    -4,
+                    -MultiPrecision<Pow2.N8>.BitIncrement(4),
+                    -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(4)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(4)),
+                    MultiPrecision<Pow2.N8>.BitDecrement(4),
+                    4,
+                    MultiPrecision<Pow2.N8>.BitIncrement(4),
+                    MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(4)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(3)),
+                    -MultiPrecision<Pow2.N8>.BitDecrement(3),
+                    -3,
+                    -MultiPrecision<Pow2.N8>.BitIncrement(3),
+                    -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(3)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(3)),
+                    MultiPrecision<Pow2.N8>.BitDecrement(3),
+                    3,
+                    MultiPrecision<Pow2.N8>.BitIncrement(3),
+                    MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(3)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(2)),
+                    -MultiPrecision<Pow2.N8>.BitDecrement(2),
+                    -2,
+                    -MultiPrecision<Pow2.N8>.BitIncrement(2),
+                    -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(2)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(2)),
+                    MultiPrecision<Pow2.N8>.BitDecrement(2),
+                    2,
+                    MultiPrecision<Pow2.N8>.BitIncrement(2),
+                    MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(2)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2)),
+                    -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2),
+                    -MultiPrecision<Pow2.N8>.Sqrt2,
+                    -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2),
+                    -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2)),
+                },
+
+                new MultiPrecision<Pow2.N8>[] {
+                    MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2)),
+                    MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2),
+                    MultiPrecision<Pow2.N8>.Sqrt2,
+                    MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2),
+                    MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2)),
+                },
+            };
+
+            for (int i = 0; i < g; i++) { 
+                for (int j = 0; j < n; j++) {
+                    MultiPrecision<Pow2.N8> v = vss[i][j];
+                    
+                    for (int k = 0; k < g; k++) { 
+                        for (int m = 0; m < n; m++) {
+                            MultiPrecision<Pow2.N8> u = vss[k][m];
+
+                            if (i == k) {
+                                Console.WriteLine(v.ToHexcode());
+                                Console.WriteLine(u.ToHexcode());
+
+                                int dist = Math.Abs(j - m);
+
+                                Console.WriteLine($"dist {dist}");
+
+                                if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 0)) {
+                                    Console.WriteLine("match");
+
+                                    Assert.IsTrue(dist == 0);
+                                }
+                                else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 1)) {
+                                    Console.WriteLine("nearly 1bits");
+
+                                    Assert.IsTrue(dist == 1);
+                                }
+                                else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 2)) {
+                                    Console.WriteLine("nearly 2bits");
+
+                                    Assert.IsTrue(dist >= 2 && dist < 4);
+                                }
+                                else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 3)) {
+                                    Console.WriteLine("nearly 3bits");
+
+                                    Assert.IsTrue(dist >= 3 && dist < 8);
+                                }
+                                else { 
+                                    Console.WriteLine("nearly more 4bits");
+                                }
+
+                                Console.WriteLine(string.Empty);
+                            }
+                            else { 
+                                Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 0), "bits 0");
+                                Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 1), "bits 1");
+                                Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 2), "bits 2");
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

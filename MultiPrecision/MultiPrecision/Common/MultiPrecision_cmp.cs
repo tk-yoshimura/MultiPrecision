@@ -77,17 +77,36 @@ namespace MultiPrecision {
         }
 
         public static bool NearlyEqualBits(MultiPrecision<N> a, MultiPrecision<N> b, int ignore_bits) {
-            if (a.IsNaN || b.IsNaN) return false;
+            if (a.IsZero && b.IsZero) {
+                return true;
+            }
 
-            if (a.Sign == b.Sign && a.exponent == b.exponent) {
+            if (a.IsNaN || b.IsNaN || (a.Sign != b.Sign)) {
+                return false;
+            }
+
+            if (a.exponent == b.exponent) {
                 int matchbits = Mantissa<N>.MatchBits(a.mantissa, b.mantissa);
 
                 if ((Bits - matchbits) <= ignore_bits) {
                     return true;
                 }
+
+                BigUInt<N> diff = (a.mantissa > b.mantissa)
+                    ? new BigUInt<N>(a.Mantissa) - new BigUInt<N>(b.Mantissa)
+                    : new BigUInt<N>(b.Mantissa) - new BigUInt<N>(a.Mantissa);
+
+                matchbits = diff.LeadingZeroCount;
+
+                return (Bits - matchbits) <= ignore_bits;
+            }
+            if (a.Exponent + 1 == b.Exponent || b.Exponent + 1 == a.Exponent) {
+                MultiPrecision<N> diff = a - b;
+
+                return (diff.Exponent + Bits - Math.Min(a.Exponent, b.Exponent)) <= ignore_bits;
             }
 
-            return RoundMantissa(a, Bits - ignore_bits) == RoundMantissa(b, Bits - ignore_bits);
+            return false;
         }
 
         public int CompareTo([AllowNull] MultiPrecision<N> other) {
