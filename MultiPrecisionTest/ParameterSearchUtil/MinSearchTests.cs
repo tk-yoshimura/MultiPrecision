@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.ParameterSearchUtil {
         public void MinSearchTest() {
             MultiPrecision<Pow2.N4> curve(long x, long a) => (x - a) * (x - a);
 
-            for(long a = -50; a <= 450; a++){
+            for (long a = -50; a <= 450; a++) {
                 Console.WriteLine($"a = {a}");
 
                 MinSearch<Pow2.N4> search = new MinSearch<Pow2.N4>((100, 200), (0, 400));

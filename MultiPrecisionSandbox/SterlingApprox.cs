@@ -1,7 +1,6 @@
-﻿using System;
+﻿using MultiPrecision;
+using System;
 using System.Collections.Generic;
-
-using MultiPrecision;
 
 namespace MultiPrecisionSandbox {
     static class SterlingApprox<N> where N : struct, IConstant {

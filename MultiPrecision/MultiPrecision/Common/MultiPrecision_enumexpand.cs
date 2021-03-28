@@ -65,7 +65,7 @@ namespace MultiPrecision {
             if (source.Count() <= 0) {
                 throw new ArgumentException("operations on empty arrays");
             }
-            
+
             MultiPrecision<N> max = MultiPrecision<N>.NaN;
 
             int index = 0, max_index = 0;

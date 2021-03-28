@@ -14,7 +14,7 @@ namespace MultiPrecisionSandbox {
             MultiPrecision<Plus1<N>> z_ex = z.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> w = z_ex * z_ex;
 
-            MultiPrecision<Plus1<N>> f = 
+            MultiPrecision<Plus1<N>> f =
                 (MultiPrecision<Plus1<N>>.Sqrt(25 + w * (440 + w * (488 + w * 16 * (10 + w))))
                  - 5 + w * 4 * (1 + w))
                 / (20 + w * 8);

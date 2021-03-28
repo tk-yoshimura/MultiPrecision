@@ -8,7 +8,7 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
 
         public static class Approx {
-            public static double Gamma(double z) { 
+            public static double Gamma(double z) {
                 if (z <= 0 && z == Math.Truncate(z)) {
                     return double.NaN;
                 }
@@ -229,7 +229,14 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void LogGammaBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 3, 4, 32, 64 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+                1 - MultiPrecision<Pow2.N8>.Ldexp(1, -31),
+                1 + MultiPrecision<Pow2.N8>.Ldexp(1, -31),
+                2 - MultiPrecision<Pow2.N8>.Ldexp(1, -31),
+                2 + MultiPrecision<Pow2.N8>.Ldexp(1, -31),
+                MultiPrecision<Pow2.N8>.Ldexp(1, -2),
+                0, 1, 2, 3, 4, 32, 64 
+            };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
@@ -245,7 +252,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    if ((double)x > 0){
+                    if ((double)x > 0) {
                         TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
                     }
                 }

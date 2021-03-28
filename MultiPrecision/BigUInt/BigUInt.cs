@@ -57,7 +57,7 @@ namespace MultiPrecision {
             if (offset >= 0) {
                 Array.Copy(arr, 0, this.value, offset, arr.Length);
             }
-            else { 
+            else {
                 Array.Copy(arr, -offset, this.value, 0, offset + arr.Length);
             }
         }

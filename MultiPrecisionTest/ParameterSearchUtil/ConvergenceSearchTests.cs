@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.ParameterSearchUtil {
         public void ConvergenceSearchTest1() {
             MultiPrecision<Pow2.N4> ramp(long x, long a) => Math.Min(0, x - a);
 
-            for(long a = -50; a <= 450; a++){
+            for (long a = -50; a <= 450; a++) {
                 Console.WriteLine($"a = {a}");
 
                 ConvergenceSearch<Pow2.N4> search = new ConvergenceSearch<Pow2.N4>((100, 200), (0, 400));
@@ -37,10 +37,10 @@ namespace MultiPrecisionTest.ParameterSearchUtil {
         public void ConvergenceSearchTest2() {
             MultiPrecision<Pow2.N4> ramp(long x, long a) => Math.Max(0, x - a);
 
-            for(long a = -50; a <= 450; a++){
+            for (long a = -50; a <= 450; a++) {
                 Console.WriteLine($"a = {a}");
 
-                ConvergenceSearch<Pow2.N4> search = new ConvergenceSearch<Pow2.N4>((100, 200), (0, 400), larger_convergence:false);
+                ConvergenceSearch<Pow2.N4> search = new ConvergenceSearch<Pow2.N4>((100, 200), (0, 400), larger_convergence: false);
 
                 while (!search.IsSearched) {
                     foreach (long sample_point in search.SampleRequests) {

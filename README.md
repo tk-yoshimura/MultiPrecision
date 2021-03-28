@@ -58,7 +58,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |tan|&#40;-inf,+inf&#41;|4||MultiPrecision&lt;*N*&gt;.Tan(x)|
 |sinpi|&#40;-inf,+inf&#41;|0| sin(&pi;x) |MultiPrecision&lt;*N*&gt;.SinPI(x)|
 |cospi|&#40;-inf,+inf&#41;|0| cos(&pi;x) |MultiPrecision&lt;*N*&gt;.CosPI(x)|
-|tanpi|&#40;-inf,+inf&#41;|3| tan(&pi;x) |MultiPrecision&lt;*N*&gt;.TanPI(x)|
+|tanpi|&#40;-inf,+inf&#41;|1| tan(&pi;x) |MultiPrecision&lt;*N*&gt;.TanPI(x)|
 |sinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Sinh(x)|
 |cosh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Cosh(x)|
 |tanh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Tanh(x)|
@@ -69,9 +69,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arsinh(x)|
 |arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Artanh(x)|
-|erf|&#40;-inf,+inf&#41;|2|*Length* &leq; 64|MultiPrecision&lt;*N*&gt;.Erf(x)|
-|erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 64|MultiPrecision&lt;*N*&gt;.Erfc(x)|
-|loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=1,2.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.LogGamma(z)|
+|erf|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erf(x)|
+|erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
+|loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.LogGamma(z)|
 |gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.Gamma(z)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;*N*&gt;.Random(random)|

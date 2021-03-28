@@ -18,7 +18,7 @@ namespace MultiPrecisionTest.Functions {
                 TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, minerr: 1e-5, ignore_sign: true);
             }
 
-            for (int x = -31; x <= 31; x += 2) { 
+            for (int x = -31; x <= 31; x += 2) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
@@ -38,7 +38,7 @@ namespace MultiPrecisionTest.Functions {
                 TestTool.Tolerance(Math.Sin((double)x * Math.PI / 2), y, minerr: 1e-5, ignore_sign: true);
             }
 
-            for (int x = -32; x <= 32; x += 2) { 
+            for (int x = -32; x <= 32; x += 2) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
@@ -211,7 +211,7 @@ namespace MultiPrecisionTest.Functions {
             }
         }
 
-        
+
 
         [TestMethod]
         public void TanPIBorderTest() {

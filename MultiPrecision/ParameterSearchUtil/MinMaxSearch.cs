@@ -22,12 +22,12 @@ namespace MultiPrecision.ParameterSearchUtil {
 
     public class MinSearch<N> : ParameterSearch<N> where N : struct, IConstant {
 
-        public MinSearch((long min, long max) likely_range, (long min, long max) search_range) : 
-            base(likely_range, search_range){ }
+        public MinSearch((long min, long max) likely_range, (long min, long max) search_range) :
+            base(likely_range, search_range) { }
 
         public long MinPoint => MaxLikelihoodPoint;
 
-        public override long MaxLikelihoodPoint { 
+        public override long MaxLikelihoodPoint {
             get {
                 if (Samples.Count <= 0) {
                     throw new InvalidOperationException();

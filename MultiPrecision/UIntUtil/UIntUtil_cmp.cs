@@ -116,7 +116,7 @@ namespace MultiPrecision {
                         if (a[i] >= b[i]) {
                             matches += LeadingZeroCount(a[i] - b[i]);
                         }
-                        else { 
+                        else {
                             matches += LeadingZeroCount(b[i] - a[i]);
                         }
 

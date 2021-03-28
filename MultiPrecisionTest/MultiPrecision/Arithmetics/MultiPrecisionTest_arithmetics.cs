@@ -49,7 +49,7 @@ namespace MultiPrecisionTest.Arithmetics {
             long.MinValue, long.MinValue + 1, -9999999999999999, int.MinValue, int.MinValue + 1,
             -99999999, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
             0,
-            long.MaxValue, int.MaxValue, 
+            long.MaxValue, int.MaxValue,
             9999999999999999, 99999999, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
         };
 
@@ -162,7 +162,7 @@ namespace MultiPrecisionTest.Arithmetics {
                         continue;
                     }
                     if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
-                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) { 
+                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
                         Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                         Console.WriteLine($"{a} * {b} = {c_actual}");
 
@@ -218,7 +218,7 @@ namespace MultiPrecisionTest.Arithmetics {
                         continue;
                     }
                     if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
-                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) { 
+                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
                         Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                         Console.WriteLine($"{a} / {b} = {c_actual}");
 

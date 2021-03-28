@@ -143,11 +143,11 @@ namespace MultiPrecision {
 
             BigUInt<Plus4<N>> a_acc = new BigUInt<Plus4<N>>(a.Value.ToArray(), 1);
             BigUInt<Plus4<N>> b_acc = new BigUInt<Plus4<N>>(new UInt32[] { b_lo, b_hi }, Length + 1);
-            
+
             if (relative_exponent < 1) {
                 b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
             }
-            else if(relative_exponent > 1){ 
+            else if (relative_exponent > 1) {
                 a_acc = BigUInt<Plus4<N>>.RightShift(a_acc, checked((int)relative_exponent) - 1);
             }
 
@@ -170,11 +170,11 @@ namespace MultiPrecision {
 
             BigUInt<Plus4<N>> a_acc = new BigUInt<Plus4<N>>(a.Value.ToArray(), 1);
             BigUInt<Plus4<N>> b_acc = new BigUInt<Plus4<N>>(new UInt32[] { b_lo, b_hi }, Length + 1);
-            
+
             if (relative_exponent < 1) {
                 b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
             }
-            else if(relative_exponent > 1){ 
+            else if (relative_exponent > 1) {
                 a_acc = BigUInt<Plus4<N>>.RightShift(a_acc, checked((int)relative_exponent) - 1);
             }
 

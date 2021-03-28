@@ -142,7 +142,7 @@ namespace MultiPrecision {
                 (Mantissa<N> mantissa, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), (b.mantissa, b.Exponent));
 
                 return new MultiPrecision<N>(
-                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus,
                     exponent, mantissa, round: false);
             }
             else {
@@ -244,7 +244,7 @@ namespace MultiPrecision {
 
             int lzc = acc.LeadingZeroCount;
             acc <<= lzc;
-            
+
             Int64 exponent = a.Exponent - lzc + UIntUtil.UInt32Bits * expands;
             Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
             bool round = acc[expands - 1] > UIntUtil.UInt32Round;
@@ -293,7 +293,7 @@ namespace MultiPrecision {
 
             int lzc = acc.LeadingZeroCount;
             acc <<= lzc;
-            
+
             Int64 exponent = a.Exponent - lzc;
             Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
             bool round = acc[expands - 1] > UIntUtil.UInt32Round;
@@ -352,7 +352,7 @@ namespace MultiPrecision {
                 (Mantissa<N> n, Int64 exponent, bool round, Sign sign) = Diff(a.mantissa, b_abs, -a.Exponent);
 
                 return new MultiPrecision<N>(
-                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus,
                     exponent + a.Exponent, n, round);
             }
             else {

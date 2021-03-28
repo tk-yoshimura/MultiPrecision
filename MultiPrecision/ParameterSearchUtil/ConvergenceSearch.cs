@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
     public class ConvergenceSearch<N> : ParameterSearch<N> where N : struct, IConstant {

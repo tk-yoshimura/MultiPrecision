@@ -13,7 +13,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public virtual long MaxLikelihoodPoint { get; }
 
-        public (long min, long max) SearchRange { private set; get; } 
+        public (long min, long max) SearchRange { private set; get; }
 
         public long Step { private set; get; }
 
@@ -38,7 +38,7 @@ namespace MultiPrecision.ParameterSearchUtil {
             if (search_range.min >= search_range.max) {
                 throw new ArgumentException(nameof(search_range));
             }
-            if (likely_range.min < search_range.min || likely_range.max > search_range.max) { 
+            if (likely_range.min < search_range.min || likely_range.max > search_range.max) {
                 throw new ArgumentException($"{nameof(likely_range)},{nameof(search_range)}");
             }
 
@@ -101,12 +101,12 @@ namespace MultiPrecision.ParameterSearchUtil {
                 return;
             }
 
-            if (max_likelihood >= samples.Keys.Max() && max_likelihood < SearchRange.max) { 
+            if (max_likelihood >= samples.Keys.Max() && max_likelihood < SearchRange.max) {
                 while (samples_standby.Count <= 0 && Step > 1) {
                     PushSampleRequest(checked(max_likelihood - Step / 2));
                     PushSampleRequest(checked(max_likelihood + Step / 2));
                     PushSampleRequest(checked(max_likelihood + Step));
-                    
+
                     if (samples_standby.Count <= 0) {
                         Step /= 2;
                     }

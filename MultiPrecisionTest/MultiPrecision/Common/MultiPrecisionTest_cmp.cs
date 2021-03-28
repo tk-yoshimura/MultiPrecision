@@ -154,11 +154,11 @@ namespace MultiPrecisionTest.Common {
                 },
             };
 
-            for (int i = 0; i < g; i++) { 
+            for (int i = 0; i < g; i++) {
                 for (int j = 0; j < n; j++) {
                     MultiPrecision<Pow2.N8> v = vss[i][j];
-                    
-                    for (int k = 0; k < g; k++) { 
+
+                    for (int k = 0; k < g; k++) {
                         for (int m = 0; m < n; m++) {
                             MultiPrecision<Pow2.N8> u = vss[k][m];
 
@@ -190,13 +190,13 @@ namespace MultiPrecisionTest.Common {
 
                                     Assert.IsTrue(dist >= 3 && dist < 8);
                                 }
-                                else { 
+                                else {
                                     Console.WriteLine("nearly more 4bits");
                                 }
 
                                 Console.WriteLine(string.Empty);
                             }
-                            else { 
+                            else {
                                 Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 0), "bits 0");
                                 Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 1), "bits 1");
                                 Assert.IsFalse(MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 2), "bits 2");

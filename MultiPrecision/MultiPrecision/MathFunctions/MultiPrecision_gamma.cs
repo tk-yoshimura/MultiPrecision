@@ -44,7 +44,7 @@ namespace MultiPrecision {
 
                     return y;
                 }
-                else { 
+                else {
                     MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
 
                     MultiPrecision<SterlingExpand<N>> r = MultiPrecision<SterlingExpand<N>>.Sqrt(2 * MultiPrecision<SterlingExpand<N>>.PI / z_ex);
@@ -71,8 +71,34 @@ namespace MultiPrecision {
                 return PositiveInfinity;
             }
 
-            if (z.Exponent < 2) {
+            if (z.Exponent < -2) {
                 return Log(Gamma(z));
+            }
+
+            if ((z - 1).Exponent <= -Bits / 8) {
+                z -= 1;
+
+                return z * (-EulerGamma
+                        + z * ((PI * PI / 12) 
+                        + z * (-(Zeta3 / 3)
+                        + z * ((Pow(PI, 4) / 360)
+                        + z * (-(Zeta5 / 5)
+                        + z * ((Pow(PI, 6) / 5670)
+                        + z * (-(Zeta7 / 7)
+                        + z * (Pow(PI, 8) / 75600))))))));
+            }
+
+            if ((z - 2).Exponent <= -Bits / 8) {
+                z -= 2;
+
+                return z * ((1 - EulerGamma)
+                        + z * (((PI * PI - 6) / 12)
+                        + z * (((1 - Zeta3) / 3)
+                        + z * (((Pow(PI, 4) - 90) / 360)
+                        + z * (((1 - Zeta5) / 5)
+                        + z * (((Pow(PI, 6) - 945) / 5670)
+                        + z * (((1 - Zeta7) / 7)
+                        + z * ((Pow(PI, 8) - 9450) / 75600))))))));
             }
 
             if (z < Consts.Gamma.SterlingThreshold) {
@@ -86,7 +112,7 @@ namespace MultiPrecision {
 
                 return y;
             }
-            else { 
+            else {
                 MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
 
                 MultiPrecision<SterlingExpand<N>> p = (z_ex - MultiPrecision<SterlingExpand<N>>.Point5) * MultiPrecision<SterlingExpand<N>>.Log(z_ex);

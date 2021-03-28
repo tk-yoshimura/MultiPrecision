@@ -81,9 +81,9 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void AtanBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                MultiPrecision<Pow2.N8>.NegativeInfinity, -2, -1, 
+                MultiPrecision<Pow2.N8>.NegativeInfinity, -2, -1,
                 -MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
-                0, 
+                0,
                 +MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
                 1, 2, MultiPrecision<Pow2.N8>.PositiveInfinity
             };

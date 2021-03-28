@@ -19,7 +19,7 @@ namespace MultiPrecision {
             if (n <= 0) {
                 throw new ArgumentOutOfRangeException(nameof(n));
             }
-            
+
             if (n <= table.Count) {
                 return table[n - 1];
             }

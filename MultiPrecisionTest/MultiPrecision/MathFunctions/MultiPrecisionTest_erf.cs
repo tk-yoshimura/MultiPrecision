@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
-using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -238,7 +237,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, 2, 1, 0, -1, -2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 8 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
@@ -255,11 +254,107 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.Write("\n");
             }
+
+            foreach (MultiPrecision<Pow2.N4> b in new MultiPrecision<Pow2.N4>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N16> b in new MultiPrecision<Pow2.N16>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N32> b in new MultiPrecision<Pow2.N32>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N64> b in new MultiPrecision<Pow2.N64>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N128> b in new MultiPrecision<Pow2.N128>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N256> b in new MultiPrecision<Pow2.N256>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Erf(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
         }
 
         [TestMethod]
         public void ErfcBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 2, 1, 0, -1, -2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 8 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
@@ -276,71 +371,138 @@ namespace MultiPrecisionTest.Functions {
 
                 Console.Write("\n");
             }
-        }
 
-        //[TestMethod]
-        public void ErfcConvergenceTest() {
-            MultiPrecision<Pow2.N8> x = 2;
-            MultiPrecision<Pow2.N8> erfc2 = 1 - MultiPrecision<Pow2.N8>.Erf(x);
+            foreach (MultiPrecision<Pow2.N4> b in new MultiPrecision<Pow2.N4>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Erfc(x);
 
-            List<MultiPrecision<Pow2.N8>> errs = new List<MultiPrecision<Pow2.N8>>();
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
 
-            for (int i = MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 14; i <= MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 16; i++) {
-                MultiPrecision<Pow2.N8> z = x * MultiPrecision<Pow2.N8>.Sqrt2;
-                MultiPrecision<Pow2.N8> a = 0;
-
-                for (long n = i; n > 0; n--) {
-                    a = n / (z + a);
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
                 }
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Exp(-x * x) / (z + a) * MultiPrecision<Pow2.N8>.Sqrt(2 / MultiPrecision<Pow2.N8>.PI);
+                Console.Write("\n");
+            }
 
-                MultiPrecision<Pow2.N8> err = erfc2 - y;
+            foreach (MultiPrecision<Pow2.N16> b in new MultiPrecision<Pow2.N16>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erfc(x);
 
-                errs.Add(err);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
 
-                Console.WriteLine($"{i},{err:E12}");
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N32> b in new MultiPrecision<Pow2.N32>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Erfc(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N64> b in new MultiPrecision<Pow2.N64>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Erfc(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N128> b in new MultiPrecision<Pow2.N128>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Erfc(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
+            }
+
+            foreach (MultiPrecision<Pow2.N256> b in new MultiPrecision<Pow2.N256>[] { 8 }) {
+                foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor(b, 2)) {
+                    MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Erfc(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(ErfcApprox((double)x), y, minerr: 1e-2);
+                }
+
+                Console.Write("\n");
             }
         }
 
-        //[TestMethod]
-        public void ErfcConvergence2Test() {
+        [TestMethod]
+        public void ErfUnnormalValueTest() {
+            Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.NegativeInfinity));
+            Assert.AreEqual(+1, MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.PositiveInfinity));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.NaN).IsNaN);
+        }
 
-            const int max_cnt = 5;
+        [TestMethod]
+        public void ErfcUnnormalValueTest() {
+            Assert.AreEqual(2, MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.NegativeInfinity));
+            Assert.AreEqual(0, MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.PositiveInfinity));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.NaN).IsNaN);
+        }
 
-            for (decimal d = 2; d <= 5; d += 0.0625m) {
-                MultiPrecision<Pow2.N8> x = d;
+        [TestMethod]
+        public void ErfLargeValueTest() {
+            for (decimal z = 2; z <= 20; z += 0.125m) {
+                MultiPrecision<Pow2.N8> y_n8 = MultiPrecision<Pow2.N8>.Erf(z);
+                MultiPrecision<Pow2.N16> y_n16 = MultiPrecision<Pow2.N16>.Erf(z);
 
-                MultiPrecision<Pow2.N8> prev = 0;
-                int cnt = 0;
+                MultiPrecision<Pow2.N8> y_n8_m = 1 - MultiPrecision<Pow2.N8>.Erfc(z);
+                MultiPrecision<Pow2.N16> y_n16_m = 1 - MultiPrecision<Pow2.N16>.Erfc(z);
 
-                for (int i = MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 4; i <= MultiPrecision<Pow2.N8>.Length * MultiPrecision<Pow2.N8>.Length * 16; i++) {
-                    MultiPrecision<Pow2.N8> z = x * MultiPrecision<Pow2.N8>.Sqrt2;
-                    MultiPrecision<Pow2.N8> a = 0;
+                Console.WriteLine($"erf({z})=");
+                Console.WriteLine(y_n8);
+                Console.WriteLine(y_n16);
+                Console.WriteLine(y_n8.ToHexcode());
+                Console.WriteLine(y_n16.ToHexcode());
 
-                    for (long n = i; n > 0; n--) {
-                        a = n / (z + a);
-                    }
+                Console.WriteLine(y_n8_m.ToHexcode());
+                Console.WriteLine(y_n16_m.ToHexcode());
 
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Exp(-x * x) / (z + a) * MultiPrecision<Pow2.N8>.Sqrt(2 / MultiPrecision<Pow2.N8>.PI);
-
-                    if (prev == y) {
-                        cnt++;
-                    }
-                    else {
-                        prev = y;
-                        cnt = 0;
-                    }
-
-                    if (cnt >= max_cnt) {
-                        Console.WriteLine($"{x},{i - max_cnt},{y.ToHexcode()}");
-                        break;
-                    }
-                }
-
-                if (cnt < max_cnt) {
-                    Console.WriteLine($"{x},N/A");
-                }
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y_n8, y_n8_m, 1));
+                Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(y_n16, y_n16_m, 1));
             }
         }
     }
