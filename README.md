@@ -72,7 +72,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |erf|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erf(x)|
 |erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
 |inverse_erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErf(x)|
-|inverse_erfc|&#40;-1,1&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
+|inverse_erfc|&#40;0,2&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
 |loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.LogGamma(z)|
 |gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 128 |MultiPrecision&lt;*N*&gt;.Gamma(z)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
