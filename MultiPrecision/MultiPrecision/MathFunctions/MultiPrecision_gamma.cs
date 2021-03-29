@@ -71,27 +71,27 @@ namespace MultiPrecision {
             if ((z - 1).Exponent <= -Bits / 8) {
                 z -= 1;
 
-                return z * (-EulerGamma
-                        + z * ((PI * PI / 12)
-                        + z * (-(Zeta3 / 3)
-                        + z * ((Pow(PI, 4) / 360)
-                        + z * (-(Zeta5 / 5)
-                        + z * ((Pow(PI, 6) / 5670)
-                        + z * (-(Zeta7 / 7)
-                        + z * (Pow(PI, 8) / 75600))))))));
+                return z * (-226800 * EulerGamma
+                        + z * (18900 * (PI * PI)
+                        + z * (-75600 * Zeta3
+                        + z * (630 * Pow(PI, 4)
+                        + z * (-45360 * Zeta5
+                        + z * (40 * Pow(PI, 6)
+                        + z * (-32400 * Zeta7
+                        + z * (3 * Pow(PI, 8))))))))) / 226800;
             }
 
             if ((z - 2).Exponent <= -Bits / 8) {
                 z -= 2;
 
-                return z * ((1 - EulerGamma)
-                        + z * (((PI * PI - 6) / 12)
-                        + z * (((1 - Zeta3) / 3)
-                        + z * (((Pow(PI, 4) - 90) / 360)
-                        + z * (((1 - Zeta5) / 5)
-                        + z * (((Pow(PI, 6) - 945) / 5670)
-                        + z * (((1 - Zeta7) / 7)
-                        + z * ((Pow(PI, 8) - 9450) / 75600))))))));
+                return z * (226800 * (1 - EulerGamma)
+                        + z * (18900 * ((PI * PI) - 6)
+                        + z * (75600 * (1 - Zeta3)
+                        + z * (630 * (Pow(PI, 4) - 90)
+                        + z * (45360 * (1 - Zeta5)
+                        + z * (40 * (Pow(PI, 6) - 945)
+                        + z * (32400 * (1 - Zeta7)
+                        + z * (3 * (Pow(PI, 8) - 9450))))))))) / 226800;
             }
 
             if (z < Consts.Gamma.Threshold) {
