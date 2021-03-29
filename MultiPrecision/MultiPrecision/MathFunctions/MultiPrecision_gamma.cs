@@ -79,7 +79,7 @@ namespace MultiPrecision {
                 z -= 1;
 
                 return z * (-EulerGamma
-                        + z * ((PI * PI / 12) 
+                        + z * ((PI * PI / 12)
                         + z * (-(Zeta3 / 3)
                         + z * ((Pow(PI, 4) / 360)
                         + z * (-(Zeta5 / 5)

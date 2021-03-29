@@ -235,7 +235,7 @@ namespace MultiPrecisionTest.Functions {
                 2 - MultiPrecision<Pow2.N8>.Ldexp(1, -31),
                 2 + MultiPrecision<Pow2.N8>.Ldexp(1, -31),
                 MultiPrecision<Pow2.N8>.Ldexp(1, -2),
-                0, 1, 2, 3, 4, 32, 64 
+                0, 1, 2, 3, 4, 32, 64
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {

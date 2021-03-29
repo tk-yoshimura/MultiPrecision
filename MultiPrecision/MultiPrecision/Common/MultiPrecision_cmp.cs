@@ -5,6 +5,7 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> : IComparable<MultiPrecision<N>> {
 
         public static bool operator ==(MultiPrecision<N> a, MultiPrecision<N> b) {
+            if (a is null && b is null) return true;
             if (a is null || b is null || a.IsNaN || b.IsNaN) return false;
 
             return ((a.Sign == b.Sign) && (a.exponent == b.exponent) && (a.mantissa == b.mantissa)) || (a.IsZero && b.IsZero);

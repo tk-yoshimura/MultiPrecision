@@ -206,5 +206,32 @@ namespace MultiPrecisionTest.Common {
                 }
             }
         }
+
+        [TestMethod]
+        public void NullCmpTest() {
+            MultiPrecision<Pow2.N8> x = 1;
+            MultiPrecision<Pow2.N8> n = null;
+
+            Assert.IsTrue(x != null);
+            Assert.IsTrue(x != n);
+            Assert.IsTrue(null != x);
+            Assert.IsTrue(n != x);
+
+            Assert.IsFalse(x == null);
+            Assert.IsFalse(x == n);
+            Assert.IsFalse(null == x);
+            Assert.IsFalse(n == x);
+
+            Assert.IsFalse(n != null);
+            Assert.IsFalse(null != n);
+
+            Assert.IsTrue(n == null);
+            Assert.IsTrue(null == n);
+
+#pragma warning disable CS1718
+            Assert.IsTrue(n == n);
+            Assert.IsFalse(n != n);
+#pragma warning restore CS1718
+        }
     }
 }
