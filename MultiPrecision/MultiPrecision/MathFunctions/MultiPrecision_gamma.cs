@@ -1,6 +1,7 @@
 ﻿using MultiPrecision.Properties;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
@@ -9,10 +10,6 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Gamma(MultiPrecision<N> z) {
-            if (!Consts.Gamma.Initialized) {
-                Consts.Gamma.Initialize();
-            }
-
             if (z.IsNaN || (z.Sign == Sign.Minus && !z.IsFinite)) {
                 return NaN;
             }
@@ -33,10 +30,10 @@ namespace MultiPrecision {
                 return y;
             }
             else {
-                if (z < Consts.Gamma.SterlingThreshold) {
+                if (z < Consts.Gamma.Threshold) {
                     MultiPrecision<LanczosExpand<N>> x = LanczosAg(z);
                     MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
-                    MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.LanczosG) / MultiPrecision<LanczosExpand<N>>.E;
+                    MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.Lanczos.G) / MultiPrecision<LanczosExpand<N>>.E;
 
                     MultiPrecision<LanczosExpand<N>> y_ex = MultiPrecision<LanczosExpand<N>>.Pow(t, s) * x;
 
@@ -59,10 +56,6 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> LogGamma(MultiPrecision<N> z) {
-            if (!Consts.Gamma.Initialized) {
-                Consts.Gamma.Initialize();
-            }
-
             if (z.IsNaN || z.IsZero || z.Sign == Sign.Minus) {
                 return NaN;
             }
@@ -101,10 +94,10 @@ namespace MultiPrecision {
                         + z * ((Pow(PI, 8) - 9450) / 75600))))))));
             }
 
-            if (z < Consts.Gamma.SterlingThreshold) {
+            if (z < Consts.Gamma.Threshold) {
                 MultiPrecision<LanczosExpand<N>> x = MultiPrecision<LanczosExpand<N>>.Log(LanczosAg(z));
                 MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
-                MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.LanczosG);
+                MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.Lanczos.G);
 
                 MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - 1);
 
@@ -118,18 +111,18 @@ namespace MultiPrecision {
                 MultiPrecision<SterlingExpand<N>> p = (z_ex - MultiPrecision<SterlingExpand<N>>.Point5) * MultiPrecision<SterlingExpand<N>>.Log(z_ex);
                 MultiPrecision<SterlingExpand<N>> s = SterlingTerm(z_ex);
 
-                MultiPrecision<SterlingExpand<N>> y = Consts.Gamma.SterlingLogBias - z_ex + p + s;
+                MultiPrecision<SterlingExpand<N>> y = Consts.Gamma.Sterling.LogBias - z_ex + p + s;
 
                 return y.Convert<N>();
             }
         }
 
         private static MultiPrecision<LanczosExpand<N>> LanczosAg(MultiPrecision<N> z) {
-            MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.LanczosCoef[0];
+            MultiPrecision<Double<LanczosExpand<N>>> x_ex = Consts.Gamma.Lanczos.Coef[0];
             MultiPrecision<Double<LanczosExpand<N>>> z_ex = (z - 1).Convert<Double<LanczosExpand<N>>>();
 
-            for (int i = 1; i < Consts.Gamma.LanczosN; i++) {
-                MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.LanczosCoef[i];
+            for (int i = 1; i < Consts.Gamma.Lanczos.N; i++) {
+                MultiPrecision<Double<LanczosExpand<N>>> w = Consts.Gamma.Lanczos.Coef[i];
 
                 x_ex += w / (z_ex + i);
             }
@@ -144,7 +137,7 @@ namespace MultiPrecision {
 
             MultiPrecision<SterlingExpand<N>> x = 0, u = 1;
 
-            foreach (MultiPrecision<SterlingExpand<N>> s in Consts.Gamma.SterlingCoef) {
+            foreach (MultiPrecision<SterlingExpand<N>> s in Consts.Gamma.Sterling.Coef) {
                 x += u * s;
                 u *= w;
             }
@@ -156,73 +149,92 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Gamma {
-                private static MultiPrecision<LanczosExpand<N>> lanczos_g = null;
-                private static MultiPrecision<Double<LanczosExpand<N>>>[] lanczos_coef = null;
+                public static MultiPrecision<N> Threshold { private set; get; }
 
-                private static MultiPrecision<N> sterling_threshold = null;
-                private static MultiPrecision<SterlingExpand<N>> sterling_logbias = null;
-                private static MultiPrecision<SterlingExpand<N>>[] sterling_coef = null;
+                static Gamma() {
+                    switch (Length) {
+                        case <= 4:
+                            Threshold = 150;
+                            break;
+                        case <= 8:
+                            Threshold = 100;
+                            break;
+                        case <= 16:
+                            Threshold = 128;
+                            break;
+                        case <= 32:
+                            Threshold = 250;
+                            break;
+                        case <= 64:
+                            Threshold = 472;
+                            break;
+                        case <= 128:
+                            Threshold = 936;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(Length));
+                    }
 
-                public static MultiPrecision<LanczosExpand<N>> LanczosG => lanczos_g;
-                public static int LanczosN => lanczos_coef.Length;
-                public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> LanczosCoef => lanczos_coef;
-
-                public static int SterlingN => sterling_coef.Length;
-
-                public static MultiPrecision<N> SterlingThreshold => sterling_threshold;
-                public static MultiPrecision<SterlingExpand<N>> SterlingLogBias => sterling_logbias;
-                public static IReadOnlyList<MultiPrecision<SterlingExpand<N>>> SterlingCoef => sterling_coef;
-
-                public static bool Initialized { private set; get; } = false;
-
-                public static void Initialize() {
-                    InitializeLanczos();
-                    InitializeSterling();
-
-                    Initialized = true;
+#if DEBUG
+                        Trace.WriteLine($"Gamma<{Length}> initialized.");
+#endif
                 }
 
-                private static void InitializeLanczos() {
-                    byte[] state = null;
+                public static class Lanczos {
+                    private static readonly MultiPrecision<LanczosExpand<N>> g = null;
+                    private static readonly MultiPrecision<Double<LanczosExpand<N>>>[] coef = null;
 
-                    if (Length <= 4) {
-                        state = Resources.lanczos_mp4;
-                    }
-                    else if (Length <= 8) {
-                        state = Resources.lanczos_mp8;
-                    }
-                    else if (Length <= 16) {
-                        state = Resources.lanczos_mp16;
-                    }
-                    else if (Length <= 32) {
-                        state = Resources.lanczos_mp32;
-                    }
-                    else if (Length <= 64) {
-                        state = Resources.lanczos_mp64;
-                    }
-                    else if (Length <= 128) {
-                        state = Resources.lanczos_mp128;
-                    }
-                    else {
-                        throw new ArgumentOutOfRangeException(nameof(Length));
+                    public static int N => coef.Length;
+                    public static MultiPrecision<LanczosExpand<N>> G => g;
+                    public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> Coef => coef;
+                    
+                    static Lanczos() {
+                        byte[] state = null;
+
+                        switch (Length) {
+                            case <= 4:
+                                state = Resources.lanczos_mp4;
+                                break;
+                            case <= 8:
+                                state = Resources.lanczos_mp8;
+                                break;
+                            case <= 16:
+                                state = Resources.lanczos_mp16;
+                                break;
+                            case <= 32:
+                                state = Resources.lanczos_mp32;
+                                break;
+                            case <= 64:
+                                state = Resources.lanczos_mp64;
+                                break;
+                            case <= 128:
+                                state = Resources.lanczos_mp128;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(Length));
+                        }
+
+                        (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) = ReadLanczosState(state);
+
+                        Lanczos.g = g;
+
+                        coef = table
+                            .Select(
+                                (v) => v.Convert<Double<LanczosExpand<N>>>()
+                            ).ToArray();
+
+#if DEBUG
+                        Trace.WriteLine($"Gamma.Lanczos<{Length}> initialized.");
+#endif
                     }
 
-                    (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) = ReadLanczosState(state);
+                    private static (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) ReadLanczosState(byte[] state) {
+                        MultiPrecision<LanczosExpand<N>> g;
+                        MultiPrecision<LanczosExpand<N>>[] table;
 
-                    lanczos_g = g;
+                        using (MemoryStream stream = new(state)) {
+                            using BinaryReader reader = new(stream); 
 
-                    lanczos_coef = table
-                        .Select(
-                            (v) => v.Convert<Double<LanczosExpand<N>>>()
-                        ).ToArray();
-                }
-
-                private static (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) ReadLanczosState(byte[] state) {
-                    MultiPrecision<LanczosExpand<N>> g;
-                    MultiPrecision<LanczosExpand<N>>[] table;
-
-                    using (MemoryStream stream = new(state)) {
-                        using (BinaryReader reader = new(stream)) {
                             int length = reader.ReadInt32();
 
                             g = reader.ReadMultiPrecision<LanczosExpand<N>>();
@@ -233,50 +245,58 @@ namespace MultiPrecision {
                                 table[i] = reader.ReadMultiPrecision<LanczosExpand<N>>();
                             }
                         }
-                    }
 
-                    return (g, table);
+                        return (g, table);
+                    }
                 }
 
-                private static void InitializeSterling() {
-                    int terms;
+                public static class Sterling {
+                    private static readonly MultiPrecision<SterlingExpand<N>> logbias = null;
+                    private static readonly MultiPrecision<SterlingExpand<N>>[] coef = null;
 
-                    if (Length <= 4) {
-                        terms = 10;
-                        sterling_threshold = 150;
-                    }
-                    else if (Length <= 8) {
-                        terms = 26;
-                        sterling_threshold = 100;
-                    }
-                    else if (Length <= 16) {
-                        terms = 62;
-                        sterling_threshold = 128;
-                    }
-                    else if (Length <= 32) {
-                        terms = 124;
-                        sterling_threshold = 250;
-                    }
-                    else if (Length <= 64) {
-                        terms = 258;
-                        sterling_threshold = 472;
-                    }
-                    else if (Length <= 128) {
-                        terms = 518;
-                        sterling_threshold = 936;
-                    }
-                    else {
-                        throw new ArgumentOutOfRangeException(nameof(Length));
-                    }
+                    public static int N => coef.Length;                    
+                    public static MultiPrecision<SterlingExpand<N>> LogBias => logbias;
+                    public static IReadOnlyList<MultiPrecision<SterlingExpand<N>>> Coef => coef;
 
-                    sterling_logbias = MultiPrecision<SterlingExpand<N>>.Log(
-                        MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.PI * 2)
-                    );
+                    static Sterling() {
+                        int terms;
 
-                    sterling_coef = new MultiPrecision<SterlingExpand<N>>[terms];
+                        switch (Length) {
+                            case <= 4:
+                                terms = 10;
+                                break;
+                            case <= 8:
+                                terms = 26;
+                                break;
+                            case <= 16:
+                                terms = 62;
+                                break;
+                            case <= 32:
+                                terms = 124;
+                                break;
+                            case <= 64:
+                                terms = 258;
+                                break;
+                            case <= 128:
+                                terms = 518;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException(nameof(Length));
+                        }
 
-                    for (int i = 0, k = 1; i < sterling_coef.Length; i++, k++) {
-                        sterling_coef[i] = MultiPrecision<SterlingExpand<N>>.BernoulliSequence(k) / checked((2 * k) * (2 * k - 1));
+                        logbias = MultiPrecision<SterlingExpand<N>>.Log(
+                            MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.PI * 2)
+                        );
+
+                        coef = new MultiPrecision<SterlingExpand<N>>[terms];
+
+                        for (int i = 0, k = 1; i < coef.Length; i++, k++) {
+                            coef[i] = MultiPrecision<SterlingExpand<N>>.BernoulliSequence(k) / checked((2 * k) * (2 * k - 1));
+                        }
+
+#if DEBUG
+                        Trace.WriteLine($"Gamma.Sterling<{Length}> initialized.");
+#endif
                     }
                 }
             }
@@ -287,26 +307,21 @@ namespace MultiPrecision {
         public int Value {
             get {
                 int length = default(N).Value;
-                if (length <= 4) {
-                    return 6;
-                }
-                else if (length <= 8) {
-                    return 12;
-                }
-                else if (length <= 16) {
-                    return 20;
-                }
-                else if (length <= 32) {
-                    return 40;
-                }
-                else if (length <= 64) {
-                    return 80;
-                }
-                else if (length <= 128) {
-                    return 160;
-                }
-                else {
-                    throw new ArgumentOutOfRangeException(nameof(N));
+                switch (length) {
+                    case <= 4:
+                        return 6;
+                    case <= 8:
+                        return 12;
+                    case <= 16:
+                        return 20;
+                    case <= 32:
+                        return 40;
+                    case <= 64:
+                        return 80;
+                    case <= 128:
+                        return 160;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(N));
                 }
             }
         }
@@ -316,26 +331,21 @@ namespace MultiPrecision {
         public int Value {
             get {
                 int length = default(N).Value;
-                if (length <= 4) {
-                    return 8;
-                }
-                else if (length <= 8) {
-                    return 16;
-                }
-                else if (length <= 16) {
-                    return 32;
-                }
-                else if (length <= 32) {
-                    return 64;
-                }
-                else if (length <= 64) {
-                    return 128;
-                }
-                else if (length <= 128) {
-                    return 256;
-                }
-                else {
-                    throw new ArgumentOutOfRangeException(nameof(N));
+                switch (length) {
+                    case <= 4:
+                        return 8;
+                    case <= 8:
+                        return 16;
+                    case <= 16:
+                        return 32;
+                    case <= 32:
+                        return 64;
+                    case <= 64:
+                        return 128;
+                    case <= 128:
+                        return 256;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(N));
                 }
             }
         }

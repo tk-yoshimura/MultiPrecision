@@ -248,7 +248,7 @@ namespace MultiPrecision {
             Int64 exponent = a.Exponent - lzc + UIntUtil.UInt32Bits * expands;
             Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
             bool round = acc[expands - 1] > UIntUtil.UInt32Round;
-            Mantissa<N> mantissa = new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone: false);
+            Mantissa<N> mantissa = new(acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
             return new MultiPrecision<N>(sign, exponent, mantissa, round);
         }
@@ -297,7 +297,7 @@ namespace MultiPrecision {
             Int64 exponent = a.Exponent - lzc;
             Sign sign = (a.Sign == UIntUtil.Sign(b)) ? Sign.Plus : Sign.Minus;
             bool round = acc[expands - 1] > UIntUtil.UInt32Round;
-            Mantissa<N> mantissa = new Mantissa<N>(acc.Value.Skip(expands).ToArray(), enable_clone: false);
+            Mantissa<N> mantissa = new(acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
             return new MultiPrecision<N>(sign, exponent, mantissa, round);
         }

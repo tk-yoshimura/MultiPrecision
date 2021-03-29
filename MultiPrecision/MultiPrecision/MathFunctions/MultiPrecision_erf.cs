@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 
@@ -73,10 +74,6 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<Plus4<N>> ErfTaylorSeriesApprox(MultiPrecision<N> z) {
-            if (!Consts.Erf.Initialized) {
-                Consts.Erf.Initialize();
-            }
-
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
             MultiPrecision<Plus4<N>> w = z_ex * z_ex, v = w;
             MultiPrecision<Plus4<N>> y = 1;
@@ -98,10 +95,6 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<Plus4<N>> ErfcContinueFractionalApprox(MultiPrecision<N> z, long n) {
-            if (!Consts.Erf.Initialized) {
-                Consts.Erf.Initialize();
-            }
-
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
             MultiPrecision<Plus4<N>> w = z_ex * z_ex;
 
@@ -126,13 +119,12 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Erf {
-                public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<Plus4<N>> C { private set; get; } = null;
 
                 public static int ExponentThreshold { private set; get; } = 3;
                 public static ReadOnlyCollection<MultiPrecision<Plus4<N>>> ErfDenomTable { private set; get; } = null;
 
-                public static void Initialize() {
+                static Erf() {
                     if (Length > 260) {
                         throw new ArgumentOutOfRangeException(nameof(Length));
                     }
@@ -152,7 +144,9 @@ namespace MultiPrecision {
 
                     ErfDenomTable = table.AsReadOnly();
 
-                    Initialized = true;
+#if DEBUG
+                    Trace.WriteLine($"Erf<{Length}> initialized.");
+#endif
                 }
             }
         }
@@ -257,6 +251,10 @@ namespace MultiPrecision {
                     ErfcConvergenceTable.ns[j, i] = n[i];
                 }
             }
+
+#if DEBUG
+            Trace.WriteLine($"Erfc initialized.");
+#endif
         }
 
         public static long N(int bit, double z) {

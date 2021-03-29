@@ -1,14 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sqrt(MultiPrecision<N> x) {
-            if (!Consts.Sqrt.Initialized) {
-                Consts.Sqrt.Initialize();
-            }
-
             if (x.Sign == Sign.Minus || x.IsNaN) {
                 return NaN;
             }
@@ -47,17 +44,18 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Sqrt {
-                public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<Plus1<N>> ApproxA { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> ApproxC { private set; get; } = null;
 
-                public static void Initialize() {
+                static Sqrt() {
                     ApproxA = (17 - 6 * MultiPrecision<Plus1<N>>.Sqrt2) / 6;
                     ApproxB = (5 * MultiPrecision<Plus1<N>>.Sqrt2 - 9) / 4;
                     ApproxC = (5 - 3 * MultiPrecision<Plus1<N>>.Sqrt2) / 12;
 
-                    Initialized = true;
+#if DEBUG
+                    Trace.WriteLine($"Sqrt<{Length}> initialized.");
+#endif
                 }
             }
         }

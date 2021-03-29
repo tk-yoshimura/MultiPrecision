@@ -141,8 +141,8 @@ namespace MultiPrecision {
 
             (UInt32 b_hi, UInt32 b_lo) = UIntUtil.Unpack(b);
 
-            BigUInt<Plus4<N>> a_acc = new BigUInt<Plus4<N>>(a.Value.ToArray(), 1);
-            BigUInt<Plus4<N>> b_acc = new BigUInt<Plus4<N>>(new UInt32[] { b_lo, b_hi }, Length + 1);
+            BigUInt<Plus4<N>> a_acc = new(a.Value.ToArray(), 1);
+            BigUInt<Plus4<N>> b_acc = new(new UInt32[] { b_lo, b_hi }, Length + 1);
 
             if (relative_exponent < 1) {
                 b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
@@ -158,7 +158,7 @@ namespace MultiPrecision {
 
             Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
             bool round = c_acc[expands - 1] > UIntUtil.UInt32Round;
-            Mantissa<N> mantissa = new Mantissa<N>(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
+            Mantissa<N> mantissa = new(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
             return (mantissa, exponent, round);
         }
@@ -168,8 +168,8 @@ namespace MultiPrecision {
 
             (UInt32 b_hi, UInt32 b_lo) = UIntUtil.Unpack(b);
 
-            BigUInt<Plus4<N>> a_acc = new BigUInt<Plus4<N>>(a.Value.ToArray(), 1);
-            BigUInt<Plus4<N>> b_acc = new BigUInt<Plus4<N>>(new UInt32[] { b_lo, b_hi }, Length + 1);
+            BigUInt<Plus4<N>> a_acc = new(a.Value.ToArray(), 1);
+            BigUInt<Plus4<N>> b_acc = new(new UInt32[] { b_lo, b_hi }, Length + 1);
 
             if (relative_exponent < 1) {
                 b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
@@ -198,7 +198,7 @@ namespace MultiPrecision {
 
             Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
             bool round = c_acc[expands - 1] > UIntUtil.UInt32Round;
-            Mantissa<N> mantissa = new Mantissa<N>(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
+            Mantissa<N> mantissa = new(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
             return (mantissa, exponent, round, sign);
         }

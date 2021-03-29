@@ -44,7 +44,7 @@ namespace MultiPrecision {
 
         public static int MinIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
             if (source.Count() <= 0) {
-                throw new ArgumentException("operations on empty arrays");
+                throw new InvalidOperationException("Sequence contains no elements");
             }
 
             MultiPrecision<N> min = MultiPrecision<N>.NaN;
@@ -63,7 +63,7 @@ namespace MultiPrecision {
 
         public static int MaxIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
             if (source.Count() <= 0) {
-                throw new ArgumentException("operations on empty arrays");
+                throw new InvalidOperationException("Sequence contains no elements");
             }
 
             MultiPrecision<N> max = MultiPrecision<N>.NaN;

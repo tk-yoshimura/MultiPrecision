@@ -1,14 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Rcp(MultiPrecision<N> x) {
-            if (!Consts.Rcp.Initialized) {
-                Consts.Rcp.Initialize();
-            }
-
             if (x.IsNaN) {
                 return NaN;
             }
@@ -47,15 +44,16 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Rcp {
-                public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<Plus1<N>> ApproxA { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
 
-                public static void Initialize() {
+                static Rcp() {
                     ApproxA = MultiPrecision<Plus1<N>>.Ldexp(3, -1);
                     ApproxB = MultiPrecision<Plus1<N>>.Ldexp(-1, -1);
 
-                    Initialized = true;
+#if DEBUG
+                    Trace.WriteLine($"Rcp<{Length}> initialized.");
+#endif
                 }
             }
         }

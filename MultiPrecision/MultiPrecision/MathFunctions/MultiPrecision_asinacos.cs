@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -89,10 +90,6 @@ namespace MultiPrecision {
         }
 
         internal static MultiPrecision<N> SquareAsin(MultiPrecision<N> x) {
-            if (!Consts.SquareAsin.Initialized) {
-                Consts.SquareAsin.Initialize();
-            }
-
 #if DEBUG
             Debug<ArithmeticException>.Assert(x >= Zero && x < One);
 #endif
@@ -127,10 +124,9 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class SquareAsin {
-                public static bool Initialized { private set; get; } = false;
                 public static ReadOnlyCollection<MultiPrecision<Plus1<N>>> FracTable { private set; get; } = null;
 
-                public static void Initialize() {
+                static SquareAsin() {
                     MultiPrecision<Plus1<N>> n = 1, n_frac = 1, n2_frac = 2;
                     List<MultiPrecision<Plus1<N>>> fracs = new();
 
@@ -148,7 +144,9 @@ namespace MultiPrecision {
 
                     FracTable = Array.AsReadOnly(fracs.ToArray());
 
-                    Initialized = true;
+#if DEBUG
+                    Trace.WriteLine($"SquareAsin<{Length}> initialized.");
+#endif
                 }
             }
         }

@@ -242,7 +242,7 @@ namespace MultiPrecision {
                 div.CarryAdd(i - denom_digits + 1, nh);
                 div.CarryAdd(i - denom_digits, nl);
 
-                BigUInt<N> sub = new BigUInt<N>(UIntUtil.Mul(n, v2_sft), 0);
+                BigUInt<N> sub = new(UIntUtil.Mul(n, v2_sft), 0);
                 sub.LeftBlockShift(i - denom_digits);
 
                 rem.Sub(sub);
@@ -260,7 +260,7 @@ namespace MultiPrecision {
                 div.CarryAdd(1, nh);
                 div.CarryAdd(0, nl);
 
-                BigUInt<N> sub = new BigUInt<N>(UIntUtil.Mul(n, v2_sft), 0);
+                BigUInt<N> sub = new(UIntUtil.Mul(n, v2_sft), 0);
                 rem.Sub(sub);
 
                 if (n == 0) {

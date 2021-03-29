@@ -1,14 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Cbrt(MultiPrecision<N> x) {
-            if (!Consts.Cbrt.Initialized) {
-                Consts.Cbrt.Initialize();
-            }
-
             if (x.IsNaN) {
                 return NaN;
             }
@@ -46,7 +43,6 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Cbrt {
-                public static bool Initialized { private set; get; } = false;
                 public static MultiPrecision<Plus1<N>> ApproxA { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> ApproxC { private set; get; } = null;
@@ -54,7 +50,7 @@ namespace MultiPrecision {
                 public static MultiPrecision<Plus1<N>> DifferenceB { private set; get; } = null;
                 public static MultiPrecision<Plus1<N>> DifferenceC { private set; get; } = null;
 
-                public static void Initialize() {
+                static Cbrt() {
                     ApproxA = (67 - 7 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.Div(4, 3))) / 42;
                     ApproxB = (21 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.One / 3) - 37) / 56;
                     ApproxC = (11 - 7 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.One / 3)) / 168;
@@ -63,7 +59,9 @@ namespace MultiPrecision {
                     DifferenceB = MultiPrecision<Plus1<N>>.Div(2, 9);
                     DifferenceC = MultiPrecision<Plus1<N>>.Div(14, 81);
 
-                    Initialized = true;
+#if DEBUG
+                    Trace.WriteLine($"Cbrt<{Length}> initialized.");
+#endif
                 }
             }
         }
