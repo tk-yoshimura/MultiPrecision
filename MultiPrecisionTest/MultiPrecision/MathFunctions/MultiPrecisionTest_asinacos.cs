@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -89,6 +90,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan(x);
 
@@ -99,7 +102,15 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Atan((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                if (b != 0) {
+                    TestTool.NearlyNeighbors(ys, 2);
+                }
+
+                TestTool.SmoothSatisfied(ys, 4);
 
                 Console.Write("\n");
             }
@@ -116,6 +127,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Asin(x);
 
@@ -126,7 +139,15 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Asin((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                if (b != 0) {
+                    TestTool.NearlyNeighbors(ys, 2);
+                }
+
+                TestTool.SmoothSatisfied(ys, 4);
 
                 Console.Write("\n");
             }
@@ -136,11 +157,13 @@ namespace MultiPrecisionTest.Functions {
         public void AcosBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
-                0,
                 MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
+                0
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Acos(x);
 
@@ -151,7 +174,12 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Acos((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                TestTool.NearlyNeighbors(ys, 2);
+                TestTool.SmoothSatisfied(ys, 4);
 
                 Console.Write("\n");
             }
@@ -159,72 +187,59 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Atan2BorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                0,
-            };
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, 1);
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor<Pow2.N8>(0)) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, 1);
 
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.ToHexcode());
-                    Console.WriteLine(y);
-                    Console.WriteLine(y.ToHexcode());
-                    Console.Write("\n");
-
-                    TestTool.Tolerance(Math.Atan2((double)x, 1), y);
-                }
-
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                TestTool.Tolerance(Math.Atan2((double)x, 1), y);
             }
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, -1);
+            Console.Write("\n");
 
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.ToHexcode());
-                    Console.WriteLine(y);
-                    Console.WriteLine(y.ToHexcode());
-                    Console.Write("\n");
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor<Pow2.N8>(0)) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(x, -1);
 
-                    TestTool.Tolerance(Math.Atan2((double)x, -1), y);
-                }
-
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                TestTool.Tolerance(Math.Atan2((double)x, -1), y);
             }
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(1, x);
+            Console.Write("\n");
 
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.ToHexcode());
-                    Console.WriteLine(y);
-                    Console.WriteLine(y.ToHexcode());
-                    Console.Write("\n");
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor<Pow2.N8>(0)) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(1, x);
 
-                    TestTool.Tolerance(Math.Atan2(1, (double)x), y);
-                }
-
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                TestTool.Tolerance(Math.Atan2(1, (double)x), y);
             }
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(-1, x);
+            Console.Write("\n");
 
-                    Console.WriteLine(x);
-                    Console.WriteLine(x.ToHexcode());
-                    Console.WriteLine(y);
-                    Console.WriteLine(y.ToHexcode());
-                    Console.Write("\n");
+            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor<Pow2.N8>(0)) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(-1, x);
 
-                    TestTool.Tolerance(Math.Atan2(-1, (double)x), y);
-                }
-
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
                 Console.Write("\n");
+
+                TestTool.Tolerance(Math.Atan2(-1, (double)x), y);
             }
         }
 

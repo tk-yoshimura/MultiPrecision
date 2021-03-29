@@ -1,45 +1,74 @@
 ﻿using MultiPrecision;
+using System;
 using System.IO;
 
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            using (StreamWriter writer = new StreamWriter("erfc_n.csv")) {
-                for (int bit = 64; bit <= 10240; bit += 64) {
-                    writer.Write($",{bit}");
-                }
-                writer.Write("\n");
+            using (StreamWriter sw = new StreamWriter("consts.txt")) {
+                sw.WriteLine("ln2=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Ln2.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Ln2.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Ln2}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Ln2}");
+                sw.Flush();
 
-                for (double z = 2; z <= 120; z += 0.0625) {
-                    writer.Write($"{z}");
+                sw.WriteLine("lb10=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lb10.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lb10.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lb10}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lb10}");
+                sw.Flush();
 
-                    for (int bit = 64; bit <= 10240; bit += 64) {
-                        long n = ErfcConvergenceTable.N(bit, z);
+                sw.WriteLine("lg2=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lg2.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lg2.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Lg2}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Lg2}");
+                sw.Flush();
 
-                        writer.Write($",{n}");
-                    }
-                    writer.Write("\n");
-                }
-            }
+                sw.WriteLine("lbe=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.LbE.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.LbE.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.LbE}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.LbE}");
+                sw.Flush();
 
-            int[] bits = new int[] { 128, 160, 192, 224, 256, 320, 384, 448, 512, 640, 768, 896, 1024, 1280, 1536, 1792, 2048, 2560, 3072, 3584, 4096, 5120, 6144, 7168, 8192 };
+                sw.WriteLine("pi=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.PI.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.PI.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.PI}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.PI}");
+                sw.Flush();
 
-            using (StreamWriter writer = new StreamWriter("erfc_n2.csv")) {
-                foreach (int bit in bits) {
-                    writer.Write($",{bit}");
-                }
-                writer.Write("\n");
+                sw.WriteLine("rcp_pi=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.RcpPI.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.RcpPI.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.RcpPI}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.RcpPI}");
+                sw.Flush();
 
-                for (double z = 2; z <= 100; z += 0.25) {
-                    writer.Write($"{z}");
+                sw.WriteLine("sqrt2=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Sqrt2.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Sqrt2.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.Sqrt2}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.Sqrt2}");
+                sw.Flush();
 
-                    foreach (int bit in bits) {
-                        long n = ErfcConvergenceTable.N(bit, z);
-
-                        writer.Write($",{n}");
-                    }
-                    writer.Write("\n");
-                }
+                sw.WriteLine("e=");
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.E.ToHexcode()}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.E.ToHexcode()}");
+                sw.Flush();
+                sw.WriteLine($"{MultiPrecision<Pow2.N1024>.E}");
+                sw.WriteLine($"{MultiPrecision<Double<Pow2.N1024>>.E}");
+                sw.Flush();
             }
         }
     }

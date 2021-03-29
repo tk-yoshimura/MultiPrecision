@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -24,6 +25,8 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 4 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     if (x.Sign == Sign.Minus) {
                         continue;
@@ -38,7 +41,14 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Sqrt((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                if (b != 0) {
+                    TestTool.NearlyNeighbors(ys, 1);
+                }
+                TestTool.SmoothSatisfied(ys, 2);
 
                 Console.Write("\n");
             }

@@ -22,6 +22,13 @@ namespace MultiPrecision {
             return source.Sum() / source.Count();
         }
 
+        public static MultiPrecision<N> Variance<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
+            MultiPrecision<N> avg_sq = source.Select((v) => v * v).Average();
+            MultiPrecision<N> sq_avg = MultiPrecision<N>.Square(source.Average());
+
+            return avg_sq - sq_avg;
+        }
+
         public static MultiPrecision<N> Min<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
             MultiPrecision<N> min = MultiPrecision<N>.NaN;
 

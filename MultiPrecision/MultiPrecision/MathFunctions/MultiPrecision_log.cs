@@ -12,7 +12,7 @@
             const int exp_threshold = 2;
 
             if (x.Exponent >= -exp_threshold) {
-                return Log(1 + x);
+                return MultiPrecision<Plus1<N>>.Log(1 + x.Convert<Plus1<N>>()).Convert<N>();
             }
 
             MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();

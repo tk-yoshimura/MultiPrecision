@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -239,6 +240,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     if (x <= 0) {
                         continue;
@@ -252,10 +255,15 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    if ((double)x > 0) {
-                        TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    if (y.IsFinite) {
+                        ys.Add(y);
                     }
                 }
+
+                if (b != 1 && b != 2) {
+                    TestTool.NearlyNeighbors(ys, 36);
+                }
+                TestTool.SmoothSatisfied(ys, 5);
 
                 Console.Write("\n");
             }
@@ -266,6 +274,8 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0.5, 1 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
@@ -277,7 +287,12 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Approx.Gamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
                 }
+
+                TestTool.NearlyNeighbors(ys, 2);
+                TestTool.SmoothSatisfied(ys, 2);
 
                 Console.Write("\n");
             }
@@ -285,163 +300,272 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void GammaApproxBorderTest() {
-            foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
+            {
+                List<MultiPrecision<Pow2.N4>> ys = new();
 
-                MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N4>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N4>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+            {
+                List<MultiPrecision<Pow2.N8>> ys = new();
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N8>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N8>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+            {
+                List<MultiPrecision<Pow2.N16>> ys = new();
 
-                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N16>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N16>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+            {
+                List<MultiPrecision<Pow2.N32>> ys = new();
 
-                MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N32>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N32>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+            {
+                List<MultiPrecision<Pow2.N64>> ys = new();
 
-                MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N64>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N64>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+            {
+                List<MultiPrecision<Pow2.N128>> ys = new();
 
-                MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N128>.Log(y), ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N128>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothSatisfied(ys, 3);
             }
         }
 
         [TestMethod]
         public void LogGammaApproxBorderTest() {
-            foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
 
-                MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.LogGamma(x);
+            {
+                List<MultiPrecision<Pow2.N4>> ys = new();
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.LogGamma(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+            {
+                List<MultiPrecision<Pow2.N8>> ys = new();
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+            {
+                List<MultiPrecision<Pow2.N16>> ys = new();
 
-                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.LogGamma(x);
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.LogGamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+            {
+                List<MultiPrecision<Pow2.N32>> ys = new();
 
-                MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.LogGamma(x);
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.LogGamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+            {
+                List<MultiPrecision<Pow2.N64>> ys = new();
 
-                MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.LogGamma(x);
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.LogGamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
 
-            foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+            {
+                List<MultiPrecision<Pow2.N128>> ys = new();
 
-                MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.LogGamma(x);
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
 
-                Console.WriteLine(x);
-                Console.WriteLine(x.ToHexcode());
-                Console.WriteLine(y);
-                Console.WriteLine(y.ToHexcode());
-                Console.Write("\n");
+                    MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.LogGamma(x);
 
-                TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothSatisfied(ys, 3);
             }
         }
 

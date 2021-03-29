@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -105,6 +106,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 4)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErf(x);
@@ -121,6 +124,18 @@ namespace MultiPrecisionTest.Functions {
                     if (y.IsFinite && !y.IsZero) {
                         Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 1));
                     }
+
+                    if (y.IsFinite) {
+                        ys.Add(y);
+                    }
+                }
+
+                if (b != -1 && b != 1) {
+                    if (b != 0) {
+                        TestTool.NearlyNeighbors(ys, 32);
+                    }
+
+                    TestTool.SmoothSatisfied(ys, 2);
                 }
 
                 Console.Write("\n");
@@ -134,7 +149,9 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 4)) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 8)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErf(x);
                     MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erf(y);
@@ -150,6 +167,17 @@ namespace MultiPrecisionTest.Functions {
                     if (y.IsFinite && !y.IsZero) {
                         Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 1));
                     }
+
+                    if (y.IsFinite) {
+                        ys.Add(y);
+                    }
+                }
+
+                if (b != 2) {
+                    if (b != 1) {
+                        TestTool.NearlyNeighbors(ys, 2);
+                    }
+                    TestTool.SmoothSatisfied(ys, 3);
                 }
 
                 Console.Write("\n");

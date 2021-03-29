@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -51,6 +52,8 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tanh(x);
 
@@ -61,7 +64,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Tanh((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                TestTool.SmoothSatisfied(ys, 1);
 
                 Console.Write("\n");
             }
@@ -69,9 +76,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void SinhBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, -1, 1 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -1, 0, 1 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sinh(x);
 
@@ -82,7 +91,15 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Sinh((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                if (b != 0) {
+                    TestTool.NearlyNeighbors(ys, 2);
+                }
+
+                TestTool.SmoothSatisfied(ys, 2);
 
                 Console.Write("\n");
             }

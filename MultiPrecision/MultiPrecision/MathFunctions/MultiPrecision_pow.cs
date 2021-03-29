@@ -37,5 +37,13 @@
 
             return (n > 0) ? y : (1 / y);
         }
+
+        public static MultiPrecision<N> Square(MultiPrecision<N> x) {
+            return x * x;
+        }
+
+        public static MultiPrecision<N> Cube(MultiPrecision<N> x) {
+            return x * x * x;
+        }
     }
 }

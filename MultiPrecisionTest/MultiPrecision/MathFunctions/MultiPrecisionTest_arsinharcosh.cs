@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -51,10 +52,12 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void ArsinhBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                0, -1, 1, -MultiPrecision<Pow2.N8>.Ldexp(1, -256), MultiPrecision<Pow2.N8>.Ldexp(1, -256)
+                -1, 0, 1, -MultiPrecision<Pow2.N8>.Ldexp(1, -256), MultiPrecision<Pow2.N8>.Ldexp(1, -256)
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arsinh(x);
@@ -66,7 +69,15 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Asinh((double)x), y);
+
+                    ys.Add(y);
                 }
+
+                if (b != 0) {
+                    TestTool.NearlyNeighbors(ys, 3);
+                }
+
+                TestTool.SmoothSatisfied(ys, 3);
 
                 Console.Write("\n");
             }
@@ -79,6 +90,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
                     if (x < 1) {
@@ -94,7 +107,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Acosh((double)x), y, ignore_expected_nan: true, ignore_sign: true);
+
+                    ys.Add(y);
                 }
+
+                TestTool.SmoothSatisfied(ys, 3);
 
                 Console.Write("\n");
             }
@@ -105,6 +122,8 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -1, 0, 1 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
                     if (x < -1 || x > 1) {
@@ -112,6 +131,7 @@ namespace MultiPrecisionTest.Functions {
                     }
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Artanh(x);
+                    ys.Add(y);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -125,6 +145,8 @@ namespace MultiPrecisionTest.Functions {
 
                     TestTool.Tolerance(Math.Atanh((double)x), y, ignore_expected_nan: true);
                 }
+
+                TestTool.SmoothSatisfied(ys, 3);
 
                 Console.Write("\n");
             }

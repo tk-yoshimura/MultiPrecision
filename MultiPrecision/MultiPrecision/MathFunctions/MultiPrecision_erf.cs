@@ -193,7 +193,7 @@ namespace MultiPrecision {
         private static readonly (int min, int max) bit_range;
         private static readonly (double min, double max) z_range;
 
-        static ErfcConvergenceTable() {            
+        static ErfcConvergenceTable() {
             (int[] bits, List<double> zs, List<int[]> ns) = ReadTable();
 
             ErfcConvergenceTable.bits = bits;
@@ -250,7 +250,7 @@ namespace MultiPrecision {
                 double z = double.Parse(row[0]);
                 int[] n = row.Skip(1).Select((str) => int.Parse(str)).ToArray();
 
-                if (zs.Count > 0 && zs.Last() >= z) { 
+                if (zs.Count > 0 && zs.Last() >= z) {
                     throw new FormatException();
                 }
 

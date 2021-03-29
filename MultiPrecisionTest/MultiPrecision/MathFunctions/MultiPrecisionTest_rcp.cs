@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -34,14 +35,12 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void RcpBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 1, 2 };
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, -0.5, 0.5, 1, 2 };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    if (x.Sign == Sign.Minus) {
-                        continue;
-                    }
+                List<MultiPrecision<Pow2.N8>> ys = new();
 
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Rcp(x);
 
                     Console.WriteLine(x);
@@ -51,7 +50,12 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(1 / (double)x, y);
+
+                    ys.Add(y);
                 }
+
+                TestTool.NearlyNeighbors(ys, 2);
+                TestTool.SmoothSatisfied(ys, 2);
 
                 Console.Write("\n");
             }

@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Collections.Generic;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -138,6 +139,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
 
@@ -148,7 +151,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
                 }
+
+                TestTool.SmoothSatisfied(ys, 3);
 
                 Console.Write("\n");
             }
@@ -180,6 +187,8 @@ namespace MultiPrecisionTest.Functions {
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
 
@@ -190,7 +199,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.Write("\n");
 
                     TestTool.Tolerance(Math.Sin((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
                 }
+
+                TestTool.SmoothSatisfied(ys, 3);
 
                 Console.Write("\n");
             }
@@ -215,8 +228,6 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void TanPIBorderTest() {
-            MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
-
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
                 0, -1, 1
             };

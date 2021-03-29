@@ -176,7 +176,7 @@ namespace MultiPrecision {
                     }
 
 #if DEBUG
-                        Trace.WriteLine($"Gamma<{Length}> initialized.");
+                    Trace.WriteLine($"Gamma<{Length}> initialized.");
 #endif
                 }
 
@@ -187,7 +187,7 @@ namespace MultiPrecision {
                     public static int N => coef.Length;
                     public static MultiPrecision<LanczosExpand<N>> G => g;
                     public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> Coef => coef;
-                    
+
                     static Lanczos() {
                         byte[] state = null;
 
@@ -233,7 +233,7 @@ namespace MultiPrecision {
                         MultiPrecision<LanczosExpand<N>>[] table;
 
                         using (MemoryStream stream = new(state)) {
-                            using BinaryReader reader = new(stream); 
+                            using BinaryReader reader = new(stream);
 
                             int length = reader.ReadInt32();
 
@@ -254,7 +254,7 @@ namespace MultiPrecision {
                     private static readonly MultiPrecision<SterlingExpand<N>> logbias = null;
                     private static readonly MultiPrecision<SterlingExpand<N>>[] coef = null;
 
-                    public static int N => coef.Length;                    
+                    public static int N => coef.Length;
                     public static MultiPrecision<SterlingExpand<N>> LogBias => logbias;
                     public static IReadOnlyList<MultiPrecision<SterlingExpand<N>>> Coef => coef;
 

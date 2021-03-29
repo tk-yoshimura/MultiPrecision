@@ -2,6 +2,7 @@
 using MultiPrecision;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MultiPrecisionTest {
     public static class TestTool {
@@ -246,6 +247,45 @@ namespace MultiPrecisionTest {
             double delta = minerr + Math.Abs(expected) * rateerr;
 
             Assert.AreEqual(expected, (double)actual, delta);
+        }
+
+        public static void NearlyNeighbors<N>(IEnumerable<MultiPrecision<N>> vs, int nearly_bits) where N : struct, IConstant {
+            if (vs.Count() < 2) {
+                throw new InvalidOperationException("Sequence contains less 2 elements");
+            }
+
+            MultiPrecision<N>[] us = vs.ToArray();
+
+            for (int i = 1; i < us.Length; i++) {
+                MultiPrecision<N> a = us[i - 1], b = us[i];
+
+                if (!MultiPrecision<N>.NearlyEqualBits(a, b, nearly_bits)) {
+                    Assert.Fail($"Not nearly.\n{a.ToHexcode()}\n{b.ToHexcode()}");
+                }
+            }
+        }
+
+        public static void SmoothSatisfied<N>(IEnumerable<MultiPrecision<N>> vs, double safe_sigma) where N : struct, IConstant {
+            if (vs.Count() < 3) {
+                throw new InvalidOperationException("Sequence contains less 3 elements");
+            }
+
+            MultiPrecision<N>[] us = vs.ToArray();
+            MultiPrecision<N>[] diff = new MultiPrecision<N>[us.Length - 1];
+
+            for (int i = 1; i < us.Length; i++) {
+                MultiPrecision<N> a = us[i - 1], b = us[i];
+
+                diff[i - 1] = a - b;
+            }
+
+            MultiPrecision<N> diff_ave = diff.Average(), diff_std = MultiPrecision<N>.Sqrt(diff.Variance());
+
+            foreach (MultiPrecision<N> d in diff) {
+                if (d < diff_ave - diff_std * safe_sigma || d > diff_ave + diff_std * safe_sigma) {
+                    Assert.Fail($"Smooth not satisfied.");
+                }
+            }
         }
     }
 }

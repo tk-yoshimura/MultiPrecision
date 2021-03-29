@@ -85,6 +85,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |truncate|N/A|N/A||MultiPrecision&lt;*N*&gt;.Truncate(x)|
 |array sum|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Sum()|
 |array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Average()|
+|array variance|N/A|N/A|**population** variance|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Variance()|
 |array min|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Min()|
 |array max|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Max()|
 
