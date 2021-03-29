@@ -193,50 +193,8 @@ namespace MultiPrecision {
         private static readonly (int min, int max) bit_range;
         private static readonly (double min, double max) z_range;
 
-        static ErfcConvergenceTable() {
-            int[] bits;
-            List<double> zs = new();
-            List<int[]> ns = new();
-
-            string[] lines = Resources.erfc_convergence_table.Split("\r\n");
-
-            string[] header = lines[0].Split(',');
-
-            if (header[0] != "convergence_n(z-bits)") {
-                throw new FormatException();
-            }
-
-            bits = header.Skip(1).Select((str) => int.Parse(str)).ToArray();
-
-            foreach (string line in lines[1..]) {
-                if (string.IsNullOrWhiteSpace(line)) {
-                    break;
-                }
-
-                string[] row = line.Split(',');
-
-                if (row.Length != bits.Length + 1) {
-                    throw new FormatException();
-                }
-
-                double z = double.Parse(row[0]);
-                int[] n = row.Skip(1).Select((str) => int.Parse(str)).ToArray();
-
-                zs.Add(z);
-                ns.Add(n);
-            }
-
-            for (int i = 1; i < zs.Count; i++) {
-                if (zs[i - 1] >= zs[i]) {
-                    throw new FormatException();
-                }
-            }
-
-            for (int i = 1; i < bits.Length; i++) {
-                if (bits[i - 1] >= bits[i]) {
-                    throw new FormatException();
-                }
-            }
+        static ErfcConvergenceTable() {            
+            (int[] bits, List<double> zs, List<int[]> ns) = ReadTable();
 
             ErfcConvergenceTable.bits = bits;
             ErfcConvergenceTable.zs = zs.ToArray();
@@ -255,6 +213,52 @@ namespace MultiPrecision {
 #if DEBUG
             Trace.WriteLine($"Erfc initialized.");
 #endif
+        }
+
+        private static (int[] bits, List<double> zs, List<int[]> ns) ReadTable() {
+            int[] bits;
+            List<double> zs = new();
+            List<int[]> ns = new();
+
+            string[] lines = Resources.erfc_convergence_table.Split("\r\n");
+
+            string[] header = lines[0].Split(',');
+
+            if (header[0] != "convergence_n(z-bits)") {
+                throw new FormatException();
+            }
+
+            bits = header.Skip(1).Select((str) => int.Parse(str)).ToArray();
+
+            for (int i = 1; i < bits.Length; i++) {
+                if (bits[i - 1] >= bits[i]) {
+                    throw new FormatException();
+                }
+            }
+
+            foreach (string line in lines[1..]) {
+                if (string.IsNullOrWhiteSpace(line)) {
+                    break;
+                }
+
+                string[] row = line.Split(',');
+
+                if (row.Length != bits.Length + 1) {
+                    throw new FormatException();
+                }
+
+                double z = double.Parse(row[0]);
+                int[] n = row.Skip(1).Select((str) => int.Parse(str)).ToArray();
+
+                if (zs.Count > 0 && zs.Last() >= z) { 
+                    throw new FormatException();
+                }
+
+                zs.Add(z);
+                ns.Add(n);
+            }
+
+            return (bits, zs, ns);
         }
 
         public static long N(int bit, double z) {
