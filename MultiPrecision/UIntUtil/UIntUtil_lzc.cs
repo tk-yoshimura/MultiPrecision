@@ -7,7 +7,7 @@ namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static int LeadingZeroCount([DisallowNull] UInt32[] value) {
+        public unsafe static int LeadingZeroCount(UInt32[] value) {
             uint cnt = 0;
 
             fixed (UInt32* v = value) {

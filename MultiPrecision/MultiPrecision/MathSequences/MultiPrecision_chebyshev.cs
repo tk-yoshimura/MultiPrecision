@@ -23,7 +23,7 @@ namespace MultiPrecision {
 
         public static BigInteger Table(int n, int m) {
             if (n < 1 || m < 1 || n < m) {
-                throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException($"{nameof(n)}>={nameof(m)}>=1");
             }
 
             if ((checked(m + n) & 1) == 1) {

@@ -8,7 +8,7 @@ namespace MultiPrecision {
         private unsafe void CarryAdd(int dig, UInt32 v) {
 
 #if DEBUG
-            Debug<ArgumentException>.Assert(dig >= 0);
+            Debug<ArgumentOutOfRangeException>.Assert(dig >= 0);
 #endif
 
             fixed (UInt32* arr = value) {
@@ -26,7 +26,7 @@ namespace MultiPrecision {
         private unsafe void CarrySub(int dig, UInt32 v) {
 
 #if DEBUG
-            Debug<ArgumentException>.Assert(dig >= 0);
+            Debug<ArgumentOutOfRangeException>.Assert(dig >= 0);
 #endif
 
             fixed (UInt32* arr = value) {

@@ -53,16 +53,16 @@ namespace MultiPrecision {
         }
 
         public string ToString([AllowNull] string format, [AllowNull] IFormatProvider formatProvider) {
-            if (format == null) {
+            if (format is null) {
                 return ToString();
             }
 
             if (format.Length < 2 || (format[0] != 'e' && format[0] != 'E')) {
-                throw new FormatException();
+                throw new FormatException(format);
             }
 
             if (!(int.TryParse(format[1..], NumberStyles.Integer, CultureInfo.InvariantCulture, out int digits)) || digits <= 1) {
-                throw new FormatException();
+                throw new FormatException(format);
             }
 
             if (IsNaN) {

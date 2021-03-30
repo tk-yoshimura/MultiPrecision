@@ -7,7 +7,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a == b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool Equal(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+        public unsafe static bool Equal(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -27,7 +27,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a &lt;= b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool LessThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+        public unsafe static bool LessThanOrEqual(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -50,7 +50,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a &gt;= b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool GreaterThanOrEqual(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+        public unsafe static bool GreaterThanOrEqual(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -72,7 +72,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe bool IsZero([DisallowNull] UInt32[] value) {
+        public static unsafe bool IsZero(UInt32[] value) {
             fixed (UInt32* v = value) {
                 for (int i = 0; i < value.Length; i++) {
                     if (v[i] != 0) {
@@ -85,7 +85,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe bool IsFull([DisallowNull] UInt32[] value) {
+        public static unsafe bool IsFull(UInt32[] value) {
             fixed (UInt32* v = value) {
                 for (int i = 0; i < value.Length; i++) {
                     if ((~v[i]) != 0) {
@@ -99,7 +99,7 @@ namespace MultiPrecision {
 
         /// <summary>Count leading match bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static int MatchBits(int length, [DisallowNull] UInt32[] a, [DisallowNull] UInt32[] b) {
+        public unsafe static int MatchBits(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);

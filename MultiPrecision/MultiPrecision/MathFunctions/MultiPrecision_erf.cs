@@ -278,7 +278,7 @@ namespace MultiPrecision {
             }
 
             if (z < z_range.min) {
-                throw new ArgumentException(nameof(z));
+                throw new ArgumentOutOfRangeException(nameof(z));
             }
             else if (z > z_range.max) {
                 z = z_range.max;

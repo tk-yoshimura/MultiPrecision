@@ -9,7 +9,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public long MaxPoint => MaxLikelihoodPoint;
 
-        public override long MaxLikelihoodPoint {
+        protected override long MaxLikelihoodPoint {
             get {
                 if (Samples.Count <= 0) {
                     throw new InvalidOperationException();
@@ -27,7 +27,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public long MinPoint => MaxLikelihoodPoint;
 
-        public override long MaxLikelihoodPoint {
+        protected override long MaxLikelihoodPoint {
             get {
                 if (Samples.Count <= 0) {
                     throw new InvalidOperationException();

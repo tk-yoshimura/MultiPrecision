@@ -89,15 +89,15 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1);
             });
 
-            Assert.ThrowsException<ArgumentException>(() => {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, -1);
             });
 
-            Assert.ThrowsException<ArgumentException>(() => {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1, 2);
             });
 
-            Assert.ThrowsException<ArgumentException>(() => {
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(Array.AsReadOnly(value_full), -1, carry: true);
             });
         }

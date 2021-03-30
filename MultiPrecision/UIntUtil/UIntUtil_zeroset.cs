@@ -8,7 +8,7 @@ namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void Zeroset([DisallowNull] UInt32[] value, uint index, uint length) {
+        public unsafe static void Zeroset(UInt32[] value, uint index, uint length) {
             if (length <= 0) {
                 return;
             }
@@ -38,7 +38,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static void Zeroset([DisallowNull] UInt32[] value) {
+        public unsafe static void Zeroset(UInt32[] value) {
             uint length = (uint)value.Length;
 
             uint length_sets = Mask256.UInt32Sets(length), length_rems = Mask256.UInt32Rems(length);

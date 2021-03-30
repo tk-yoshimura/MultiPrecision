@@ -6,7 +6,7 @@ namespace MultiPrecision {
 
         public static BigUInt<N> operator <<(BigUInt<N> n, int sft) {
             if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
+                throw new ArgumentOutOfRangeException(nameof(sft));
             }
 
             return LeftShift(n, sft);
@@ -14,7 +14,7 @@ namespace MultiPrecision {
 
         public static BigUInt<N> operator >>(BigUInt<N> n, int sft) {
             if (sft < 0) {
-                throw new ArgumentException(nameof(sft));
+                throw new ArgumentOutOfRangeException(nameof(sft));
             }
 
             return RightShift(n, sft);

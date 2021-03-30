@@ -30,28 +30,25 @@ namespace MultiPrecision {
             (this.value[1], this.value[0]) = UIntUtil.Unpack(v);
         }
 
-        public BigUInt([DisallowNull] UInt32[] arr, bool enable_clone = true) {
-            if (arr == null || arr.Length != Length) {
-                throw new ArgumentException();
+        public BigUInt(UInt32[] arr, bool enable_clone = true) {
+            if (arr.Length != Length) {
+                throw new ArgumentException(nameof(arr));
             }
 
             this.value = enable_clone ? (UInt32[])arr.Clone() : arr;
         }
 
-        public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr) {
-            if (arr == null || arr.Count != Length) {
-                throw new ArgumentException();
+        public BigUInt(ReadOnlyCollection<UInt32> arr) {
+            if (arr.Count != Length) {
+                throw new ArgumentException(nameof(arr));
             }
 
             this.value = arr.ToArray();
         }
 
-        public BigUInt([DisallowNull] UInt32[] arr, int offset) : this() {
-            if (arr == null) {
-                throw new ArgumentException();
-            }
+        public BigUInt(UInt32[] arr, int offset) : this() {
             if (offset + arr.Length > Length) {
-                throw new ArgumentException(nameof(offset));
+                throw new ArgumentOutOfRangeException(nameof(offset));
             }
 
             if (offset >= 0) {
@@ -62,9 +59,9 @@ namespace MultiPrecision {
             }
         }
 
-        public BigUInt([DisallowNull] ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
-            if (arr == null || index < 0) {
-                throw new ArgumentException();
+        public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
+            if (index < 0) {
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
 
             for (int i = 0; i < Length && i + index < arr.Count; i++) {
@@ -86,11 +83,7 @@ namespace MultiPrecision {
 
         public int LeadingZeroCount => UIntUtil.LeadingZeroCount(value);
 
-        public UInt32 this[int index] {
-            get {
-                return value[index];
-            }
-        }
+        public UInt32 this[int index] => value[index];
 
         public object Clone() {
             return Copy();
@@ -101,7 +94,7 @@ namespace MultiPrecision {
         }
 
         public override bool Equals(object obj) {
-            return (obj is BigUInt<N> n) && (n == this);
+            return (!(obj is null)) && (obj is BigUInt<N> n) && (n == this);
         }
 
         public override int GetHashCode() {

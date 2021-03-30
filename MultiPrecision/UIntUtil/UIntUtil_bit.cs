@@ -7,7 +7,7 @@ namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SetLSB([DisallowNull] UInt32[] v, int pos) {
+        public static void SetLSB(UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
             int posrem = pos % UInt32Bits;
 
@@ -17,7 +17,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ResetLSB([DisallowNull] UInt32[] v, int pos) {
+        public static void ResetLSB(UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
             int posrem = pos % UInt32Bits;
 
@@ -27,7 +27,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static UInt32 GetLSB([DisallowNull] UInt32[] v, int pos) {
+        public static UInt32 GetLSB(UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
             int posrem = pos % UInt32Bits;
 
@@ -35,7 +35,7 @@ namespace MultiPrecision {
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void FlushLSB([DisallowNull] UInt32[] v, int pos) {
+        public static void FlushLSB(UInt32[] v, int pos) {
             int posdev = pos / UInt32Bits;
             int posrem = pos % UInt32Bits;
 

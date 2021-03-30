@@ -23,7 +23,7 @@ namespace MultiPrecision {
 
         private static BigUInt<N> GenerateDecimal(int digits) {
             if (digits < 1) {
-                throw new ArgumentException(nameof(digits));
+                throw new ArgumentOutOfRangeException(nameof(digits));
             }
 
             UInt64 v = 1;

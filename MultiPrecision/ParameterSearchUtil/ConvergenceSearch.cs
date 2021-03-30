@@ -13,7 +13,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public long ConvergencePoint => MaxLikelihoodPoint;
 
-        public override long MaxLikelihoodPoint {
+        protected override long MaxLikelihoodPoint {
             get {
                 MultiPrecision<N>[] samples = Samples.Values.ToArray();
 

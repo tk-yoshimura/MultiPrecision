@@ -11,7 +11,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public bool IsSearched => Step <= 1 && samples_standby.Count <= 0;
 
-        public virtual long MaxLikelihoodPoint { get; }
+        protected virtual long MaxLikelihoodPoint { get; }
 
         public (long min, long max) SearchRange { private set; get; }
 

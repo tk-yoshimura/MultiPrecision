@@ -58,7 +58,7 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int round_bits) {
             if (round_bits < 0 || round_bits >= Bits) {
-                throw new ArgumentException(nameof(round_bits));
+                throw new ArgumentOutOfRangeException(nameof(round_bits));
             }
             if (round_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
                 return x;
@@ -73,7 +73,7 @@ namespace MultiPrecision {
 
         public static MultiPrecision<N> TruncateMantissa(MultiPrecision<N> x, int truncate_bits) {
             if (truncate_bits < 0 || truncate_bits >= Bits) {
-                throw new ArgumentException(nameof(truncate_bits));
+                throw new ArgumentOutOfRangeException(nameof(truncate_bits));
             }
             if (truncate_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
                 return x;
