@@ -48,22 +48,40 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Round(MultiPrecision<N> x) {
-            return Floor(x + Point5);
+            if (x.Sign == Sign.Minus) {
+                return Floor(x + Point5);
+            }
+            else { 
+                return Floor(TruncateMantissa(x, 1) + Point5);
+            }
         }
 
-        public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int keep_bits) {
-            if (keep_bits < 1) {
-                throw new ArgumentException(nameof(keep_bits));
+        public static MultiPrecision<N> RoundMantissa(MultiPrecision<N> x, int round_bits) {
+            if (round_bits < 0 || round_bits >= Bits) {
+                throw new ArgumentException(nameof(round_bits));
             }
-            if (Bits <= keep_bits || x.mantissa.IsZero || x.IsNaN) {
+            if (round_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
                 return x;
             }
 
-            Mantissa<N> n = Mantissa<N>.RightRoundShift(x.mantissa, Bits - keep_bits);
+            Mantissa<N> n = Mantissa<N>.RightRoundShift(x.mantissa, round_bits);
             int lzc = n.LeadingZeroCount;
             n <<= lzc;
 
-            return new MultiPrecision<N>(x.Sign, x.Exponent + Bits - keep_bits - lzc, n, round: false);
+            return new MultiPrecision<N>(x.Sign, x.Exponent + round_bits - lzc, n, round: false);
+        }
+
+        public static MultiPrecision<N> TruncateMantissa(MultiPrecision<N> x, int truncate_bits) {
+            if (truncate_bits < 0 || truncate_bits >= Bits) {
+                throw new ArgumentException(nameof(truncate_bits));
+            }
+            if (truncate_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
+                return x;
+            }
+
+            Mantissa<N> n = Mantissa<N>.RightShift(x.mantissa, truncate_bits) << truncate_bits;
+
+            return new MultiPrecision<N>(x.Sign, x.Exponent, n, round: false);
         }
     }
 }
