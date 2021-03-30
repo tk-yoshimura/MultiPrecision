@@ -174,6 +174,50 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
+        public void CosHalfPILargeValueTest() {
+            MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
+
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+                -65538, -65537 - half, -65537, -65536 - half, -65536, -65535 - half,
+                65535 + half, 65536, 65536 + half, 65537, 65537 + half, 65538
+            };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (b % 2 == 0) {
+                    TestTool.NearlyNeighbors(ys, 19);
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                }
+                else { 
+                    TestTool.NearlyNeighbors(ys, 20);
+                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
         public void CosHalfPIUnnormalValueTest() {
             MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
                 MultiPrecision<Pow2.N8>.NaN,
@@ -225,6 +269,50 @@ namespace MultiPrecisionTest.Functions {
                 }
                 else { 
                     TestTool.NearlyNeighbors(ys, 4);
+                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+
+                Console.Write("\n");
+            }
+        }
+
+        [TestMethod]
+        public void SinHalfPILargeValueTest() {
+            MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
+
+            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+                -65538, -65537 - half, -65537, -65536 - half, -65536, -65535 - half,
+                65535 + half, 65536, 65536 + half, 65537, 65537 + half, 65538
+            };
+
+            foreach (MultiPrecision<Pow2.N8> b in borders) {
+                List<MultiPrecision<Pow2.N8>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Math.Sin((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                if (b % 2 == 0) {
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.NearlyNeighbors(ys, 19);
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                }
+                else { 
+                    TestTool.NearlyNeighbors(ys, 20);
                     TestTool.SmoothnessSatisfied(ys, 3);
                     TestTool.MonotonicitySatisfied(ys);
                 }
