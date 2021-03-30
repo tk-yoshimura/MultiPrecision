@@ -68,7 +68,8 @@ namespace MultiPrecisionTest.Functions {
                     ys.Add(y);
                 }
 
-                TestTool.SmoothSatisfied(ys, 1);
+                TestTool.SmoothnessSatisfied(ys, 1);
+                TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
             }
@@ -98,8 +99,8 @@ namespace MultiPrecisionTest.Functions {
                 if (b != 0) {
                     TestTool.NearlyNeighbors(ys, 2);
                 }
-
-                TestTool.SmoothSatisfied(ys, 2);
+                TestTool.SmoothnessSatisfied(ys, 2);
+                TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
             }

@@ -44,7 +44,8 @@ namespace MultiPrecisionTest.Functions {
                 if (b != 0) {
                     TestTool.NearlyNeighbors(ys, 1);
                 }
-                TestTool.SmoothSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
             }

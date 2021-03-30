@@ -265,7 +265,28 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static void SmoothSatisfied<N>(IEnumerable<MultiPrecision<N>> vs, double safe_sigma) where N : struct, IConstant {
+        public static void MonotonicitySatisfied<N>(IEnumerable<MultiPrecision<N>> vs) where N : struct, IConstant {
+            if (vs.Count() < 2) {
+                throw new InvalidOperationException("Sequence contains less 2 elements");
+            }
+
+            MultiPrecision<N>[] us = vs.ToArray();
+            MultiPrecision<N>[] diff = new MultiPrecision<N>[us.Length - 1];
+
+            for (int i = 1; i < us.Length; i++) {
+                MultiPrecision<N> a = us[i - 1], b = us[i];
+
+                diff[i - 1] = a - b;
+            }
+
+            int signs = diff.Where((d) => !d.IsZero).Select((d) => d.Sign).Distinct().Count();
+
+            if (signs > 1) {
+                Assert.Fail($"Monotonicity not satisfied.");
+            }
+        }
+
+        public static void SmoothnessSatisfied<N>(IEnumerable<MultiPrecision<N>> vs, double safe_sigma) where N : struct, IConstant {
             if (vs.Count() < 3) {
                 throw new InvalidOperationException("Sequence contains less 3 elements");
             }
@@ -283,7 +304,7 @@ namespace MultiPrecisionTest {
 
             foreach (MultiPrecision<N> d in diff) {
                 if (d < diff_ave - diff_std * safe_sigma || d > diff_ave + diff_std * safe_sigma) {
-                    Assert.Fail($"Smooth not satisfied.");
+                    Assert.Fail($"Smoothness not satisfied.");
                 }
             }
         }

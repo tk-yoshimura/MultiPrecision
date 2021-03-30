@@ -3,6 +3,10 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Arsinh(MultiPrecision<N> x) {
+            if (x.Sign == Sign.Minus) {
+                return -Arsinh(Abs(x));
+            }
+
             MultiPrecision<N> y = Log1p(x + (Sqrt(x * x + 1) - 1));
 
             return y;

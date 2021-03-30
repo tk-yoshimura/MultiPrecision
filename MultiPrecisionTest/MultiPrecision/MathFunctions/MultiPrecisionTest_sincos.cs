@@ -133,9 +133,9 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                -65536 - half, -65536, -65535 - half, -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
+                -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
                 0,
-                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half, 65535 + half, 65536, 65536 + half
+                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
@@ -155,7 +155,18 @@ namespace MultiPrecisionTest.Functions {
                     ys.Add(y);
                 }
 
-                TestTool.SmoothSatisfied(ys, 3);
+                if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (b % 2 == 0) {
+                    TestTool.NearlyNeighbors(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                }
+                else { 
+                    TestTool.NearlyNeighbors(ys, 4);
+                    TestTool.SmoothnessSatisfied(ys, 3);
+                }
 
                 Console.Write("\n");
             }
@@ -181,9 +192,9 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                -65536 - half, -65536, -65535 - half, -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
+                -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
                 0,
-                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half, 65535 + half, 65536, 65536 + half
+                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
@@ -203,7 +214,18 @@ namespace MultiPrecisionTest.Functions {
                     ys.Add(y);
                 }
 
-                TestTool.SmoothSatisfied(ys, 3);
+                if (b % 2 == 0) {
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.NearlyNeighbors(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 2);
+                }
+                else { 
+                    TestTool.NearlyNeighbors(ys, 4);
+                    TestTool.SmoothnessSatisfied(ys, 3);
+                }
 
                 Console.Write("\n");
             }

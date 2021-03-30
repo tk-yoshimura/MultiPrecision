@@ -50,9 +50,6 @@ namespace MultiPrecision {
             for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
                 Accumulator<N> t = Accumulator<N>.TaylorTable[i];
                 Accumulator<N> d = w * t;
-                if (d.Digits < Length) {
-                    break;
-                }
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -62,6 +59,11 @@ namespace MultiPrecision {
                     a -= d;
                     s = Sign.Plus;
                 }
+
+                if (d.Digits < Length) {
+                    break;
+                }
+
                 w = Accumulator<N>.MulShift(w, m);
             }
 
@@ -98,9 +100,6 @@ namespace MultiPrecision {
             for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
                 Accumulator<N> t = Accumulator<N>.TaylorTable[i];
                 Accumulator<N> d = w * t;
-                if (d.Digits < Length) {
-                    break;
-                }
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -110,6 +109,11 @@ namespace MultiPrecision {
                     a -= d;
                     s = Sign.Plus;
                 }
+
+                if (d.Digits < Length) {
+                    break;
+                }
+
                 w = Accumulator<N>.MulShift(w, m);
             }
 

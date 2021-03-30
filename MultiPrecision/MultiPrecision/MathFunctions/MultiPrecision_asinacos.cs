@@ -17,9 +17,11 @@ namespace MultiPrecision {
                 return x.Sign == Sign.Plus ? PI / 2 : -PI / 2;
             }
 
+            MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
+
             if (x <= One && x >= MinusOne) {
-                MultiPrecision<N> z = Abs(x) / Sqrt(x * x + 1);
-                MultiPrecision<N> w = Sqrt(SquareAsin(z));
+                MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Abs(x_ex) / MultiPrecision<Plus1<N>>.Sqrt(x_ex * x_ex + 1);
+                MultiPrecision<N> w = MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.SquareAsin(z)).Convert<N>();
 
                 if (w.IsZero) {
                     return x;
@@ -28,9 +30,9 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(x.Sign, w.exponent, w.mantissa);
             }
             else {
-                MultiPrecision<N> invx = 1 / x;
-                MultiPrecision<N> z = Abs(invx) / Sqrt(invx * invx + 1);
-                MultiPrecision<N> w = Sqrt(SquareAsin(z));
+                MultiPrecision<Plus1<N>> invx = 1 / x_ex;
+                MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Abs(invx) / MultiPrecision<Plus1<N>>.Sqrt(invx * invx + 1);
+                MultiPrecision<N> w = MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.SquareAsin(z)).Convert<N>();
 
                 if (x.Sign == Sign.Plus) {
                     return PI / 2 - w;
@@ -54,7 +56,12 @@ namespace MultiPrecision {
             }
 
             if (Abs(x) <= Sqrt2 / 2) {
-                MultiPrecision<N> w = Sqrt(SquareAsin(Abs(x)));
+                MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
+    
+                MultiPrecision<N> w = 
+                    MultiPrecision<Plus1<N>>.Sqrt(
+                        MultiPrecision<Plus1<N>>.SquareAsin(
+                            MultiPrecision<Plus1<N>>.Abs(x_ex))).Convert<N>();
 
                 if (w.IsZero) {
                     return x;
@@ -107,7 +114,7 @@ namespace MultiPrecision {
                 z += dz;
                 t *= s;
 
-                if (dz.IsZero || z.Exponent - dz.Exponent > Bits) {
+                if (dz.IsZero || z.Exponent - dz.Exponent > MultiPrecision<Plus1<N>>.Bits) {
 #if DEBUG
                     convergenced = true;
 #endif
@@ -130,7 +137,7 @@ namespace MultiPrecision {
                     MultiPrecision<Plus1<N>> n = 1, n_frac = 1, n2_frac = 2;
                     List<MultiPrecision<Plus1<N>>> fracs = new();
 
-                    while (fracs.Count < 1 || fracs.Last().Exponent >= -Bits * 2) {
+                    while (fracs.Count < 1 || fracs.Last().Exponent >= -MultiPrecision<Plus1<N>>.Bits * 2) {
                         fracs.Add((n_frac * n_frac) / (n * n * n2_frac));
 
                         n += 1;

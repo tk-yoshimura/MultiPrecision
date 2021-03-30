@@ -64,7 +64,7 @@ namespace MultiPrecision {
                 return PositiveInfinity;
             }
 
-            if (z.Exponent < -2) {
+            if (z.Exponent < -1) {
                 return Log(Gamma(z));
             }
 
