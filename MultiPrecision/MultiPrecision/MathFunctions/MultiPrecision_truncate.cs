@@ -51,7 +51,7 @@ namespace MultiPrecision {
             if (x.Sign == Sign.Minus) {
                 return Floor(x + Point5);
             }
-            else { 
+            else {
                 return Floor(TruncateMantissa(x, 1) + Point5);
             }
         }

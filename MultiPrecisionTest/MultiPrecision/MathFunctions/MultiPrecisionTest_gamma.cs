@@ -237,7 +237,6 @@ namespace MultiPrecisionTest.Functions {
                 2 + MultiPrecision<Pow2.N8>.Ldexp(1, -31),
                 MultiPrecision<Pow2.N8>.Ldexp(1, -1),
                 MultiPrecision<Pow2.N8>.Ldexp(1, -2),
-                MultiPrecision<Pow2.N8>.Ldexp(1, -4),
                 0, 1, 2, 3, 4, 32, 64
             };
 
@@ -265,7 +264,7 @@ namespace MultiPrecisionTest.Functions {
                 if (b != 1 && b != 2) {
                     TestTool.NearlyNeighbors(ys, 36);
                 }
-                TestTool.SmoothnessSatisfied(ys, 5);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
@@ -295,7 +294,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 2);
-                TestTool.SmoothnessSatisfied(ys, 2);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
@@ -323,7 +322,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -346,7 +345,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -369,7 +368,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -392,7 +391,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -415,7 +414,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -438,7 +437,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 14);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
         }
@@ -465,7 +464,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -488,7 +487,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -511,7 +510,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -534,7 +533,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -557,7 +556,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
 
@@ -580,7 +579,7 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
             }
         }

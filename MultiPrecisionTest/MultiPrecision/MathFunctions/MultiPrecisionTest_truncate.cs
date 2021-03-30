@@ -92,7 +92,7 @@ namespace MultiPrecisionTest.Functions {
                 new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
             };
 
-            for(int i=0; i < cases; i++){
+            for (int i = 0; i < cases; i++) {
                 MultiPrecision<Pow2.N4> actual = MultiPrecision<Pow2.N4>.RoundMantissa(tests[i], 2);
 
                 Console.WriteLine(expects[i].ToHexcode());
@@ -128,7 +128,7 @@ namespace MultiPrecisionTest.Functions {
                 new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
             };
 
-            for(int i=0; i < cases; i++){
+            for (int i = 0; i < cases; i++) {
                 MultiPrecision<Pow2.N4> actual = MultiPrecision<Pow2.N4>.TruncateMantissa(tests[i], 2);
 
                 Console.WriteLine(expects[i].ToHexcode());

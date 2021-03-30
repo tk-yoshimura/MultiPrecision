@@ -76,7 +76,7 @@ namespace MultiPrecisionTest.Functions {
                 if (b != 0) {
                     TestTool.NearlyNeighbors(ys, 3);
                 }
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
@@ -86,7 +86,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void ArcoshBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                1
+                1, 2
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
@@ -111,7 +111,7 @@ namespace MultiPrecisionTest.Functions {
                     ys.Add(y);
                 }
 
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, (b == 1) ? 2.5 : 1);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
@@ -147,7 +147,7 @@ namespace MultiPrecisionTest.Functions {
                     TestTool.Tolerance(Math.Atanh((double)x), y, ignore_expected_nan: true);
                 }
 
-                TestTool.SmoothnessSatisfied(ys, 3);
+                TestTool.SmoothnessSatisfied(ys, b == 0 ? 0.5 : 2);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");

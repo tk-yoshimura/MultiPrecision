@@ -156,16 +156,16 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 1);
                     TestTool.MonotonicitySatisfied(ys);
                 }
                 else if (b % 2 == 0) {
                     TestTool.NearlyNeighbors(ys, 3);
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                 }
-                else { 
+                else {
                     TestTool.NearlyNeighbors(ys, 4);
-                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 1);
                     TestTool.MonotonicitySatisfied(ys);
                 }
 
@@ -200,16 +200,16 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                     TestTool.MonotonicitySatisfied(ys);
                 }
                 else if (b % 2 == 0) {
                     TestTool.NearlyNeighbors(ys, 19);
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                 }
-                else { 
+                else {
                     TestTool.NearlyNeighbors(ys, 20);
-                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                     TestTool.MonotonicitySatisfied(ys);
                 }
 
@@ -260,16 +260,16 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 if (b % 2 == 0) {
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                     TestTool.MonotonicitySatisfied(ys);
                 }
                 else if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
                     TestTool.NearlyNeighbors(ys, 3);
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 1);
                 }
-                else { 
+                else {
                     TestTool.NearlyNeighbors(ys, 4);
-                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 1);
                     TestTool.MonotonicitySatisfied(ys);
                 }
 
@@ -304,16 +304,16 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 if (b % 2 == 0) {
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                     TestTool.MonotonicitySatisfied(ys);
                 }
                 else if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
                     TestTool.NearlyNeighbors(ys, 19);
-                    TestTool.SmoothnessSatisfied(ys, 2);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                 }
-                else { 
+                else {
                     TestTool.NearlyNeighbors(ys, 20);
-                    TestTool.SmoothnessSatisfied(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
                     TestTool.MonotonicitySatisfied(ys);
                 }
 

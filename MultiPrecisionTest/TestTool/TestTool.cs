@@ -286,7 +286,7 @@ namespace MultiPrecisionTest {
             }
         }
 
-        public static void SmoothnessSatisfied<N>(IEnumerable<MultiPrecision<N>> vs, double safe_sigma) where N : struct, IConstant {
+        public static void SmoothnessSatisfied<N>(IEnumerable<MultiPrecision<N>> vs, double safe_error) where N : struct, IConstant {
             if (vs.Count() < 3) {
                 throw new InvalidOperationException("Sequence contains less 3 elements");
             }
@@ -300,12 +300,26 @@ namespace MultiPrecisionTest {
                 diff[i - 1] = a - b;
             }
 
-            MultiPrecision<N> diff_ave = diff.Average(), diff_std = MultiPrecision<N>.Sqrt(diff.Variance());
+            diff = diff.Where((d) => d.IsFinite).ToArray();
 
-            foreach (MultiPrecision<N> d in diff) {
-                if (d < diff_ave - diff_std * safe_sigma || d > diff_ave + diff_std * safe_sigma) {
-                    Assert.Fail($"Smoothness not satisfied.");
-                }
+            MultiPrecision<N> diff_avg = diff.Average();
+            MultiPrecision<N> diff_absave = diff.Select((d) => MultiPrecision<N>.Abs(d)).Average();
+            MultiPrecision<N> diff_nonzeromin = diff.Where((d) => !d.IsZero).Select((d) => MultiPrecision<N>.Abs(d)).Min();
+            MultiPrecision<N> error_range = diff_absave * safe_error + diff_nonzeromin;
+
+            if (diff_absave.IsZero || error_range.IsZero) {
+                Console.WriteLine("Smoothness satisfied. (No error)");
+                return;
+            }
+
+            MultiPrecision<N> max_error_rate = diff.Select((d) => MultiPrecision<N>.Abs(d - diff_avg) / error_range).Max();
+
+            if (max_error_rate < safe_error) {
+                Console.WriteLine($"Smoothness satisfied. (Max Error Rate:{max_error_rate:E4})");
+                return;
+            }
+            else {
+                Assert.Fail($"Smoothness not satisfied. (Max Error Rate:{max_error_rate:E4})");
             }
         }
     }

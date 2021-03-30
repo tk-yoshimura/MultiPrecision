@@ -57,8 +57,8 @@ namespace MultiPrecision {
 
             if (Abs(x) <= Sqrt2 / 2) {
                 MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
-    
-                MultiPrecision<N> w = 
+
+                MultiPrecision<N> w =
                     MultiPrecision<Plus1<N>>.Sqrt(
                         MultiPrecision<Plus1<N>>.SquareAsin(
                             MultiPrecision<Plus1<N>>.Abs(x_ex))).Convert<N>();

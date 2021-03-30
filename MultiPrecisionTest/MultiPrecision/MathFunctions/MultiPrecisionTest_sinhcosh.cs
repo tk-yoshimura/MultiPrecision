@@ -68,7 +68,7 @@ namespace MultiPrecisionTest.Functions {
                     ys.Add(y);
                 }
 
-                TestTool.SmoothnessSatisfied(ys, 1);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
@@ -82,7 +82,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sinh(x);
 
                     Console.WriteLine(x);
@@ -99,7 +99,7 @@ namespace MultiPrecisionTest.Functions {
                 if (b != 0) {
                     TestTool.NearlyNeighbors(ys, 2);
                 }
-                TestTool.SmoothnessSatisfied(ys, 2);
+                TestTool.SmoothnessSatisfied(ys, 1);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");
