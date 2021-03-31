@@ -14,12 +14,12 @@ namespace MultiPrecision {
                 Accumulator<N> n_sft = LeftShift(this, lzc);
 
                 if (n_sft.value[Mantissa<N>.Length - 1] <= UIntUtil.UInt32Round) {
-                    Mantissa<N> n = new(n_sft);
+                    Mantissa<N> n = new(new BigUInt<N>(n_sft.Value, -Mantissa<N>.Length));
                     return (n, lzc);
                 }
                 for (int i = Mantissa<N>.Length; i < Accumulator<N>.Length; i++) {
                     if (n_sft.value[i] < UInt32.MaxValue) {
-                        Mantissa<N> n = new(n_sft);
+                        Mantissa<N> n = new(new BigUInt<N>(n_sft.Value, -Mantissa<N>.Length, carry: true));
                         return (n, lzc);
                     }
                 }

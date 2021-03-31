@@ -25,8 +25,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Add(v1, v2);
@@ -49,8 +49,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Sub(v1, v2);
@@ -81,8 +81,8 @@ namespace MultiPrecisionTest.BigUInt {
                     value2[0] = 0;
                 }
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Mul(v1, v2);
@@ -101,8 +101,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<Pow2.N32>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Mul(v1, v2);
@@ -118,8 +118,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<Pow2.N8>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<Pow2.N8> v1 = new BigUInt<Pow2.N8>(value);
-                BigUInt<Pow2.N8> v2 = new BigUInt<Pow2.N8>(value);
+                BigUInt<Pow2.N8> v1 = new BigUInt<Pow2.N8>(value, enable_clone: false);
+                BigUInt<Pow2.N8> v2 = new BigUInt<Pow2.N8>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Pow2.N8> v = BigUInt<Pow2.N8>.Mul(v1, v2);
@@ -135,8 +135,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<N9>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<N9> v1 = new BigUInt<N9>(value);
-                BigUInt<N9> v2 = new BigUInt<N9>(value);
+                BigUInt<N9> v1 = new BigUInt<N9>(value, enable_clone: false);
+                BigUInt<N9> v2 = new BigUInt<N9>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<N9> v = BigUInt<N9>.Mul(v1, v2);
@@ -152,8 +152,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<N10>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<N10> v1 = new BigUInt<N10>(value);
-                BigUInt<N10> v2 = new BigUInt<N10>(value);
+                BigUInt<N10> v1 = new BigUInt<N10>(value, enable_clone: false);
+                BigUInt<N10> v2 = new BigUInt<N10>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<N10> v = BigUInt<N10>.Mul(v1, v2);
@@ -169,8 +169,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<N11>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<N11> v1 = new BigUInt<N11>(value);
-                BigUInt<N11> v2 = new BigUInt<N11>(value);
+                BigUInt<N11> v1 = new BigUInt<N11>(value, enable_clone: false);
+                BigUInt<N11> v2 = new BigUInt<N11>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<N11> v = BigUInt<N11>.Mul(v1, v2);
@@ -186,8 +186,8 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<N12>.Length / 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<N12> v1 = new BigUInt<N12>(value);
-                BigUInt<N12> v2 = new BigUInt<N12>(value);
+                BigUInt<N12> v1 = new BigUInt<N12>(value, enable_clone: false);
+                BigUInt<N12> v2 = new BigUInt<N12>(value, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<N12> v = BigUInt<N12>.Mul(v1, v2);
@@ -210,8 +210,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 BigUInt<Double<Pow2.N32>> v = BigUInt<Pow2.N32>.ExpandMul(v1, v2);
@@ -315,8 +315,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 if (v2.IsZero) {
@@ -461,8 +461,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigUInt<Pow2.N32> v3 = new BigUInt<Pow2.N32>((UInt32)random.Next(4));
 
                 if (v2.IsZero || v2 <= v3) {
@@ -505,8 +505,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
-                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
+                BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
                 if (v2.IsZero) {
@@ -535,7 +535,7 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] value1 = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, bits1);
                 UInt32[] value2 = UIntUtil.Random(random, 2, bits2);
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
                 UInt64 v2 = UIntUtil.Pack(value2[1], value2[0]);
                 BigInteger bi1 = v1, bi2 = v2;
 
@@ -601,7 +601,7 @@ namespace MultiPrecisionTest.BigUInt {
                     value2[0] = 0;
                 }
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
                 UInt64 v2 = UIntUtil.Pack(value2[1], value2[0]);
                 BigInteger bi1 = v1, bi2 = v2;
 
@@ -621,7 +621,7 @@ namespace MultiPrecisionTest.BigUInt {
                     .Select((_, idx) => idx < BigUInt<Pow2.N32>.Length - 2 ? 0xFFFFFFFFu : 0
                 ).ToArray();
 
-                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1);
+                BigUInt<Pow2.N32> v1 = new BigUInt<Pow2.N32>(value1, enable_clone: false);
                 UInt64 v2 = 0xFFFFFFFFFFFFFFFFul;
                 BigInteger bi1 = v1, bi2 = v2;
 

@@ -13,7 +13,7 @@ namespace MultiPrecisionTest.UIntUtils {
 
             foreach (UInt64 v in vs) {
                 foreach (UInt64 u in vs) {
-                    BigUInt<Pow2.N4> x = new BigUInt<Pow2.N4>(UIntUtil.Mul(v, u));
+                    BigUInt<Pow2.N4> x = new BigUInt<Pow2.N4>(UIntUtil.Mul(v, u), enable_clone: false);
 
                     BigInteger y = (BigInteger)v * (BigInteger)u;
 

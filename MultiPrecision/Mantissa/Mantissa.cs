@@ -26,7 +26,7 @@ namespace MultiPrecision {
             this.value = new BigUInt<N>(v);
         }
 
-        public Mantissa(UInt32[] arr, bool enable_clone = true) {
+        public Mantissa(UInt32[] arr, bool enable_clone) {
             this.value = new BigUInt<N>(arr, enable_clone);
         }
 
@@ -36,10 +36,6 @@ namespace MultiPrecision {
 
         public Mantissa(BigUInt<N> value) {
             this.value = value;
-        }
-
-        public Mantissa(Accumulator<N> acc) {
-            this.value = new BigUInt<N>(acc.Value, Length, carry: acc.Value[Length - 1] > UIntUtil.UInt32Round);
         }
 
         public bool IsZero => value.IsZero;

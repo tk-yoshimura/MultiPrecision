@@ -26,7 +26,7 @@ namespace MultiPrecision {
             this.value = new BigUInt<Double<N>>(v);
         }
 
-        public Accumulator(UInt32[] arr, bool enable_clone = true) {
+        public Accumulator(UInt32[] arr, bool enable_clone) {
             this.value = new BigUInt<Double<N>>(arr, enable_clone);
         }
 
@@ -40,13 +40,13 @@ namespace MultiPrecision {
 
         public Accumulator(Mantissa<N> n, Int64 sft = 0) {
             if (sft == 0) {
-                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false);
+                this.value = new BigUInt<Double<N>>(n.Value, 0);
             }
             else if (sft > 0) {
-                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false) << checked((int)sft);
+                this.value = new BigUInt<Double<N>>(n.Value, 0) << checked((int)sft);
             }
             else if (sft < 0 && sft > -Bits) {
-                this.value = new BigUInt<Double<N>>(n.Value, 0, carry: false) >> (int)-sft;
+                this.value = new BigUInt<Double<N>>(n.Value, 0) >> (int)-sft;
             }
             else {
                 this.value = BigUInt<Double<N>>.Zero;

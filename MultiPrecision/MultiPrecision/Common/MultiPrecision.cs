@@ -20,7 +20,7 @@ namespace MultiPrecision {
         public ReadOnlyCollection<UInt32> Mantissa => mantissa.Value;
 
         public MultiPrecision(Sign sign, Int64 exponent, UInt32[] mantissa)
-            : this(sign, exponent, new Mantissa<N>(mantissa), round: false) { }
+            : this(sign, exponent, new Mantissa<N>(mantissa, enable_clone: true), round: false) { }
 
         internal MultiPrecision(Sign sign, UInt32 exponent, Mantissa<N> mantissa) {
             this.Sign = sign;

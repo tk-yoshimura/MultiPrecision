@@ -9,7 +9,7 @@ namespace MultiPrecisionTest.Accumulator {
     public partial class AccumulatorTest {
         [TestMethod]
         public void CreateTest() {
-            Mantissa<Pow2.N4> n = new Mantissa<Pow2.N4>(new UInt32[] { 0x12345678u, 0xABCDEF01u, 0x97531ABCu, 0xAE012458u });
+            Mantissa<Pow2.N4> n = new Mantissa<Pow2.N4>(new UInt32[] { 0x12345678u, 0xABCDEF01u, 0x97531ABCu, 0xAE012458u }, enable_clone: false);
 
             Accumulator<Pow2.N4> acc0 = new Accumulator<Pow2.N4>(n);
             Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(n, 4);

@@ -16,8 +16,8 @@ namespace MultiPrecisionTest.BigUInt {
                 UInt32[] mantissa1 = UIntUtil.Random(random, length, random.Next(length * UIntUtil.UInt32Bits + 1));
                 UInt32[] mantissa2 = UIntUtil.Random(random, length, random.Next(length * UIntUtil.UInt32Bits + 1));
 
-                BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>(mantissa1);
-                BigUInt<Pow2.N4> n2 = random.Next(8) < 7 ? new BigUInt<Pow2.N4>(mantissa2) : n1.Copy();
+                BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>(mantissa1, enable_clone: false);
+                BigUInt<Pow2.N4> n2 = random.Next(8) < 7 ? new BigUInt<Pow2.N4>(mantissa2, enable_clone: false) : n1.Copy();
                 BigInteger bi1 = n1, bi2 = n2;
 
                 Console.WriteLine(n1);
@@ -37,9 +37,9 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void IsZeroFullTest() {
-            BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>(new UInt32[] { ~0u, ~0u, ~0u, ~0u });
-            BigUInt<Pow2.N4> n2 = new BigUInt<Pow2.N4>(new UInt32[] { 0u, ~0u, ~0u, ~0u });
-            BigUInt<Pow2.N4> n3 = new BigUInt<Pow2.N4>(new UInt32[] { 0u, 0u, 0u, 0u });
+            BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>(new UInt32[] { ~0u, ~0u, ~0u, ~0u }, enable_clone: false);
+            BigUInt<Pow2.N4> n2 = new BigUInt<Pow2.N4>(new UInt32[] { 0u, ~0u, ~0u, ~0u }, enable_clone: false);
+            BigUInt<Pow2.N4> n3 = new BigUInt<Pow2.N4>(new UInt32[] { 0u, 0u, 0u, 0u }, enable_clone: false);
 
             Assert.IsFalse(n1.IsZero);
             Assert.IsTrue(n1.IsFull);

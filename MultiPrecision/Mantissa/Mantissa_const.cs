@@ -7,7 +7,7 @@ namespace MultiPrecision {
 
         public static Mantissa<N> Zero { get; } = new Mantissa<N>(BigUInt<N>.Zero);
 
-        public static Mantissa<N> One { get; } = new Mantissa<N>(Enumerable.Repeat(0u, Length - 1).Concat(new UInt32[] { 0x80000000u }).ToArray());
+        public static Mantissa<N> One { get; } = new Mantissa<N>(Enumerable.Repeat(0u, Length - 1).Concat(new UInt32[] { 0x80000000u }).ToArray(), enable_clone: false);
 
         public static Mantissa<N> Full { get; } = new Mantissa<N>(BigUInt<N>.Full);
 

@@ -9,7 +9,7 @@ namespace MultiPrecisionTest.Accumulator {
     public partial class AccumulatorTest {
 
         [TestMethod]
-        public void MantissaTest() {
+        public void MantissaTest1() {
             UInt32[] v0 = new UInt32[] { 0u, 0u, 0u, 0u, 0u, 0u, 0u, 0u };
             UInt32[] v1 = new UInt32[] { 0x3FFFFFFFu, ~0u, ~0u, ~0u, 0u, 0u, 0u, 0u };
             UInt32[] v2 = new UInt32[] { 0x7FFFFFFFu, ~0u, ~0u, ~0u, 0u, 0u, 0u, 0u };
@@ -28,23 +28,23 @@ namespace MultiPrecisionTest.Accumulator {
             UInt32[] v15 = new UInt32[] { 0u, ~0u, ~0u, ~0u, ~0u, 0x80000000u, 0u, 0u };
             UInt32[] v16 = new UInt32[] { 0u, ~0u, ~0u, ~0u, ~0u, ~0u, 0u, 0u };
 
-            Accumulator<Pow2.N4> acc0 = new Accumulator<Pow2.N4>(v0.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(v1.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(v2.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(v3.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(v4.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(v5.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(v6.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc7 = new Accumulator<Pow2.N4>(v7.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc8 = new Accumulator<Pow2.N4>(v8.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc9 = new Accumulator<Pow2.N4>(v9.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc10 = new Accumulator<Pow2.N4>(v10.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc11 = new Accumulator<Pow2.N4>(v11.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc12 = new Accumulator<Pow2.N4>(v12.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc13 = new Accumulator<Pow2.N4>(v13.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc14 = new Accumulator<Pow2.N4>(v14.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc15 = new Accumulator<Pow2.N4>(v15.Reverse().ToArray());
-            Accumulator<Pow2.N4> acc16 = new Accumulator<Pow2.N4>(v16.Reverse().ToArray());
+            Accumulator<Pow2.N4> acc0 = new Accumulator<Pow2.N4>(v0.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(v1.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(v2.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(v3.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(v4.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(v5.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(v6.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc7 = new Accumulator<Pow2.N4>(v7.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc8 = new Accumulator<Pow2.N4>(v8.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc9 = new Accumulator<Pow2.N4>(v9.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc10 = new Accumulator<Pow2.N4>(v10.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc11 = new Accumulator<Pow2.N4>(v11.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc12 = new Accumulator<Pow2.N4>(v12.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc13 = new Accumulator<Pow2.N4>(v13.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc14 = new Accumulator<Pow2.N4>(v14.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc15 = new Accumulator<Pow2.N4>(v15.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc16 = new Accumulator<Pow2.N4>(v16.Reverse().ToArray(), enable_clone: false);
 
             (Mantissa<Pow2.N4> n0, int sft0) = acc0.Mantissa;
             (Mantissa<Pow2.N4> n1, int sft1) = acc1.Mantissa;
@@ -114,6 +114,49 @@ namespace MultiPrecisionTest.Accumulator {
 
             CollectionAssert.AreEqual(new UInt32[] { 0x80000000u, 0u, 0u, 0u }.Reverse().ToArray(), n16.Value);
             Assert.AreEqual(31, sft16);
+        }
+
+        [TestMethod]
+        public void MantissaTest2() {
+            int length = Mantissa<Pow2.N4>.Length;
+
+            UInt32[] vs = new UInt32[] {
+                0x11111111u, 0x22222222u, 0x33333333u, 0x44444444u, 0x55555555u, 0x66666666u, 0x77777777u, 0x88888888u,
+                0x99999999u, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu, 0xDDDDDDDDu, 0xEEEEEEEEu, 0xFFFFFFFFu, 0u,
+            };
+            UInt32[] us = vs.Reverse().ToArray();
+
+            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(vs.Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(vs.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(vs.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(us.Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(us.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(us.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
+
+            (Mantissa<Pow2.N4> n1, int sft1) = acc1.Mantissa;
+            (Mantissa<Pow2.N4> n2, int sft2) = acc2.Mantissa;
+            (Mantissa<Pow2.N4> n3, int sft3) = acc3.Mantissa;
+            (Mantissa<Pow2.N4> n4, int sft4) = acc4.Mantissa;
+            (Mantissa<Pow2.N4> n5, int sft5) = acc5.Mantissa;
+            (Mantissa<Pow2.N4> n6, int sft6) = acc6.Mantissa;
+
+            CollectionAssert.AreEqual(new UInt32[] { 0x55555555u, 0x66666666u, 0x77777777u, 0x88888888u }, n1.Value);
+            Assert.AreEqual(0, sft1);
+
+            CollectionAssert.AreEqual(new UInt32[] { 0x9999999Au, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu }, n2.Value);
+            Assert.AreEqual(0, sft2);
+            
+            CollectionAssert.AreEqual(new UInt32[] { 0xCCCCCCCDu, 0xDDDDDDDDu, 0xEEEEEEEEu, 0xFFFFFFFFu }, n3.Value);
+            Assert.AreEqual(32, sft3);
+
+            CollectionAssert.AreEqual(new UInt32[] { 0xCCCCCCCDu, 0xBBBBBBBBu, 0xAAAAAAAAu, 0x99999999u }, n4.Value);
+            Assert.AreEqual(0, sft4);
+
+            CollectionAssert.AreEqual(new UInt32[] { 0x11111111u, 0xEEEEEEEFu, 0xCCCCCCCCu, 0xAAAAAAAAu }, n5.Value);
+            Assert.AreEqual(1, sft5);
+
+            CollectionAssert.AreEqual(new UInt32[] { 0x22222223u, 0x9999999Au, 0x11111111u, 0x88888889u }, n6.Value);
+            Assert.AreEqual(3, sft6);
         }
     }
 }

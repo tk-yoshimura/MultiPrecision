@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -30,7 +29,7 @@ namespace MultiPrecision {
             (this.value[1], this.value[0]) = UIntUtil.Unpack(v);
         }
 
-        public BigUInt(UInt32[] arr, bool enable_clone = true) {
+        public BigUInt(UInt32[] arr, bool enable_clone) {
             if (arr.Length != Length) {
                 throw new ArgumentException(nameof(arr));
             }
@@ -46,7 +45,7 @@ namespace MultiPrecision {
             this.value = arr.ToArray();
         }
 
-        public BigUInt(UInt32[] arr, int offset) : this() {
+        public BigUInt(UInt32[] arr, int offset, bool carry = false) : this() {
             if (offset + arr.Length > Length) {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
@@ -57,21 +56,14 @@ namespace MultiPrecision {
             else {
                 Array.Copy(arr, -offset, this.value, 0, offset + arr.Length);
             }
-        }
-
-        public BigUInt(ReadOnlyCollection<UInt32> arr, int index, bool carry) : this() {
-            if (index < 0) {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
-
-            for (int i = 0; i < Length && i + index < arr.Count; i++) {
-                this.value[i] = arr[i + index];
-            }
 
             if (carry) {
                 CarryAdd(0, 1u);
             }
         }
+
+        public BigUInt(ReadOnlyCollection<UInt32> arr, int offset, bool carry = false)
+            : this(arr.ToArray(), offset, carry) { }
 
         public bool IsZero => UIntUtil.IsZero(value);
 
@@ -90,7 +82,7 @@ namespace MultiPrecision {
         }
 
         public BigUInt<N> Copy() {
-            return new BigUInt<N>(value);
+            return new BigUInt<N>(value, enable_clone: true);
         }
 
         public override bool Equals(object obj) {

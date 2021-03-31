@@ -20,7 +20,7 @@ namespace MultiPrecisionTest.BigUInt {
                         random.Next(BigUInt<Pow2.N32>.Bits + 1)
                     );
 
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa);
+                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
                 BigInteger bi = v;
 
                 Assert.AreEqual(bi.ToString(), v.ToString());

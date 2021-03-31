@@ -22,9 +22,9 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Pow2BorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, 0, 1, 2 };
+            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] { -2, -1, -0.5, 0, 0.5, 1, 2 };
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
+            foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
@@ -42,7 +42,33 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 TestTool.NearlyNeighbors(ys, 4);
-                TestTool.SmoothnessSatisfied(ys, 1);
+                TestTool.SmoothnessSatisfied(ys, 1.25);
+                TestTool.MonotonicitySatisfied(ys);
+
+                Console.Write("\n");
+            }
+
+            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] { -2, -1, -0.5, 0, 0.5, 1, 2 };
+
+            foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
+                List<MultiPrecision<Pow2.N16>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Pow2(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Math.Pow(2, (double)x), y);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothnessSatisfied(ys, 1.25);
                 TestTool.MonotonicitySatisfied(ys);
 
                 Console.Write("\n");

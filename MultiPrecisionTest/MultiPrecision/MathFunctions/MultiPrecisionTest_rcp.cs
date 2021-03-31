@@ -18,6 +18,18 @@ namespace MultiPrecisionTest.Functions {
 
                 TestTool.Tolerance(1 / (double)x, y);
             }
+
+            Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Rcp(1));
+
+            Assert.AreEqual(0.5, MultiPrecision<Pow2.N8>.Rcp(2));
+
+            Assert.AreEqual(2, MultiPrecision<Pow2.N8>.Rcp(0.5));
+
+            Assert.AreEqual(1, MultiPrecision<Pow2.N16>.Rcp(1));
+
+            Assert.AreEqual(0.5, MultiPrecision<Pow2.N16>.Rcp(2));
+
+            Assert.AreEqual(2, MultiPrecision<Pow2.N16>.Rcp(0.5));
         }
 
         [TestMethod]
@@ -42,14 +54,19 @@ namespace MultiPrecisionTest.Functions {
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Rcp(x);
+                    MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Rcp(y);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
                     Console.WriteLine(y);
                     Console.WriteLine(y.ToHexcode());
+                    Console.WriteLine(z);
+                    Console.WriteLine(z.ToHexcode());
                     Console.Write("\n");
 
                     TestTool.Tolerance(1 / (double)x, y);
+
+                    Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 1));
 
                     ys.Add(y);
                 }

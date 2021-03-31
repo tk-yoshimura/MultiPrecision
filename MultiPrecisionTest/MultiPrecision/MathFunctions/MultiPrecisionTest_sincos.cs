@@ -25,6 +25,30 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
                 Assert.AreEqual(Sign.Plus, y.Sign);
             }
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Sqrt2 / 2, 
+                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Sqrt(3) / 2, 
+                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Point5, 
+                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Sqrt2 / 2, 
+                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Sqrt(3) / 2, 
+                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Point5, 
+                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
         }
 
         [TestMethod]
@@ -45,6 +69,30 @@ namespace MultiPrecisionTest.Functions {
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
                 Assert.AreEqual(Sign.Plus, y.Sign);
             }
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Sqrt2 / 2, 
+                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Point5, 
+                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                MultiPrecision<Pow2.N8>.Sqrt(3) / 2, 
+                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Sqrt2 / 2, 
+                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Point5, 
+                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
+                MultiPrecision<Pow2.N16>.Sqrt(3) / 2, 
+                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
         }
 
         [TestMethod]
@@ -130,15 +178,15 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void CosHalfPIBorderTest() {
-            MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
+            MultiPrecision<Pow2.N8> half_n8 = MultiPrecision<Pow2.N8>.Point5;
 
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
+            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] {
+                -4 - half_n8, -4, -3 - half_n8, -3, -2 - half_n8, -2, -1 - half_n8, -1, -0 - half_n8,
                 0,
-                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half
+                0 + half_n8, 1, 1 + half_n8, 2, 2 + half_n8, 3, 3 + half_n8, 4, 4 + half_n8
             };
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
+            foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
@@ -156,6 +204,48 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.SmoothnessSatisfied(ys, 1);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (b % 2 == 0) {
+                    TestTool.NearlyNeighbors(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
+                }
+                else {
+                    TestTool.NearlyNeighbors(ys, 4);
+                    TestTool.SmoothnessSatisfied(ys, 1);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+
+                Console.Write("\n");
+            }
+
+            MultiPrecision<Pow2.N16> half_n16 = MultiPrecision<Pow2.N16>.Point5;
+
+            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] {
+                -4 - half_n16, -4, -3 - half_n16, -3, -2 - half_n16, -2, -1 - half_n16, -1, -0 - half_n16,
+                0,
+                0 + half_n16, 1, 1 + half_n16, 2, 2 + half_n16, 3, 3 + half_n16, 4, 4 + half_n16
+            };
+
+            foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
+                List<MultiPrecision<Pow2.N16>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.CosHalfPI(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Math.Cos((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                if (MultiPrecision<Pow2.N16>.Abs(b % 2) == 1) {
                     TestTool.SmoothnessSatisfied(ys, 1);
                     TestTool.MonotonicitySatisfied(ys);
                 }
@@ -234,15 +324,15 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void SinHalfPIBorderTest() {
-            MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
+            MultiPrecision<Pow2.N8> half_n8 = MultiPrecision<Pow2.N8>.Point5;
 
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                -4 - half, -4, -3 - half, -3, -2 - half, -2, -1 - half, -1, -0 - half,
+            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] {
+                -4 - half_n8, -4, -3 - half_n8, -3, -2 - half_n8, -2, -1 - half_n8, -1, -0 - half_n8,
                 0,
-                0 + half, 1, 1 + half, 2, 2 + half, 3, 3 + half, 4, 4 + half
+                0 + half_n8, 1, 1 + half_n8, 2, 2 + half_n8, 3, 3 + half_n8, 4, 4 + half_n8
             };
 
-            foreach (MultiPrecision<Pow2.N8> b in borders) {
+            foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
@@ -264,6 +354,48 @@ namespace MultiPrecisionTest.Functions {
                     TestTool.MonotonicitySatisfied(ys);
                 }
                 else if (MultiPrecision<Pow2.N8>.Abs(b % 2) == 1) {
+                    TestTool.NearlyNeighbors(ys, 3);
+                    TestTool.SmoothnessSatisfied(ys, 1);
+                }
+                else {
+                    TestTool.NearlyNeighbors(ys, 4);
+                    TestTool.SmoothnessSatisfied(ys, 1);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+
+                Console.Write("\n");
+            }
+
+            MultiPrecision<Pow2.N16> half_n16 = MultiPrecision<Pow2.N16>.Point5;
+
+            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] {
+                -4 - half_n16, -4, -3 - half_n16, -3, -2 - half_n16, -2, -1 - half_n16, -1, -0 - half_n16,
+                0,
+                0 + half_n16, 1, 1 + half_n16, 2, 2 + half_n16, 3, 3 + half_n16, 4, 4 + half_n16
+            };
+
+            foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
+                List<MultiPrecision<Pow2.N16>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.SinHalfPI(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Math.Sin((double)x * Math.PI / 2), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                if (b % 2 == 0) {
+                    TestTool.SmoothnessSatisfied(ys, 0.5);
+                    TestTool.MonotonicitySatisfied(ys);
+                }
+                else if (MultiPrecision<Pow2.N16>.Abs(b % 2) == 1) {
                     TestTool.NearlyNeighbors(ys, 3);
                     TestTool.SmoothnessSatisfied(ys, 1);
                 }
