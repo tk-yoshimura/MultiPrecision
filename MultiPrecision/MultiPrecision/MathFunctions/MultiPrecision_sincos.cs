@@ -36,6 +36,26 @@ namespace MultiPrecision {
                 return x;
             }
 
+            if (x.Exponent < 0) { 
+                return MultiPrecision<Plus1<N>>.SinCurveTaylorApprox(x.Convert<Plus1<N>>()).Convert<N>();
+            }
+
+            return SinCurveTaylorApprox(x);
+        }
+
+        internal static MultiPrecision<N> CosHalfPI(MultiPrecision<N> x) {
+            if (!x.IsFinite) {
+                return NaN;
+            }
+
+            if (x.Exponent < 0) { 
+                return MultiPrecision<Plus1<N>>.CosCurveTaylorApprox(x.Convert<Plus1<N>>()).Convert<N>();
+            }
+
+            return CosCurveTaylorApprox(x);
+        }
+
+        private static MultiPrecision<N> SinCurveTaylorApprox(MultiPrecision<N> x) {
             MultiPrecision<N> x_abs = Abs(x);
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
@@ -81,11 +101,7 @@ namespace MultiPrecision {
             return y;
         }
 
-        internal static MultiPrecision<N> CosHalfPI(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
-                return NaN;
-            }
-
+        private static MultiPrecision<N> CosCurveTaylorApprox(MultiPrecision<N> x) {
             MultiPrecision<N> x_abs = Abs(x);
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
