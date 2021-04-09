@@ -39,6 +39,9 @@ namespace MultiPrecision {
             if (x == Zero) {
                 return PositiveInfinity;
             }
+            if (x == 1) {
+                return Zero;
+            }
             if (x.Exponent >= -1) {
                 return InverseErf(1 - x);
             }
@@ -53,8 +56,11 @@ namespace MultiPrecision {
             if (Length <= 4) {
                 const double a = 0.147;
 
-                double xd = (double)x, lg = Math.Log(1 - xd * xd), lga = 2 / (Math.PI * a) + lg / 2;
-                z0 = Math.Sqrt(Math.Sqrt(lga * lga - lg / a) - lga);
+                MultiPrecision<Pow2.N4> xl4 = x.Convert<Pow2.N4>();
+                MultiPrecision<Pow2.N4> lg = MultiPrecision<Pow2.N4>.Log(1 - xl4 * xl4);
+                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.PI * a) + lg / 2;
+
+                z0 = MultiPrecision<Pow2.N4>.Sqrt(MultiPrecision<Pow2.N4>.Sqrt(lga * lga - lg / a) - lga).Convert<N>();
             }
             else {
                 z0 = MultiPrecision<Pow2.N4>.InverseErfRootFinding(x.Convert<Pow2.N4>()).Convert<N>();
@@ -70,7 +76,7 @@ namespace MultiPrecision {
                 return (d1, d2);
             };
 
-            MultiPrecision<N> y = MultiPrecisionUtil.HalleyRootFinding(z0, erf, derf);
+            MultiPrecision<N> y = MultiPrecisionUtil.HalleyRootFinding(z0, erf, derf, break_overshoot: true);
 
             return y;
         }
@@ -82,8 +88,11 @@ namespace MultiPrecision {
             if (Length <= 4) {
                 const double a = 0.147;
 
-                double xd = (double)x, lg = Math.Log((2 - xd) * xd), lga = 2 / (Math.PI * a) + lg / 2;
-                z0 = Math.Sqrt(Math.Sqrt(lga * lga - lg / a) - lga);
+                MultiPrecision<Pow2.N4> xl4 = x.Convert<Pow2.N4>();
+                MultiPrecision<Pow2.N4> lg = MultiPrecision<Pow2.N4>.Log((2 - xl4) * xl4);
+                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.PI * a) + lg / 2;
+
+                z0 = MultiPrecision<Pow2.N4>.Sqrt(MultiPrecision<Pow2.N4>.Sqrt(lga * lga - lg / a) - lga).Convert<N>();
             }
             else {
                 z0 = MultiPrecision<Pow2.N4>.InverseErfcRootFinding(x.Convert<Pow2.N4>()).Convert<N>();
@@ -99,7 +108,7 @@ namespace MultiPrecision {
                 return (d1, d2);
             };
 
-            MultiPrecision<N> y = MultiPrecisionUtil.HalleyRootFinding(z0, erfc, derfc);
+            MultiPrecision<N> y = MultiPrecisionUtil.HalleyRootFinding(z0, erfc, derfc, break_overshoot: true);
 
             return y;
         }

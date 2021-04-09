@@ -11,6 +11,8 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void InverseErfTest() {
             MultiPrecision<Pow2.N8>[] xs = new MultiPrecision<Pow2.N8>[] {
+                -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -128)),
+                -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -64)),
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -32)),
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -16)),
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -8)),
@@ -30,6 +32,8 @@ namespace MultiPrecisionTest.Functions {
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -8)),
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -16)),
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -32)),
+                +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -64)),
+                +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -128)),
             };
 
             foreach (MultiPrecision<Pow2.N8> x in xs) {
@@ -91,6 +95,85 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
 
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 8));
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
+            }
+        }
+
+        [TestMethod]
+        public void InverseErfcPercentileTest() {
+            for(MultiPrecision<Pow2.N8> x = "0.1"; x > "1e-10"; x *= "0.1") {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
+                MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.InverseErfc(z);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.WriteLine(z);
+                Console.WriteLine(z.ToHexcode());
+                Console.WriteLine(w);
+                Console.WriteLine(w.ToHexcode());
+                Console.Write("\n");
+
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
+            }
+
+            for(MultiPrecision<Pow2.N8> x = "1e-10"; x > "1e-100"; x *= "1e-10") {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
+                MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.InverseErfc(z);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.WriteLine(z);
+                Console.WriteLine(z.ToHexcode());
+                Console.WriteLine(w);
+                Console.WriteLine(w.ToHexcode());
+                Console.Write("\n");
+
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
+            }
+
+            for(MultiPrecision<Pow2.N8> x = "1e-100"; x > "1e-1000"; x *= "1e-100") {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
+                MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.InverseErfc(z);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.WriteLine(z);
+                Console.WriteLine(z.ToHexcode());
+                Console.WriteLine(w);
+                Console.WriteLine(w.ToHexcode());
+                Console.Write("\n");
+
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
+            }
+
+            for(MultiPrecision<Pow2.N8> x = "1e-1000"; x > "1e-10000"; x *= "1e-1000") {
+
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
+                MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
+                MultiPrecision<Pow2.N8> w = MultiPrecision<Pow2.N8>.InverseErfc(z);
+
+                Console.WriteLine(x);
+                Console.WriteLine(x.ToHexcode());
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.WriteLine(z);
+                Console.WriteLine(z.ToHexcode());
+                Console.WriteLine(w);
+                Console.WriteLine(w.ToHexcode());
+                Console.Write("\n");
+
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
             }
         }
