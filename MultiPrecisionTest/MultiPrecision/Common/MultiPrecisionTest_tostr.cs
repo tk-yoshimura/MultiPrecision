@@ -94,5 +94,34 @@ namespace MultiPrecisionTest.Common {
                 Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
             }
         }
+
+        [TestMethod]
+        public void ToStringFormatTest() {
+            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.PI;
+
+            Console.WriteLine(v.ToString());
+            Console.WriteLine($"{v:E10}");
+            Console.WriteLine(v.ToString("e10"));
+            Console.WriteLine($"{v: E10}");
+            Console.WriteLine(v.ToString(" e10"));
+            Console.WriteLine(v.ToString("e10 "));
+            Console.WriteLine(v.ToString("e" + MultiPrecision<Pow2.N8>.DecimalDigits));
+
+            Assert.ThrowsException<FormatException>(() => {
+                Console.WriteLine($"{v:E-1}");
+            });
+
+            Assert.ThrowsException<FormatException>(() => {
+                Console.WriteLine($"{v:E0}");
+            });
+
+            Assert.ThrowsException<FormatException>(() => {
+                Console.WriteLine($"{v:F10}");
+            });
+
+            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+                Console.WriteLine(v.ToString("e" + MultiPrecision<Pow2.N8>.DecimalDigits + 1));
+            });
+        }
     }
 }

@@ -57,6 +57,8 @@ namespace MultiPrecision {
                 return ToString();
             }
 
+            format = format.Trim();
+
             if (format.Length < 2 || (format[0] != 'e' && format[0] != 'E')) {
                 throw new FormatException(format);
             }
@@ -92,7 +94,7 @@ namespace MultiPrecision {
             const int presicion = 2;
 
             if (digits > DecimalDigits) {
-                throw new ArgumentException(nameof(digits));
+                throw new ArgumentOutOfRangeException(nameof(digits));
             }
 
             if (IsZero) {
