@@ -113,53 +113,54 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(1));
             Assert.IsTrue(0 == MultiPrecision<Pow2.N8>.LogGamma(2));
+
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(2),
                     MultiPrecision<Pow2.N8>.LogGamma(3),
-                    "1e-50"
-                ), $"{MultiPrecision<Pow2.N8>.Log(2)}, { MultiPrecision<Pow2.N8>.LogGamma(3)}");
+                    2
+                ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(6),
                     MultiPrecision<Pow2.N8>.LogGamma(4),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(24),
                     MultiPrecision<Pow2.N8>.LogGamma(5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI)),
                     MultiPrecision<Pow2.N8>.LogGamma(0.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2),
                     MultiPrecision<Pow2.N8>.LogGamma(1.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4),
                     MultiPrecision<Pow2.N8>.LogGamma(2.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8),
                     MultiPrecision<Pow2.N8>.LogGamma(3.5),
-                    "1e-50"
+                    2
                 ));
         }
 
@@ -186,46 +187,83 @@ namespace MultiPrecisionTest.Functions {
             Assert.IsTrue(24 == MultiPrecision<Pow2.N8>.Gamma(5));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 4 / 3,
                     MultiPrecision<Pow2.N8>.Gamma(-1.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * -2,
                     MultiPrecision<Pow2.N8>.Gamma(-0.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI),
                     MultiPrecision<Pow2.N8>.Gamma(0.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2,
                     MultiPrecision<Pow2.N8>.Gamma(1.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4,
                     MultiPrecision<Pow2.N8>.Gamma(2.5),
-                    "1e-50"
+                    2
                 ));
 
             Assert.IsTrue(
-                MultiPrecision<Pow2.N8>.NearlyEquals(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8,
                     MultiPrecision<Pow2.N8>.Gamma(3.5),
-                    "1e-50"
+                    2
                 ));
+        }
+
+        [TestMethod]
+        public void GammaP75Test() { 
+            Assert.IsTrue(
+                MultiPrecision<Pow2.N8>.NearlyEqualBits(
+                    "1.2254167024651776451290983" +
+                      "0336289052685123924810807" +
+                      "0611230118938289822888426" +
+                      "7983572371723762149150665" +
+                      "8217338023758803316301665" +
+                      "9032961039479304710255059" +
+                      "9838227779192768900776510" +
+                      "1690145533165791594875944",
+                    MultiPrecision<Pow2.N8>.Gamma(0.75),
+                    2
+                ));
+
+            MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.Gamma(0.75);
+            MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.Gamma(0.75);
+            MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.Gamma(0.75);
+            MultiPrecision<Pow2.N64> y64 = MultiPrecision<Pow2.N64>.Gamma(0.75);
+            MultiPrecision<Pow2.N128> y128 = MultiPrecision<Pow2.N128>.Gamma(0.75);
+            MultiPrecision<Pow2.N256> y256 = MultiPrecision<Pow2.N256>.Gamma(0.75);
+
+            Console.WriteLine(y8);
+            Console.WriteLine(y8.ToHexcode());
+            Console.WriteLine(y16);
+            Console.WriteLine(y16.ToHexcode());
+            Console.WriteLine(y32);
+            Console.WriteLine(y32.ToHexcode());
+            Console.WriteLine(y64);
+            Console.WriteLine(y64.ToHexcode());
+            Console.WriteLine(y128);
+            Console.WriteLine(y128.ToHexcode());
+            Console.WriteLine(y256);
+            Console.WriteLine(y256.ToHexcode());
         }
 
         [TestMethod]
@@ -306,7 +344,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N4>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)16, 4)) {
 
                     MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Gamma(x);
 
@@ -329,7 +367,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)32, 4)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(x);
 
@@ -352,7 +390,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N16>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)60, 4)) {
 
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Gamma(x);
 
@@ -375,7 +413,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N32>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)116, 4)) {
 
                     MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Gamma(x);
 
@@ -398,7 +436,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N64>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)228, 4)) {
 
                     MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Gamma(x);
 
@@ -421,7 +459,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N128>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)456, 4)) {
 
                     MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
 
@@ -440,6 +478,29 @@ namespace MultiPrecisionTest.Functions {
                 TestTool.SmoothnessSatisfied(ys, 0.5);
                 TestTool.MonotonicitySatisfied(ys);
             }
+
+            {
+                List<MultiPrecision<Pow2.N256>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N256>)908, 4)) {
+
+                    MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Gamma(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), MultiPrecision<Pow2.N256>.Log(y), ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 14);
+                TestTool.SmoothnessSatisfied(ys, 0.5);
+                TestTool.MonotonicitySatisfied(ys);
+            }
         }
 
         [TestMethod]
@@ -448,7 +509,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N4>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)150, 4)) {
+                foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)16, 4)) {
 
                     MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.LogGamma(x);
 
@@ -471,7 +532,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N8>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)100, 4)) {
+                foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)32, 4)) {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(x);
 
@@ -494,7 +555,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N16>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)128, 4)) {
+                foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)60, 4)) {
 
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.LogGamma(x);
 
@@ -517,7 +578,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N32>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)250, 4)) {
+                foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)116, 4)) {
 
                     MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.LogGamma(x);
 
@@ -540,7 +601,7 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N64>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)472, 4)) {
+                foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)228, 4)) {
 
                     MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.LogGamma(x);
 
@@ -563,9 +624,32 @@ namespace MultiPrecisionTest.Functions {
             {
                 List<MultiPrecision<Pow2.N128>> ys = new();
 
-                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)936, 4)) {
+                foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)456, 4)) {
 
                     MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.LogGamma(x);
+
+                    Console.WriteLine(x);
+                    Console.WriteLine(x.ToHexcode());
+                    Console.WriteLine(y);
+                    Console.WriteLine(y.ToHexcode());
+                    Console.Write("\n");
+
+                    TestTool.Tolerance(Approx.LogGamma((double)x), y, ignore_sign: true);
+
+                    ys.Add(y);
+                }
+
+                TestTool.NearlyNeighbors(ys, 4);
+                TestTool.SmoothnessSatisfied(ys, 1);
+                TestTool.MonotonicitySatisfied(ys);
+            }
+
+            {
+                List<MultiPrecision<Pow2.N256>> ys = new();
+
+                foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N256>)908, 4)) {
+
+                    MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.LogGamma(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -709,6 +793,30 @@ namespace MultiPrecisionTest.Functions {
             for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
                 MultiPrecision<Pow2.N128> x = i;
                 MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Plus1<Pow2.N128>> x = i;
+                MultiPrecision<Plus1<Pow2.N128>> y = MultiPrecision<Plus1<Pow2.N128>>.Gamma(x);
+
+                Console.WriteLine(x);
+                Console.WriteLine(y);
+                Console.WriteLine(y.ToHexcode());
+                Console.Write("\n");
+
+                Assert.AreEqual(f, y);
+            }
+
+            for (int i = 1, f = 1; i <= 4; i++, f *= i - 1) {
+                MultiPrecision<Pow2.N256> x = i;
+                MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Gamma(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);

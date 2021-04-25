@@ -138,8 +138,14 @@ namespace MultiPrecision {
             MultiPrecision<SterlingExpand<N>> x = 0, u = 1;
 
             foreach (MultiPrecision<SterlingExpand<N>> s in Consts.Gamma.Sterling.Coef) {
-                x += u * s;
+            	MultiPrecision<SterlingExpand<N>> c = u * s;
+            	
+                x += c;
                 u *= w;
+                
+                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
+                    break;
+                }
             }
 
             MultiPrecision<SterlingExpand<N>> y = x * v;
@@ -154,22 +160,25 @@ namespace MultiPrecision {
                 static Gamma() {
                     switch (Length) {
                         case <= 4:
-                            Threshold = 150;
+                            Threshold = 16;
                             break;
                         case <= 8:
-                            Threshold = 100;
+                            Threshold = 32;
                             break;
                         case <= 16:
-                            Threshold = 128;
+                            Threshold = 60;
                             break;
                         case <= 32:
-                            Threshold = 250;
+                            Threshold = 116;
                             break;
                         case <= 64:
-                            Threshold = 472;
+                            Threshold = 228;
                             break;
                         case <= 128:
-                            Threshold = 936;
+                            Threshold = 456;
+                            break;
+                        case <= 256:
+                            Threshold = 908;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(Length));
@@ -209,6 +218,9 @@ namespace MultiPrecision {
                                 break;
                             case <= 128:
                                 state = Resources.lanczos_mp128;
+                                break;
+                            case <= 256:
+                                state = Resources.lanczos_mp256;
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException(nameof(Length));
@@ -263,22 +275,25 @@ namespace MultiPrecision {
 
                         switch (Length) {
                             case <= 4:
-                                terms = 10;
+                                terms = 32;
                                 break;
                             case <= 8:
-                                terms = 26;
+                                terms = 60;
                                 break;
                             case <= 16:
-                                terms = 62;
+                                terms = 134;
                                 break;
                             case <= 32:
-                                terms = 124;
+                                terms = 294;
                                 break;
                             case <= 64:
-                                terms = 258;
+                                terms = 640;
                                 break;
                             case <= 128:
-                                terms = 518;
+                                terms = 1262;
+                                break;
+                            case <= 256:
+                                terms = 2608;
                                 break;
                             default:
                                 throw new ArgumentOutOfRangeException(nameof(Length));
@@ -309,9 +324,9 @@ namespace MultiPrecision {
                 int length = default(N).Value;
                 switch (length) {
                     case <= 4:
-                        return 6;
+                        return 5;
                     case <= 8:
-                        return 12;
+                        return 10;
                     case <= 16:
                         return 20;
                     case <= 32:
@@ -320,6 +335,8 @@ namespace MultiPrecision {
                         return 80;
                     case <= 128:
                         return 160;
+                    case <= 256:
+                        return 320;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(N));
                 }
@@ -333,17 +350,19 @@ namespace MultiPrecision {
                 int length = default(N).Value;
                 switch (length) {
                     case <= 4:
-                        return 8;
+                        return 5;
                     case <= 8:
-                        return 16;
+                        return 9;
                     case <= 16:
-                        return 32;
+                        return 17;
                     case <= 32:
-                        return 64;
+                        return 33;
                     case <= 64:
-                        return 128;
+                        return 65;
                     case <= 128:
-                        return 256;
+                        return 129;
+                    case <= 256:
+                        return 257;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(N));
                 }

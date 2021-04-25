@@ -127,6 +127,9 @@
   <data name="lanczos_mp16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lanczos_mp16.lanczos_state;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lanczos_mp256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lanczos_mp256.lanczos_state;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="lanczos_mp32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\lanczos_mp32.lanczos_state;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

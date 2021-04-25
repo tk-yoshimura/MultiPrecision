@@ -95,6 +95,16 @@ namespace MultiPrecision.Properties {
         /// <summary>
         ///   型 System.Byte[] のローカライズされたリソースを検索します。
         /// </summary>
+        internal static byte[] lanczos_mp256 {
+            get {
+                object obj = ResourceManager.GetObject("lanczos_mp256", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   型 System.Byte[] のローカライズされたリソースを検索します。
+        /// </summary>
         internal static byte[] lanczos_mp32 {
             get {
                 object obj = ResourceManager.GetObject("lanczos_mp32", resourceCulture);
