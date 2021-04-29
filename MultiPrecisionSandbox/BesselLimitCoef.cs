@@ -5,39 +5,15 @@ using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecisionSandbox {
-    static class Bessel0LimitCoef {
-        private readonly static List<Fraction> a_table = new() { 1 };
-        private readonly static List<BigInteger> p_table = new() { 1 };
-        private readonly static List<BigInteger> f_table = new() { 1 };
+    public class BesselLimitCoef<N> where N : struct, IConstant {
+        private readonly MultiPrecision<N> squa_nu4;
+        private readonly List<MultiPrecision<N>> a_table = new() { 1 };
 
-        public static Fraction Table(int n) {
-            if (n < 0) {
-                throw new ArgumentOutOfRangeException(nameof(n));
-            }
-
-            if (n < a_table.Count) {
-                return a_table[n];
-            }
-
-            for (int k = a_table.Count; k <= n; k++) {
-                BigInteger p = p_table.Last() * checked(-(2 * k - 1) * (2 * k - 1));
-                BigInteger f = f_table.Last() * checked(k * 8);
-
-                p_table.Add(p);
-                f_table.Add(f);
-                a_table.Add(new Fraction(p, f));
-            }
-
-            return a_table[n];
+        public BesselLimitCoef(MultiPrecision<N> nu) {
+            this.squa_nu4 = 4 * nu * nu; 
         }
-    }
 
-    static class Bessel1LimitCoef {
-        private readonly static List<Fraction> a_table = new() { 1 };
-        private readonly static List<BigInteger> p_table = new() { 1 };
-        private readonly static List<BigInteger> f_table = new() { 1 };
-
-        public static Fraction Table(int n) {
+        public MultiPrecision<N> Value(int n) {
             if (n < 0) {
                 throw new ArgumentOutOfRangeException(nameof(n));
             }
@@ -47,12 +23,10 @@ namespace MultiPrecisionSandbox {
             }
 
             for (int k = a_table.Count; k <= n; k++) {
-                BigInteger p = p_table.Last() * checked(4 - (2 * k - 1) * (2 * k - 1));
-                BigInteger f = f_table.Last() * checked(k * 8);
+                MultiPrecision<N> a = 
+                    a_table.Last() * MultiPrecision<N>.Div(checked(squa_nu4 - (2 * k - 1) * (2 * k - 1)), checked(k * 8));
 
-                p_table.Add(p);
-                f_table.Add(f);
-                a_table.Add(new Fraction(p, f));
+                a_table.Add(a);
             }
 
             return a_table[n];

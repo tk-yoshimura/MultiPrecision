@@ -2,11 +2,20 @@
 using System.Collections.Generic;
 
 namespace MultiPrecisionSandbox {
-    static class Bessel0LimitApprox<N> where N : struct, IConstant {
-        static readonly Dictionary<int, MultiPrecision<Plus1<N>>> table = new();
+    public static class BesselLimitApprox<N> where N : struct, IConstant {
+        readonly static Dictionary<MultiPrecision<N>, BesselLimitCoef<Plus1<N>>> coef_table = new();
 
-        public static int BesselTermConvergence(int z) {
-            MultiPrecision<Plus1<N>> v = 1 / (MultiPrecision<Plus1<N>>)z;
+        public static int BesselTermConvergence(MultiPrecision<N> nu, MultiPrecision<N> z) {
+            BesselLimitCoef<Plus1<N>> table;
+            if (coef_table.ContainsKey(nu)) {
+                table = coef_table[nu];
+            }
+            else {
+                table = new BesselLimitCoef<Plus1<N>>(nu.Convert<Plus1<N>>());
+                coef_table.Add(nu, table);
+            }
+
+            MultiPrecision<Plus1<N>> v = 1 / z.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> w = v * v;
 
             MultiPrecision<Plus1<N>> x = 0, u = 1, prev_c = null;
@@ -14,7 +23,7 @@ namespace MultiPrecisionSandbox {
             Sign sign = Sign.Plus;
 
             for (int terms = 1; terms < int.MaxValue; terms++) {
-                MultiPrecision<Plus1<N>> c = u * Coef(terms * 2);
+                MultiPrecision<Plus1<N>> c = u * table.Value(terms * 2);
 
                 if (sign == Sign.Plus) {
                     x += c;
@@ -25,7 +34,7 @@ namespace MultiPrecisionSandbox {
 
                 u *= w;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<N>.Bits) {
+                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     return terms;
                 }
                 if (prev_c is not null && prev_c.Exponent < c.Exponent) {
@@ -36,16 +45,6 @@ namespace MultiPrecisionSandbox {
              }
 
             return int.MaxValue;
-        }
-
-        private static MultiPrecision<Plus1<N>> Coef(int k) {
-            if (!table.ContainsKey(k)) {
-                MultiPrecision<Plus1<N>> c = Bessel0LimitCoef.Table(k).ToMultiPrecision<Plus1<N>>();
-
-                table.Add(k, c);
-            }
-
-            return table[k];
         }
     }
 }
