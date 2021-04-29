@@ -4,17 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace MultiPrecisionSandbox {
-    public class BesselLimitCoef<N> where N : struct, IConstant {
-        private readonly MultiPrecision<N> squa_nu4;
+    public class BesselNearZeroCoef<N> where N : struct, IConstant {
+        private readonly MultiPrecision<N> nu;
         private readonly List<MultiPrecision<N>> a_table = new();
 
-        public BesselLimitCoef(MultiPrecision<N> nu) {
-            this.squa_nu4 = 4 * nu * nu;
+        public BesselNearZeroCoef(MultiPrecision<N> nu) {
+            this.nu = nu;
 
-            MultiPrecision<N> a1 = (squa_nu4 - 1) / 8;
-
-            this.a_table.Add(1);
-            this.a_table.Add(a1);
+            MultiPrecision<N> a0 = MultiPrecision<N>.Pow2(-nu) / MultiPrecision<N>.Gamma(nu + 1);
+            this.a_table.Add(a0);
         }
 
         public MultiPrecision<N> Value(int n) {
@@ -28,7 +26,7 @@ namespace MultiPrecisionSandbox {
 
             for (int k = a_table.Count; k <= n; k++) {
                 MultiPrecision<N> a =
-                    a_table.Last() * MultiPrecision<N>.Div(checked(squa_nu4 - (2 * k - 1) * (2 * k - 1)), checked(k * 8));
+                    -a_table.Last() / (checked(4 * k) * (nu + k));
 
                 a_table.Add(a);
             }

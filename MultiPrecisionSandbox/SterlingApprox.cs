@@ -59,8 +59,8 @@ namespace MultiPrecisionSandbox {
                     return int.MaxValue;
                 }
 
-                prev_c = c; 
-             }
+                prev_c = c;
+            }
 
             return int.MaxValue;
         }

@@ -141,11 +141,11 @@ namespace MultiPrecisionSandbox {
             if (z == 1) {
                 return double.PositiveInfinity;
             }
-            if (z < 0) { 
+            if (z < 0) {
                 return -InverseErf(Abs(z));
             }
 
-            if (z < 1.220703125e-4) { 
+            if (z < 1.220703125e-4) {
                 double w = PI * z * z;
                 double t = Sqrt(PI) * ((40320 + w * (3360 + w * (588 + w * 127))) / 80640);
 
@@ -171,7 +171,7 @@ namespace MultiPrecisionSandbox {
             if (z == 2) {
                 return double.NegativeInfinity;
             }
-            if (z >= 0.5) { 
+            if (z >= 0.5) {
                 return InverseErf(1 - z);
             }
 
@@ -256,14 +256,14 @@ namespace MultiPrecisionSandbox {
             return v * f;
         }
 
-        private static double InverseErfRootFinding(double x) { 
+        private static double InverseErfRootFinding(double x) {
             const double a = 0.147;
 
             double s = 2 * c;
             double lg = Log(1 - x * x), lga = 2 / (PI * a) + lg / 2;
             double z = Sqrt(Sqrt(lga * lga - lg / a) - lga);
 
-            for (int i = 0; i < 8; i++) { 
+            for (int i = 0; i < 8; i++) {
                 double y = Erf(z) - x;
                 double df1 = Exp(-z * z) * s;
                 double df2 = -2 * z * df1;
@@ -279,14 +279,14 @@ namespace MultiPrecisionSandbox {
             return z;
         }
 
-        private static double InverseErfcRootFinding(double x) { 
+        private static double InverseErfcRootFinding(double x) {
             const double a = 0.147;
 
             double s = 2 * c;
             double lg = Log((2 - x) * x), lga = 2 / (PI * a) + lg / 2;
             double z = Sqrt(Sqrt(lga * lga - lg / a) - lga);
 
-            for (int i = 0; i < 8; i++) { 
+            for (int i = 0; i < 8; i++) {
                 double y = Erfc(z) - x;
                 double df1 = -Exp(-z * z) * s;
                 double df2 = -2 * z * df1;

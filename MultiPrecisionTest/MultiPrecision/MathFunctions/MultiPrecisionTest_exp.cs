@@ -20,11 +20,11 @@ namespace MultiPrecisionTest.Functions {
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                MultiPrecision<Pow2.N8>.E, 
+                MultiPrecision<Pow2.N8>.E,
                 MultiPrecision<Pow2.N8>.Exp(1), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
-                MultiPrecision<Pow2.N16>.E, 
+                MultiPrecision<Pow2.N16>.E,
                 MultiPrecision<Pow2.N16>.Exp(1), 1));
         }
 

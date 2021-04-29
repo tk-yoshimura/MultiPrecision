@@ -36,7 +36,7 @@ namespace MultiPrecision {
                 return x;
             }
 
-            if (x.Exponent < 0) { 
+            if (x.Exponent < 0) {
                 return MultiPrecision<Plus1<N>>.SinCurveTaylorApprox(x.Convert<Plus1<N>>()).Convert<N>();
             }
 
@@ -48,7 +48,7 @@ namespace MultiPrecision {
                 return NaN;
             }
 
-            if (x.Exponent < 0) { 
+            if (x.Exponent < 0) {
                 return MultiPrecision<Plus1<N>>.CosCurveTaylorApprox(x.Convert<Plus1<N>>()).Convert<N>();
             }
 

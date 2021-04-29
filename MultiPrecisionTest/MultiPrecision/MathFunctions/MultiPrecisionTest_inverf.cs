@@ -101,7 +101,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void InverseErfcPercentileTest() {
-            for(MultiPrecision<Pow2.N8> x = "0.1"; x > "1e-10"; x *= "0.1") {
+            for (MultiPrecision<Pow2.N8> x = "0.1"; x > "1e-10"; x *= "0.1") {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
                 MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
@@ -120,7 +120,7 @@ namespace MultiPrecisionTest.Functions {
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
             }
 
-            for(MultiPrecision<Pow2.N8> x = "1e-10"; x > "1e-100"; x *= "1e-10") {
+            for (MultiPrecision<Pow2.N8> x = "1e-10"; x > "1e-100"; x *= "1e-10") {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
                 MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
@@ -139,7 +139,7 @@ namespace MultiPrecisionTest.Functions {
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
             }
 
-            for(MultiPrecision<Pow2.N8> x = "1e-100"; x > "1e-1000"; x *= "1e-100") {
+            for (MultiPrecision<Pow2.N8> x = "1e-100"; x > "1e-1000"; x *= "1e-100") {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
                 MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);
@@ -158,7 +158,7 @@ namespace MultiPrecisionTest.Functions {
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(y, w, 1));
             }
 
-            for(MultiPrecision<Pow2.N8> x = "1e-1000"; x > "1e-10000"; x *= "1e-1000") {
+            for (MultiPrecision<Pow2.N8> x = "1e-1000"; x > "1e-10000"; x *= "1e-1000") {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
                 MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Erfc(y);

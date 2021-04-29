@@ -138,11 +138,11 @@ namespace MultiPrecision {
             MultiPrecision<SterlingExpand<N>> x = 0, u = 1;
 
             foreach (MultiPrecision<SterlingExpand<N>> s in Consts.Gamma.Sterling.Coef) {
-            	MultiPrecision<SterlingExpand<N>> c = u * s;
-            	
+                MultiPrecision<SterlingExpand<N>> c = u * s;
+
                 x += c;
                 u *= w;
-                
+
                 if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
                     break;
                 }

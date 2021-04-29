@@ -145,7 +145,7 @@ namespace MultiPrecisionTest.Accumulator {
 
             CollectionAssert.AreEqual(new UInt32[] { 0x9999999Au, 0xAAAAAAAAu, 0xBBBBBBBBu, 0xCCCCCCCCu }, n2.Value);
             Assert.AreEqual(0, sft2);
-            
+
             CollectionAssert.AreEqual(new UInt32[] { 0xCCCCCCCDu, 0xDDDDDDDDu, 0xEEEEEEEEu, 0xFFFFFFFFu }, n3.Value);
             Assert.AreEqual(32, sft3);
 

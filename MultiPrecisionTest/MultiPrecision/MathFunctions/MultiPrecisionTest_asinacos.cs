@@ -21,11 +21,11 @@ namespace MultiPrecisionTest.Functions {
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                MultiPrecision<Pow2.N8>.PI / 4, 
+                MultiPrecision<Pow2.N8>.PI / 4,
                 MultiPrecision<Pow2.N8>.Atan(1), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
-                MultiPrecision<Pow2.N16>.PI / 4, 
+                MultiPrecision<Pow2.N16>.PI / 4,
                 MultiPrecision<Pow2.N16>.Atan(1), 1));
         }
 
@@ -43,11 +43,11 @@ namespace MultiPrecisionTest.Functions {
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                MultiPrecision<Pow2.N8>.PI / 4, 
+                MultiPrecision<Pow2.N8>.PI / 4,
                 MultiPrecision<Pow2.N8>.Asin(MultiPrecision<Pow2.N8>.Sqrt2 / 2), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
-                MultiPrecision<Pow2.N16>.PI / 4, 
+                MultiPrecision<Pow2.N16>.PI / 4,
                 MultiPrecision<Pow2.N16>.Asin(MultiPrecision<Pow2.N16>.Sqrt2 / 2), 1));
         }
 
@@ -65,11 +65,11 @@ namespace MultiPrecisionTest.Functions {
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                MultiPrecision<Pow2.N8>.PI / 4, 
+                MultiPrecision<Pow2.N8>.PI / 4,
                 MultiPrecision<Pow2.N8>.Acos(MultiPrecision<Pow2.N8>.Sqrt2 / 2), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
-                MultiPrecision<Pow2.N16>.PI / 4, 
+                MultiPrecision<Pow2.N16>.PI / 4,
                 MultiPrecision<Pow2.N16>.Acos(MultiPrecision<Pow2.N16>.Sqrt2 / 2), 1));
         }
 

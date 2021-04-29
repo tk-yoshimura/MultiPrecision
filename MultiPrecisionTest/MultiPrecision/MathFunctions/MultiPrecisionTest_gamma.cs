@@ -230,7 +230,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void GammaP75Test() { 
+        public void GammaP75Test() {
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     "1.2254167024651776451290983" +
