@@ -5,16 +5,16 @@ using System.IO;
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            //BesselConvergenceSummary<Pow2.N4>("bessel_limit_convergence_n4.txt");
-            //BesselConvergenceSummary<Pow2.N8>("bessel_limit_convergence_n8.txt");
-            //BesselConvergenceSummary<Pow2.N16>("bessel_limit_convergence_n16.txt");
-            //BesselConvergenceSummary<Pow2.N32>("bessel_limit_convergence_n32.txt");
-            //BesselConvergenceSummary<Pow2.N64>("bessel_limit_convergence_n64.txt");
-            //BesselConvergenceSummary<Pow2.N128>("bessel_limit_convergence_n128.txt");
-            //BesselConvergenceSummary<Pow2.N256>("bessel_limit_convergence_n256.txt");
+            BesselConvergenceSummary<Pow2.N4>("bessel_limit_convergence_n4.txt");
+            BesselConvergenceSummary<Pow2.N8>("bessel_limit_convergence_n8.txt");
+            BesselConvergenceSummary<Pow2.N16>("bessel_limit_convergence_n16.txt");
+            BesselConvergenceSummary<Pow2.N32>("bessel_limit_convergence_n32.txt");
+            BesselConvergenceSummary<Pow2.N64>("bessel_limit_convergence_n64.txt");
+            BesselConvergenceSummary<Pow2.N128>("bessel_limit_convergence_n128.txt");
+            BesselConvergenceSummary<Pow2.N256>("bessel_limit_convergence_n256.txt");
 
             //BesselNearZeroApprox<Pow2.N4, Pow2.N8>.BesselNearZeroConvergence(0.5, 3);
-            MultiPrecision<Pow2.N4> t = BesselLimitApprox<Pow2.N4>.Value(0.8, 78, 200);
+            //MultiPrecision<Pow2.N4> t = BesselLimitApprox<Pow2.N4>.Value(0.8, 78, 200);
 
             Console.WriteLine("END");
             Console.Read();
@@ -25,7 +25,7 @@ namespace MultiPrecisionSandbox {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
                 sw.WriteLine("nu,z,terms");
 
-                for (decimal nu = 0; nu <= 2; nu += 1 / 32m) {
+                for (decimal nu = 0; nu <= 4; nu += 1 / 32m) {
                     Console.WriteLine(nu);
 
                     int z, terms;

@@ -72,7 +72,20 @@ namespace MultiPrecision {
         }
 
         public static implicit operator MultiPrecision<N>(decimal v) {
-            return $"{v:e28}";
+            int[] arr = decimal.GetBits(v);
+
+            Sign sign = arr[3] >= 0 ? Sign.Plus : Sign.Minus;
+            int exponent = (arr[3] >> 16) & 0xFF;
+            Accumulator<Pow2.N4> num = new(new uint[] { (uint)arr[0], (uint)arr[1], (uint)arr[2], 0u, 0u, 0u, 0u, 0u }, enable_clone: false);
+
+            while(exponent > 0 && num % 10 == 0) {
+                exponent--;
+                num /= 10;
+            }
+
+            MultiPrecision<N> x = MultiPrecision<Pow2.N4>.FromStringCore(sign, 0, num, exponent).Convert<N>();
+
+            return x;
         }
 
         public static implicit operator MultiPrecision<N>(BigInteger bigint) {

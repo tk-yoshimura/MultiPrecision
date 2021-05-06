@@ -99,6 +99,9 @@ namespace MultiPrecisionTest.Common {
             Assert.AreEqual(-1, p5.Exponent);
             CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
 
+            MultiPrecision<Pow2.N8> n2p5 = 2.5m;
+            Assert.AreEqual(2.5, n2p5);
+
             MultiPrecision<Pow2.N8> zero = 0.0m;
             Assert.AreEqual(0, (decimal)zero);
 
@@ -110,6 +113,15 @@ namespace MultiPrecisionTest.Common {
 
             MultiPrecision<Pow2.N8> pi = (decimal)Math.PI;
             Assert.AreEqual((decimal)Math.PI, (decimal)pi);
+            
+            MultiPrecision<Pow2.N8> p33a = 0.3300m;
+            Assert.AreEqual(0.33m, (decimal)p33a);
+
+            MultiPrecision<Pow2.N8> p33b = 0.330000000000000000000m;
+            Assert.AreEqual(0.33m, (decimal)p33b);
+
+            MultiPrecision<Pow2.N8> p33c = 0.33m;
+            Assert.AreEqual(0.33m, (decimal)p33c);
 
             for (decimal i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
@@ -119,6 +131,16 @@ namespace MultiPrecisionTest.Common {
             for (decimal i = -10; i >= -100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;
                 Assert.AreEqual(i, (decimal)m);
+            }
+
+            for (decimal i = 10; i <= 100000000000; i *= 10) {
+                MultiPrecision<Pow2.N8> m = 1 / i;
+                Assert.AreEqual(1 / i, (decimal)m);
+            }
+
+            for (decimal i = -10; i >= -100000000000; i *= 10) {
+                MultiPrecision<Pow2.N8> m = 1 / i;
+                Assert.AreEqual(1 / i, (decimal)m);
             }
         }
 
