@@ -117,11 +117,17 @@ namespace MultiPrecisionTest.Common {
             MultiPrecision<Pow2.N8> p33a = 0.3300m;
             Assert.AreEqual(0.33m, (decimal)p33a);
 
-            MultiPrecision<Pow2.N8> p33b = 0.330000000000000000000m;
+            MultiPrecision<Pow2.N8> p33b = 0.33000000000000000000000000m;
             Assert.AreEqual(0.33m, (decimal)p33b);
 
             MultiPrecision<Pow2.N8> p33c = 0.33m;
             Assert.AreEqual(0.33m, (decimal)p33c);
+
+            MultiPrecision<Pow2.N8> max = decimal.MaxValue;
+            Assert.AreEqual((double)decimal.MaxValue, (double)max, 1e-5);
+
+            MultiPrecision<Pow2.N8> eps = new decimal(1, 0, 0, false, 28);
+            Assert.AreEqual(new decimal(1, 0, 0, false, 28), (decimal)eps);
 
             for (decimal i = 10; i <= 100000000000; i *= 10) {
                 MultiPrecision<Pow2.N8> m = i;

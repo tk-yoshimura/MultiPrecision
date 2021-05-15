@@ -112,6 +112,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |Taylor|1/n!|MultiPrecision&lt;*N*&gt;.TaylorSequence|
 |Bernoulli|B(2k)|MultiPrecision&lt;*N*&gt;.BernoulliSequence|
 |Stirling|Gamma convergent series, Bayes(1763)|MultiPrecision&lt;*N*&gt;.StirlingSequence|
+|HarmonicNumber|H_n|MultiPrecision&lt;*N*&gt;.HarmonicNumber|
 
 ## Coefficient
 
