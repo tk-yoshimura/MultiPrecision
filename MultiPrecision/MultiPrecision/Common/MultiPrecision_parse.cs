@@ -46,7 +46,7 @@ namespace MultiPrecision {
                 mantissa_withoutpoint = mantissa_withoutpoint[..Accumulator<N>.MaxDecimalDigits];
             }
 
-            Accumulator<N> mantissa_dec = new(mantissa_withoutpoint);
+            Accumulator<Plus1<N>> mantissa_dec = new(mantissa_withoutpoint);
 
             string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
             if (!Int64.TryParse(exponent, NumberStyles.Integer, CultureInfo.InvariantCulture, out Int64 exponent_dec)) {
@@ -60,18 +60,18 @@ namespace MultiPrecision {
             return FromStringCore(sign, exponent_dec, mantissa_dec, digits);
         }
 
-        internal static MultiPrecision<N> FromStringCore(Sign sign, Int64 exponent_dec, Accumulator<N> mantissa_dec, int digits) {
+        internal static MultiPrecision<N> FromStringCore(Sign sign, Int64 exponent_dec, Accumulator<Plus1<N>> mantissa_dec, int digits) {
             Int64 p = checked(exponent_dec - digits);
 
-            MultiPrecision<N> mantissa = CreateInteger(sign, mantissa_dec);
+            MultiPrecision<Plus1<N>> mantissa = MultiPrecision<Plus1<N>>.CreateInteger(sign, mantissa_dec);
 
             if (p == 0) {
-                return mantissa;
+                return mantissa.Convert<N>();
             }
 
-            MultiPrecision<N> exponent = Pow(5, p);
+            MultiPrecision<Plus1<N>> exponent = MultiPrecision<Plus1<N>>.Pow(5, p);
 
-            return Ldexp(mantissa * exponent, p);
+            return MultiPrecision<Plus1<N>>.Ldexp(mantissa * exponent, p).Convert<N>();
         }
     }
 }

@@ -11,14 +11,51 @@ namespace MultiPrecisionTest.Common {
         public void ParseTest() {
             /* common */
             {
-                MultiPrecision<Pow2.N8> v1 = "0.5";
-                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -1), v1);
+                for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
+                    MultiPrecision<Pow2.N4> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value, m.Mantissa);
+                }
 
-                MultiPrecision<Pow2.N8> v2 = "0.25";
-                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -2), v2);
+                for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
+                    MultiPrecision<Pow2.N8> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, m.Mantissa);
+                }
 
-                MultiPrecision<Pow2.N8> v3 = "0.125";
-                Assert.AreEqual(MultiPrecision<Pow2.N8>.Ldexp(1, -3), v3);
+                for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
+                    MultiPrecision<Pow2.N16> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value, m.Mantissa);
+                }
+
+                for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
+                    MultiPrecision<Pow2.N4> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value, m.Mantissa);
+                }
+
+                for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
+                    MultiPrecision<Pow2.N8> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, m.Mantissa);
+                }
+
+                for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
+                    MultiPrecision<Pow2.N16> m = v.ToString();
+                    Assert.AreEqual(i, m.Exponent);
+                    CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value, m.Mantissa);
+                }
+            }
+
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N4> v1 = $"2.56e{i}";
+                Assert.AreEqual($"2.56e{i}", $"{v1:e2}");
+            }
+
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N4> v1 = $"2.56e-{i}";
+                Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
             }
 
             for (int i = 1; i <= 10000; i++) {
@@ -28,6 +65,16 @@ namespace MultiPrecisionTest.Common {
 
             for (int i = 1; i <= 10000; i++) {
                 MultiPrecision<Pow2.N8> v1 = $"2.56e-{i}";
+                Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
+            }
+
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N16> v1 = $"2.56e{i}";
+                Assert.AreEqual($"2.56e{i}", $"{v1:e2}");
+            }
+
+            for (int i = 1; i <= 10000; i++) {
+                MultiPrecision<Pow2.N16> v1 = $"2.56e-{i}";
                 Assert.AreEqual($"2.56e-{i}", $"{v1:e2}");
             }
         }
