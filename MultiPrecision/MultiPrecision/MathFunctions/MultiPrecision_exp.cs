@@ -3,9 +3,9 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Exp(MultiPrecision<N> x) {
-            MultiPrecision<N> y = Pow2(x * LbE);
+            MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Pow2(x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.LbE);
 
-            return y;
+            return y.Convert<N>();
         }
 
         public static MultiPrecision<N> Expm1(MultiPrecision<N> x) {

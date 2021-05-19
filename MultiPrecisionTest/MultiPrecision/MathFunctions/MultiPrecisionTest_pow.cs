@@ -38,16 +38,33 @@ namespace MultiPrecisionTest.Functions {
                 TestTool.Tolerance(Math.Pow((double)x, -1.5), y);
             }
 
-            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { -1.5, -1, -0.75, 0, 0.75, 1, 1.5 }) {
+            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { -MultiPrecision<Pow2.N8>.PI, -1.5, -1, -0.75, 0, 0.75, 1, 1.5, MultiPrecision<Pow2.N8>.PI }) {
                 for (int n = -100; n <= 100; n++) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);
+
+                    if (x > 0) {
+                        MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Pow(x, (MultiPrecision<Pow2.N8>)n);
+
+                        Console.WriteLine(y.ToHexcode());
+                        Console.WriteLine(z.ToHexcode());
+
+                        Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(z, y, 1));
+                    }
+
                     TestTool.Tolerance(Math.Pow((double)x, n), y);
                 }
             }
 
-            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { 0, 0.75, 1, 1.5 }) {
+            foreach (MultiPrecision<Pow2.N8> x in new MultiPrecision<Pow2.N8>[] { 0, 0.75, 1, 1.5, MultiPrecision<Pow2.N8>.PI }) {
                 foreach (long n in new long[] { long.MinValue, long.MaxValue }) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);
+                    MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Pow(x, (MultiPrecision<Pow2.N8>)n);
+                    
+                    Console.WriteLine(y.ToHexcode());
+                    Console.WriteLine(z.ToHexcode());
+                    
+                    Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(z, y, 1));
+                    
                     if (x == 1) {
                         Assert.AreEqual(1, y);
                     }

@@ -3,9 +3,9 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Log(MultiPrecision<N> x) {
-            MultiPrecision<N> y = Log2(x) * Ln2;
+            MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Log2(x.Convert<Plus1<N>>()) * MultiPrecision<Plus1<N>>.Ln2;
 
-            return y;
+            return y.Convert<N>();
         }
 
         public static MultiPrecision<N> Log1p(MultiPrecision<N> x) {

@@ -42,8 +42,8 @@ namespace MultiPrecision {
 
             string mantissa_withoutpoint = mantissa.Replace(".", string.Empty);
 
-            if (mantissa_withoutpoint.Length > Accumulator<N>.MaxDecimalDigits) {
-                mantissa_withoutpoint = mantissa_withoutpoint[..Accumulator<N>.MaxDecimalDigits];
+            if (mantissa_withoutpoint.Length > Accumulator<Plus1<N>>.MaxDecimalDigits) {
+                mantissa_withoutpoint = mantissa_withoutpoint[..Accumulator<Plus1<N>>.MaxDecimalDigits];
             }
 
             Accumulator<Plus1<N>> mantissa_dec = new(mantissa_withoutpoint);

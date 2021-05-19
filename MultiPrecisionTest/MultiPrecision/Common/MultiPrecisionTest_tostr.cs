@@ -73,6 +73,9 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> u = v.ToString();
                 Console.WriteLine(u.ToString());
 
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(u.ToHexcode());
+
                 Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
             }
 
@@ -91,7 +94,42 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8> u = v.ToString();
                 Console.WriteLine(u.ToString());
 
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(u.ToHexcode());
+
                 Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
+            }
+
+            {
+                MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.PI;
+
+                (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
+
+                Console.WriteLine(sign);
+                Console.WriteLine(exponent_dec);
+                Console.WriteLine(mantissa_dec);
+                Console.WriteLine(v.ToString());
+                Console.WriteLine($"{v:E10}");
+                Console.WriteLine(v.ToString("e10"));
+
+                MultiPrecision<Pow2.N8> u = v.ToString();
+                Console.WriteLine(u.ToString());
+
+                Console.WriteLine(v.ToHexcode());
+                Console.WriteLine(u.ToHexcode());
+
+                Assert.AreEqual((double)v, double.Parse(v.ToString()), Math.Abs((double)v) * 1e-8);
+            }
+
+            string p99 = "0.999";
+            for (int i = 0; i < 100; i++) {
+                p99 += "9";
+
+                MultiPrecision<Pow2.N8> u = p99;
+                Console.WriteLine(u.ToString());
+                Console.WriteLine(u.ToHexcode());
+
+                Assert.AreEqual(double.Parse(p99), (double)u, 1e-100);
             }
         }
 

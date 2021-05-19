@@ -11,7 +11,9 @@
                 return x.IsNaN ? NaN : 1;
             }
 
-            return Pow2(y * Log2(x));
+            MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Pow2(y.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Log2(x.Convert<Plus1<N>>()));
+            
+            return z.Convert<N>();
         }
 
         public static MultiPrecision<N> Pow(MultiPrecision<N> x, long n) {
@@ -24,7 +26,7 @@
             }
 
             ulong n_abs = UIntUtil.Abs(n);
-            MultiPrecision<N> y = 1, z = x;
+            MultiPrecision<Plus1<N>> y = 1, z = x.Convert<Plus1<N>>();
 
             while (n_abs > 0) {
                 if ((n_abs & 1) == 1) {
@@ -35,7 +37,7 @@
                 n_abs >>= 1;
             }
 
-            return (n > 0) ? y : (1 / y);
+            return ((n > 0) ? y : (1 / y)).Convert<N>();
         }
 
         public static MultiPrecision<N> Square(MultiPrecision<N> x) {

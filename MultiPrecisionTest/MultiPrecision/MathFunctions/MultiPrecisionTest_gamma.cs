@@ -118,49 +118,49 @@ namespace MultiPrecisionTest.Functions {
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(2),
                     MultiPrecision<Pow2.N8>.LogGamma(3),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(6),
                     MultiPrecision<Pow2.N8>.LogGamma(4),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
                     MultiPrecision<Pow2.N8>.Log(24),
                     MultiPrecision<Pow2.N8>.LogGamma(5),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI)),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI)).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(0.5),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) / 2).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(1.5),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) * 3 / 4).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(2.5),
-                    2
+                    1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Log(MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) * 15 / 8).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(3.5),
-                    2
+                    1
                 ));
         }
 
