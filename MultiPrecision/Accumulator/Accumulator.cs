@@ -78,7 +78,7 @@ namespace MultiPrecision {
         }
 
         public override int GetHashCode() {
-            return HashCode.Combine(this.value);
+            return value.GetHashCode();
         }
 
         public override string ToString() {

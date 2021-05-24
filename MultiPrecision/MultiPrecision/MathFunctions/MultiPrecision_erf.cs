@@ -126,7 +126,10 @@ namespace MultiPrecision {
 
                 static Erf() {
                     if (Length > 260) {
-                        throw new ArgumentOutOfRangeException(nameof(Length));
+                        throw new ArgumentOutOfRangeException(
+                            "In the erf function, the calculation is invalid for precision greater than 260 in length.", 
+                            nameof(N)
+                        );
                     }
 
                     C = 1 / MultiPrecision<Plus4<N>>.Sqrt(MultiPrecision<Plus4<N>>.PI);

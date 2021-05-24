@@ -49,5 +49,6 @@
 *.pyc
 
 # Other
+MultiPrecisionBesselTest/results_bessel
 
 # Safelist

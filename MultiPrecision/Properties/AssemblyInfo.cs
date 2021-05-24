@@ -36,4 +36,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("4.2.*")]
 
 [assembly: InternalsVisibleTo("MultiPrecisionTest")]
+[assembly: InternalsVisibleTo("MultiPrecisionBesselTest")]
 [assembly: InternalsVisibleTo("MultiPrecisionSandbox")]

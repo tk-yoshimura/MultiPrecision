@@ -90,7 +90,7 @@ namespace MultiPrecision {
         }
 
         public override int GetHashCode() {
-            return value[0].GetHashCode();
+            return value[0].GetHashCode() ^ value.Last().GetHashCode();
         }
     }
 }
