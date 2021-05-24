@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using MultiPrecision;
 using System;
+using System.IO;
 
 namespace MultiPrecisionBesselTest {
     [TestClass]
@@ -13,7 +13,7 @@ namespace MultiPrecisionBesselTest {
         }
 
         private static void CheckGridPoints<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new StreamWriter(filepath)) {
+            using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
                 MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
@@ -34,7 +34,7 @@ namespace MultiPrecisionBesselTest {
         }
 
         private static void CheckNearlyThreshold<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new StreamWriter(filepath)) {
+            using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
                 MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
@@ -51,9 +51,58 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
-        private static void Check<N>(StreamWriter sw, decimal nu, MultiPrecision<N> z) where N : struct, IConstant {
+        private static void CheckNearlyIntegerNu<N>(string filepath) where N : struct, IConstant {
+            using (StreamWriter sw = new(filepath)) {
+                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+
+                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
+
+                sw.WriteLine($"z threshold: {z_threshold}");
+
+                MultiPrecision<N>[] test_dnu = new MultiPrecision<N>[] {
+                    MultiPrecision<N>.Ldexp(1, -1),
+                    MultiPrecision<N>.Ldexp(1, -16),
+                    MultiPrecision<N>.Ldexp(1, -17),
+                    MultiPrecision<N>.Ldexp(1, -32),
+                    MultiPrecision<N>.Ldexp(1, -33),
+                    MultiPrecision<N>.Ldexp(1, -48),
+                    MultiPrecision<N>.Ldexp(1, -49),
+                    MultiPrecision<N>.Ldexp(1, -80),
+                    MultiPrecision<N>.Ldexp(1, -81),
+                    MultiPrecision<N>.Ldexp(1, -144),
+                    MultiPrecision<N>.Ldexp(1, -145),
+                    MultiPrecision<N>.Ldexp(1, -272)
+                };
+
+                for (decimal n = -64; n <= 64; n++) {
+                    foreach (MultiPrecision<N> dnu in test_dnu) {
+                        MultiPrecision<N> nu_pos = n + dnu;
+
+                        if (nu_pos <= 64) {
+                            sw.WriteLine($"nu: {nu_pos}");
+
+                            Check(sw, nu_pos, MultiPrecision<N>.BitDecrement(z_threshold));
+                            Check(sw, nu_pos, z_threshold);
+                            Check(sw, nu_pos, MultiPrecision<N>.BitIncrement(z_threshold));
+                        }
+
+                        MultiPrecision<N> nu_neg = n - dnu;
+
+                        if (nu_neg >= -64) {
+                            sw.WriteLine($"nu: {nu_neg}");
+
+                            Check(sw, nu_neg, MultiPrecision<N>.BitDecrement(z_threshold));
+                            Check(sw, nu_neg, z_threshold);
+                            Check(sw, nu_neg, MultiPrecision<N>.BitIncrement(z_threshold));
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void Check<N>(StreamWriter sw, MultiPrecision<N> nu, MultiPrecision<N> z) where N : struct, IConstant {
             MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
-            MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselY(nu, z.Convert<Plus1<N>>());
+            MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselY(nu.Convert<Plus1<N>>(), z.Convert<Plus1<N>>());
 
             sw.WriteLine($"  z: {z}");
             sw.WriteLine($"  {z.ToHexcode()}");
@@ -83,6 +132,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length4NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Pow2.N4>(outdir + "n4_near_integer_nu.txt");
+        }
+
+        [TestMethod]
         public void Length5GridPointsTest() {
             CheckGridPoints<Plus1<Pow2.N4>>(outdir + "n5_grid.txt");
         }
@@ -90,6 +144,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length5NearlyThresholdTest() {
             CheckNearlyThreshold<Plus1<Pow2.N4>>(outdir + "n5_near_threshold.txt");
+        }
+
+        [TestMethod]
+        public void Length5NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Plus1<Pow2.N4>>(outdir + "n5_near_integer_nu.txt");
         }
 
         [TestMethod]
@@ -103,6 +162,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length8NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Pow2.N8>(outdir + "n8_near_integer_nu.txt");
+        }
+
+        [TestMethod]
         public void Length16GridPointsTest() {
             CheckGridPoints<Pow2.N16>(outdir + "n16_grid.txt");
         }
@@ -110,6 +174,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length16NearlyThresholdTest() {
             CheckNearlyThreshold<Pow2.N16>(outdir + "n16_near_threshold.txt");
+        }
+
+        [TestMethod]
+        public void Length16NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Pow2.N16>(outdir + "n16_near_integer_nu.txt");
         }
 
         [TestMethod]
@@ -123,6 +192,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length32NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Pow2.N32>(outdir + "n32_near_integer_nu.txt");
+        }
+
+        [TestMethod]
         public void Length64GridPointsTest() {
             CheckGridPoints<Pow2.N64>(outdir + "n64_grid.txt");
         }
@@ -130,6 +204,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length64NearlyThresholdTest() {
             CheckNearlyThreshold<Pow2.N64>(outdir + "n64_near_threshold.txt");
+        }
+
+        [TestMethod]
+        public void Length64NearlyIntegerNuTest() {
+            CheckNearlyIntegerNu<Pow2.N64>(outdir + "n64_near_integer_nu.txt");
         }
 
         [TestMethod]
@@ -152,7 +231,7 @@ namespace MultiPrecisionBesselTest {
                 Assert.AreEqual(expected, actual, Math.Abs(expected) * 1e-15, nu.ToString());
             }
         }
-        
+
         static readonly double[] expected_x2 = {
             -6.4118225801787130139e86,
             -3.5262795781969438727e86,

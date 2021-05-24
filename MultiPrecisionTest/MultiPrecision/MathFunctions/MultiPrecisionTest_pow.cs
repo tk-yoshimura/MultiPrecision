@@ -59,12 +59,12 @@ namespace MultiPrecisionTest.Functions {
                 foreach (long n in new long[] { long.MinValue, long.MaxValue }) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow(x, n);
                     MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.Pow(x, (MultiPrecision<Pow2.N8>)n);
-                    
+
                     Console.WriteLine(y.ToHexcode());
                     Console.WriteLine(z.ToHexcode());
-                    
+
                     Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(z, y, 1));
-                    
+
                     if (x == 1) {
                         Assert.AreEqual(1, y);
                     }

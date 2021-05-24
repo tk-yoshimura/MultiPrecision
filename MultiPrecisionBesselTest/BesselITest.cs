@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.IO;
 using MultiPrecision;
 using System;
+using System.IO;
 
 namespace MultiPrecisionBesselTest {
     [TestClass]
@@ -13,7 +13,7 @@ namespace MultiPrecisionBesselTest {
         }
 
         private static void CheckGridPoints<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new StreamWriter(filepath)) {
+            using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
                 MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselIKApproxThreshold;
@@ -34,7 +34,7 @@ namespace MultiPrecisionBesselTest {
         }
 
         private static void CheckNearlyThreshold<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new StreamWriter(filepath)) {
+            using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
                 MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselIKApproxThreshold;
@@ -51,9 +51,9 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
-        private static void Check<N>(StreamWriter sw, decimal nu, MultiPrecision<N> z) where N : struct, IConstant {
+        private static void Check<N>(StreamWriter sw, MultiPrecision<N> nu, MultiPrecision<N> z) where N : struct, IConstant {
             MultiPrecision<N> t = MultiPrecision<N>.BesselI(nu, z);
-            MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselI(nu, z.Convert<Plus1<N>>());
+            MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselI(nu.Convert<Plus1<N>>(), z.Convert<Plus1<N>>());
 
             sw.WriteLine($"  z: {z}");
             sw.WriteLine($"  {z.ToHexcode()}");
@@ -152,7 +152,7 @@ namespace MultiPrecisionBesselTest {
                 Assert.AreEqual(expected, actual, Math.Abs(expected) * 1e-15, nu.ToString());
             }
         }
-        
+
         static readonly double[] expected_x2 = {
             8.0032019846048712633e-90,
             -1.4149025192452847573e86,

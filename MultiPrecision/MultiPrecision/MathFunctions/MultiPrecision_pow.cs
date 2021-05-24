@@ -12,7 +12,7 @@
             }
 
             MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Pow2(y.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Log2(x.Convert<Plus1<N>>()));
-            
+
             return z.Convert<N>();
         }
 

@@ -113,7 +113,7 @@ namespace MultiPrecisionTest.Common {
 
             MultiPrecision<Pow2.N8> pi = (decimal)Math.PI;
             Assert.AreEqual((decimal)Math.PI, (decimal)pi);
-            
+
             MultiPrecision<Pow2.N8> p33a = 0.3300m;
             Assert.AreEqual(0.33m, (decimal)p33a);
 

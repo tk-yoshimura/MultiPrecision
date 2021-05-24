@@ -1,5 +1,4 @@
-﻿using MultiPrecision;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -752,7 +751,7 @@ namespace MultiPrecision {
                 static BesselJY() {
                     if (Length > 64) {
                         throw new ArgumentOutOfRangeException(
-                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.", 
+                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.",
                             nameof(Length)
                         );
                     }
@@ -775,7 +774,7 @@ namespace MultiPrecision {
                 static BesselIK() {
                     if (Length > 64) {
                         throw new ArgumentOutOfRangeException(
-                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.", 
+                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.",
                             nameof(Length)
                         );
                     }
@@ -853,8 +852,8 @@ namespace MultiPrecision {
 
                 public static (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos) SinCos(MultiPrecision<N> nu) {
                     if (!sincos_table.ContainsKey(nu)) {
-                        sincos_table.Add(nu, 
-                            (MultiPrecision<Plus1<N>>.SinPI(nu.Convert<Plus1<N>>()), 
+                        sincos_table.Add(nu,
+                            (MultiPrecision<Plus1<N>>.SinPI(nu.Convert<Plus1<N>>()),
                              MultiPrecision<Plus1<N>>.CosPI(nu.Convert<Plus1<N>>()))
                         );
                     }

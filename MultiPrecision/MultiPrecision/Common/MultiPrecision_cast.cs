@@ -76,16 +76,16 @@ namespace MultiPrecision {
 
             Sign sign = arr[3] >= 0 ? Sign.Plus : Sign.Minus;
             int exponent = (arr[3] >> 16) & 0xFF;
-            
+
             UInt32[] mantissa = new UInt32[Length * 2 + 2];
-            
+
             mantissa[0] = (uint)arr[0];
             mantissa[1] = (uint)arr[1];
             mantissa[2] = (uint)arr[2];
 
             Accumulator<Plus1<N>> num = new(mantissa, enable_clone: false);
 
-            while(exponent > 0 && num % 10 == 0) {
+            while (exponent > 0 && num % 10 == 0) {
                 exponent--;
                 num /= 10;
             }

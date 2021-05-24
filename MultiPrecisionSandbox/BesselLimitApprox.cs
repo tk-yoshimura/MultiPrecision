@@ -48,8 +48,8 @@ namespace MultiPrecisionSandbox {
                     return int.MaxValue;
                 }
 
-                prev_c = c; 
-                prev_s = s; 
+                prev_c = c;
+                prev_s = s;
 
                 if (!c.IsZero && x.Exponent - c.Exponent <= MultiPrecision<Plus1<N>>.Bits) {
                     continue;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MultiPrecision {
 
@@ -15,7 +14,7 @@ namespace MultiPrecision {
                 private static readonly List<MultiPrecision<N>> a_table = new();
                 private static MultiPrecision<Plus1<N>> a_last;
 
-                static Harmonic(){
+                static Harmonic() {
                     a_table.Add(0);
                     a_table.Add(1);
                     a_last = 1;

@@ -127,7 +127,7 @@ namespace MultiPrecision {
                 static Erf() {
                     if (Length > 260) {
                         throw new ArgumentOutOfRangeException(
-                            "In the erf function, the calculation is invalid for precision greater than 260 in length.", 
+                            "In the erf function, the calculation is invalid for precision greater than 260 in length.",
                             nameof(N)
                         );
                     }
