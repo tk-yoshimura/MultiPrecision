@@ -33,9 +33,7 @@ namespace MultiPrecision {
             if (x.Exponent >= Bits) {
                 return NaN;
             }
-            if ((x / 2).IsZero && nu.IsZero) {
-                return 1;
-            }
+
             if (nu.Sign == Sign.Minus && nu == Truncate(nu)) {
                 long n = (long)nu;
                 return ((n & 1L) == 0) ? BesselJ(Abs(nu), x) : -BesselJ(Abs(nu), x);
@@ -57,14 +55,18 @@ namespace MultiPrecision {
                     if (n == 0) {
                         MultiPrecision<N> y = (envelope * MultiPrecision<Plus1<N>>.Sin(x_ex)).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return y.IsNaN ? 0 : y;
                     }
                     if (n == 1) {
                         MultiPrecision<N> y = (envelope * (MultiPrecision<Plus1<N>>.Sin(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cos(x_ex))).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return y.IsNaN ? 0 : y;
                     }
                 }
+            }
+
+            if (x.Exponent <= -0x1000000) {
+                return nu.IsZero ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
             }
 
             if (Length <= 4) {
@@ -109,12 +111,10 @@ namespace MultiPrecision {
             if (!x.IsFinite) {
                 return 0;
             }
-            if (x.IsZero) {
-                return NegativeInfinity;
-            }
             if (x.Exponent >= Bits) {
                 return NaN;
             }
+
             if (nu.Sign == Sign.Minus && nu == Truncate(nu)) {
                 long n = (long)nu;
                 return ((n & 1L) == 0) ? BesselY(Abs(nu), x) : -BesselY(Abs(nu), x);
@@ -130,12 +130,12 @@ namespace MultiPrecision {
                     if (n == -2) {
                         MultiPrecision<N> y = -(envelope * (MultiPrecision<Plus1<N>>.Sin(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cos(x_ex))).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return y.IsNaN ? 0 : y;
                     }
                     if (n == -1) {
                         MultiPrecision<N> y = (envelope * MultiPrecision<Plus1<N>>.Sin(x_ex)).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return y.IsNaN ? 0 : y;
                     }
                     if (n == 0) {
                         return -(envelope * MultiPrecision<Plus1<N>>.Cos(x_ex)).Convert<N>();
@@ -144,6 +144,10 @@ namespace MultiPrecision {
                         return -(envelope * (MultiPrecision<Plus1<N>>.Cos(x_ex) / x_ex + MultiPrecision<Plus1<N>>.Sin(x_ex))).Convert<N>();
                     }
                 }
+            }
+
+            if (x.Exponent <= -0x1000000) {
+                return nu.IsZero ? NegativeInfinity : NaN;
             }
 
             if (Length <= 4) {
@@ -199,6 +203,10 @@ namespace MultiPrecision {
                 }
             }
 
+            if (x.Exponent <= -0x1000000) {
+                return nu.IsZero ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
+            }
+
             if (x < Consts.BesselIK.ApproxThreshold) {
                 return BesselINearZero(nu, x).Convert<N>();
             }
@@ -218,9 +226,6 @@ namespace MultiPrecision {
                 return NaN;
             }
 
-            if (x.IsZero) {
-                return PositiveInfinity;
-            }
             if (nu.Sign == Sign.Minus) {
                 return BesselK(Abs(nu), x);
             }
@@ -239,6 +244,10 @@ namespace MultiPrecision {
                         return (r * (1 + 1 / x_ex)).Convert<N>();
                     }
                 }
+            }
+
+            if (x.Exponent <= -0x1000000) {
+                return nu.IsZero ? PositiveInfinity : NaN;
             }
 
             if (x < Consts.BesselIK.ApproxThreshold) {
@@ -428,7 +437,7 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, nu.Convert<Plus1<N>>());
 
             (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos) = Consts.Bessel.SinCos(nu);
-            
+
             MultiPrecision<Plus1<N>> y_pos = x_pos.Convert<Plus1<N>>() * p * cos, y_neg = x_neg.Convert<Plus1<N>>() / p;
 
             MultiPrecision<Plus1<N>> dy = y_pos - y_neg;

@@ -51,6 +51,24 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
+        private static void CheckNearlyZero<N>(string filepath) where N : struct, IConstant {
+            using (StreamWriter sw = new(filepath)) {
+                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+
+                MultiPrecision<N> z = MultiPrecision<N>.Ldexp(1, -0xFFFFFF);
+
+                sw.WriteLine($"z threshold: {z}");
+
+                for (decimal nu = -64; nu <= 64; nu += 1 / 4m) {
+                    sw.WriteLine($"nu: {nu}");
+
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(z));
+                    Check(sw, nu, z);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(z));
+                }
+            }
+        }
+
         private static void CheckHugeValue<N>(string filepath) where N : struct, IConstant {
             using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
@@ -63,7 +81,7 @@ namespace MultiPrecisionBesselTest {
                     sw.WriteLine($"nu: {nu}");
 
                     MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
-            
+
                     sw.WriteLine($"  f: {t}");
                     sw.WriteLine($"  {t.ToHexcode()}");
                 }
@@ -125,7 +143,7 @@ namespace MultiPrecisionBesselTest {
 
                 {
                     MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
-                        "0.893576966279167521584887102058338241225146861930014487069228945110126188620995846847698", 
+                        "0.893576966279167521584887102058338241225146861930014487069228945110126188620995846847698",
                         "3.95767841931485786837567718691740128141860376556363062550751179484115237700836408107003",
                         "7.08605106030177269762362459682035246897151038117776446985516765235357776154112532812307",
                         "10.2223450434964170189920422763421871259940596131812411831190854840310423296635913060548",
@@ -257,6 +275,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length8NearlyIntegerNuTest() {
             CheckNearlyIntegerNu<Pow2.N8>(outdir + "n8_near_integer_nu.txt");
+        }
+
+        [TestMethod]
+        public void Length8NearlyZeroTest() {
+            CheckNearlyZero<Pow2.N8>(outdir + "n8_near_zero.txt");
         }
 
         [TestMethod]

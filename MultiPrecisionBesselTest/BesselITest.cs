@@ -51,6 +51,24 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
+        private static void CheckNearlyZero<N>(string filepath) where N : struct, IConstant {
+            using (StreamWriter sw = new(filepath)) {
+                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+
+                MultiPrecision<N> z = MultiPrecision<N>.Ldexp(1, -0xFFFFFF);
+
+                sw.WriteLine($"z threshold: {z}");
+
+                for (decimal nu = -64; nu <= 64; nu += 1 / 4m) {
+                    sw.WriteLine($"nu: {nu}");
+
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(z));
+                    Check(sw, nu, z);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(z));
+                }
+            }
+        }
+
         private static void Check<N>(StreamWriter sw, MultiPrecision<N> nu, MultiPrecision<N> z) where N : struct, IConstant {
             MultiPrecision<N> t = MultiPrecision<N>.BesselI(nu, z);
             MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselI(nu.Convert<Plus1<N>>(), z.Convert<Plus1<N>>());
@@ -100,6 +118,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length8NearlyThresholdTest() {
             CheckNearlyThreshold<Pow2.N8>(outdir + "n8_near_threshold.txt");
+        }
+
+        [TestMethod]
+        public void Length8NearlyZeroTest() {
+            CheckNearlyZero<Pow2.N8>(outdir + "n8_near_zero.txt");
         }
 
         [TestMethod]

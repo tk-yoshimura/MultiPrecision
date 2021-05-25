@@ -12,7 +12,7 @@ namespace MultiPrecision {
 
             if (x.Exponent >= Mantissa<N>.Bits) {
                 throw new ArgumentException(
-                    "The Truncate function was given an input value with no decimal precision.", 
+                    "The Truncate function was given an input value with no decimal precision.",
                     nameof(x)
                 );
             }
