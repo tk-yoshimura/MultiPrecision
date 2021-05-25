@@ -51,6 +51,25 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
+        private static void CheckHugeValue<N>(string filepath) where N : struct, IConstant {
+            using (StreamWriter sw = new(filepath)) {
+                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+
+                MultiPrecision<N> z = MultiPrecision<N>.BitDecrement(MultiPrecision<N>.Ldexp(1, MultiPrecision<N>.Bits));
+
+                sw.WriteLine($"z: {z}");
+
+                for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
+                    sw.WriteLine($"nu: {nu}");
+
+                    MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
+            
+                    sw.WriteLine($"  f: {t}");
+                    sw.WriteLine($"  {t.ToHexcode()}");
+                }
+            }
+        }
+
         private static void CheckNearlyIntegerNu<N>(string filepath) where N : struct, IConstant {
             using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
@@ -120,13 +139,11 @@ namespace MultiPrecisionBesselTest {
                     sw.WriteLine($"nu: {nu}");
 
                     foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, zeropoint);
+                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                        Check(sw, nu, zeropoint);
+                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
 
-                        sw.WriteLine($"  f: {t}");
-                        sw.WriteLine($"  {t.ToHexcode()}");
                         sw.Write("\n");
-                        
-                        Assert.IsTrue(t.Exponent <= -MultiPrecision<N>.Bits + 1);
                     }
                 }
 
@@ -146,13 +163,11 @@ namespace MultiPrecisionBesselTest {
                     sw.WriteLine($"nu: {nu}");
 
                     foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, zeropoint);
+                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                        Check(sw, nu, zeropoint);
+                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
 
-                        sw.WriteLine($"  f: {t}");
-                        sw.WriteLine($"  {t.ToHexcode()}");
                         sw.Write("\n");
-                        
-                        Assert.IsTrue(t.Exponent <= -MultiPrecision<N>.Bits + 1);
                     }
                 }
             }
@@ -200,6 +215,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length4HugeValueTest() {
+            CheckHugeValue<Pow2.N4>(outdir + "n4_hugevalue.txt");
+        }
+
+        [TestMethod]
         public void Length5GridPointsTest() {
             CheckGridPoints<Plus1<Pow2.N4>>(outdir + "n5_grid.txt");
         }
@@ -217,6 +237,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length5ZeropointsTest() {
             CheckZeropoints<Plus1<Pow2.N4>>(outdir + "n5_zeropoints.txt");
+        }
+
+        [TestMethod]
+        public void Length5HugeValueTest() {
+            CheckHugeValue<Plus1<Pow2.N4>>(outdir + "n5_hugevalue.txt");
         }
 
         [TestMethod]
@@ -240,6 +265,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length8HugeValueTest() {
+            CheckHugeValue<Pow2.N8>(outdir + "n8_hugevalue.txt");
+        }
+
+        [TestMethod]
         public void Length16GridPointsTest() {
             CheckGridPoints<Pow2.N16>(outdir + "n16_grid.txt");
         }
@@ -252,6 +282,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length16NearlyIntegerNuTest() {
             CheckNearlyIntegerNu<Pow2.N16>(outdir + "n16_near_integer_nu.txt");
+        }
+
+        [TestMethod]
+        public void Length16HugeValueTest() {
+            CheckHugeValue<Pow2.N16>(outdir + "n16_hugevalue.txt");
         }
 
         [TestMethod]
@@ -270,6 +305,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length32HugeValueTest() {
+            CheckHugeValue<Pow2.N32>(outdir + "n32_hugevalue.txt");
+        }
+
+        [TestMethod]
         public void Length64GridPointsTest() {
             CheckGridPoints<Pow2.N64>(outdir + "n64_grid.txt");
         }
@@ -282,6 +322,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length64NearlyIntegerNuTest() {
             CheckNearlyIntegerNu<Pow2.N64>(outdir + "n64_near_integer_nu.txt");
+        }
+
+        [TestMethod]
+        public void Length64HugeValueTest() {
+            CheckHugeValue<Pow2.N64>(outdir + "n64_hugevalue.txt");
         }
 
         [TestMethod]

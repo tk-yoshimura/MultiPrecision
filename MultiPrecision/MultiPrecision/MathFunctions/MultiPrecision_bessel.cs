@@ -30,6 +30,9 @@ namespace MultiPrecision {
             if (!x.IsFinite) {
                 return 0;
             }
+            if (x.Exponent >= Bits) {
+                return NaN;
+            }
             if ((x / 2).IsZero && nu.IsZero) {
                 return 1;
             }
@@ -69,7 +72,14 @@ namespace MultiPrecision {
             }
 
             if (x < Consts.BesselJY.ApproxThreshold) {
-                return BesselJNearZero(nu, x).Convert<N>();
+                MultiPrecision<N> y = BesselJNearZero(nu, x).Convert<N>();
+
+                if (y.Exponent >= -Bits + 32) {
+                    return y;
+                }
+                else {
+                    return MultiPrecision<Plus1<N>>.BesselJNearZero(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
+                }
             }
             else {
                 return BesselJLimit(nu, x).Convert<N>();
@@ -101,6 +111,9 @@ namespace MultiPrecision {
             }
             if (x.IsZero) {
                 return NegativeInfinity;
+            }
+            if (x.Exponent >= Bits) {
+                return NaN;
             }
             if (nu.Sign == Sign.Minus && nu == Truncate(nu)) {
                 long n = (long)nu;
@@ -328,27 +341,28 @@ namespace MultiPrecision {
 
         private static MultiPrecision<N> BesselYNearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
             int n = (int)Round(nu);
+            int needs_bits = Bits + 16;
 
             if (nu != n) {
                 MultiPrecision<N> dnu = nu - n;
 
                 if (dnu.Exponent >= -16) {
-                    return MultiPrecision<Plus2<N>>.BesselYNonIntegerNu(nu.Convert<Plus2<N>>(), z.Convert<Plus2<N>>()).Convert<N>();
+                    return MultiPrecision<Plus2<N>>.BesselYNonIntegerNu(nu.Convert<Plus2<N>>(), z.Convert<Plus2<N>>(), needs_bits).Convert<N>();
                 }
                 if (dnu.Exponent >= -32) {
-                    return MultiPrecision<Plus4<N>>.BesselYNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>()).Convert<N>();
+                    return MultiPrecision<Plus4<N>>.BesselYNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>(), needs_bits).Convert<N>();
                 }
                 if (dnu.Exponent >= -48) {
-                    return MultiPrecision<Plus8<N>>.BesselYNonIntegerNu(nu.Convert<Plus8<N>>(), z.Convert<Plus8<N>>()).Convert<N>();
+                    return MultiPrecision<Plus8<N>>.BesselYNonIntegerNu(nu.Convert<Plus8<N>>(), z.Convert<Plus8<N>>(), needs_bits).Convert<N>();
                 }
                 if (dnu.Exponent >= -80) {
-                    return MultiPrecision<Plus16<N>>.BesselYNonIntegerNu(nu.Convert<Plus16<N>>(), z.Convert<Plus16<N>>()).Convert<N>();
+                    return MultiPrecision<Plus16<N>>.BesselYNonIntegerNu(nu.Convert<Plus16<N>>(), z.Convert<Plus16<N>>(), needs_bits).Convert<N>();
                 }
                 if (dnu.Exponent >= -144) {
-                    return MultiPrecision<Plus32<N>>.BesselYNonIntegerNu(nu.Convert<Plus32<N>>(), z.Convert<Plus32<N>>()).Convert<N>();
+                    return MultiPrecision<Plus32<N>>.BesselYNonIntegerNu(nu.Convert<Plus32<N>>(), z.Convert<Plus32<N>>(), needs_bits).Convert<N>();
                 }
                 if (dnu.Exponent >= -272) {
-                    return MultiPrecision<Plus64<N>>.BesselYNonIntegerNu(nu.Convert<Plus64<N>>(), z.Convert<Plus64<N>>()).Convert<N>();
+                    return MultiPrecision<Plus64<N>>.BesselYNonIntegerNu(nu.Convert<Plus64<N>>(), z.Convert<Plus64<N>>(), needs_bits).Convert<N>();
                 }
 
                 throw new ArgumentException(
@@ -357,10 +371,10 @@ namespace MultiPrecision {
                     nameof(nu));
             }
 
-            return BesselYIntegerNuNearZero(n, z);
+            return BesselYIntegerNuNearZero(n, z, needs_bits);
         }
 
-        private static MultiPrecision<N> BesselYNonIntegerNu(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselYNonIntegerNu(MultiPrecision<N> nu, MultiPrecision<N> z, int needs_bits) {
             Consts.BesselNearZeroCoef table_pos = Consts.Bessel.NearZeroCoef(nu);
             Consts.BesselNearZeroCoef table_neg = Consts.Bessel.NearZeroCoef(-nu);
 
@@ -413,16 +427,23 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, nu.Convert<Plus1<N>>());
 
-            MultiPrecision<Plus1<N>> y_pos = x_pos.Convert<Plus1<N>>() * p, y_neg = x_neg.Convert<Plus1<N>>() / p;
-
             (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos) = Consts.Bessel.SinCos(nu);
+            
+            MultiPrecision<Plus1<N>> y_pos = x_pos.Convert<Plus1<N>>() * p * cos, y_neg = x_neg.Convert<Plus1<N>>() / p;
 
-            MultiPrecision<Plus1<N>> y = (y_pos * cos - y_neg) / sin;
+            MultiPrecision<Plus1<N>> dy = y_pos - y_neg;
 
-            return y.Convert<N>();
+            if (!dy.IsZero && (Bits - Math.Min(y_pos.Exponent, y_neg.Exponent) + dy.Exponent) < needs_bits) {
+                return MultiPrecision<Plus4<N>>.BesselYNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>(), needs_bits).Convert<N>();
+            }
+            else {
+                MultiPrecision<Plus1<N>> y = dy / sin;
+
+                return y.Convert<N>();
+            }
         }
 
-        private static MultiPrecision<N> BesselYIntegerNuNearZero(int n, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselYIntegerNuNearZero(int n, MultiPrecision<N> z, int needs_bits) {
             Consts.BesselIntegerFiniteTermCoef finite_table = Consts.Bessel.IntegerFiniteTermCoef(n);
             Consts.BesselIntegerConvergenceTermCoef convergence_table = Consts.Bessel.IntegerConvergenceTermCoef(n);
 
@@ -463,9 +484,20 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Double<N>> d = (r - y / m - x * m) / MultiPrecision<Double<N>>.PI;
+            x *= m;
+            y /= m;
 
-            return d.Convert<N>();
+            MultiPrecision<Double<N>> s = x * m + y / m;
+            MultiPrecision<Double<N>> q = r - s;
+
+            if (!q.IsZero && (Bits - Math.Min(r.Exponent, s.Exponent) + q.Exponent) < needs_bits) {
+                return MultiPrecision<Plus4<N>>.BesselYIntegerNuNearZero(n, z.Convert<Plus4<N>>(), needs_bits).Convert<N>();
+            }
+            else {
+                MultiPrecision<Double<N>> d = q / MultiPrecision<Double<N>>.PI;
+
+                return d.Convert<N>();
+            }
         }
 
         private static MultiPrecision<Plus1<N>> BesselYLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {

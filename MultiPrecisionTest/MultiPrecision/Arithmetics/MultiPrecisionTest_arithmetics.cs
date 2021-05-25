@@ -264,6 +264,10 @@ namespace MultiPrecisionTest.Arithmetics {
         public void RemTest() {
             foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
+                    if ((a / b).Exponent >= MultiPrecision<Pow2.N8>.Bits / 2) {
+                        continue;
+                    } 
+                    
                     MultiPrecision<Pow2.N8> c_actual = a % b;
                     double c_expect = (double)a % (double)b;
 
