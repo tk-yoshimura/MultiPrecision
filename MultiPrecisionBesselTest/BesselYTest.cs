@@ -100,6 +100,64 @@ namespace MultiPrecisionBesselTest {
             }
         }
 
+        private static void CheckZeropoints<N>(string filepath) where N : struct, IConstant {
+            using (StreamWriter sw = new(filepath)) {
+                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+
+                {
+                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+                        "0.893576966279167521584887102058338241225146861930014487069228945110126188620995846847698", 
+                        "3.95767841931485786837567718691740128141860376556363062550751179484115237700836408107003",
+                        "7.08605106030177269762362459682035246897151038117776446985516765235357776154112532812307",
+                        "10.2223450434964170189920422763421871259940596131812411831190854840310423296635913060548",
+                        "13.3610974738727634782676945857137864265791351748799264196287493067636445742092596648417",
+                        "16.5009224415280907534211436664897741157513331047907082511444202634884373936447032877302",
+                        "19.6413097008879397737760454722859800254415174918698689830372115929531567822136459018370",
+                        "22.7820280472915593169320819683965166628163060018404614276284266796404574107863359626246"
+                    };
+
+                    MultiPrecision<N> nu = 0;
+                    sw.WriteLine($"nu: {nu}");
+
+                    foreach (MultiPrecision<N> zeropoint in zero_points) {
+                        MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, zeropoint);
+
+                        sw.WriteLine($"  f: {t}");
+                        sw.WriteLine($"  {t.ToHexcode()}");
+                        sw.Write("\n");
+                        
+                        Assert.IsTrue(t.Exponent <= -MultiPrecision<N>.Bits + 1);
+                    }
+                }
+
+                {
+                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+                        "1.24166195461328950351275938208640519065296305408953845392951269229140545494438019421315",
+                        "4.34077049854568078681893271665775654398509937571705952330700552587713960565580622974156",
+                        "7.47371653864979702671850676503756514593354043443651953505658291210361575811735498641022",
+                        "10.6116704327106145808150316715636262389773889456555284573109925288446920447090992558707",
+                        "13.7512671224107013669280527115588298037530512194037665846200270288146608982641379695170",
+                        "16.8916006873026012555764101399217413382256395825231925740880146205928048336665689581773",
+                        "20.0323271354626436352634854379415066168083741974970886079112881731415581969991677181015",
+                        "23.1732875646158094848003044097156859064788361096496737128724446862510972325322761734604"
+                    };
+
+                    MultiPrecision<N> nu = MultiPrecision<N>.Ldexp(1, -2);
+                    sw.WriteLine($"nu: {nu}");
+
+                    foreach (MultiPrecision<N> zeropoint in zero_points) {
+                        MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, zeropoint);
+
+                        sw.WriteLine($"  f: {t}");
+                        sw.WriteLine($"  {t.ToHexcode()}");
+                        sw.Write("\n");
+                        
+                        Assert.IsTrue(t.Exponent <= -MultiPrecision<N>.Bits + 1);
+                    }
+                }
+            }
+        }
+
         private static void Check<N>(StreamWriter sw, MultiPrecision<N> nu, MultiPrecision<N> z) where N : struct, IConstant {
             MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
             MultiPrecision<Plus1<N>> s = MultiPrecision<Plus1<N>>.BesselY(nu.Convert<Plus1<N>>(), z.Convert<Plus1<N>>());
@@ -137,6 +195,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length4ZeropointsTest() {
+            CheckZeropoints<Pow2.N4>(outdir + "n4_zeropoints.txt");
+        }
+
+        [TestMethod]
         public void Length5GridPointsTest() {
             CheckGridPoints<Plus1<Pow2.N4>>(outdir + "n5_grid.txt");
         }
@@ -152,6 +215,11 @@ namespace MultiPrecisionBesselTest {
         }
 
         [TestMethod]
+        public void Length5ZeropointsTest() {
+            CheckZeropoints<Plus1<Pow2.N4>>(outdir + "n5_zeropoints.txt");
+        }
+
+        [TestMethod]
         public void Length8GridPointsTest() {
             CheckGridPoints<Pow2.N8>(outdir + "n8_grid.txt");
         }
@@ -164,6 +232,11 @@ namespace MultiPrecisionBesselTest {
         [TestMethod]
         public void Length8NearlyIntegerNuTest() {
             CheckNearlyIntegerNu<Pow2.N8>(outdir + "n8_near_integer_nu.txt");
+        }
+
+        [TestMethod]
+        public void Length8ZeropointsTest() {
+            CheckZeropoints<Pow2.N8>(outdir + "n8_zeropoints.txt");
         }
 
         [TestMethod]
