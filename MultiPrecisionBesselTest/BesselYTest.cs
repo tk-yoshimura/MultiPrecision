@@ -74,7 +74,7 @@ namespace MultiPrecisionBesselTest {
                     MultiPrecision<N>.Ldexp(1, -272)
                 };
 
-                for (decimal n = -64; n <= 64; n++) {
+                for (decimal n = -64; n <= 64; n += 4) {
                     foreach (MultiPrecision<N> dnu in test_dnu) {
                         MultiPrecision<N> nu_pos = n + dnu;
 

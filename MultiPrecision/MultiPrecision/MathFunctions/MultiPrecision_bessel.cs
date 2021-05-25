@@ -749,9 +749,9 @@ namespace MultiPrecision {
                 public static int LimitApproxTerms { private set; get; }
 
                 static BesselJY() {
-                    if (Length > 64) {
+                    if (Length > 65) {
                         throw new ArgumentOutOfRangeException(
-                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.",
+                            "In the bessel function, the calculation is invalid for precision greater than 65 in length.",
                             nameof(Length)
                         );
                     }
@@ -772,9 +772,9 @@ namespace MultiPrecision {
                 public static int LimitApproxTerms { private set; get; }
 
                 static BesselIK() {
-                    if (Length > 64) {
+                    if (Length > 65) {
                         throw new ArgumentOutOfRangeException(
-                            "In the bessel function, the calculation is invalid for precision greater than 64 in length.",
+                            "In the bessel function, the calculation is invalid for precision greater than 65 in length.",
                             nameof(Length)
                         );
                     }
