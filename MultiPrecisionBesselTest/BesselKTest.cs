@@ -73,30 +73,28 @@ namespace MultiPrecisionBesselTest {
             using (StreamWriter sw = new(filepath)) {
                 sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
+                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselIKApproxThreshold;
 
                 sw.WriteLine($"z threshold: {z_threshold}");
 
                 MultiPrecision<N>[] test_dnu = new MultiPrecision<N>[] {
-                    MultiPrecision<N>.Ldexp(1, -1),
+                    MultiPrecision<N>.Ldexp(1, -2),
                     MultiPrecision<N>.Ldexp(1, -16),
                     MultiPrecision<N>.Ldexp(1, -17),
                     MultiPrecision<N>.Ldexp(1, -32),
                     MultiPrecision<N>.Ldexp(1, -33),
                     MultiPrecision<N>.Ldexp(1, -48),
                     MultiPrecision<N>.Ldexp(1, -49),
-                    MultiPrecision<N>.Ldexp(1, -80),
-                    MultiPrecision<N>.Ldexp(1, -81),
-                    MultiPrecision<N>.Ldexp(1, -144),
-                    MultiPrecision<N>.Ldexp(1, -145),
-                    MultiPrecision<N>.Ldexp(1, -272)
+                    MultiPrecision<N>.Ldexp(1, -64),
+                    MultiPrecision<N>.Ldexp(1, -128),
+                    MultiPrecision<N>.Ldexp(1, -272),
                 };
 
-                for (decimal n = 0; n <= 64; n += 4) {
+                for (int n = 0; n <= 64; n += n < 4 ? 1 : 4) {
                     foreach (MultiPrecision<N> dnu in test_dnu) {
                         MultiPrecision<N> nu_pos = n + dnu;
 
-                        if (nu_pos <= 64) {
+                        if (nu_pos <= 64 && n != n + dnu) {
                             sw.WriteLine($"nu: {nu_pos}");
 
                             Check(sw, nu_pos, MultiPrecision<N>.BitDecrement(z_threshold));
@@ -106,13 +104,28 @@ namespace MultiPrecisionBesselTest {
 
                         MultiPrecision<N> nu_neg = n - dnu;
 
-                        if (nu_neg >= -64) {
+                        if (nu_neg >= 0 && n != n + dnu) {
                             sw.WriteLine($"nu: {nu_neg}");
 
                             Check(sw, nu_neg, MultiPrecision<N>.BitDecrement(z_threshold));
                             Check(sw, nu_neg, z_threshold);
                             Check(sw, nu_neg, MultiPrecision<N>.BitIncrement(z_threshold));
                         }
+                    }
+
+                    if ((n - MultiPrecision<N>.BitDecrement(n)).Exponent >= -272 && MultiPrecision<N>.BitDecrement(n) > 0) {
+                        sw.WriteLine($"nu: {MultiPrecision<N>.BitDecrement(n).ToHexcode()}");
+
+                        Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
+                        Check(sw, MultiPrecision<N>.BitDecrement(n), z_threshold);
+                        Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
+                    }
+                    if ((n - MultiPrecision<N>.BitIncrement(n)).Exponent >= -272 && MultiPrecision<N>.BitIncrement(n) < 64) {
+                        sw.WriteLine($"nu: {MultiPrecision<N>.BitIncrement(n).ToHexcode()}");
+
+                        Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
+                        Check(sw, MultiPrecision<N>.BitIncrement(n), z_threshold);
+                        Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
                     }
                 }
             }
@@ -156,6 +169,9 @@ namespace MultiPrecisionBesselTest {
             if (!t.IsFinite && !s.IsFinite && t.Sign == s.Sign) {
                 return;
             }
+
+            Assert.IsTrue(t.Sign == Sign.Plus);
+            Assert.IsTrue(s.Sign == Sign.Plus);
 
             sw.Flush();
             Assert.IsTrue(MultiPrecision<N>.NearlyEqualBits(t, s.Convert<N>(), 1));
