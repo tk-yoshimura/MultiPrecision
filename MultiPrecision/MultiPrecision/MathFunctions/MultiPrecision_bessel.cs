@@ -624,7 +624,7 @@ namespace MultiPrecision {
             if (nu != n) {
                 MultiPrecision<N> dnu = nu - n;
 
-                if (dnu.Exponent >= -16) {
+                if (dnu.Exponent >= -96) {
                     return MultiPrecision<Plus4<N>>.BesselKNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>()).Convert<N>();
                 }
                 if (dnu.Exponent >= -272) {
