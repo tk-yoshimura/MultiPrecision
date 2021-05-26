@@ -78,15 +78,8 @@ namespace MultiPrecisionBesselTest {
                 sw.WriteLine($"z threshold: {z_threshold}");
 
                 MultiPrecision<N>[] test_dnu = new MultiPrecision<N>[] {
-                    MultiPrecision<N>.Ldexp(1, -2),
                     MultiPrecision<N>.Ldexp(1, -16),
                     MultiPrecision<N>.Ldexp(1, -17),
-                    MultiPrecision<N>.Ldexp(1, -32),
-                    MultiPrecision<N>.Ldexp(1, -33),
-                    MultiPrecision<N>.Ldexp(1, -48),
-                    MultiPrecision<N>.Ldexp(1, -49),
-                    MultiPrecision<N>.Ldexp(1, -64),
-                    MultiPrecision<N>.Ldexp(1, -128),
                     MultiPrecision<N>.Ldexp(1, -272),
                 };
 

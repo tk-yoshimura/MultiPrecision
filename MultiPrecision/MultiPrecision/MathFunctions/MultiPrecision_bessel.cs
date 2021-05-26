@@ -627,15 +627,9 @@ namespace MultiPrecision {
                 if (dnu.Exponent >= -16) {
                     return MultiPrecision<Plus4<N>>.BesselKNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>()).Convert<N>();
                 }
-                if (dnu.Exponent >= -32) {
+                if (dnu.Exponent >= -272) {
                     return MultiPrecision<Plus8<N>>.BesselKNonIntegerNu(nu.Convert<Plus8<N>>(), z.Convert<Plus8<N>>()).Convert<N>();
                 }
-                if (dnu.Exponent >= -272) {
-                    return MultiPrecision<Plus16<N>>.BesselKNonIntegerNu(nu.Convert<Plus16<N>>(), z.Convert<Plus16<N>>()).Convert<N>();
-                }
-                //if (dnu.Exponent >= -272) {
-                //    return MultiPrecision<Plus32<N>>.BesselKNonIntegerNu(nu.Convert<Plus32<N>>(), z.Convert<Plus32<N>>()).Convert<N>();
-                //}
 
                 throw new ArgumentException(
                     "The calculation of the BesselK function value is invalid because it loses digits" +
