@@ -493,9 +493,6 @@ namespace MultiPrecision {
                 }
             }
 
-            x *= m;
-            y /= m;
-
             MultiPrecision<Double<N>> s = x * m + y / m;
             MultiPrecision<Double<N>> q = r - s;
 
