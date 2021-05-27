@@ -73,7 +73,7 @@ namespace MultiPrecision {
                 return MultiPrecision<Plus1<N>>.BesselJNearZero(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
             }
             else {
-                return BesselJLimit(nu, x).Convert<N>();
+                return BesselJLimit(nu, x);
             }
         }
 
@@ -143,7 +143,7 @@ namespace MultiPrecision {
                 return BesselYNearZero(nu, x);
             }
             else {
-                return BesselYLimit(nu, x).Convert<N>();
+                return BesselYLimit(nu, x);
             }
         }
 
@@ -193,10 +193,10 @@ namespace MultiPrecision {
             }
 
             if (x < Consts.BesselIK.ApproxThreshold) {
-                return BesselINearZero(nu, x).Convert<N>();
+                return BesselINearZero(nu, x);
             }
             else {
-                return BesselILimit(nu, x).Convert<N>();
+                return BesselILimit(nu, x);
             }
         }
 
@@ -239,11 +239,11 @@ namespace MultiPrecision {
                 return BesselKNearZero(nu, x);
             }
             else {
-                return BesselKLimit(nu, x).Convert<N>();
+                return BesselKLimit(nu, x);
             }
         }
 
-        private static MultiPrecision<Plus1<N>> BesselJNearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselJNearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselNearZeroCoef table = Consts.Bessel.NearZeroCoef(nu);
 
             MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>();
@@ -286,10 +286,10 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> y = x.Convert<Plus1<N>>() * p;
 
-            return y.Convert<Plus1<N>>();
+            return y.Convert<N>();
         }
 
-        private static MultiPrecision<Plus1<N>> BesselJLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselJLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselLimitCoef table = Consts.Bessel.LimitCoef(nu);
 
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
@@ -325,11 +325,14 @@ namespace MultiPrecision {
                 break;
             }
 
-            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.PI / 4;
-            MultiPrecision<Plus4<N>> m = x * MultiPrecision<Plus4<N>>.Cos(omega) - y * MultiPrecision<Plus4<N>>.Sin(omega);
-            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.PI * z_ex));
+            MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
+            MultiPrecision<Plus1<N>> omega = z_ex1 - (2 * nu.Convert<Plus1<N>>() + 1) * MultiPrecision<Plus1<N>>.PI / 4;
+            MultiPrecision<Plus1<N>> m = 
+                x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Cos(omega)
+                - y.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Sin(omega);
+            MultiPrecision<Plus1<N>> t = m * MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.PI * z_ex1));
 
-            return t.Convert<Plus1<N>>();
+            return t.Convert<N>();
         }
 
         private static MultiPrecision<N> BesselYNearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
@@ -466,7 +469,7 @@ namespace MultiPrecision {
             return d.Convert<N>();
         }
 
-        private static MultiPrecision<Plus1<N>> BesselYLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselYLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselLimitCoef table = Consts.Bessel.LimitCoef(nu);
 
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
@@ -502,14 +505,17 @@ namespace MultiPrecision {
                 break;
             }
 
-            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.PI / 4;
-            MultiPrecision<Plus4<N>> m = x * MultiPrecision<Plus4<N>>.Sin(omega) + y * MultiPrecision<Plus4<N>>.Cos(omega);
-            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.PI * z_ex));
+            MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
+            MultiPrecision<Plus1<N>> omega = z_ex1 - (2 * nu.Convert<Plus1<N>>() + 1) * MultiPrecision<Plus1<N>>.PI / 4;
+            MultiPrecision<Plus1<N>> m = 
+                x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Sin(omega)
+                + y.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Cos(omega);
+            MultiPrecision<Plus1<N>> t = m * MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.PI * z_ex1));
 
-            return t.Convert<Plus1<N>>();
+            return t.Convert<N>();
         }
 
-        private static MultiPrecision<Plus1<N>> BesselINearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselINearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselNearZeroCoef table = Consts.Bessel.NearZeroCoef(nu);
 
             MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>();
@@ -528,22 +534,22 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Double<N>> p;
+            MultiPrecision<Plus1<N>> p;
             if (nu == Truncate(nu)) {
                 int n = (int)nu;
 
-                p = MultiPrecision<Double<N>>.Pow(z_ex / 2, n);
+                p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, n);
             }
             else {
-                p = MultiPrecision<Double<N>>.Pow(z_ex / 2, nu.Convert<Double<N>>());
+                p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, nu.Convert<Plus1<N>>());
             }
 
-            MultiPrecision<Double<N>> y = x * p;
+            MultiPrecision<Plus1<N>> y = x.Convert<Plus1<N>>() * p;
 
-            return y.Convert<Plus1<N>>();
+            return y.Convert<N>();
         }
 
-        private static MultiPrecision<Plus1<N>> BesselILimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselILimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselLimitCoef table = Consts.Bessel.LimitCoef(nu);
 
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
@@ -570,12 +576,13 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Plus4<N>> r =
-                MultiPrecision<Plus4<N>>.Exp(z_ex) / MultiPrecision<Plus4<N>>.Sqrt(2 * MultiPrecision<Plus4<N>>.PI * z_ex);
+            MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
+            MultiPrecision<Plus1<N>> r =
+                MultiPrecision<Plus1<N>>.Exp(z_ex1) / MultiPrecision<Plus1<N>>.Sqrt(2 * MultiPrecision<Plus1<N>>.PI * z_ex1);
 
-            MultiPrecision<Plus4<N>> y = r * x;
+            MultiPrecision<Plus1<N>> y = r * x.Convert<Plus1<N>>();
 
-            return y.Convert<Plus1<N>>();
+            return y.Convert<N>();
         }
 
         private static MultiPrecision<N> BesselKNearZero(MultiPrecision<N> nu, MultiPrecision<N> z) {
@@ -695,7 +702,7 @@ namespace MultiPrecision {
             return y;
         }
 
-        private static MultiPrecision<Plus1<N>> BesselKLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
+        private static MultiPrecision<N> BesselKLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
             Consts.BesselLimitCoef table = Consts.Bessel.LimitCoef(nu);
 
             MultiPrecision<Plus4<N>> z_ex = z.Convert<Plus4<N>>();
@@ -713,12 +720,13 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Plus4<N>> r =
-                MultiPrecision<Plus4<N>>.Exp(-z_ex) * MultiPrecision<Plus4<N>>.Sqrt(MultiPrecision<Plus4<N>>.PI / (2 * z_ex));
+            MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
+            MultiPrecision<Plus1<N>> r =
+                MultiPrecision<Plus1<N>>.Exp(-z_ex1) * MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.PI / (2 * z_ex1));
 
-            MultiPrecision<Plus4<N>> y = r * x;
+            MultiPrecision<Plus1<N>> y = r * x.Convert<Plus1<N>>();
 
-            return y.Convert<Plus1<N>>();
+            return y.Convert<N>();
         }
 
         internal static MultiPrecision<N> BesselJYApproxThreshold => Consts.BesselJY.ApproxThreshold;
