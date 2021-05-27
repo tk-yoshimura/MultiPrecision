@@ -120,7 +120,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 ## Coefficient
 
-|sequence|note|usage|
+|coefficient|note|usage|
 |----|----|----|
 |Chebyshev|C(n, m)|MultiPrecision&lt;*N*&gt;.ChebyshevCoef|
 
