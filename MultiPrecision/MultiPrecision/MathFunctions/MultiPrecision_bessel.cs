@@ -69,19 +69,8 @@ namespace MultiPrecision {
                 return nu.IsZero ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
             }
 
-            if (Length <= 4) {
-                return MultiPrecision<Plus1<N>>.BesselJ(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
-            }
-
             if (x < Consts.BesselJY.ApproxThreshold) {
-                MultiPrecision<N> y = BesselJNearZero(nu, x).Convert<N>();
-
-                if (y.Exponent >= -Bits + 32) {
-                    return y;
-                }
-                else {
-                    return MultiPrecision<Plus1<N>>.BesselJNearZero(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
-                }
+                return MultiPrecision<Plus1<N>>.BesselJNearZero(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
             }
             else {
                 return BesselJLimit(nu, x).Convert<N>();
@@ -148,10 +137,6 @@ namespace MultiPrecision {
 
             if (x.Exponent <= -0x1000000) {
                 return nu.IsZero ? NegativeInfinity : NaN;
-            }
-
-            if (Length <= 4) {
-                return MultiPrecision<Plus1<N>>.BesselY(nu.Convert<Plus1<N>>(), x.Convert<Plus1<N>>()).Convert<N>();
             }
 
             if (x < Consts.BesselJY.ApproxThreshold) {
@@ -263,44 +248,43 @@ namespace MultiPrecision {
 
             MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>();
             MultiPrecision<Double<N>> u = 1;
-            MultiPrecision<Double<N>> w = z_ex * z_ex;
+            MultiPrecision<Double<N>> w = z_ex * z_ex, ww = w * w;
 
             MultiPrecision<Double<N>> x = 0;
+            bool probably_convergenced = false;
 
-            Sign sign = Sign.Plus;
+            for (int k = 0; k < int.MaxValue - 1; k += 2, u *= ww) {
+                MultiPrecision<Double<N>> c = u * (table.Value(k) - w * table.Value(k + 1));
 
-            for (int k = 0; k < int.MaxValue; k++, u *= w) {
-                MultiPrecision<Double<N>> c = u * table.Value(k);
-
-                if (sign == Sign.Plus) {
-                    x += c;
-                    sign = Sign.Minus;
-                }
-                else {
-                    x -= c;
-                    sign = Sign.Plus;
-                }
+                x += c;
 
                 if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
-                    break;
+                    if (probably_convergenced) {
+                        break;
+                    }
+                    else {
+                        probably_convergenced = true;
+                        continue;
+                    }
                 }
+                probably_convergenced = false;
 
-                if (k >= Bits && Math.Max(x.Exponent, c.Exponent) < -Bits * 8) {
+                if (k >= Bits && Math.Max(x.Exponent, c.Exponent) < -Bits * 2) {
                     return 0;
                 }
             }
 
-            MultiPrecision<Double<N>> p;
+            MultiPrecision<Plus1<N>> p;
             if (nu == Truncate(nu)) {
                 int n = (int)nu;
 
-                p = MultiPrecision<Double<N>>.Pow(z_ex / 2, n);
+                p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, n);
             }
             else {
-                p = MultiPrecision<Double<N>>.Pow(z_ex / 2, nu.Convert<Double<N>>());
+                p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, nu.Convert<Plus1<N>>());
             }
 
-            MultiPrecision<Double<N>> y = x * p;
+            MultiPrecision<Plus1<N>> y = x.Convert<Plus1<N>>() * p;
 
             return y.Convert<Plus1<N>>();
         }
@@ -387,69 +371,44 @@ namespace MultiPrecision {
             Consts.BesselNearZeroCoef table_pos = Consts.Bessel.NearZeroCoef(nu);
             Consts.BesselNearZeroCoef table_neg = Consts.Bessel.NearZeroCoef(-nu);
 
-            MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>();
-            MultiPrecision<Double<N>> u = 1;
-            MultiPrecision<Double<N>> w = z_ex * z_ex;
+            MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>(), nu_ex = nu.Convert<Double<N>>();
+            MultiPrecision<Double<N>> p = MultiPrecision<Double<N>>.Pow(z_ex / 2, nu_ex);
+            MultiPrecision<Double<N>> cos = MultiPrecision<Double<N>>.Consts.Bessel.SinCos(nu_ex).cos;
+            MultiPrecision<Double<N>> u = p * cos, v = 1 / p;
+            MultiPrecision<Double<N>> w = z_ex * z_ex, ww = w * w;
 
-            MultiPrecision<Double<N>> x_pos = 0, x_neg = 0;
-            bool convergenced_x_pos = false, convergenced_x_neg = false;
+            MultiPrecision<Double<N>> x = 0;
+            bool probably_convergenced = false;
 
-            Sign sign = Sign.Plus;
+            for (int k = 0; k < int.MaxValue - 1; k += 2, u *= ww, v *= ww) {
+                MultiPrecision<Double<N>> c_pos = u * (table_pos.Value(k) - w * table_pos.Value(k + 1));
+                MultiPrecision<Double<N>> c_neg = v * (table_neg.Value(k) - w * table_neg.Value(k + 1));
 
-            for (int k = 0; k < int.MaxValue; k++, u *= w) {
-                if (!convergenced_x_pos) {
-                    MultiPrecision<Double<N>> c_pos = u * table_pos.Value(k);
+                MultiPrecision<Double<N>> c = c_pos - c_neg;
 
-                    x_pos += (sign == Sign.Plus) ? c_pos : -c_pos;
+                x += c;
 
-                    if (c_pos.IsZero || x_pos.Exponent - c_pos.Exponent > MultiPrecision<Plus1<N>>.Bits) {
-                        convergenced_x_pos = true;
+                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                    if (probably_convergenced) {
+                        break;
                     }
-
-                    if (k >= Bits && Math.Max(x_pos.Exponent, c_pos.Exponent) < -Bits * 8) {
-                        convergenced_x_pos = true;
-                        x_pos = 0;
-                    }
-                }
-
-                if (!convergenced_x_neg) {
-                    MultiPrecision<Double<N>> c_neg = u * table_neg.Value(k);
-
-                    x_neg += (sign == Sign.Plus) ? c_neg : -c_neg;
-
-                    if (c_neg.IsZero || x_neg.Exponent - c_neg.Exponent > MultiPrecision<Plus1<N>>.Bits) {
-                        convergenced_x_neg = true;
-                    }
-
-                    if (k >= Bits && Math.Max(x_neg.Exponent, c_neg.Exponent) < -Bits * 8) {
-                        convergenced_x_neg = true;
-                        x_neg = 0;
+                    else {
+                        probably_convergenced = true;
+                        continue;
                     }
                 }
+                probably_convergenced = false;
 
-                if (convergenced_x_pos && convergenced_x_neg) {
-                    break;
+                if (k >= Bits && Math.Max(x.Exponent, c.Exponent) < -Bits * 2) {
+                    x = 0;
                 }
-
-                sign = (sign == Sign.Plus) ? Sign.Minus : Sign.Plus;
             }
 
-            MultiPrecision<Plus1<N>> p = MultiPrecision<Plus1<N>>.Pow(z.Convert<Plus1<N>>() / 2, nu.Convert<Plus1<N>>());
+            MultiPrecision<Plus1<N>> sin = MultiPrecision<Plus1<N>>.Consts.Bessel.SinCos(nu.Convert<Plus1<N>>()).sin;
 
-            (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos) = Consts.Bessel.SinCos(nu);
+            MultiPrecision<Plus1<N>> y = x.Convert<Plus1<N>>() / sin;
 
-            MultiPrecision<Plus1<N>> y_pos = x_pos.Convert<Plus1<N>>() * p * cos, y_neg = x_neg.Convert<Plus1<N>>() / p;
-
-            MultiPrecision<Plus1<N>> dy = y_pos - y_neg;
-
-            if (!dy.IsZero && (Bits - Math.Min(y_pos.Exponent, y_neg.Exponent) + dy.Exponent) < needs_bits) {
-                return MultiPrecision<Plus4<N>>.BesselYNonIntegerNu(nu.Convert<Plus4<N>>(), z.Convert<Plus4<N>>(), needs_bits).Convert<N>();
-            }
-            else {
-                MultiPrecision<Plus1<N>> y = dy / sin;
-
-                return y.Convert<N>();
-            }
+            return y.Convert<N>();
         }
 
         private static MultiPrecision<N> BesselYIntegerNuNearZero(int n, MultiPrecision<N> z, int needs_bits) {
@@ -662,7 +621,7 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Plus1<N>> sin = Consts.Bessel.SinCos(nu).sin;
+            MultiPrecision<Plus1<N>> sin = MultiPrecision<Plus1<N>>.Consts.Bessel.SinCos(nu.Convert<Plus1<N>>()).sin;
 
             MultiPrecision<Plus1<N>> y = (x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.PI) / (2 * sin);
 
@@ -803,7 +762,7 @@ namespace MultiPrecision {
                 private readonly static Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = new();
                 private readonly static Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = new();
 
-                private readonly static Dictionary<MultiPrecision<N>, (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos)> sincos_table = new();
+                private readonly static Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = new();
 
                 public static BesselNearZeroCoef NearZeroCoef(MultiPrecision<N> nu) {
                     BesselNearZeroCoef table;
@@ -857,12 +816,9 @@ namespace MultiPrecision {
                     return table;
                 }
 
-                public static (MultiPrecision<Plus1<N>> sin, MultiPrecision<Plus1<N>> cos) SinCos(MultiPrecision<N> nu) {
+                public static (MultiPrecision<N> sin, MultiPrecision<N> cos) SinCos(MultiPrecision<N> nu) {
                     if (!sincos_table.ContainsKey(nu)) {
-                        sincos_table.Add(nu,
-                            (MultiPrecision<Plus1<N>>.SinPI(nu.Convert<Plus1<N>>()),
-                             MultiPrecision<Plus1<N>>.CosPI(nu.Convert<Plus1<N>>()))
-                        );
+                        sincos_table.Add(nu, (SinPI(nu), CosPI(nu)));
                     }
 
                     return sincos_table[nu];
