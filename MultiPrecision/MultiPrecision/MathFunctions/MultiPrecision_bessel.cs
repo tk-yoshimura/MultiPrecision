@@ -638,53 +638,61 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<N> BesselKIntegerNuNearZero(int n, MultiPrecision<N> z) {
+            Consts.BesselNearZeroCoef nearzero_table = Consts.Bessel.NearZeroCoef(n);
             Consts.BesselIntegerFiniteTermCoef finite_table = Consts.Bessel.IntegerFiniteTermCoef(n);
             Consts.BesselIntegerConvergenceTermCoef convergence_table = Consts.Bessel.IntegerConvergenceTermCoef(n);
 
             MultiPrecision<Double<N>> z_ex = z.Convert<Double<N>>();
-            MultiPrecision<Double<N>> u = 1;
+            MultiPrecision<Double<N>> m = MultiPrecision<Double<N>>.Pow(z_ex / 2, n), inv_mm = 1 / (m * m);
+            MultiPrecision<Double<N>> u = m, v = 2 * m * MultiPrecision<Double<N>>.Log(z_ex / 2);
             MultiPrecision<Double<N>> w = z_ex * z_ex;
 
-            MultiPrecision<Double<N>> r
-                = MultiPrecision<Double<N>>.BesselINearZero(n, z_ex).Convert<Double<N>>() * MultiPrecision<Double<N>>.Log(z_ex / 2);
-
-            long r_exponent = r.Exponent;
-
-            MultiPrecision<Double<N>> m = MultiPrecision<Double<N>>.Pow(z_ex / 2, n);
-
-            MultiPrecision<Double<N>> x = 0, y = 0;
+            MultiPrecision<Double<N>> x = 0;
+            bool probably_convergenced = false;
 
             Sign sign = Sign.Plus;
 
-            for (int k = 0; k < int.MaxValue; k++, u *= w) {
-                MultiPrecision<Double<N>> c = u * convergence_table.Value(k);
+            for (int k = 0; k < int.MaxValue; k++, u *= w, v *= w) {
+                MultiPrecision<Double<N>> c_pos = u * convergence_table.Value(k);
+                MultiPrecision<Double<N>> c_neg = v * nearzero_table.Value(k);
+                MultiPrecision<Double<N>> c = c_pos - c_neg;
 
-                y += c;
+                if ((n & 1) == 0) {
+                    x += c;
+                }
+                else {
+                    x -= c;
+                }
 
                 if (k < n) {
+                    MultiPrecision<Double<N>> d = u * inv_mm * finite_table.Value(k);
+                    
                     if (sign == Sign.Plus) {
-                        x += u * finite_table.Value(k);
+                        x += d;
                         sign = Sign.Minus;
                     }
                     else {
-                        x -= u * finite_table.Value(k);
+                        x -= d;
                         sign = Sign.Plus;
                     }
-                    continue;
                 }
-
-                if (r.Exponent < -Bits * 8 && (c.IsZero || y.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits)) {
-                    break;
-                }
-
-                if (c.IsZero || Math.Min(y.Exponent - c.Exponent, r_exponent - c.Exponent - m.Exponent) > MultiPrecision<Double<N>>.Bits) {
-                    break;
+                else {
+                    if(c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                        if (probably_convergenced) {
+                            break;
+                        }
+                        else {
+                            probably_convergenced = true;
+                            continue;
+                        }
+                    }
+                    probably_convergenced = false;
                 }
             }
 
-            MultiPrecision<Double<N>> d = (x / m + ((n & 1) == 0 ? 1 : -1) * (y * m - 2 * r)) / 2;
+            MultiPrecision<N> y = x.Convert<N>() / 2;
 
-            return d.Convert<N>();
+            return y;
         }
 
         private static MultiPrecision<Plus1<N>> BesselKLimit(MultiPrecision<N> nu, MultiPrecision<N> z) {
