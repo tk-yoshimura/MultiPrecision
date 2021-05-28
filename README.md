@@ -75,6 +75,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |inverse_erfc|&#40;0,2&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
 |loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.LogGamma(z)|
 |gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Gamma(z)|
+|digamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers and zero points.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Digamma(z)|
 |bessel_j|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselJ(nu, z)|
 |bessel_y|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselY(nu, z)|
 |bessel_i|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselI(nu, z)|
