@@ -21,7 +21,7 @@ namespace MultiPrecision {
             Int64 exponent = x_expand.Exponent;
             MultiPrecision<Plus1<N>> v = new(Sign.Plus, exponent % 3, x_expand.mantissa, round: false);
 
-            MultiPrecision<Plus1<N>> a = Math.Pow((double)v, -1d / 3d);
+            MultiPrecision<Plus1<N>> a = 1d / Math.Cbrt((double)v);
             MultiPrecision<Plus1<N>> h = 1 - v * a * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
