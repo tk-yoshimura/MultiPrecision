@@ -21,12 +21,12 @@ namespace MultiPrecision {
             Int64 exponent = x_expand.Exponent;
             MultiPrecision<Plus1<N>> v = new(Sign.Plus, exponent % 3, x_expand.mantissa, round: false);
 
-            MultiPrecision<Plus1<N>> a = Consts.Cbrt.ApproxA + v * (Consts.Cbrt.ApproxB + v * Consts.Cbrt.ApproxC);
+            MultiPrecision<Plus1<N>> a = Math.Pow((double)v, -1d / 3d);
             MultiPrecision<Plus1<N>> h = 1 - v * a * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= 1 + h * (Consts.Cbrt.DifferenceA + h * (Consts.Cbrt.DifferenceB + h * Consts.Cbrt.DifferenceC));
+                a *= 1 + h * (27 + h * (18 + h * 14)) / 81;
                 h = 1 - v * a * a * a;
 
                 h_exponent_prev = h_exponent_post;
@@ -38,32 +38,6 @@ namespace MultiPrecision {
             MultiPrecision<N> y = y_expand.Convert<N>();
 
             return (x.Sign == Sign.Plus) ? y : -y;
-        }
-
-
-        private static partial class Consts {
-            public static class Cbrt {
-                public static MultiPrecision<Plus1<N>> ApproxA { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> ApproxC { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> DifferenceA { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> DifferenceB { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> DifferenceC { private set; get; } = null;
-
-                static Cbrt() {
-                    ApproxA = (67 - 7 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.Div(4, 3))) / 42;
-                    ApproxB = (21 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.One / 3) - 37) / 56;
-                    ApproxC = (11 - 7 * MultiPrecision<Plus1<N>>.Pow2(MultiPrecision<Plus1<N>>.One / 3)) / 168;
-
-                    DifferenceA = MultiPrecision<Plus1<N>>.Div(1, 3);
-                    DifferenceB = MultiPrecision<Plus1<N>>.Div(2, 9);
-                    DifferenceC = MultiPrecision<Plus1<N>>.Div(14, 81);
-
-#if DEBUG
-                    Trace.WriteLine($"Cbrt<{Length}> initialized.");
-#endif
-                }
-            }
         }
     }
 }

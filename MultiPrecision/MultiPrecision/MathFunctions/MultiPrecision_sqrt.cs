@@ -21,7 +21,7 @@ namespace MultiPrecision {
             Int64 exponent = x_expand.Exponent;
             MultiPrecision<Plus1<N>> v = new(Sign.Plus, exponent % 2, x_expand.mantissa, round: false);
 
-            MultiPrecision<Plus1<N>> a = Consts.Sqrt.ApproxA + v * (Consts.Sqrt.ApproxB + v * Consts.Sqrt.ApproxC);
+            MultiPrecision<Plus1<N>> a = 1d / Math.Sqrt((double)v);
             MultiPrecision<Plus1<N>> h = 1 - v * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
@@ -38,25 +38,6 @@ namespace MultiPrecision {
             MultiPrecision<N> y = y_expand.Convert<N>();
 
             return y;
-        }
-
-
-        private static partial class Consts {
-            public static class Sqrt {
-                public static MultiPrecision<Plus1<N>> ApproxA { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> ApproxB { private set; get; } = null;
-                public static MultiPrecision<Plus1<N>> ApproxC { private set; get; } = null;
-
-                static Sqrt() {
-                    ApproxA = (17 - 6 * MultiPrecision<Plus1<N>>.Sqrt2) / 6;
-                    ApproxB = (5 * MultiPrecision<Plus1<N>>.Sqrt2 - 9) / 4;
-                    ApproxC = (5 - 3 * MultiPrecision<Plus1<N>>.Sqrt2) / 12;
-
-#if DEBUG
-                    Trace.WriteLine($"Sqrt<{Length}> initialized.");
-#endif
-                }
-            }
         }
     }
 }
