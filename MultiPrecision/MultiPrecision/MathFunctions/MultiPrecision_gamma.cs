@@ -9,40 +9,40 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
-        public static MultiPrecision<N> Gamma(MultiPrecision<N> z) {
-            if (z.IsNaN || (z.Sign == Sign.Minus && !z.IsFinite)) {
+        public static MultiPrecision<N> Gamma(MultiPrecision<N> x) {
+            if (x.IsNaN || (x.Sign == Sign.Minus && !x.IsFinite)) {
                 return NaN;
             }
 
-            if (z.IsZero || (z.Sign == Sign.Plus && !z.IsFinite)) {
+            if (x.IsZero || (x.Sign == Sign.Plus && !x.IsFinite)) {
                 return PositiveInfinity;
             }
 
-            if (z.Sign == Sign.Minus || z.Exponent < -1) {
-                MultiPrecision<N> sinpi = SinPI(z);
+            if (x.Sign == Sign.Minus || x.Exponent < -1) {
+                MultiPrecision<N> sinpi = SinPI(x);
 
                 if (sinpi.IsZero) {
                     return NaN;
                 }
 
-                MultiPrecision<N> y = PI / (sinpi * Gamma(1 - z));
+                MultiPrecision<N> y = PI / (sinpi * Gamma(1 - x));
 
                 return y;
             }
             else {
-                if (z < Consts.Gamma.Threshold) {
-                    MultiPrecision<LanczosExpand<N>> x = LanczosAg(z);
-                    MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
+                if (x < Consts.Gamma.Threshold) {
+                    MultiPrecision<LanczosExpand<N>> a = LanczosAg(x);
+                    MultiPrecision<LanczosExpand<N>> s = x.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
                     MultiPrecision<LanczosExpand<N>> t = (s + Consts.Gamma.Lanczos.G) / MultiPrecision<LanczosExpand<N>>.E;
 
-                    MultiPrecision<LanczosExpand<N>> y_ex = MultiPrecision<LanczosExpand<N>>.Pow(t, s) * x;
+                    MultiPrecision<LanczosExpand<N>> y_ex = MultiPrecision<LanczosExpand<N>>.Pow(t, s) * a;
 
                     MultiPrecision<N> y = y_ex.Convert<N>();
 
                     return y;
                 }
                 else {
-                    MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
+                    MultiPrecision<SterlingExpand<N>> z_ex = x.Convert<SterlingExpand<N>>();
 
                     MultiPrecision<SterlingExpand<N>> r = MultiPrecision<SterlingExpand<N>>.Sqrt(2 * MultiPrecision<SterlingExpand<N>>.PI / z_ex);
                     MultiPrecision<SterlingExpand<N>> p = MultiPrecision<SterlingExpand<N>>.Pow(z_ex / MultiPrecision<SterlingExpand<N>>.E, z_ex);
@@ -55,58 +55,58 @@ namespace MultiPrecision {
             }
         }
 
-        public static MultiPrecision<N> LogGamma(MultiPrecision<N> z) {
-            if (z.IsNaN || z.IsZero || z.Sign == Sign.Minus) {
+        public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {
+            if (x.IsNaN || x.IsZero || x.Sign == Sign.Minus) {
                 return NaN;
             }
 
-            if (!z.IsFinite) {
+            if (!x.IsFinite) {
                 return PositiveInfinity;
             }
 
-            if (z.Exponent < -1) {
-                return Log(Gamma(z));
+            if (x.Exponent < -1) {
+                return Log(Gamma(x));
             }
 
-            if ((z - 1).Exponent <= -Bits / 8) {
-                z -= 1;
+            if ((x - 1).Exponent <= -Bits / 8) {
+                x -= 1;
 
-                return z * (-226800 * EulerGamma
-                        + z * (18900 * (PI * PI)
-                        + z * (-75600 * Zeta3
-                        + z * (630 * Pow(PI, 4)
-                        + z * (-45360 * Zeta5
-                        + z * (40 * Pow(PI, 6)
-                        + z * (-32400 * Zeta7
-                        + z * (3 * Pow(PI, 8))))))))) / 226800;
+                return x * (-226800 * EulerGamma
+                        + x * (18900 * (PI * PI)
+                        + x * (-75600 * Zeta3
+                        + x * (630 * Pow(PI, 4)
+                        + x * (-45360 * Zeta5
+                        + x * (40 * Pow(PI, 6)
+                        + x * (-32400 * Zeta7
+                        + x * (3 * Pow(PI, 8))))))))) / 226800;
             }
 
-            if ((z - 2).Exponent <= -Bits / 8) {
-                z -= 2;
+            if ((x - 2).Exponent <= -Bits / 8) {
+                x -= 2;
 
-                return z * (226800 * (1 - EulerGamma)
-                        + z * (18900 * ((PI * PI) - 6)
-                        + z * (75600 * (1 - Zeta3)
-                        + z * (630 * (Pow(PI, 4) - 90)
-                        + z * (45360 * (1 - Zeta5)
-                        + z * (40 * (Pow(PI, 6) - 945)
-                        + z * (32400 * (1 - Zeta7)
-                        + z * (3 * (Pow(PI, 8) - 9450))))))))) / 226800;
+                return x * (226800 * (1 - EulerGamma)
+                        + x * (18900 * ((PI * PI) - 6)
+                        + x * (75600 * (1 - Zeta3)
+                        + x * (630 * (Pow(PI, 4) - 90)
+                        + x * (45360 * (1 - Zeta5)
+                        + x * (40 * (Pow(PI, 6) - 945)
+                        + x * (32400 * (1 - Zeta7)
+                        + x * (3 * (Pow(PI, 8) - 9450))))))))) / 226800;
             }
 
-            if (z < Consts.Gamma.Threshold) {
-                MultiPrecision<LanczosExpand<N>> x = MultiPrecision<LanczosExpand<N>>.Log(LanczosAg(z));
-                MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
+            if (x < Consts.Gamma.Threshold) {
+                MultiPrecision<LanczosExpand<N>> a = MultiPrecision<LanczosExpand<N>>.Log(LanczosAg(x));
+                MultiPrecision<LanczosExpand<N>> s = x.Convert<LanczosExpand<N>>() - MultiPrecision<LanczosExpand<N>>.Point5;
                 MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s + Consts.Gamma.Lanczos.G);
 
-                MultiPrecision<LanczosExpand<N>> y_ex = x + s * (t - 1);
+                MultiPrecision<LanczosExpand<N>> y_ex = a + s * (t - 1);
 
                 MultiPrecision<N> y = y_ex.Convert<N>();
 
                 return y;
             }
             else {
-                MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
+                MultiPrecision<SterlingExpand<N>> z_ex = x.Convert<SterlingExpand<N>>();
 
                 MultiPrecision<SterlingExpand<N>> p = (z_ex - MultiPrecision<SterlingExpand<N>>.Point5) * MultiPrecision<SterlingExpand<N>>.Log(z_ex);
                 MultiPrecision<SterlingExpand<N>> s = SterlingTerm(z_ex);
@@ -141,11 +141,12 @@ namespace MultiPrecision {
                 MultiPrecision<SterlingExpand<N>> c = u * s;
 
                 x += c;
-                u *= w;
 
                 if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
                     break;
                 }
+                
+                u *= w;
             }
 
             MultiPrecision<SterlingExpand<N>> y = x * v;

@@ -2,40 +2,40 @@
 
     public sealed partial class MultiPrecision<N> {
 
-        public static MultiPrecision<N> Digamma(MultiPrecision<N> z) {
-            if (z.IsNaN || (z.Sign == Sign.Minus && !z.IsFinite)) {
+        public static MultiPrecision<N> Digamma(MultiPrecision<N> x) {
+            if (x.IsNaN || (x.Sign == Sign.Minus && !x.IsFinite)) {
                 return NaN;
             }
 
-            if (z.IsZero || (z.Sign == Sign.Plus && !z.IsFinite)) {
+            if (x.IsZero || (x.Sign == Sign.Plus && !x.IsFinite)) {
                 return PositiveInfinity;
             }
 
-            if (z.Sign == Sign.Minus || z.Exponent < -1) {
-                MultiPrecision<N> tanpi = TanPI(z);
+            if (x.Sign == Sign.Minus || x.Exponent < -1) {
+                MultiPrecision<N> tanpi = TanPI(x);
 
                 if (tanpi.IsZero) {
                     return NaN;
                 }
 
-                MultiPrecision<N> y = Digamma(1 - z) - PI / tanpi;
+                MultiPrecision<N> y = Digamma(1 - x) - PI / tanpi;
 
                 return y;
             }
             else {
-                if (z < Consts.Gamma.Threshold) {
-                    MultiPrecision<LanczosExpand<N>> x = DiffLogLanczosAg(z);
-                    MultiPrecision<LanczosExpand<N>> s = z.Convert<LanczosExpand<N>>() + Consts.Gamma.Lanczos.G - MultiPrecision<LanczosExpand<N>>.Point5;
+                if (x < Consts.Gamma.Threshold) {
+                    MultiPrecision<LanczosExpand<N>> a = DiffLogLanczosAg(x);
+                    MultiPrecision<LanczosExpand<N>> s = x.Convert<LanczosExpand<N>>() + Consts.Gamma.Lanczos.G - MultiPrecision<LanczosExpand<N>>.Point5;
                     MultiPrecision<LanczosExpand<N>> t = MultiPrecision<LanczosExpand<N>>.Log(s);
 
-                    MultiPrecision<LanczosExpand<N>> y_ex = t - Consts.Gamma.Lanczos.G / s + x;
+                    MultiPrecision<LanczosExpand<N>> y_ex = t - Consts.Gamma.Lanczos.G / s + a;
 
                     MultiPrecision<N> y = y_ex.Convert<N>();
 
                     return y;
                 }
                 else {
-                    MultiPrecision<SterlingExpand<N>> z_ex = z.Convert<SterlingExpand<N>>();
+                    MultiPrecision<SterlingExpand<N>> z_ex = x.Convert<SterlingExpand<N>>();
 
                     MultiPrecision<SterlingExpand<N>> p = MultiPrecision<SterlingExpand<N>>.Log(z_ex);
                     MultiPrecision<SterlingExpand<N>> s = DiffLogSterlingTerm(z_ex);

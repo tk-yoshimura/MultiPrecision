@@ -26,7 +26,7 @@ namespace MultiPrecision {
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
             while (h_exponent_prev > h_exponent_post && !h.IsZero) {
-                a *= 1 + h * (4 + 3 * h) / 8;
+                a *= 1 + h * (4 + h * 3) / 8;
                 h = 1 - v * a * a;
 
                 h_exponent_prev = h_exponent_post;
