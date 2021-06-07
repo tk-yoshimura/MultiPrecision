@@ -20,9 +20,14 @@ namespace MultiPrecision {
                 return PositiveInfinity;
             }
 
-            MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticKCore(k.Convert<Plus1<N>>()).Convert<N>();
-
-            return y;
+            if ((1 - k).Exponent >= -32) {
+                MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticKCore(k.Convert<Plus1<N>>()).Convert<N>();
+                return y;
+            }
+            else {
+                MultiPrecision<N> y = MultiPrecision<Double<N>>.EllipticKCore(k.Convert<Double<N>>()).Convert<N>();
+                return y;
+            }
         }
 
         public static MultiPrecision<N> EllipticE(MultiPrecision<N> k) {
@@ -38,11 +43,20 @@ namespace MultiPrecision {
                 return One;
             }
 
-            MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticECore(
-                k.Convert<Plus1<N>>(), 
-                new Dictionary<MultiPrecision<Plus1<N>>, MultiPrecision<Plus1<N>>>()).Convert<N>();
+            if ((1 - k).Exponent >= -32) {
+                MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticECore(
+                    k.Convert<Plus1<N>>(),
+                    new Dictionary<MultiPrecision<Plus1<N>>, MultiPrecision<Plus1<N>>>()).Convert<N>();
 
-            return y;
+                return Max(One, y);
+            }
+            else {
+                MultiPrecision<N> y = MultiPrecision<Double<N>>.EllipticECore(
+                    k.Convert<Double<N>>(),
+                    new Dictionary<MultiPrecision<Double<N>>, MultiPrecision<Double<N>>>()).Convert<N>();
+
+                return Max(One, y);
+            }
         }
 
         private static MultiPrecision<N> EllipticKCore(MultiPrecision<N> k, 

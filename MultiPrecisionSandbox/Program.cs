@@ -5,11 +5,11 @@ using System.IO;
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            using (StreamWriter sw = new StreamWriter("ellipticE.csv")) {
+            using (StreamWriter sw = new StreamWriter("ellipticK.csv")) {
                 sw.WriteLine("k,y");
 
-                for (decimal k = 0; k <= 1; k += 1 / 1024m) {
-                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.EllipticE(k);
+                for (decimal k = 0; k <= 1; k += 1 / 64m) {
+                    MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.EllipticK(k);
 
                     sw.WriteLine($"{k},{y}");
                 }
