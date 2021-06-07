@@ -73,13 +73,15 @@ MaxValue: &plusmn;8.808065x10^646456992
 |erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
 |inverse_erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErf(x)|
 |inverse_erfc|&#40;0,2&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
-|loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.LogGamma(z)|
-|gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Gamma(z)|
-|digamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers and zero points.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Digamma(z)|
+|loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.LogGamma(x)|
+|gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Gamma(x)|
+|digamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers and zero points.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Digamma(x)|
 |bessel_j|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselJ(nu, z)|
 |bessel_y|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselY(nu, z)|
 |bessel_i|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselI(nu, z)|
 |bessel_k|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselK(nu, z)|
+|elliptic_k|&#91;0,1&#93;|1||MultiPrecision&lt;*N*&gt;.EllipticK(k)|
+|elliptic_e|&#91;0,1&#93;|1||MultiPrecision&lt;*N*&gt;.EllipticE(k)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;*N*&gt;.Random(random)|
 |min|N/A|N/A||MultiPrecision&lt;*N*&gt;.Min(x, y)|
