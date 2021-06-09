@@ -13,7 +13,7 @@ namespace MultiPrecisionTest.Functions {
             for (int i = 0; i < 200; i++) {
                 MultiPrecision<Pow2.N4> x = i;
                 MultiPrecision<Pow2.N4> y_expected = MultiPrecision<Pow2.N4>.HarmonicNumber(i) - MultiPrecision<Pow2.N4>.EulerGamma;
-                MultiPrecision<Pow2.N4> y_actual   = MultiPrecision<Pow2.N4>.Digamma(x + 1);
+                MultiPrecision<Pow2.N4> y_actual = MultiPrecision<Pow2.N4>.Digamma(x + 1);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y_expected);
@@ -21,11 +21,11 @@ namespace MultiPrecisionTest.Functions {
 
                 Assert.IsTrue(MultiPrecision<Pow2.N4>.NearlyEqualBits(y_expected, y_actual, 1));
             }
-            
+
             for (int i = 0; i < 200; i++) {
                 MultiPrecision<Pow2.N8> x = i;
                 MultiPrecision<Pow2.N8> y_expected = MultiPrecision<Pow2.N8>.HarmonicNumber(i) - MultiPrecision<Pow2.N8>.EulerGamma;
-                MultiPrecision<Pow2.N8> y_actual   = MultiPrecision<Pow2.N8>.Digamma(x + 1);
+                MultiPrecision<Pow2.N8> y_actual = MultiPrecision<Pow2.N8>.Digamma(x + 1);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y_expected);
@@ -37,7 +37,7 @@ namespace MultiPrecisionTest.Functions {
             for (int i = 0; i < 200; i++) {
                 MultiPrecision<Pow2.N16> x = i;
                 MultiPrecision<Pow2.N16> y_expected = MultiPrecision<Pow2.N16>.HarmonicNumber(i) - MultiPrecision<Pow2.N16>.EulerGamma;
-                MultiPrecision<Pow2.N16> y_actual   = MultiPrecision<Pow2.N16>.Digamma(x + 1);
+                MultiPrecision<Pow2.N16> y_actual = MultiPrecision<Pow2.N16>.Digamma(x + 1);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y_expected);
@@ -49,7 +49,7 @@ namespace MultiPrecisionTest.Functions {
             for (int i = 0; i < 200; i++) {
                 MultiPrecision<Pow2.N32> x = i;
                 MultiPrecision<Pow2.N32> y_expected = MultiPrecision<Pow2.N32>.HarmonicNumber(i) - MultiPrecision<Pow2.N32>.EulerGamma;
-                MultiPrecision<Pow2.N32> y_actual   = MultiPrecision<Pow2.N32>.Digamma(x + 1);
+                MultiPrecision<Pow2.N32> y_actual = MultiPrecision<Pow2.N32>.Digamma(x + 1);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y_expected);
@@ -135,7 +135,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void DigammaZeropointTest() {
-            const string zeropoint = 
+            const string zeropoint =
                 "1.4616321449683623412626595423257213284681962040064463512959884085987864403538018102430749927337255927" +
                   "5055679336553305334161736577846698582917716838164502465254261879204438438197833355977396197607471943" +
                   "1934937175414059451930109963724166527772172791673250880463960076932978144901475185803414306536810631" +

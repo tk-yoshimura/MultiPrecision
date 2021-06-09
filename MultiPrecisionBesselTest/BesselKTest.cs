@@ -899,7 +899,7 @@ namespace MultiPrecisionBesselTest {
             9.7569537558936834518e86
         };
 
-        static readonly double[] expected_x16 = { 
+        static readonly double[] expected_x16 = {
             3.4994116639364989360e-8,
             3.5010706421695284807e-8,
             3.5060522093824139200e-8,

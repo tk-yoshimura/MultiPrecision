@@ -82,6 +82,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |bessel_k|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselK(nu, z)|
 |elliptic_k|&#91;0,1&#93;|1||MultiPrecision&lt;*N*&gt;.EllipticK(k)|
 |elliptic_e|&#91;0,1&#93;|1||MultiPrecision&lt;*N*&gt;.EllipticE(k)|
+|elliptic_pi|&#91;0,1&#93;|1||MultiPrecision&lt;*N*&gt;.EllipticPi(n, k)|
 |ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
 |random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;*N*&gt;.Random(random)|
 |min|N/A|N/A||MultiPrecision&lt;*N*&gt;.Min(x, y)|

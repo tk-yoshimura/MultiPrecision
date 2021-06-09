@@ -145,7 +145,7 @@ namespace MultiPrecision {
                 if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
                     break;
                 }
-                
+
                 u *= w;
             }
 

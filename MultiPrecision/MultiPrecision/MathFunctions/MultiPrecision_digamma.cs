@@ -58,7 +58,7 @@
                 MultiPrecision<Double<LanczosExpand<N>>> c = w * r;
 
                 x_ex += c;
-                y_ex -= c * r; 
+                y_ex -= c * r;
             }
 
             MultiPrecision<LanczosExpand<N>> x = (y_ex / x_ex).Convert<LanczosExpand<N>>();

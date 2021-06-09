@@ -434,7 +434,7 @@ namespace MultiPrecision {
                     x -= u * inv_mm * finite_table.Value(k);
                 }
                 else {
-                    if(c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                    if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                         if (probably_convergenced) {
                             break;
                         }
@@ -657,7 +657,7 @@ namespace MultiPrecision {
 
                 if (k < n) {
                     MultiPrecision<Double<N>> d = u * inv_mm * finite_table.Value(k);
-                    
+
                     if (sign == Sign.Plus) {
                         x += d;
                         sign = Sign.Minus;
@@ -668,7 +668,7 @@ namespace MultiPrecision {
                     }
                 }
                 else {
-                    if(c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                    if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                         if (probably_convergenced) {
                             break;
                         }
