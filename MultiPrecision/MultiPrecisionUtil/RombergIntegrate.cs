@@ -6,7 +6,7 @@ namespace MultiPrecision {
     public static partial class MultiPrecisionUtil {
         public static (MultiPrecision<N> value, MultiPrecision<N> error) RombergIntegrate<N>(Func<MultiPrecision<N>, MultiPrecision<N>> f, 
                                                                                              MultiPrecision<N> a, MultiPrecision<N> b, 
-                                                                                             int min_iterations = -1, int max_iterations = -1, 
+                                                                                             int min_iterations = 4, int max_iterations = 16, 
                                                                                              [AllowNull] MultiPrecision<N> epsilon = null)  where N : struct, IConstant {
 
             if (f is null) {
@@ -36,7 +36,7 @@ namespace MultiPrecision {
             s /= 2;
             c /= 2;
 
-            while (!conv.Epsilon.IsZero) {
+            while (true) {
                 for (MultiPrecision<N> x = a + h / 2; x < b; x += h) {
                     kahan_sum(f(x));
                 }
