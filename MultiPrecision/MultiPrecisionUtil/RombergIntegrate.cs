@@ -13,10 +13,16 @@ namespace MultiPrecision {
                 throw new ArgumentNullException(nameof(f));
             }
             if (!(a <= b)) {
-                throw new ArgumentException($"{nameof(a)},{nameof(b)}");
+                throw new ArgumentException(
+                    $"{nameof(a)} < {nameof(b)}", 
+                    $"{nameof(a)},{nameof(b)}"
+                );
             }
             if (min_iterations >= 0 && max_iterations >= 0 && min_iterations >= max_iterations) { 
-                throw new ArgumentException($"{nameof(min_iterations)},{nameof(max_iterations)}");
+                throw new ArgumentException(
+                    $"{nameof(min_iterations)} < {nameof(max_iterations)}", 
+                    $"{nameof(min_iterations)},{nameof(max_iterations)}"
+                );
             }
 
             RichardsonExtrapolation<N> conv = new();
