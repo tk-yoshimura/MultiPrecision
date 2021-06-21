@@ -25,7 +25,7 @@ namespace MultiPrecision {
                 );
             }
 
-            RichardsonExtrapolation<N> conv = new();
+            RichardsonExtrapolation<Plus1<N>> conv = new();
             MultiPrecision<N> h = b - a;
             MultiPrecision<N> s = 0, c = 0;
 
@@ -49,7 +49,7 @@ namespace MultiPrecision {
 
                 h /= 2;
 
-                conv.Append(s * h);
+                conv.Append((s * h).Convert<Plus1<N>>());
 
                 if (min_iterations >= 0 && conv.Iterations < min_iterations) {
                     continue;
@@ -58,18 +58,18 @@ namespace MultiPrecision {
                 if (max_iterations >= 0 && conv.Iterations >= max_iterations) {
                     break;
                 }
-                if (epsilon is not null && conv.Epsilon < epsilon) {
+                if (epsilon is not null && conv.Epsilon.Exponent < epsilon.Exponent) {
                     break;
                 }
                 if (!conv.Value.IsFinite || h.IsZero) {
                     break;
                 }
-                if (conv.Epsilon.IsFinite && conv.Value.Exponent - conv.Epsilon.Exponent > MultiPrecision<N>.Bits - 8) {
+                if (conv.Epsilon.IsFinite && conv.Value.Exponent - conv.Epsilon.Exponent >= MultiPrecision<N>.Bits) {
                     break;
                 }
             }
 
-            return (conv.Value, conv.Epsilon);
+            return (conv.Value.Convert<N>(), conv.Epsilon.Convert<N>());
         }
     }
 }
