@@ -10,7 +10,7 @@ namespace MultiPrecision {
                                                                     Func<MultiPrecision<N>, MultiPrecision<N>> df,
                                                                     [AllowNull] MultiPrecision<N> x_min = null,
                                                                     [AllowNull] MultiPrecision<N> x_max = null,
-                                                                    int max_iter = int.MaxValue, bool break_overshoot = false) where N : struct, IConstant {
+                                                                    int max_iterations = -1, bool break_overshoot = false) where N : struct, IConstant {
 
             if ((x_min != null && x0 < x_min) || (x_max != null && x0 > x_max)) {
                 throw new ArgumentOutOfRangeException(nameof(x0));
@@ -26,7 +26,7 @@ namespace MultiPrecision {
             int overshoots = 0;
 
             int iter = 0;
-            while (iter < max_iter && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
+            while ((max_iterations < 0 || iter < max_iterations) && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
                 dx = f(x) / df(x);
 
                 x -= dx;
@@ -60,7 +60,7 @@ namespace MultiPrecision {
                                                              Func<MultiPrecision<N>, (MultiPrecision<N> d1, MultiPrecision<N> d2)> df,
                                                              [AllowNull] MultiPrecision<N> x_min = null,
                                                              [AllowNull] MultiPrecision<N> x_max = null,
-                                                             int max_iter = int.MaxValue, bool break_overshoot = false) where N : struct, IConstant {
+                                                             int max_iterations = -1, bool break_overshoot = false) where N : struct, IConstant {
 
             if ((x_min != null && x0 < x_min) || (x_max != null && x0 > x_max)) {
                 throw new ArgumentOutOfRangeException(nameof(x0));
@@ -78,7 +78,7 @@ namespace MultiPrecision {
             int overshoots = 0;
 
             int iter = 0;
-            while (iter < max_iter && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
+            while ((max_iterations < 0 || iter < max_iterations) && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
                 y = f(x);
                 (df1, df2) = df(x);
                 dx = (2 * y * df1) / (2 * df1 * df1 - y * df2);
