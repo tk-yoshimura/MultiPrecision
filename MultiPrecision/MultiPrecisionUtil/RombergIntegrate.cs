@@ -4,23 +4,23 @@ using System.Diagnostics.CodeAnalysis;
 namespace MultiPrecision {
 
     public static partial class MultiPrecisionUtil {
-        public static (MultiPrecision<N> value, MultiPrecision<N> error) RombergIntegrate<N>(Func<MultiPrecision<N>, MultiPrecision<N>> f, 
-                                                                                             MultiPrecision<N> a, MultiPrecision<N> b, 
-                                                                                             int min_iterations = 4, int max_iterations = 16, 
-                                                                                             [AllowNull] MultiPrecision<N> epsilon = null)  where N : struct, IConstant {
+        public static (MultiPrecision<N> value, MultiPrecision<N> error) RombergIntegrate<N>(Func<MultiPrecision<N>, MultiPrecision<N>> f,
+                                                                                             MultiPrecision<N> a, MultiPrecision<N> b,
+                                                                                             int min_iterations = 4, int max_iterations = 16,
+                                                                                             [AllowNull] MultiPrecision<N> epsilon = null) where N : struct, IConstant {
 
             if (f is null) {
                 throw new ArgumentNullException(nameof(f));
             }
             if (!(a <= b)) {
                 throw new ArgumentException(
-                    $"{nameof(a)} < {nameof(b)}", 
+                    $"{nameof(a)} < {nameof(b)}",
                     $"{nameof(a)},{nameof(b)}"
                 );
             }
-            if (min_iterations >= 0 && max_iterations >= 0 && min_iterations >= max_iterations) { 
+            if (min_iterations >= 0 && max_iterations >= 0 && min_iterations >= max_iterations) {
                 throw new ArgumentException(
-                    $"{nameof(min_iterations)} < {nameof(max_iterations)}", 
+                    $"{nameof(min_iterations)} < {nameof(max_iterations)}",
                     $"{nameof(min_iterations)},{nameof(max_iterations)}"
                 );
             }

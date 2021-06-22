@@ -32,7 +32,7 @@ namespace MultiPrecision {
             }
 
             internal static MultiPrecision<N> R(int i) {
-                for (int k = rs.Count + 1; k <= i; k++) { 
+                for (int k = rs.Count + 1; k <= i; k++) {
                     MultiPrecision<N> r = 1 / (MultiPrecision<N>.Ldexp(MultiPrecision<N>.One, checked(k * 2)) - 1);
                     rs.Add(r);
                 }
