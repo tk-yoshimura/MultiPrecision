@@ -15,10 +15,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiPrecisionSandbox", "Mu
 		{C577342B-A097-4934-B11D-9ABF7DDB6F3C} = {C577342B-A097-4934-B11D-9ABF7DDB6F3C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPrecisionBesselTest", "MultiPrecisionBesselTest\MultiPrecisionBesselTest.csproj", "{8A5AD190-C887-4726-A20B-D61106D5DB96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiPrecisionBesselTest", "MultiPrecisionBesselTest\MultiPrecisionBesselTest.csproj", "{8A5AD190-C887-4726-A20B-D61106D5DB96}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C577342B-A097-4934-B11D-9ABF7DDB6F3C} = {C577342B-A097-4934-B11D-9ABF7DDB6F3C}
 		{39C8E6B4-E0B7-4D19-97A2-13658ACDF35B} = {39C8E6B4-E0B7-4D19-97A2-13658ACDF35B}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPrecisionSpline", "MultiPrecisionSpline\MultiPrecisionSpline.csproj", "{441C1822-4D8C-45DE-B927-4004F6D4126E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C577342B-A097-4934-B11D-9ABF7DDB6F3C} = {C577342B-A097-4934-B11D-9ABF7DDB6F3C}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiPrecisionSplineTests", "MultiPrecisionSplineTests\MultiPrecisionSplineTests.csproj", "{006A4EA4-90F5-43EF-8140-F991F9873721}"
+	ProjectSection(ProjectDependencies) = postProject
+		{441C1822-4D8C-45DE-B927-4004F6D4126E} = {441C1822-4D8C-45DE-B927-4004F6D4126E}
 	EndProjectSection
 EndProject
 Global
@@ -43,6 +53,14 @@ Global
 		{8A5AD190-C887-4726-A20B-D61106D5DB96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A5AD190-C887-4726-A20B-D61106D5DB96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A5AD190-C887-4726-A20B-D61106D5DB96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{441C1822-4D8C-45DE-B927-4004F6D4126E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{441C1822-4D8C-45DE-B927-4004F6D4126E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{441C1822-4D8C-45DE-B927-4004F6D4126E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{441C1822-4D8C-45DE-B927-4004F6D4126E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{006A4EA4-90F5-43EF-8140-F991F9873721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{006A4EA4-90F5-43EF-8140-F991F9873721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{006A4EA4-90F5-43EF-8140-F991F9873721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{006A4EA4-90F5-43EF-8140-F991F9873721}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
