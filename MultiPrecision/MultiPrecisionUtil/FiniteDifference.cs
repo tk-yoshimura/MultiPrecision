@@ -44,13 +44,13 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> dy15 = f(x + h15).Convert<Plus1<N>>() - f(x - h15).Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> dy16 = f(x + h16).Convert<Plus1<N>>() - f(x - h16).Convert<Plus1<N>>();
 
-            MultiPrecision<Plus1<N>> dy_s = 
+            MultiPrecision<Plus1<N>> dy_s =
                 (74959204320L * dy1 - 30452176755L * dy2 + 14330436120L * dy3 - 6568116555L * dy4
                 + 2765522760L * dy5 - 1037071035L * dy6 + 338635440L * dy7 - 94279185L * dy8
                 + 21861840L * dy9 - 4099095L * dy10 + 596232L * dy11 - 63063L * dy12
                 + 4312L * dy13 - 143L * dy14) / (80313433200L * h_ex);
 
-            MultiPrecision<Plus1<N>> dy_t = 
+            MultiPrecision<Plus1<N>> dy_t =
                 (135909226252800L * dy1 - 56628844272000L * dy2 + 27817677888000L * dy3 - 13561117970400L * dy4
                 + 6199368215040L * dy5 - 2583070089600L * dy6 + 962634816000L * dy7 - 315864549000L * dy8
                 + 89845916160L * dy9 - 21770356608L * dy10 + 4398051840L * dy11 - 719919200L * dy12

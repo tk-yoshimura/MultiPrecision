@@ -49,13 +49,13 @@ namespace MultiPrecisionUtilTests {
 
             Assert.IsTrue(MultiPrecision<Pow2.N4>.NearlyEqualBits(expected, actual, 16));
         }
-    
+
         [TestMethod()]
         public void UndefineDiffTest() {
             static MultiPrecision<Pow2.N4> f(MultiPrecision<Pow2.N4> x) {
                 return x.IsZero ? 0 : MultiPrecision<Pow2.N4>.Sin(1 / x);
             };
-            
+
             (MultiPrecision<Pow2.N4> actual, MultiPrecision<Pow2.N4> error) = MultiPrecisionUtil.FiniteDifference<Pow2.N4>(f, 0);
 
             Console.WriteLine(actual);

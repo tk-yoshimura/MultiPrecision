@@ -2,10 +2,6 @@
 using MultiPrecision;
 using MultiPrecisionSpline;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiPrecisionSplineTests {
     [TestClass()]
@@ -24,8 +20,9 @@ namespace MultiPrecisionSplineTests {
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
+                MultiPrecision<Pow2.N4> g = spline.Grad(x);
 
-                Console.WriteLine($"{x},{y}");
+                Console.WriteLine($"{x},{y},{g}");
             }
         }
 
@@ -43,8 +40,9 @@ namespace MultiPrecisionSplineTests {
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
+                MultiPrecision<Pow2.N4> g = spline.Grad(x);
 
-                Console.WriteLine($"{x},{y}");
+                Console.WriteLine($"{x},{y},{g}");
             }
         }
 
@@ -62,8 +60,9 @@ namespace MultiPrecisionSplineTests {
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
+                MultiPrecision<Pow2.N4> g = spline.Grad(x);
 
-                Console.WriteLine($"{x},{y}");
+                Console.WriteLine($"{x},{y},{g}");
             }
         }
     }

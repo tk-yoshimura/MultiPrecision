@@ -6,7 +6,7 @@ namespace MultiPrecisionSpline {
             : base(xs, ys) {
         }
 
-        protected override sealed MultiPrecision<N>[] ComputeGrads((MultiPrecision<N> x, MultiPrecision<N> y)[] points) { 
+        protected override sealed MultiPrecision<N>[] ComputeGrads((MultiPrecision<N> x, MultiPrecision<N> y)[] points) {
             MultiPrecision<N>[] gs = new MultiPrecision<N>[Length];
 
             for (int i = 1; i < Length - 1; i++) {
