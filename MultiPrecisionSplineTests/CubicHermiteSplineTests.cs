@@ -5,9 +5,9 @@ using System;
 
 namespace MultiPrecisionSplineTests {
     [TestClass()]
-    public class CatmullRomSplineTests {
+    public class CubicHermiteSplineTests {
         [TestMethod()]
-        public void CatmullRomSplineTest() {
+        public void CubicHermiteTest() {
             MultiPrecision<Pow2.N4>[] xs = {
                 -8, -6, -3, -0, 4, 5, 9, 11
             };
@@ -16,7 +16,7 @@ namespace MultiPrecisionSplineTests {
                 1, 4, 5, 2, -4, -2, 0, 1
             };
 
-            CatmullRomSpline<Pow2.N4> spline = new(xs, ys);
+            CubicHermiteSpline<Pow2.N4> spline = new(xs, ys);
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
@@ -27,7 +27,7 @@ namespace MultiPrecisionSplineTests {
         }
 
         [TestMethod()]
-        public void CatmullRomSplineN1Test() {
+        public void CubicHermiteN1Test() {
             MultiPrecision<Pow2.N4>[] xs = {
                 -8
             };
@@ -36,7 +36,7 @@ namespace MultiPrecisionSplineTests {
                 1
             };
 
-            CatmullRomSpline<Pow2.N4> spline = new(xs, ys);
+            CubicHermiteSpline<Pow2.N4> spline = new(xs, ys);
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
@@ -47,7 +47,7 @@ namespace MultiPrecisionSplineTests {
         }
 
         [TestMethod()]
-        public void CatmullRomSplineN2Test() {
+        public void CubicHermiteN2Test() {
             MultiPrecision<Pow2.N4>[] xs = {
                 -8, -6
             };
@@ -56,7 +56,7 @@ namespace MultiPrecisionSplineTests {
                 1, 4
             };
 
-            CatmullRomSpline<Pow2.N4> spline = new(xs, ys);
+            CubicHermiteSpline<Pow2.N4> spline = new(xs, ys);
 
             for (decimal x = -10; x <= 14; x += 0.1m) {
                 MultiPrecision<Pow2.N4> y = spline.Value(x);
