@@ -107,14 +107,22 @@ namespace MultiPrecisionSpline {
             if (ps[0].x >= x) {
                 return -1;
             }
+            if (ps[^1].x <= x) { 
+                return Length - 1;
+            }
 
-            for (int index = 0; index < Length - 1; index++) {
-                if (ps[index + 1].x > x) {
-                    return index;
+            int index = 0;
+
+            for (int h = Math.Max(1, Length / 2); h >= 1; h /= 2){
+                for (int i = index; i < Length - h; i += h) {
+                    if (ps[i + h].x > x) {
+                        index = i;
+                        break;
+                    }
                 }
             }
 
-            return Length - 1;
+            return index;
         }
     }
 }
