@@ -22,8 +22,7 @@ namespace MultiPrecisionSpline {
                 return new MultiPrecision<N>[] { g, g };
             }
 
-            MultiPrecision<N>[] gs = new MultiPrecision<N>[Length];
-            MultiPrecision<N>[] ms = new MultiPrecision<N>[Length];
+            MultiPrecision<N>[] ms = new MultiPrecision<N>[Length - 1];
 
             for (int i = 0; i < Length - 1; i++) {
                 (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[i];
@@ -32,25 +31,14 @@ namespace MultiPrecisionSpline {
                 ms[i] = (yp1 - y0) / (xp1 - x0);
             }
 
+            MultiPrecision<N>[] gs = new MultiPrecision<N>[Length];
+
             for (int i = 1; i < Length - 1; i++) {
                 gs[i] = (ms[i] + ms[i - 1]) / 2;
             }
 
-            {
-                (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[0];
-                (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[1];
-                MultiPrecision<N> g1 = gs[1];
-
-                gs[0] = 2 * (y1 - y0) / (x1 - x0) - g1;
-            }
-
-            {
-                (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[^2];
-                (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[^1];
-                MultiPrecision<N> g0 = gs[^2];
-
-                gs[^1] = 2 * (y1 - y0) / (x1 - x0) - g0;
-            }
+            gs[0] = 2 * ms[0] - gs[1];
+            gs[^1] = 2 * ms[^1] - gs[^2];
 
             return gs;
         }
