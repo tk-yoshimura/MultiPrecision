@@ -23,7 +23,7 @@ namespace MultiPrecisionSpline {
                 return new MultiPrecision<N>[] { 0 };
             }
             else if (Length <= 2) {
-                MultiPrecision<N> g = (Points[1].y - Points[0].y) / (Points[1].x - Points[0].x);
+                MultiPrecision<N> g = (Ys[1] - Ys[0]) / (Xs[1] - Xs[0]);
 
                 return new MultiPrecision<N>[] { g, g };
             }
@@ -31,8 +31,8 @@ namespace MultiPrecisionSpline {
             MultiPrecision<N>[] ms = new MultiPrecision<N>[Length - 1];
 
             for (int i = 0; i < Length - 1; i++) {
-                (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[i];
-                (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[i + 1];
+                MultiPrecision<N> x0 = Xs[i], y0 = Ys[i];
+                MultiPrecision<N> x1 = Xs[i + 1], y1 = Ys[i + 1];
 
                 ms[i] = (y1 - y0) / (x1 - x0);
             }
@@ -53,15 +53,14 @@ namespace MultiPrecisionSpline {
             int index = SegmentIndex(x);
 
             if (index < 0) {
-                return Points[0].y + (x - Points[0].x) * Grads[0];
+                return Ys[0] + (x - Xs[0]) * Grads[0];
             }
             if (index >= Length - 1) {
-                return Points[^1].y + (x - Points[^1].x) * Grads[^1];
+                return Ys[^1] + (x - Xs[^1]) * Grads[^1];
             }
 
-            (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[index];
-            (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[index + 1];
-            MultiPrecision<N> g0 = Grads[index], g1 = Grads[index + 1];
+            MultiPrecision<N> x0 = Xs[index], y0 = Ys[index], g0 = Grads[index];
+            MultiPrecision<N> x1 = Xs[index + 1], y1 = Ys[index + 1], g1 = Grads[index + 1];
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 
@@ -83,9 +82,8 @@ namespace MultiPrecisionSpline {
                 return Grads[^1];
             }
 
-            (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[index];
-            (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[index + 1];
-            MultiPrecision<N> g0 = Grads[index], g1 = Grads[index + 1];
+            MultiPrecision<N> x0 = Xs[index], y0 = Ys[index], g0 = Grads[index];
+            MultiPrecision<N> x1 = Xs[index + 1], y1 = Ys[index + 1], g1 = Grads[index + 1];
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 

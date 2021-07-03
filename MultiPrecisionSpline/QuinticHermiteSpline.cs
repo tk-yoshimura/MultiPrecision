@@ -33,9 +33,9 @@ namespace MultiPrecisionSpline {
             MultiPrecision<N>[] ggs = new MultiPrecision<N>[Length];
 
             for (int i = 1; i < Length - 1; i++) {
-                (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[i - 1];
-                (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[i];
-                (MultiPrecision<N> x2, MultiPrecision<N> y2) = Points[i + 1];
+                MultiPrecision<N> x0 = Xs[i - 1], y0 = Ys[i - 1];
+                MultiPrecision<N> x1 = Xs[i], y1 = Ys[i];
+                MultiPrecision<N> x2 = Xs[i + 1], y2 = Ys[i + 1];
 
                 MultiPrecision<N> dx01 = x1 - x0, dx12 = x2 - x1, dx20 = x0 - x2;
 
@@ -51,16 +51,14 @@ namespace MultiPrecisionSpline {
             int index = SegmentIndex(x);
 
             if (index < 0) {
-                return Points[0].y + (x - Points[0].x) * Grads[0];
+                return Ys[0] + (x - Xs[0]) * Grads[0];
             }
             if (index >= Length - 1) {
-                return Points[^1].y + (x - Points[^1].x) * Grads[^1];
+                return Ys[^1] + (x - Xs[^1]) * Grads[^1];
             }
 
-            (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[index];
-            (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[index + 1];
-            MultiPrecision<N> g0 = Grads[index], g1 = Grads[index + 1];
-            MultiPrecision<N> gg0 = SecondGrads[index], gg1 = SecondGrads[index + 1];
+            MultiPrecision<N> x0 = Xs[index], y0 = Ys[index], g0 = Grads[index], gg0 = SecondGrads[index];
+            MultiPrecision<N> x1 = Xs[index + 1], y1 = Ys[index + 1], g1 = Grads[index + 1], gg1 = SecondGrads[index + 1];
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 
@@ -82,10 +80,8 @@ namespace MultiPrecisionSpline {
                 return Grads[^1];
             }
 
-            (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[index];
-            (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[index + 1];
-            MultiPrecision<N> g0 = Grads[index], g1 = Grads[index + 1];
-            MultiPrecision<N> gg0 = SecondGrads[index], gg1 = SecondGrads[index + 1];
+            MultiPrecision<N> x0 = Xs[index], y0 = Ys[index], g0 = Grads[index], gg0 = SecondGrads[index];
+            MultiPrecision<N> x1 = Xs[index + 1], y1 = Ys[index + 1], g1 = Grads[index + 1], gg1 = SecondGrads[index + 1];
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 
@@ -104,10 +100,8 @@ namespace MultiPrecisionSpline {
                 return 0;
             }
 
-            (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[index];
-            (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[index + 1];
-            MultiPrecision<N> g0 = Grads[index], g1 = Grads[index + 1];
-            MultiPrecision<N> gg0 = SecondGrads[index], gg1 = SecondGrads[index + 1];
+            MultiPrecision<N> x0 = Xs[index], y0 = Ys[index], g0 = Grads[index], gg0 = SecondGrads[index];
+            MultiPrecision<N> x1 = Xs[index + 1], y1 = Ys[index + 1], g1 = Grads[index + 1], gg1 = SecondGrads[index + 1];
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 

@@ -6,13 +6,11 @@ using System.Linq;
 namespace MultiPrecisionSpline {
     public abstract class Spline<N> where N : struct, IConstant {
 
-        public IReadOnlyList<(MultiPrecision<N> x, MultiPrecision<N> y)> Points { private set; get; }
+        public IReadOnlyList<MultiPrecision<N>> Xs { private set; get; }
 
-        public IReadOnlyList<MultiPrecision<N>> Xs => Points.Select((p) => p.x).ToArray();
+        public IReadOnlyList<MultiPrecision<N>> Ys { private set; get; }
 
-        public IReadOnlyList<MultiPrecision<N>> Ys => Points.Select((p) => p.y).ToArray();
-
-        public int Length => Points.Count;
+        public int Length => Xs.Count;
 
         public Spline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys) {
             if (xs.Length != ys.Length) {
@@ -28,16 +26,23 @@ namespace MultiPrecisionSpline {
                 throw new ArgumentException("Array contains invalid element.", $"{ys}");
             }
 
-            this.Points = xs.Select((v, i) => (x: v, y: ys[i])).OrderBy((v) => v.x).ToArray();
+            for (int i = 1; i < xs.Length; i++) {
+                if (!(xs[i - 1] < xs[i])) { 
+                    throw new ArgumentException("X-coordinate order is invalid", $"{xs}");
+                }
+            }
+
+            this.Xs = xs;
+            this.Ys = ys;
         }
 
         public abstract MultiPrecision<N> Value(MultiPrecision<N> x);
 
         protected int SegmentIndex(MultiPrecision<N> x) {
-            if (Points[0].x >= x) {
+            if (Xs[0] >= x) {
                 return -1;
             }
-            if (Points[^1].x <= x) {
+            if (Xs[^1] <= x) {
                 return Length - 1;
             }
 
@@ -45,7 +50,7 @@ namespace MultiPrecisionSpline {
 
             for (int h = Math.Max(1, Length / 2); h >= 1; h /= 2) {
                 for (int i = index; i < Length - h; i += h) {
-                    if (Points[i + h].x > x) {
+                    if (Xs[i + h] > x) {
                         index = i;
                         break;
                     }
