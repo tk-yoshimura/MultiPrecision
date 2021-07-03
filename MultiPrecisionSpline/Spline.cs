@@ -8,6 +8,10 @@ namespace MultiPrecisionSpline {
 
         public IReadOnlyList<(MultiPrecision<N> x, MultiPrecision<N> y)> Points { private set; get; }
 
+        public IReadOnlyList<MultiPrecision<N>> Xs => Points.Select((p) => p.x).ToArray();
+
+        public IReadOnlyList<MultiPrecision<N>> Ys => Points.Select((p) => p.y).ToArray();
+
         public int Length => Points.Count;
 
         public Spline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys) {

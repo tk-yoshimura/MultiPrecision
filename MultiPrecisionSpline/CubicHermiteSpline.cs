@@ -6,10 +6,16 @@ namespace MultiPrecisionSpline {
 
         public IReadOnlyList<MultiPrecision<N>> Grads { private set; get; }
 
-        public CubicHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys) :
-            base(xs, ys) {
+        public CubicHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys)
+            : base(xs, ys) {
 
             this.Grads = CheckArray(ComputeGrads());
+        }
+
+        public CubicHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys, MultiPrecision<N>[] gs)
+            : base(xs, ys) {
+
+            this.Grads = CheckArray(gs);
         }
 
         protected virtual MultiPrecision<N>[] ComputeGrads() {
@@ -26,9 +32,9 @@ namespace MultiPrecisionSpline {
 
             for (int i = 0; i < Length - 1; i++) {
                 (MultiPrecision<N> x0, MultiPrecision<N> y0) = Points[i];
-                (MultiPrecision<N> xp1, MultiPrecision<N> yp1) = Points[i + 1];
+                (MultiPrecision<N> x1, MultiPrecision<N> y1) = Points[i + 1];
 
-                ms[i] = (yp1 - y0) / (xp1 - x0);
+                ms[i] = (y1 - y0) / (x1 - x0);
             }
 
             MultiPrecision<N>[] gs = new MultiPrecision<N>[Length];
@@ -43,7 +49,7 @@ namespace MultiPrecisionSpline {
             return gs;
         }
 
-        public override sealed MultiPrecision<N> Value(MultiPrecision<N> x) {
+        public override MultiPrecision<N> Value(MultiPrecision<N> x) {
             int index = SegmentIndex(x);
 
             if (index < 0) {
@@ -59,14 +65,15 @@ namespace MultiPrecisionSpline {
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 
-            (MultiPrecision<N> hy0, MultiPrecision<N> hg0, MultiPrecision<N> hy1, MultiPrecision<N> hg1) = HermiteBasic(t);
+            (MultiPrecision<N> hy0, MultiPrecision<N> hg0,
+                MultiPrecision<N> hy1, MultiPrecision<N> hg1) = HermiteBasicFunctions<N>.Cubic.Value(t);
 
             MultiPrecision<N> y = hy0 * y0 + hy1 * y1 + dx * (hg0 * g0 + hg1 * g1);
 
             return y;
         }
 
-        public MultiPrecision<N> Grad(MultiPrecision<N> x) {
+        public virtual MultiPrecision<N> Grad(MultiPrecision<N> x) {
             int index = SegmentIndex(x);
 
             if (index < 0) {
@@ -82,31 +89,12 @@ namespace MultiPrecisionSpline {
 
             MultiPrecision<N> dx = x1 - x0, t = (x - x0) / dx;
 
-            (MultiPrecision<N> hy0, MultiPrecision<N> hg0, MultiPrecision<N> hy1, MultiPrecision<N> hg1) = HermiteBasicGrad(t);
+            (MultiPrecision<N> hy0, MultiPrecision<N> hg0,
+                MultiPrecision<N> hy1, MultiPrecision<N> hg1) = HermiteBasicFunctions<N>.Cubic.Grad(t);
 
             MultiPrecision<N> y = (hy0 * y0 + hy1 * y1) / dx + (hg0 * g0 + hg1 * g1);
 
             return y;
-        }
-
-        public static (MultiPrecision<N> hy0, MultiPrecision<N> hg0, MultiPrecision<N> hy1, MultiPrecision<N> hg1) HermiteBasic(MultiPrecision<N> t) {
-            MultiPrecision<N> t2 = t * t;
-
-            MultiPrecision<N> hy0 = 1 + t2 * (-3 + 2 * t);
-            MultiPrecision<N> hg0 = t + t2 * (-2 + t);
-            MultiPrecision<N> hy1 = t2 * (3 - 2 * t);
-            MultiPrecision<N> hg1 = t2 * (-1 + t);
-
-            return (hy0, hg0, hy1, hg1);
-        }
-
-        public static (MultiPrecision<N> hy0, MultiPrecision<N> hg0, MultiPrecision<N> hy1, MultiPrecision<N> hg1) HermiteBasicGrad(MultiPrecision<N> t) {
-            MultiPrecision<N> hy0 = t * (-6 + 6 * t);
-            MultiPrecision<N> hg0 = 1 + t * (-4 + 3 * t);
-            MultiPrecision<N> hy1 = -hy0;
-            MultiPrecision<N> hg1 = t * (-2 + 3 * t);
-
-            return (hy0, hg0, hy1, hg1);
         }
     }
 }
