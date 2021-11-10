@@ -50,5 +50,8 @@
 
 # Other
 MultiPrecisionBesselTest/results_bessel
+nuget.exe
+/**/*.nuspec
+/**/*.nupkg
 
 # Safelist
