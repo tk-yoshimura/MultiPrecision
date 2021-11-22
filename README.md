@@ -178,4 +178,4 @@ BinaryWriter, BinaryReader
 
 ## Author
 
-[tk-yoshimura](https://github.com/tk-yoshimura)
+[T.Yoshimura](https://github.com/tk-yoshimura)

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
     public class ConvergenceSearch<N> : ParameterSearch<N> where N : struct, IConstant {
@@ -15,25 +16,25 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         protected override long MaxLikelihoodPoint {
             get {
-                MultiPrecision<N>[] samples = Samples.Values.ToArray();
+                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
 
                 if (larger_convergence) {
-                    for (int i = Samples.Count - 1; i >= 1; i--) {
-                        if (samples[i] != samples[i - 1]) {
-                            return Samples.Keys.ToArray()[i];
+                    for (int i = samples.Count - 1; i >= 1; i--) {
+                        if (samples[i].value != samples[i - 1].value) {
+                            return samples[i].param;
                         }
                     }
 
-                    return Samples.Keys.ToArray().First();
+                    return samples.First().param;
                 }
                 else {
-                    for (int i = 0; i < Samples.Count - 1; i++) {
-                        if (samples[i] != samples[i + 1]) {
-                            return Samples.Keys.ToArray()[i];
+                    for (int i = 0; i < samples.Count - 1; i++) {
+                        if (samples[i].value != samples[i + 1].value) {
+                            return samples[i].param;
                         }
                     }
 
-                    return Samples.Keys.ToArray().Last();
+                    return samples.Last().param;
                 }
             }
         }

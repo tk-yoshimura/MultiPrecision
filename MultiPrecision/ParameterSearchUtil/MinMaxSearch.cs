@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
@@ -15,7 +16,9 @@ namespace MultiPrecision.ParameterSearchUtil {
                     throw new InvalidOperationException();
                 }
 
-                return Samples.Keys.ToArray()[Samples.Values.MaxIndex()];
+                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
+
+                return Samples[Samples.Select((sample)=>sample.value).ToList().MaxIndex()].param;
             }
         }
     }
@@ -33,7 +36,9 @@ namespace MultiPrecision.ParameterSearchUtil {
                     throw new InvalidOperationException();
                 }
 
-                return Samples.Keys.ToArray()[Samples.Values.MinIndex()];
+                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
+
+                return Samples[Samples.Select((sample)=>sample.value).ToList().MinIndex()].param;
             }
         }
     }

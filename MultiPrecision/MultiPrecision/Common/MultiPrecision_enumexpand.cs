@@ -49,7 +49,7 @@ namespace MultiPrecision {
             return max;
         }
 
-        public static int MinIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
+        public static int MinIndex<N>(this IReadOnlyList<MultiPrecision<N>> source) where N : struct, IConstant {
             if (source.Count() <= 0) {
                 throw new InvalidOperationException("Sequence contains no elements");
             }
@@ -68,7 +68,7 @@ namespace MultiPrecision {
             return min_index;
         }
 
-        public static int MaxIndex<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {
+        public static int MaxIndex<N>(this IReadOnlyList<MultiPrecision<N>> source) where N : struct, IConstant {
             if (source.Count() <= 0) {
                 throw new InvalidOperationException("Sequence contains no elements");
             }

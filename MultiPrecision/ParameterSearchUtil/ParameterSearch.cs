@@ -7,7 +7,8 @@ namespace MultiPrecision.ParameterSearchUtil {
         private readonly SortedList<long, MultiPrecision<N>> samples = new();
         private readonly List<long> samples_standby = new();
 
-        public IReadOnlyDictionary<long, MultiPrecision<N>> Samples => samples;
+        public IReadOnlyList<(long param, MultiPrecision<N> value)> Samples
+            => samples.Keys.Select((key) => (key, samples[key])).ToList();
 
         public bool IsSearched => Step <= 1 && samples_standby.Count <= 0;
 
@@ -17,7 +18,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public long Step { private set; get; }
 
-        public IEnumerable<long> SampleRequests => samples_standby;
+        public IReadOnlyList<long> SampleRequests => samples_standby;
 
         public bool IsConvergenced {
             get {
