@@ -131,6 +131,7 @@ namespace MultiPrecision {
 
 #if DEBUG
             Debug<ArithmeticException>.Assert(mantissa_dec < Accumulator<N>.Decimal(digits + 1));
+            Debug<ArithmeticException>.Assert(mantissa_dec.ToString().Length == (digits + 1));
 #endif
 
             return (Sign, exponent_dec, mantissa_dec);
