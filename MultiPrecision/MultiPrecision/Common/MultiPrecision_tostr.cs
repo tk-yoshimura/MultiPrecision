@@ -117,12 +117,12 @@ namespace MultiPrecision {
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, Accumulator<N>.Decimal(digits + presicion));
             mantissa_dec = Accumulator<N>.MulShift(mantissa_dec, new Accumulator<N>(exponent_frac.mantissa, (int)exponent_frac.Exponent));
 
-            if (mantissa_dec >= Accumulator<N>.Decimal(digits + presicion + 1)) {
-                exponent_dec = checked(exponent_dec + 1);
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Decimal(presicion + 1));
-            }
-            else {
-                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Decimal(presicion));
+            int mantissa_dec_length = mantissa_dec.ToString().Length;
+
+            if (mantissa_dec_length > (digits + 1)) {
+                int trunc_digits = mantissa_dec_length - (digits + 1);
+                exponent_dec = checked(exponent_dec + trunc_digits - presicion);
+                mantissa_dec = Accumulator<N>.RoundDiv(mantissa_dec, Accumulator<N>.Decimal(trunc_digits));
             }
             if (mantissa_dec == Accumulator<N>.Decimal(digits + 1)) {
                 exponent_dec = checked(exponent_dec + 1);
