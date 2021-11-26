@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MultiPrecision {
 
@@ -17,7 +18,7 @@ namespace MultiPrecision {
 
         public Sign Sign { get; }
         public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;
-        public IReadOnlyList<UInt32> Mantissa => mantissa.Value;
+        public ReadOnlyCollection<UInt32> Mantissa => mantissa.Value;
 
         public MultiPrecision(Sign sign, Int64 exponent, UInt32[] mantissa)
             : this(sign, exponent, new Mantissa<N>(mantissa, enable_clone: true), round: false) { }

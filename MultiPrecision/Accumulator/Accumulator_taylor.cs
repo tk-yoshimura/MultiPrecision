@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecision {
     internal sealed partial class Accumulator<N> {
 
-        private static IReadOnlyList<Accumulator<N>> taylor_table = null;
+        private static ReadOnlyCollection<Accumulator<N>> taylor_table = null;
 
-        public static IReadOnlyList<Accumulator<N>> TaylorTable {
+        public static ReadOnlyCollection<Accumulator<N>> TaylorTable {
             get {
                 if (taylor_table is null) {
                     taylor_table = GenerateTaylorTable();
@@ -18,7 +19,7 @@ namespace MultiPrecision {
 
         public static int TaylorTableShift => Mantissa<N>.Bits - 1;
 
-        private static IReadOnlyList<Accumulator<N>> GenerateTaylorTable() {
+        private static ReadOnlyCollection<Accumulator<N>> GenerateTaylorTable() {
             List<Accumulator<N>> table = new();
 
             Accumulator<N> v = One, d = 1;
@@ -31,7 +32,7 @@ namespace MultiPrecision {
 
             table = table.Take(table.Count - 1).ToList();
 
-            return table;
+            return table.AsReadOnly();
         }
     }
 }

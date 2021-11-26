@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
@@ -7,8 +8,8 @@ namespace MultiPrecision.ParameterSearchUtil {
         private readonly SortedList<long, MultiPrecision<N>> samples = new();
         private readonly List<long> samples_standby = new();
 
-        public IReadOnlyList<(long param, MultiPrecision<N> value)> Samples
-            => samples.Keys.Select((key) => (key, samples[key])).ToList();
+        public ReadOnlyCollection<(long param, MultiPrecision<N> value)> Samples
+            => samples.Keys.Select((key) => (key, samples[key])).ToList().AsReadOnly();
 
         public bool IsSearched => Step <= 1 && samples_standby.Count <= 0;
 
@@ -18,7 +19,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public long Step { private set; get; }
 
-        public IReadOnlyList<long> SampleRequests => samples_standby;
+        public ReadOnlyCollection<long> SampleRequests => samples_standby.AsReadOnly();
 
         public bool IsConvergenced {
             get {

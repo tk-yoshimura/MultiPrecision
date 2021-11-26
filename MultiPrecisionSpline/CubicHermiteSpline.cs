@@ -1,21 +1,23 @@
 ﻿using MultiPrecision;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MultiPrecisionSpline {
     public class CubicHermiteSpline<N> : Spline<N> where N : struct, IConstant {
 
-        public IReadOnlyList<MultiPrecision<N>> Grads { private set; get; }
+        public ReadOnlyCollection<MultiPrecision<N>> Grads { private set; get; }
 
         public CubicHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys)
             : base(xs, ys) {
 
-            this.Grads = CheckArray(ComputeGrads());
+            this.Grads = Array.AsReadOnly(CheckArray(ComputeGrads()));
         }
 
         public CubicHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys, MultiPrecision<N>[] gs)
             : base(xs, ys) {
 
-            this.Grads = CheckArray(gs);
+            this.Grads = Array.AsReadOnly(CheckArray(gs));
         }
 
         protected virtual MultiPrecision<N>[] ComputeGrads() {

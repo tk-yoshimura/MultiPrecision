@@ -1,14 +1,15 @@
 ﻿using MultiPrecision;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecisionSpline {
     public abstract class Spline<N> where N : struct, IConstant {
 
-        public IReadOnlyList<MultiPrecision<N>> Xs { private set; get; }
+        public ReadOnlyCollection<MultiPrecision<N>> Xs { private set; get; }
 
-        public IReadOnlyList<MultiPrecision<N>> Ys { private set; get; }
+        public ReadOnlyCollection<MultiPrecision<N>> Ys { private set; get; }
 
         public int Length => Xs.Count;
 
@@ -32,8 +33,8 @@ namespace MultiPrecisionSpline {
                 }
             }
 
-            this.Xs = xs;
-            this.Ys = ys;
+            this.Xs = Array.AsReadOnly(xs);
+            this.Ys = Array.AsReadOnly(ys);
         }
 
         public abstract MultiPrecision<N> Value(MultiPrecision<N> x);

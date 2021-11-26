@@ -1,6 +1,7 @@
 ﻿using MultiPrecision.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -196,7 +197,7 @@ namespace MultiPrecision {
 
                     public static int N => coef.Length;
                     public static MultiPrecision<LanczosExpand<N>> G => g;
-                    public static IReadOnlyList<MultiPrecision<Double<LanczosExpand<N>>>> Coef => coef;
+                    public static ReadOnlyCollection<MultiPrecision<Double<LanczosExpand<N>>>> Coef = Array.AsReadOnly(coef);
 
                     static Lanczos() {
                         byte[] state = null;
@@ -269,7 +270,7 @@ namespace MultiPrecision {
 
                     public static int N => coef.Length;
                     public static MultiPrecision<SterlingExpand<N>> LogBias => logbias;
-                    public static IReadOnlyList<MultiPrecision<SterlingExpand<N>>> Coef => coef;
+                    public static ReadOnlyCollection<MultiPrecision<SterlingExpand<N>>> Coef => Array.AsReadOnly(coef);
 
                     static Sterling() {
                         int terms;

@@ -1,28 +1,30 @@
 ﻿using MultiPrecision;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecisionSpline {
     public class QuinticHermiteSpline<N> : CubicHermiteSpline<N> where N : struct, IConstant {
 
-        public IReadOnlyList<MultiPrecision<N>> SecondGrads { private set; get; }
+        public ReadOnlyCollection<MultiPrecision<N>> SecondGrads { private set; get; }
 
         public QuinticHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys)
             : base(xs, ys) {
 
-            this.SecondGrads = CheckArray(ComputeSecondGrads());
+            this.SecondGrads = Array.AsReadOnly(CheckArray(ComputeSecondGrads()));
         }
 
         public QuinticHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys, MultiPrecision<N>[] gs)
             : base(xs, ys, gs) {
 
-            this.SecondGrads = CheckArray(ComputeSecondGrads());
+            this.SecondGrads = Array.AsReadOnly(CheckArray(ComputeSecondGrads()));
         }
 
         public QuinticHermiteSpline(MultiPrecision<N>[] xs, MultiPrecision<N>[] ys, MultiPrecision<N>[] gs, MultiPrecision<N>[] ggs)
             : base(xs, ys, gs) {
 
-            this.SecondGrads = CheckArray(ggs);
+            this.SecondGrads = Array.AsReadOnly(CheckArray(ggs));
         }
 
         protected virtual MultiPrecision<N>[] ComputeSecondGrads() {

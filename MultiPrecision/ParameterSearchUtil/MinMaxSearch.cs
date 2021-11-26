@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
@@ -16,7 +17,7 @@ namespace MultiPrecision.ParameterSearchUtil {
                     throw new InvalidOperationException();
                 }
 
-                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
+                ReadOnlyCollection<(long param, MultiPrecision<N> value)> samples = Samples;
 
                 return Samples[Samples.Select((sample) => sample.value).ToList().MaxIndex()].param;
             }
@@ -36,7 +37,7 @@ namespace MultiPrecision.ParameterSearchUtil {
                     throw new InvalidOperationException();
                 }
 
-                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
+                ReadOnlyCollection<(long param, MultiPrecision<N> value)> samples = Samples;
 
                 return Samples[Samples.Select((sample) => sample.value).ToList().MinIndex()].param;
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 
@@ -130,7 +131,7 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class SquareAsin {
-                public static IReadOnlyList<MultiPrecision<Plus1<N>>> FracTable { private set; get; } = null;
+                public static ReadOnlyCollection<MultiPrecision<Plus1<N>>> FracTable { private set; get; } = null;
 
                 static SquareAsin() {
                     MultiPrecision<Plus1<N>> n = 1, n_frac = 1, n2_frac = 2;

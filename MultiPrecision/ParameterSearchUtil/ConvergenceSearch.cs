@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace MultiPrecision.ParameterSearchUtil {
@@ -16,7 +17,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         protected override long MaxLikelihoodPoint {
             get {
-                IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
+                ReadOnlyCollection<(long param, MultiPrecision<N> value)> samples = Samples;
 
                 if (larger_convergence) {
                     for (int i = samples.Count - 1; i >= 1; i--) {
