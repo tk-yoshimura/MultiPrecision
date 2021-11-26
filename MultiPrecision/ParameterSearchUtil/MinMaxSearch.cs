@@ -18,7 +18,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
                 IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
 
-                return Samples[Samples.Select((sample)=>sample.value).ToList().MaxIndex()].param;
+                return Samples[Samples.Select((sample) => sample.value).ToList().MaxIndex()].param;
             }
         }
     }
@@ -38,7 +38,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
                 IReadOnlyList<(long param, MultiPrecision<N> value)> samples = Samples;
 
-                return Samples[Samples.Select((sample)=>sample.value).ToList().MinIndex()].param;
+                return Samples[Samples.Select((sample) => sample.value).ToList().MinIndex()].param;
             }
         }
     }

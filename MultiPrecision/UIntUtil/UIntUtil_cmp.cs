@@ -6,7 +6,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a == b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool Equal(int length, UInt32[] a, UInt32[] b) {
+        public static unsafe bool Equal(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -26,7 +26,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a &lt;= b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool LessThanOrEqual(int length, UInt32[] a, UInt32[] b) {
+        public static unsafe bool LessThanOrEqual(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -49,7 +49,7 @@ namespace MultiPrecision {
 
         /// <summary>Comparate uint32 array a &gt;= b</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static bool GreaterThanOrEqual(int length, UInt32[] a, UInt32[] b) {
+        public static unsafe bool GreaterThanOrEqual(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);
@@ -98,7 +98,7 @@ namespace MultiPrecision {
 
         /// <summary>Count leading match bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public unsafe static int MatchBits(int length, UInt32[] a, UInt32[] b) {
+        public static unsafe int MatchBits(int length, UInt32[] a, UInt32[] b) {
 
 #if DEBUG
             Debug<ArgumentException>.Assert(length == a.Length);

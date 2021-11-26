@@ -11,8 +11,8 @@ namespace MultiPrecision {
     }
 
     static class Bernoulli {
-        private readonly static List<Fraction> table = new() { 1 };
-        private readonly static Fraction p5 = new(1, 2);
+        private static readonly List<Fraction> table = new() { 1 };
+        private static readonly Fraction p5 = new(1, 2);
 
         private static BigInteger[] binom = new BigInteger[] { 1, 1 };
 

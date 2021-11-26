@@ -1,7 +1,6 @@
 ﻿using MultiPrecision.Properties;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
@@ -122,7 +121,7 @@ namespace MultiPrecision {
                 public static MultiPrecision<Plus4<N>> C { private set; get; } = null;
 
                 public static int ExponentThreshold { private set; get; } = 3;
-                public static ReadOnlyCollection<MultiPrecision<Plus4<N>>> ErfDenomTable { private set; get; } = null;
+                public static IReadOnlyList<MultiPrecision<Plus4<N>>> ErfDenomTable { private set; get; } = null;
 
                 static Erf() {
                     if (Length > 260) {
@@ -145,7 +144,7 @@ namespace MultiPrecision {
                         n++;
                     }
 
-                    ErfDenomTable = table.AsReadOnly();
+                    ErfDenomTable = table;
 
 #if DEBUG
                     Trace.WriteLine($"Erf<{Length}> initialized.");

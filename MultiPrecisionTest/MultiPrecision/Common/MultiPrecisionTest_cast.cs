@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
+using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecisionTest.Common {
@@ -53,7 +54,7 @@ namespace MultiPrecisionTest.Common {
         public void DoubleTest() {
             MultiPrecision<Pow2.N8> p5 = 0.5;
             Assert.AreEqual(-1, p5.Exponent);
-            CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
+            CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value.ToList(), p5.Mantissa.ToList());
 
             MultiPrecision<Pow2.N8> zero = 0.0;
             Assert.AreEqual(0, (double)zero);
@@ -97,7 +98,7 @@ namespace MultiPrecisionTest.Common {
         public void DecimalTest() {
             MultiPrecision<Pow2.N8> p5 = 0.5m;
             Assert.AreEqual(-1, p5.Exponent);
-            CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, p5.Mantissa);
+            CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value.ToList(), p5.Mantissa.ToList());
 
             MultiPrecision<Pow2.N8> n2p5 = 2.5m;
             Assert.AreEqual(2.5, n2p5);
@@ -152,37 +153,37 @@ namespace MultiPrecisionTest.Common {
             for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
                 MultiPrecision<Pow2.N4> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value.ToList(), m.Mantissa.ToList());
             }
 
             for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
                 MultiPrecision<Pow2.N8> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value.ToList(), m.Mantissa.ToList());
             }
 
             for (decimal i = 0, v = 1; i >= -28; i--, v /= 2) {
                 MultiPrecision<Pow2.N16> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value.ToList(), m.Mantissa.ToList());
             }
 
             for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
                 MultiPrecision<Pow2.N4> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N4>.One.Value.ToList(), m.Mantissa.ToList());
             }
 
             for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
                 MultiPrecision<Pow2.N8> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N8>.One.Value.ToList(), m.Mantissa.ToList());
             }
 
             for (decimal i = 0, v = 1; i <= 28; i++, v *= 2) {
                 MultiPrecision<Pow2.N16> m = v;
                 Assert.AreEqual(i, m.Exponent);
-                CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value, m.Mantissa);
+                CollectionAssert.AreEqual(Mantissa<Pow2.N16>.One.Value.ToList(), m.Mantissa.ToList());
             }
         }
 

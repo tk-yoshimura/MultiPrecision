@@ -12,7 +12,7 @@ namespace MultiPrecision {
     }
 
     static class Chebyshev {
-        private readonly static Dictionary<(int m, int n), BigInteger> table;
+        private static readonly Dictionary<(int m, int n), BigInteger> table;
 
         static Chebyshev() {
             table = new Dictionary<(int n, int m), BigInteger> {

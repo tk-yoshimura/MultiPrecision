@@ -765,13 +765,13 @@ namespace MultiPrecision {
             }
 
             public static class Bessel {
-                private readonly static Dictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = new();
-                private readonly static Dictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = new();
+                private static readonly Dictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = new();
+                private static readonly Dictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = new();
 
-                private readonly static Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = new();
-                private readonly static Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = new();
+                private static readonly Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = new();
+                private static readonly Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = new();
 
-                private readonly static Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = new();
+                private static readonly Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = new();
 
                 public static BesselNearZeroCoef NearZeroCoef(MultiPrecision<N> nu) {
                     BesselNearZeroCoef table;

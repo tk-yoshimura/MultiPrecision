@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -9,7 +9,7 @@ namespace MultiPrecision {
         public static int Length { get; } = checked(default(N).Value);
         public static int Bits { get; } = checked(Length * UIntUtil.UInt32Bits);
         public static int MaxDecimalDigits { get; } = checked((int)(Bits * 30103L / 100000L) - 4); //10^(4 - 1) = 1000 approx equals 1024
-        public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
+        public IReadOnlyList<UInt32> Value => value;
 
         static BigUInt() {
             if (Length < 4) {
@@ -37,7 +37,7 @@ namespace MultiPrecision {
             this.value = enable_clone ? (UInt32[])arr.Clone() : arr;
         }
 
-        public BigUInt(ReadOnlyCollection<UInt32> arr) {
+        public BigUInt(IReadOnlyList<UInt32> arr) {
             if (arr.Count != Length) {
                 throw new ArgumentException(nameof(arr));
             }
@@ -62,7 +62,7 @@ namespace MultiPrecision {
             }
         }
 
-        public BigUInt(ReadOnlyCollection<UInt32> arr, int offset, bool carry = false)
+        public BigUInt(IReadOnlyList<UInt32> arr, int offset, bool carry = false)
             : this(arr.ToArray(), offset, carry) { }
 
         public bool IsZero => UIntUtil.IsZero(value);

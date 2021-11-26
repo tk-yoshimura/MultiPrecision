@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<N>> taylor_sequence = null;
+        private static IReadOnlyList<MultiPrecision<N>> taylor_sequence = null;
 
-        public static ReadOnlyCollection<MultiPrecision<N>> TaylorSequence {
+        public static IReadOnlyList<MultiPrecision<N>> TaylorSequence {
             get {
                 if (taylor_sequence is null) {
                     taylor_sequence = GenerateTaylorSequence();
@@ -16,10 +15,12 @@ namespace MultiPrecision {
             }
         }
 
-        private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorSequence() {
-            List<MultiPrecision<N>> table = new();
+        private static IReadOnlyList<MultiPrecision<N>> GenerateTaylorSequence() {
+            List<MultiPrecision<N>> table = new() {
+                One, One,
+            };
 
-            MultiPrecision<Plus1<N>> v = 1, d = 1, t = 1;
+            MultiPrecision<Plus1<N>> v = 2, d = 2, t = 1;
 
             while (table.Count < 1024 || t.Exponent >= -Bits * 2) {
                 t = 1 / v;
@@ -33,7 +34,7 @@ namespace MultiPrecision {
                 v *= d;
             }
 
-            return table.AsReadOnly();
+            return table;
         }
     }
 }

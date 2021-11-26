@@ -27,7 +27,7 @@ namespace MultiPrecisionSpline {
             }
 
             for (int i = 1; i < xs.Length; i++) {
-                if (!(xs[i - 1] < xs[i])) { 
+                if (!(xs[i - 1] < xs[i])) {
                     throw new ArgumentException("X-coordinate order is invalid", $"{xs}");
                 }
             }

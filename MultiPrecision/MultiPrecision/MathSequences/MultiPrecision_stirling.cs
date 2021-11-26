@@ -12,7 +12,7 @@ namespace MultiPrecision {
     }
 
     static class Stirling {
-        private readonly static List<Fraction> table = new() { new Fraction(1, 12) };
+        private static readonly List<Fraction> table = new() { new Fraction(1, 12) };
         static BigInteger[] stirling = new BigInteger[] { 1 };
 
         public static Fraction Table(int n) {

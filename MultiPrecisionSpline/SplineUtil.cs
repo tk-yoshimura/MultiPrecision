@@ -6,7 +6,7 @@ using System.Linq;
 namespace MultiPrecisionSpline {
     public static class SplineUtil<N> where N : struct, IConstant {
         public static MultiPrecision<N>[] FiniteDifference(IReadOnlyList<MultiPrecision<N>> xs, IReadOnlyList<MultiPrecision<N>> vs) {
-            if (xs.Count != vs.Count) { 
+            if (xs.Count != vs.Count) {
                 throw new ArgumentException("Array lengths don't match.", $"{xs}, {vs}");
             }
 

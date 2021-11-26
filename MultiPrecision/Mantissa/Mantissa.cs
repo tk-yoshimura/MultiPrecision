@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace MultiPrecision {
@@ -12,7 +12,7 @@ namespace MultiPrecision {
         public static int Length { get; } = BigUInt<N>.Length;
         public static int Bits { get; } = BigUInt<N>.Bits;
         public static int MaxDecimalDigits { get; } = BigUInt<N>.MaxDecimalDigits;
-        public ReadOnlyCollection<UInt32> Value => value.Value;
+        public IReadOnlyList<UInt32> Value => value.Value;
 
         public Mantissa() {
             this.value = new BigUInt<N>();
@@ -30,7 +30,7 @@ namespace MultiPrecision {
             this.value = new BigUInt<N>(arr, enable_clone);
         }
 
-        public Mantissa(ReadOnlyCollection<UInt32> arr) {
+        public Mantissa(IReadOnlyList<UInt32> arr) {
             this.value = new BigUInt<N>(arr);
         }
 

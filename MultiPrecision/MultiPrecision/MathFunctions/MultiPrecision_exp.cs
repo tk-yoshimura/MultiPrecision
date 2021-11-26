@@ -1,4 +1,6 @@
-﻿namespace MultiPrecision {
+﻿using System.Linq;
+
+namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
@@ -17,7 +19,7 @@
             MultiPrecision<Plus1<N>> z = x_expand;
             MultiPrecision<Plus1<N>> y = MultiPrecision<Plus1<N>>.Zero;
 
-            foreach (MultiPrecision<Plus1<N>> t in MultiPrecision<Plus1<N>>.TaylorSequence) {
+            foreach (MultiPrecision<Plus1<N>> t in MultiPrecision<Plus1<N>>.TaylorSequence.Skip(1)) {
                 MultiPrecision<Plus1<N>> dy = t * z;
                 y += dy;
 
