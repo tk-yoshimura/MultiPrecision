@@ -196,7 +196,7 @@ namespace MultiPrecision {
 
                     public static int N => coef.Length;
                     public static MultiPrecision<LanczosExpand<N>> G => g;
-                    public static ReadOnlyCollection<MultiPrecision<Double<LanczosExpand<N>>>> Coef = Array.AsReadOnly(coef);
+                    public static ReadOnlyCollection<MultiPrecision<Double<LanczosExpand<N>>>> Coef => Array.AsReadOnly(coef);
 
                     static Lanczos() {
                         byte[] state = null;
