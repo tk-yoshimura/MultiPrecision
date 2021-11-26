@@ -18,7 +18,8 @@ namespace MultiPrecision {
 
         private static ReadOnlyCollection<MultiPrecision<N>> GenerateTaylorSequence() {
             List<MultiPrecision<N>> table = new() {
-                One, One,
+                One,
+                One,
             };
 
             MultiPrecision<Plus1<N>> v = 2, d = 2, t = 1;
