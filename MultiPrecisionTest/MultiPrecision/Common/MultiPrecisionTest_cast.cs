@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 
 using System;
-using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecisionTest.Common {

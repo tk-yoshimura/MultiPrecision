@@ -20,11 +20,11 @@ namespace MultiPrecisionTest.Sequences {
 
             //T0(x) = 1
             Assert.AreEqual(1, MultiPrecision<Pow2.N8>.ChebyshevCoef(1, 1));
-            
+
             //T1(x) = x
             Assert.AreEqual(0, MultiPrecision<Pow2.N8>.ChebyshevCoef(2, 1));
             Assert.AreEqual(1, MultiPrecision<Pow2.N8>.ChebyshevCoef(2, 2));
-            
+
             //T2(x) = -1 + 2x^2
             Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.ChebyshevCoef(3, 1));
             Assert.AreEqual(0, MultiPrecision<Pow2.N8>.ChebyshevCoef(3, 2));
