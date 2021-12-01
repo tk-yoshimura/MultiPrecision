@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -43,20 +42,9 @@ namespace MultiPrecision {
                 return One;
             }
 
-            if ((1 - k).Exponent >= -32) {
-                MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticECore(
-                    k.Convert<Plus1<N>>(),
-                    new Dictionary<MultiPrecision<Plus1<N>>, MultiPrecision<Plus1<N>>>()).Convert<N>();
+            MultiPrecision<N> y = MultiPrecision<Plus1<N>>.EllipticECore(k.Convert<Plus1<N>>()).Convert<N>();
 
-                return Max(One, y);
-            }
-            else {
-                MultiPrecision<N> y = MultiPrecision<Double<N>>.EllipticECore(
-                    k.Convert<Double<N>>(),
-                    new Dictionary<MultiPrecision<Double<N>>, MultiPrecision<Double<N>>>()).Convert<N>();
-
-                return Max(One, y);
-            }
+            return Max(One, y);
         }
 
         public static MultiPrecision<N> EllipticPi(MultiPrecision<N> n, MultiPrecision<N> k) {
@@ -85,20 +73,14 @@ namespace MultiPrecision {
             return y;
         }
 
-        private static MultiPrecision<N> EllipticKCore(MultiPrecision<N> k,
-            [AllowNull] Dictionary<MultiPrecision<N>, MultiPrecision<N>> kvalue_cache = null) {
-
-            if (kvalue_cache is not null && kvalue_cache.ContainsKey(k)) {
-                return kvalue_cache[k];
-            }
-
+        private static MultiPrecision<N> EllipticKCore(MultiPrecision<N> k) {
             MultiPrecision<N> squa_k = k * k;
             MultiPrecision<N> y;
 
             if (squa_k.Exponent > -32) {
                 MultiPrecision<N> c = Sqrt(1 - squa_k), cp1 = 1 + c, cm1 = 1 - c;
 
-                y = 2 / cp1 * EllipticKCore(cm1 / cp1, kvalue_cache);
+                y = 2 / cp1 * EllipticKCore(cm1 / cp1);
             }
             else {
                 MultiPrecision<N> x = 1, w = squa_k;
@@ -118,43 +100,30 @@ namespace MultiPrecision {
                 y = x * PI / 2;
             }
 
-            if (kvalue_cache is not null) {
-                kvalue_cache.Add(k, y);
-            }
-
             return y;
         }
 
-        private static MultiPrecision<N> EllipticECore(MultiPrecision<N> k,
-            [AllowNull] Dictionary<MultiPrecision<N>, MultiPrecision<N>> kvalue_cache = null) {
+        private static MultiPrecision<N> EllipticECore(MultiPrecision<N> k) {
+            MultiPrecision<N> a = 1d;
+            MultiPrecision<N> b = Sqrt(1d - k * k);
+            MultiPrecision<N> c = Sqrt(Abs(a * a - b * b));
+            MultiPrecision<N> q = 1d;
 
-            MultiPrecision<N> squa_k = k * k;
-            MultiPrecision<N> y;
+            for (int n = 0; n < int.MaxValue && !c.IsZero && a != b; n++) {
+                MultiPrecision<N> squa_c = c * c;
+                MultiPrecision<N> dq = Ldexp(squa_c, n - 1);
+                q -= dq;
 
-            if (squa_k.Exponent > -32) {
-                MultiPrecision<N> c = Sqrt(1 - squa_k), cp1 = 1 + c, cm1 = 1 - c, r = cm1 / cp1;
+                MultiPrecision<N> a_next = Ldexp(a + b, -1);
+                MultiPrecision<N> b_next = Sqrt(a * b);
+                MultiPrecision<N> c_next = squa_c / Ldexp(a_next, 2);
 
-                MultiPrecision<N> e = 2 * c / cp1 * EllipticKCore(r, kvalue_cache);
-
-                y = cp1 * EllipticECore(r, kvalue_cache) - e;
+                a = a_next;
+                b = b_next;
+                c = c_next;
             }
-            else {
-                MultiPrecision<N> x = 1, w = squa_k;
 
-                for (int i = 1; i < int.MaxValue; i++) {
-                    MultiPrecision<N> c = Consts.Elliptic.ETable(i) * w;
-
-                    x += c;
-
-                    if (c.IsZero || x.Exponent - c.Exponent > Bits) {
-                        break;
-                    }
-
-                    w *= squa_k;
-                }
-
-                y = x * PI / 2;
-            }
+            MultiPrecision<N> y = q * PI / Ldexp(a, 1);
 
             return y;
         }
@@ -209,16 +178,6 @@ namespace MultiPrecision {
                     }
 
                     return k_table[n];
-                }
-
-                public static MultiPrecision<N> ETable(int n) {
-                    for (int i = e_table.Count; i <= n; i++) {
-                        MultiPrecision<N> e = KTable(i) * checked(1 - 2 * i);
-
-                        e_table.Add(e);
-                    }
-
-                    return e_table[n];
                 }
             }
         }
