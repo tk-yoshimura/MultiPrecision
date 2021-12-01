@@ -104,10 +104,10 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<N> EllipticECore(MultiPrecision<N> k) {
-            MultiPrecision<N> a = 1d;
-            MultiPrecision<N> b = Sqrt(1d - k * k);
+            MultiPrecision<N> a = 1;
+            MultiPrecision<N> b = Sqrt(1 - k * k);
             MultiPrecision<N> c = Sqrt(Abs(a * a - b * b));
-            MultiPrecision<N> q = 1d;
+            MultiPrecision<N> q = 1;
 
             for (int n = 0; n < int.MaxValue && !c.IsZero && a != b; n++) {
                 MultiPrecision<N> squa_c = c * c;
