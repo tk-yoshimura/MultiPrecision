@@ -70,8 +70,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arsinh(x)|
 |arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arcosh(x)|
 |artanh|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Artanh(x)|
-|erf|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erf(x)|
-|erfc|&#40;-inf,+inf&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
+|erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erf(x)|
+|erfc|&#40;0,2&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
 |inverse_erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErf(x)|
 |inverse_erfc|&#40;0,2&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
 |loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.LogGamma(x)|
