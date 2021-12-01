@@ -25,7 +25,24 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> TanPI(MultiPrecision<N> x) {
-            return SinPI(x) / CosPI(x);
+            if (x.Sign == Sign.Minus) {
+                return -TanPI(Abs(x));
+            }
+
+            MultiPrecision<N> s = x - Floor(x);
+
+            if (s <= 0.25d) {
+                MultiPrecision<N> sn = SinPI(s), cn = Sqrt(1 - sn * sn);
+                return sn / cn;
+            }
+            else if (s <= 0.75d) {
+                MultiPrecision<N> cn = CosPI(s), sn = Sqrt(1 - cn * cn);
+                return sn / cn;
+            }
+            else {
+                MultiPrecision<N> sn = SinPI(s), cn = -Sqrt(1 - sn * sn);
+                return sn / cn;
+            }
         }
 
         internal static MultiPrecision<N> SinHalfPI(MultiPrecision<N> x) {

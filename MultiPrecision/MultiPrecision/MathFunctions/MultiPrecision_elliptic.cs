@@ -159,11 +159,10 @@ namespace MultiPrecision {
 
         private static partial class Consts {
             public static class Elliptic {
-                private static readonly List<MultiPrecision<N>> k_table, e_table;
+                private static readonly List<MultiPrecision<N>> k_table;
 
                 static Elliptic() {
                     k_table = new() { 1 };
-                    e_table = new() { 1 };
 
 #if DEBUG
                     Trace.WriteLine($"Elliptic<{Length}> initialized.");
