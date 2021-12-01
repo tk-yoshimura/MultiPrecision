@@ -473,7 +473,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void TanPIBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
-                0, -1, 1
+                0, -1, 1, 0.25, 0.75, -0.25, -0.75
             };
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
