@@ -6,54 +6,30 @@ using System.Numerics;
 namespace MultiPrecisionSandbox {
     class Program {
         static void Main(string[] args) {
-            for (int n = 0; n <= 8; n++) {
-                for (int k = 0; k <= n; k++) {
-                    BigInteger v = ShiftedLegendre.Table(n, k);
+            for (int m = 24; m <= 36; m++) {
+                for (MultiPrecision<Pow2.N16> z = 1; z <= 32; z += 0.5) {
+                    (MultiPrecision<Pow2.N16>[] cs, MultiPrecision<Pow2.N16>[] ds) = BesselYoshidaCoef<Pow2.N16>.Table(0, m);
 
-                    Console.Write($"{v} ");
+                    MultiPrecision<Pow2.N16> t = 1 / z, tn = 1;
+                    MultiPrecision<Pow2.N16> c = 0, d = 0;
+
+                    for (int j = 0; j <= m; j++) {
+                        c += cs[j] * tn;
+                        d += ds[j] * tn;
+                        tn *= t;
+                    }
+
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Sqrt(t * MultiPrecision<Pow2.N16>.PI / 2) * c / d;
+                    y *= MultiPrecision<Pow2.N16>.Exp(-z);
+
+                    Console.WriteLine($"{m},{z},{y}");
                 }
+
                 Console.Write("\n");
             }
 
             Console.WriteLine("END");
             Console.Read();
-        }
-
-        private static void GammaApproxSummary<N>(string filepath) where N : struct, IConstant {
-            Console.WriteLine(MultiPrecision<N>.Length);
-
-            using (StreamWriter sw = new StreamWriter(filepath)) {
-                for (int terms = 4; terms < 32; terms++) {
-                    sw.WriteLine($"terms : {terms}");
-
-                    for (int z2 = 1; z2 <= 20; z2++) {
-                        MultiPrecision<N> z = MultiPrecision<N>.Ldexp(z2, -1);
-
-                        MultiPrecision<N> y_expected = GammaExpects<N>.Gamma(z2);
-                        MultiPrecision<N> y_actual = SterlingApprox<N>.Gamma(z, terms);
-
-                        MultiPrecision<N> err = MultiPrecision<N>.Abs(y_expected - y_actual);
-
-                        sw.WriteLine($"  gamma({z2 * 0.5:F1})");
-                        sw.WriteLine($"    true   : {y_expected}");
-                        sw.WriteLine($"    approx : {y_actual}");
-                        sw.WriteLine($"    err    : {err}");
-
-                        if (y_expected != y_actual) {
-                            for (int roundbits = 0; roundbits < MultiPrecision<N>.Bits; roundbits++) {
-                                if (MultiPrecision<N>.RoundMantissa(y_expected, roundbits) == MultiPrecision<N>.RoundMantissa(y_actual, roundbits)) {
-                                    sw.WriteLine($"    matchbits : {MultiPrecision<N>.Bits - roundbits}");
-                                    break;
-                                }
-                            }
-                        }
-
-                        Console.Write(".");
-                    }
-                }
-            }
-
-            Console.WriteLine(string.Empty);
         }
     }
 }
