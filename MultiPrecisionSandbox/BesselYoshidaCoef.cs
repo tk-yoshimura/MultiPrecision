@@ -14,22 +14,21 @@ namespace MultiPrecisionSandbox {
             MultiPrecision<N>[] cs = new MultiPrecision<N>[m + 1], ds = new MultiPrecision<N>[m + 1];
 
             for (int j = 0; j <= m; j++) {
-                ds[m - j] = ShiftedLegendre.Table(m, j) / ((j + 1) * limitcoef.Value(j + 1)).Convert<N>();
+                ds[j] = ShiftedLegendre.Table(m, m - j) / ((m - j + 1) * limitcoef.Value(m - j + 1)).Convert<N>();
 
                 MultiPrecision<Plus16<N>> sum = 0;
 
-                for (int p = j; p <= m; p++) {
-                    sum += ShiftedLegendre.Table(m, p) * limitcoef.Value(p - j) / ((p + 1) * limitcoef.Value(p + 1));
+                for (int p = m - j; p <= m; p++) {
+                    sum += ShiftedLegendre.Table(m, p) * limitcoef.Value(p - m + j) / ((p + 1) * limitcoef.Value(p + 1));
                 }
 
-                cs[m - j] = sum.Convert<N>();
+                cs[j] = sum.Convert<N>();
             }
 
             return (cs, ds);
         }
 
-        public static (MultiPrecision<N>[][] dss, MultiPrecision<N>[] es) Table(int m) {
-            MultiPrecision<N>[] es = new MultiPrecision<N>[m + 1];
+        public static MultiPrecision<N>[][] Table(int m) {
             MultiPrecision<N>[][] dss = new MultiPrecision<N>[m + 1][];
 
             BigInteger[] fs = new BigInteger[m + 2];
@@ -74,31 +73,19 @@ namespace MultiPrecisionSandbox {
 
                     dss[i][j] = MultiPrecision<Plus16<N>>.Ldexp(b, 2 * j - 3 * i).Convert<N>();
                 }
-
-                es[i] = MultiPrecision<N>.Pow(-1, i) * MultiPrecision<N>.Ldexp((MultiPrecision<N>)(fs[m - i] * ShiftedLegendre.Table(m, m - i)) / fs[m + 1], -i);
             }
 
-            MultiPrecision<N> r = dss[1][1];
-
-            for (int i = 0; i <= m; i++) {
-                for (int j = 0; j <= i; j++) {
-                    dss[i][j] /= r;
-                }
-
-                es[i] /= r;
-            }
-
-            return (dss, es);
+            return dss;
         }
 
-        public static (MultiPrecision<N>[] cs, MultiPrecision<N>[] ds) Table(MultiPrecision<N> nu, MultiPrecision<N>[][] dss, MultiPrecision<N>[] es) {
-            int m = es.Length - 1;
+        public static (MultiPrecision<N>[] cs, MultiPrecision<N>[] ds) Table(MultiPrecision<N> nu, MultiPrecision<N>[][] dss) {
+            int m = dss.Length - 1;
 
             MultiPrecision<N> squa_nu = nu * nu;
             MultiPrecision<N>[] cs = new MultiPrecision<N>[m + 1], ds = new MultiPrecision<N>[m + 1];
 
             for (int i = 0; i <= m; i++) {
-                MultiPrecision<N> d = es[i], c = 0;
+                MultiPrecision<N> d = dss[i][i], c = 0;
 
                 for (int l = 0; l < i; l++) {
                     d *= MultiPrecision<N>.Square(m - l + MultiPrecision<N>.Point5) - squa_nu;
@@ -115,6 +102,22 @@ namespace MultiPrecisionSandbox {
             }
 
             return (cs, ds);
+        }
+
+        public static MultiPrecision<N> Value(MultiPrecision<N> z, MultiPrecision<N>[] cs, MultiPrecision<N>[] ds) { 
+            MultiPrecision<N> t = 1 / z, tn = 1;
+            MultiPrecision<N> c = 0, d = 0;
+
+            for (int j = 0; j < cs.Length; j++) {
+                c += cs[j] * tn;
+                d += ds[j] * tn;
+                tn *= t;
+            }
+
+            MultiPrecision<N> y = MultiPrecision<N>.Sqrt(t * MultiPrecision<N>.PI / 2) * c / d;
+            y *= MultiPrecision<N>.Exp(-z);
+
+            return y;
         }
     }
 }
