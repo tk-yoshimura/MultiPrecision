@@ -665,6 +665,33 @@ namespace MultiPrecisionTest.Common {
         }
 
         [TestMethod]
+        public void ParseDigitsTest() {
+            MultiPrecision<Pow2.N4> v2 = "1.23456789012345678901234567890123456789012345678901234567890123456789e-20";
+            MultiPrecision<Pow2.N4> v3 = "0.0000000000000000000123456789012345678901234567890123456789012345678901234567890123456789";
+            MultiPrecision<Pow2.N4> v4 = "0.000000000123456789012345678901234567890123456789012345678901234567890123456789e-10";
+            MultiPrecision<Pow2.N4> v5 = "12345678901.2345678901234567890123456789012345678901234567890123456789e-30";
+            MultiPrecision<Pow2.N4> v6 = "123456789012345678901.234567890123456789012345678901234567890123456789e-40";
+
+            Assert.AreEqual(v2, v3);
+            Assert.AreEqual(v2, v4);
+            Assert.AreEqual(v2, v5);
+            Assert.AreEqual(v2, v6);
+        }
+
+        [TestMethod]
+        public void ParseZeroTest() {
+            MultiPrecision<Pow2.N4> v2 = "00000";
+            MultiPrecision<Pow2.N4> v3 = "0.0000";
+            MultiPrecision<Pow2.N4> v4 = "0";
+            MultiPrecision<Pow2.N4> v5 = "0.0";
+
+            Assert.AreEqual(0, v2);
+            Assert.AreEqual(0, v3);
+            Assert.AreEqual(0, v4);
+            Assert.AreEqual(0, v5);
+        }
+
+        [TestMethod]
         public void BadParseTest() {
             string[] vs = new string[] {
                 string.Empty,

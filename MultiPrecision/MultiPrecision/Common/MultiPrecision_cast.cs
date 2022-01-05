@@ -12,7 +12,30 @@ namespace MultiPrecision {
         }
 
         public static explicit operator decimal(MultiPrecision<N> v) {
-            return (decimal)v.ToDouble();
+            const int digits = 28;
+
+            (Sign sign, long exponent, BigInteger num) = v.ToStringCore(digits);
+
+            exponent -= digits;
+
+            while (exponent < 0 && num % 10 == 0) {
+                exponent++;
+                num /= 10;
+            }
+
+            UInt32[] mantissa = new UInt32[3];
+            mantissa[0] = (UInt32)(num & (BigInteger)~0u);
+            mantissa[1] = (UInt32)((num >> 32) & (BigInteger)~0u);
+            mantissa[2] = (UInt32)(num >> 64);
+
+            decimal d = new decimal(
+                unchecked((int)mantissa[0]),
+                unchecked((int)mantissa[1]),
+                unchecked((int)mantissa[2]),
+                isNegative: sign == Sign.Minus, scale: checked((byte)(-exponent))
+            );
+
+            return d;
         }
 
         public static explicit operator Int64(MultiPrecision<N> v) {

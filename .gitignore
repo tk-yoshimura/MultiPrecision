@@ -51,6 +51,7 @@
 # Other
 MultiPrecisionBesselTest/results_bessel
 nuget.exe
+nugetpack.bat
 /**/*.nuspec
 /**/*.nupkg
 

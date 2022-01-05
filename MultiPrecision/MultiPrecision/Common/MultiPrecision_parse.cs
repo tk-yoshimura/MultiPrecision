@@ -40,22 +40,28 @@ namespace MultiPrecision {
 
             int point_symbol_index = mantissa.Contains('.') ? (mantissa.IndexOf('.') - 1) : (mantissa.Length - 1);
 
-            string mantissa_withoutpoint = mantissa.Replace(".", string.Empty);
-
-            if (mantissa_withoutpoint.Length > Accumulator<Plus1<N>>.MaxDecimalDigits) {
-                mantissa_withoutpoint = mantissa_withoutpoint[..Accumulator<Plus1<N>>.MaxDecimalDigits];
+            string dec = mantissa.Replace(".", string.Empty);
+            string dec_trim = dec.TrimStart('0');
+            if (dec_trim.Length == 0) {
+                dec_trim = "0";
             }
 
-            Accumulator<Plus1<N>> mantissa_dec = new(mantissa_withoutpoint);
+            int leading_zeros = dec.Length - dec_trim.Length;
+            dec = dec_trim;
+
+            if (dec.Length > Accumulator<Plus1<N>>.MaxDecimalDigits) {
+                dec = dec[..Accumulator<Plus1<N>>.MaxDecimalDigits];
+            }
+            int digits = dec.Length - 1;
+
+            Accumulator<Plus1<N>> mantissa_dec = new(dec);
 
             string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
             if (!Int64.TryParse(exponent, NumberStyles.Integer, CultureInfo.InvariantCulture, out Int64 exponent_dec)) {
                 throw new FormatException(nameof(num));
             }
 
-            exponent_dec = checked(exponent_dec + point_symbol_index);
-
-            int digits = mantissa_withoutpoint.Length - 1;
+            exponent_dec = checked(exponent_dec + point_symbol_index - leading_zeros);
 
             return FromStringCore(sign, exponent_dec, mantissa_dec, digits);
         }
