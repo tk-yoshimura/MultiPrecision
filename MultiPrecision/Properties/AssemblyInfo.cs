@@ -13,12 +13,12 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("T.Yoshimura")]
 [assembly: AssemblyProduct("MultiPrecision")]
-[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2020-2021")]
+[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2020-2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("5.0.6.*")]
+[assembly: AssemblyVersion("5.0.7.*")]
 
 [assembly: InternalsVisibleTo("MultiPrecisionTest")]
 [assembly: InternalsVisibleTo("MultiPrecisionBesselTest")]

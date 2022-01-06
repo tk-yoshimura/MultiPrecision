@@ -80,10 +80,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticK(k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticK(k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticK(k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticK(k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticK(k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticK(k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticK(k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticK(k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -142,10 +142,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticE(k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticE(k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticE(k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticE(k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticE(k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticE(k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticE(k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticE(k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -237,10 +237,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -332,10 +332,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -427,10 +427,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -522,10 +522,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
@@ -825,10 +825,10 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N4> expected = expecteds[i + 256];
 
-                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
-                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
+                MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k * k);
+                MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k * k);
 
                 Console.WriteLine(k);
                 Console.WriteLine(y4);
