@@ -12,9 +12,9 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCompany("T.Yoshimura")]
 [assembly: AssemblyProduct("MultiPrecisionSpline")]
-[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2021")]
+[assembly: AssemblyCopyright("Copyright © T.Yoshimura 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("5.0.*")]
+[assembly: AssemblyVersion("5.1.0")]

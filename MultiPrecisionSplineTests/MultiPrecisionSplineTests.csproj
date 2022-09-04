@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -15,10 +15,10 @@
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecisionSpline\bin\Debug\net5.0\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecisionSpline\bin\Debug\net6.0\MultiPrecision.dll</HintPath>
     </Reference>
     <Reference Include="MultiPrecisionSpline">
-      <HintPath>..\MultiPrecisionSpline\bin\Debug\net5.0\MultiPrecisionSpline.dll</HintPath>
+      <HintPath>..\MultiPrecisionSpline\bin\Debug\net6.0\MultiPrecisionSpline.dll</HintPath>
     </Reference>
   </ItemGroup>
 

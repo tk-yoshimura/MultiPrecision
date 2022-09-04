@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Debug\net5.0\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecision\bin\Debug\net6.0\MultiPrecision.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <Reference Include="MultiPrecision">
-      <HintPath>..\MultiPrecision\bin\Release\net5.0\MultiPrecision.dll</HintPath>
+      <HintPath>..\MultiPrecision\bin\Release\net6.0\MultiPrecision.dll</HintPath>
     </Reference>
   </ItemGroup>
 
