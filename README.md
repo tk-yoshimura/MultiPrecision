@@ -14,6 +14,9 @@ AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 - To install, just import the DLL.
 - This library does not change the environment at all.
 
+## More Functions ?
+[DoubleDouble(30-31 digits)](https://github.com/tk-yoshimura/DoubleDouble)  
+
 ## Spec
 
 Exponent : &plusmn;2147483647
