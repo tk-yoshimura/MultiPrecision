@@ -25,7 +25,7 @@ namespace MultiPrecision {
                 mantissa[i] = reader.ReadUInt32();
             }
 
-            if (UIntUtil.IsZero(mantissa)) {
+            if (UIntUtil.IsZero((uint)MultiPrecision<N>.Length, mantissa)) {
                 if (exponent != MultiPrecision<N>.ExponentMin && exponent != MultiPrecision<N>.ExponentMax) {
                     throw new FormatException(nameof(exponent));
                 }

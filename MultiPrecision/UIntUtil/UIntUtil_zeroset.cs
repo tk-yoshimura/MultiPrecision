@@ -1,63 +1,92 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
-using System.Runtime.Intrinsics.X86;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
 
+        /// <summary>Zeroset with range</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Zeroset(UInt32[] value, uint index, uint length) {
+        public static unsafe void Zeroset(UInt32[] arr, uint index, uint length) {
             if (length <= 0) {
                 return;
             }
 
-#if DEBUG
-            Debug<IndexOutOfRangeException>.Assert(checked(index + length) <= value.Length);
-#endif
+            if (checked(index + length) > arr.Length) {
+                throw new ArgumentOutOfRangeException($"{nameof(index)},{nameof(length)}");
+            }
 
-            uint length_sets = Mask256.UInt32Sets(length), length_rems = Mask256.UInt32Rems(length);
+            fixed (UInt32* v0 = arr) {
+                UInt32* v = v0 + index;
 
-            fixed (UInt32* v = value) {
-                for (uint i = 0; i < length_sets; i += Mask256.MM256UInt32s) {
-#if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(i + index + Mask256.MM256UInt32s) <= value.Length);
-#endif
+                Vector256<uint> zero = Vector256<UInt32>.Zero;
 
-                    Avx.Store(v + i + index, Vector256<UInt32>.Zero);
+                uint r = length;
+                while (r >= MM256UInt32s * 4) {
+                    StoreX4(v, zero, zero, zero, zero, v0, arr.Length);
+                    v += MM256UInt32s * 4;
+                    r -= MM256UInt32s * 4;
                 }
-                if (length_rems > 0) {
-#if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(length_sets + index + length_rems) <= value.Length);
-#endif
-
-                    Avx2.MaskStore(v + length_sets + index, Mask256.LSV(length_rems), Vector256<UInt32>.Zero);
+                if (r >= MM256UInt32s * 2) {
+                    StoreX2(v, zero, zero, v0, arr.Length);
+                    v += MM256UInt32s * 2;
+                    r -= MM256UInt32s * 2;
+                }
+                if (r >= MM256UInt32s) {
+                    Store(v, zero, v0, arr.Length);
+                    v += MM256UInt32s;
+                    r -= MM256UInt32s;
+                }
+                if (r > 0u) {
+                    MaskStore(v, zero, Mask256.Lower(r), v0, arr.Length);
                 }
             }
         }
 
+        /// <summary>Zeroset all</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe void Zeroset(UInt32[] value) {
-            uint length = (uint)value.Length;
+        public static unsafe void Zeroset(UInt32[] arr) {
+            uint length = (uint)arr.Length;
 
-            uint length_sets = Mask256.UInt32Sets(length), length_rems = Mask256.UInt32Rems(length);
+            fixed (UInt32* v0 = arr) {
+                UInt32* v = v0;
 
-            fixed (UInt32* v = value) {
-                for (uint i = 0; i < length_sets; i += Mask256.MM256UInt32s) {
-#if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(i + Mask256.MM256UInt32s) <= value.Length);
-#endif
+                Vector256<uint> zero = Vector256<UInt32>.Zero;
 
-                    Avx.Store(v + i, Vector256<UInt32>.Zero);
+                uint r = length;
+                while (r >= MM256UInt32s * 4) {
+                    StoreX4(v, zero, zero, zero, zero, v0, arr.Length);
+                    v += MM256UInt32s * 4;
+                    r -= MM256UInt32s * 4;
                 }
-                if (length_rems > 0) {
-#if DEBUG
-                    Debug<IndexOutOfRangeException>.Assert(checked(length_sets + length_rems) <= value.Length);
-#endif
-
-                    Avx2.MaskStore(v + length_sets, Mask256.LSV(length_rems), Vector256<UInt32>.Zero);
+                if (r >= MM256UInt32s * 2) {
+                    StoreX2(v, zero, zero, v0, arr.Length);
+                    v += MM256UInt32s * 2;
+                    r -= MM256UInt32s * 2;
+                }
+                if (r >= MM256UInt32s) {
+                    Store(v, zero, v0, arr.Length);
+                    v += MM256UInt32s;
+                    r -= MM256UInt32s;
+                }
+                if (r > 0u) {
+                    MaskStore(v, zero, Mask256.Lower(r), v0, arr.Length);
                 }
             }
+        }
+
+        /// <summary>Zeroset lower bits</summary>
+        public static void ZerosetLowerBit(UInt32[] v, uint bits) {
+            uint bits_block = bits / UInt32Bits;
+            uint bits_rem = bits % UInt32Bits;
+
+            if (bits_block >= v.Length) {
+                Zeroset(v);
+                return;
+            }
+
+            Zeroset(v, 0u, bits_block);
+            v[bits_block] = (v[bits_block] >> (int)bits_rem) << (int)bits_rem;
         }
     }
 }

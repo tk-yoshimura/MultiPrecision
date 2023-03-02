@@ -29,11 +29,14 @@ namespace MultiPrecisionTest.BigUInt {
                 Console.Write("\n");
             }
 
-            Assert.ThrowsException<OverflowException>(() => {
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(1u);
+            {
+                BigUInt<Pow2.N32> v = new(1u);
 
-                BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftBlockShift(v, BigUInt<Pow2.N32>.Length);
-            });
+                Assert.ThrowsException<OverflowException>(() => {
+                    BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftShift(v, BigUInt<Pow2.N32>.Bits, check_overflow: true);
+                });
+                Assert.AreEqual(BigUInt<Pow2.N32>.Zero, BigUInt<Pow2.N32>.LeftShift(v, BigUInt<Pow2.N32>.Bits, check_overflow: false));
+            }
         }
 
         [TestMethod]
@@ -79,11 +82,15 @@ namespace MultiPrecisionTest.BigUInt {
                 Console.Write("\n");
             }
 
-            Assert.ThrowsException<OverflowException>(() => {
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(0x12345678u);
+            {
+                BigUInt<Pow2.N32> v = new(0x12345678u);
+            
+                Assert.ThrowsException<OverflowException>(() => {
+                    BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftBlockShift(v, BigUInt<Pow2.N32>.Length, check_overflow: true);
+                });
 
-                BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftBlockShift(v, BigUInt<Pow2.N32>.Length);
-            });
+                Assert.AreEqual(BigUInt<Pow2.N32>.Zero, BigUInt<Pow2.N32>.LeftBlockShift(v, BigUInt<Pow2.N32>.Length, check_overflow: false));
+            }
         }
 
         [TestMethod]

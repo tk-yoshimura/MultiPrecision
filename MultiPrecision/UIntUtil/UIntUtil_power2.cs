@@ -6,22 +6,22 @@ namespace MultiPrecision {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsPower2(UInt32 value) {
-            return (value >= 1) && ((value & (value - 1)) == 0);
+            return (value >= 1u) && ((value & (value - 1u)) == 0);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsPower2(UInt64 value) {
-            return (value >= 1) && ((value & (value - 1)) == 0);
+            return (value >= 1uL) && ((value & (value - 1uL)) == 0);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Power2(UInt32 value) {
-            return UIntUtil.UInt32Bits - LeadingZeroCount(value) - 1;
+            return UInt32Bits - 1 - (int)LeadingZeroCount(value);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Power2(UInt64 value) {
-            return UIntUtil.UInt64Bits - LeadingZeroCount(value) - 1;
+            return UInt64Bits - 1 - (int)LeadingZeroCount(value);
         }
     }
 }

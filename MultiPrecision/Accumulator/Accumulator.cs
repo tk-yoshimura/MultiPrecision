@@ -60,9 +60,9 @@ namespace MultiPrecision {
 
         public bool IsFull => value.IsFull;
 
-        public int Digits => value.Digits;
+        public int Digits => (int)value.Digits;
 
-        public int LeadingZeroCount => value.LeadingZeroCount;
+        public int LeadingZeroCount => (int)value.LeadingZeroCount;
 
         public UInt64 MostSignificantDigits => value.MostSignificantDigits;
 

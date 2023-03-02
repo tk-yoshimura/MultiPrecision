@@ -4,8 +4,8 @@ using System.Linq;
 
 namespace MultiPrecision {
 
-    [DebuggerDisplay("{ToHexcode()}")]
-    internal sealed partial class BigUInt<N> {
+    [DebuggerDisplay("{ToString(),nq}")]
+    public sealed partial class BigUInt<N> {
 
         public override string ToString() {
             int bin_digits = (int)Digits, dec_digits = 0;
@@ -43,6 +43,6 @@ namespace MultiPrecision {
             return (str != string.Empty) ? str : "0";
         }
 
-        public string ToHexcode() => UIntUtil.ToHexcode(value);
+        public string ToHexcode() => string.Join(' ', value.Reverse().Select((u) => $"{u:X8}"));
     }
 }

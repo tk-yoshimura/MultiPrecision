@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
-
+    public sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly UInt32[] value;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int Length { get; } = checked(default(N).Value);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int Bits { get; } = checked(Length * UIntUtil.UInt32Bits);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int MaxDecimalDigits { get; } = checked((int)(Bits * 30103L / 100000L) - 4); //10^(4 - 1) = 1000 approx equals 1024
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ReadOnlyCollection<UInt32> Value => Array.AsReadOnly(value);
 
         static BigUInt() {
-            if (Length < 4) {
+            if (Length < 4 || Length > 0x2000000) {
                 throw new ArgumentOutOfRangeException(nameof(Length));
             }
         }
@@ -32,7 +38,7 @@ namespace MultiPrecision {
 
         public BigUInt(UInt32[] arr, bool enable_clone) {
             if (arr.Length != Length) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException("invalid length.", nameof(arr));
             }
 
             this.value = enable_clone ? (UInt32[])arr.Clone() : arr;
@@ -40,7 +46,7 @@ namespace MultiPrecision {
 
         public BigUInt(IReadOnlyList<UInt32> arr) {
             if (arr.Count != Length) {
-                throw new ArgumentException(nameof(arr));
+                throw new ArgumentException("invalid length.", nameof(arr));
             }
 
             this.value = arr.ToArray();
@@ -58,23 +64,45 @@ namespace MultiPrecision {
                 Array.Copy(arr, -offset, this.value, 0, offset + arr.Length);
             }
 
-            if (carry) {
-                CarryAdd(0, 1u);
+            if (!carry) {
+                return;
             }
+
+            for (int i = 0; i < Length; i++) {
+                if ((~this.value[i]) != 0) {
+                    this.value[i]++;
+                    return;
+                }
+                else {
+                    this.value[i] = 0u;
+                }
+            }
+
+            throw new OverflowException();
         }
 
         public BigUInt(IReadOnlyList<UInt32> arr, int offset, bool carry = false)
             : this(arr.ToArray(), offset, carry) { }
 
-        public bool IsZero => UIntUtil.IsZero(value);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public static BigUInt<N> Zero { get; } = new();
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool IsZero => UIntUtil.IsZero((uint)Length, value);
 
-        public bool IsFull => UIntUtil.IsFull(value);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public static BigUInt<N> Full { get; } =
+            new(Enumerable.Repeat(~0u, Length).ToArray(), enable_clone: false);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool IsFull => UIntUtil.IsFull((uint)Length, value);
 
-        public int Digits => UIntUtil.Digits(value);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public uint Digits => UIntUtil.Digits(value);
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public UInt64 MostSignificantDigits => UIntUtil.Pack(value[Length - 1], value[Length - 2]);
 
-        public int LeadingZeroCount => UIntUtil.LeadingZeroCount(value);
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public uint LeadingZeroCount => UIntUtil.LeadingZeroCount(value);
 
         public UInt32 this[int index] => value[index];
 
@@ -86,12 +114,12 @@ namespace MultiPrecision {
             return new BigUInt<N>(value, enable_clone: true);
         }
 
-        public override bool Equals(object obj) {
-            return (!(obj is null)) && (obj is BigUInt<N> n) && (n == this);
+        public override bool Equals([AllowNull] object obj) {
+            return obj is not null && obj is BigUInt<N> n && n == this;
         }
 
         public override int GetHashCode() {
-            return value[0].GetHashCode() ^ value.Last().GetHashCode();
+            return value[0].GetHashCode() ^ value[^1].GetHashCode();
         }
     }
 }

@@ -45,7 +45,7 @@ namespace MultiPrecision {
         }
 
         public static int MatchBits(Mantissa<N> a, Mantissa<N> b) {
-            return BigUInt<N>.MatchBits(a.value, b.value);
+            return (int)BigUInt<N>.MatchBits(a.value, b.value);
         }
     }
 }

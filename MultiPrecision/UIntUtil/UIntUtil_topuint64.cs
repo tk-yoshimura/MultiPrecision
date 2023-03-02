@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
-using System.Runtime.Intrinsics.X86;
 using static System.Runtime.Intrinsics.X86.Avx;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe uint LeadingZeroCount(UInt32[] value) {
-            uint cnt = 0, lzc = 0, r = (uint)value.Length;
+        public static unsafe (UInt64 n, uint lzc) TopUInt64(UInt32[] value) {
+            uint cnt = 0, lzc = 0, length = (uint)value.Length, r = length;
 
             fixed (UInt32* v0 = value) {
                 UInt32* v = v0 + r - MM256UInt32s;
 
                 while (r >= MM256UInt32s) {
                     Vector256<UInt32> x = Load(v, v0, value.Length);
-                    if (IsAllZero(x)) {
+                    if (TestZ(x, x)) {
                         cnt += MM256UInt32s;
                         v -= MM256UInt32s;
                         r -= MM256UInt32s;
@@ -34,7 +33,7 @@ namespace MultiPrecision {
                     Vector256<UInt32> mask = Mask256.Lower(r);
 
                     Vector256<UInt32> x = MaskLoad(v0, mask, v0, value.Length);
-                    if (IsAllZero(x)) {
+                    if (TestZ(x, x)) {
                         cnt += r;
                     }
                     else {
@@ -46,25 +45,30 @@ namespace MultiPrecision {
                 }
             }
 
-            return cnt * UInt32Bits + lzc;
-        }
+            uint lzc_all = cnt * UInt32Bits + lzc;
+            uint digits = length - cnt;
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe uint LeadingZeroCount(UInt32 value) {
-            uint cnt = Lzcnt.LeadingZeroCount(value);
-
-            return cnt;
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe uint LeadingZeroCount(UInt64 value) {
-            (UInt32 hi, UInt32 lo) = Unpack(value);
-
-            if (hi == 0u) {
-                return LeadingZeroCount(lo) + UInt32Bits;
+            if (digits <= 0u) {
+                return (0uL, lzc_all);
+            }
+            if (digits <= 1u) {
+                return (Pack(value[0] << (int)lzc, 0u), lzc_all);
+            }
+            if (digits <= 2u) {
+                return (Pack(value[1], value[0]) << (int)lzc, lzc_all);
             }
 
-            return LeadingZeroCount(hi);
+            if (lzc == 0) {
+                UInt64 n = Pack(value[digits - 1u], value[digits - 2u]);
+
+                return (n, lzc_all);
+            }
+
+            unchecked {
+                UInt64 n = (Pack(value[digits - 1u], value[digits - 2u]) << (int)lzc) | (value[digits - 3u] >> (int)(UInt32Bits - lzc));
+
+                return (n, lzc_all);
+            }
         }
     }
 }

@@ -242,7 +242,7 @@ namespace MultiPrecision {
 
             acc *= b_abs;
 
-            int lzc = acc.LeadingZeroCount;
+            int lzc = (int)acc.LeadingZeroCount;
             acc <<= lzc;
 
             Int64 exponent = a.Exponent - lzc + UIntUtil.UInt32Bits * expands;
@@ -291,7 +291,7 @@ namespace MultiPrecision {
 
             acc /= b_abs;
 
-            int lzc = acc.LeadingZeroCount;
+            int lzc = (int)acc.LeadingZeroCount;
             acc <<= lzc;
 
             Int64 exponent = a.Exponent - lzc;

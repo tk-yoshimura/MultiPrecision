@@ -10,5 +10,10 @@ namespace MultiPrecision {
         public const UInt64 UInt64MaxDecimal = 10000000000000000000ul;
 
         public const UInt32 UInt32Round = UInt32.MaxValue >> 1;
+
+        public const int ShiftIDX1 = 8;
+        public const int ShiftIDX2 = 16;
+        public const int ShiftIDX3 = 24;
+        public const int ShiftIDX4 = 32;
     }
 }

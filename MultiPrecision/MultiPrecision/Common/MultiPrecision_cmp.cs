@@ -97,7 +97,7 @@ namespace MultiPrecision {
                     ? new BigUInt<N>(a.Mantissa) - new BigUInt<N>(b.Mantissa)
                     : new BigUInt<N>(b.Mantissa) - new BigUInt<N>(a.Mantissa);
 
-                matchbits = diff.LeadingZeroCount;
+                matchbits = (int)diff.LeadingZeroCount;
 
                 return (Bits - matchbits) <= ignore_bits;
             }

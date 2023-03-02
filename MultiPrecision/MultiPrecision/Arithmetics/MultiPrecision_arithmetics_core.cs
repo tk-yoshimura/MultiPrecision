@@ -153,7 +153,7 @@ namespace MultiPrecision {
 
             BigUInt<Plus4<N>> c_acc = a_acc + b_acc;
 
-            int lzc = c_acc.LeadingZeroCount;
+            int lzc = (int)c_acc.LeadingZeroCount;
             c_acc <<= lzc;
 
             Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
@@ -193,7 +193,7 @@ namespace MultiPrecision {
                 return (Mantissa<N>.Zero, 0, round: false, Sign.Plus);
             }
 
-            int lzc = c_acc.LeadingZeroCount;
+            int lzc = (int)c_acc.LeadingZeroCount;
             c_acc <<= lzc;
 
             Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);

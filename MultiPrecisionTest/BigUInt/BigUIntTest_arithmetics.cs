@@ -214,7 +214,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N32> v2 = new BigUInt<Pow2.N32>(value2, enable_clone: false);
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<Pow2.N32>> v = BigUInt<Pow2.N32>.ExpandMul(v1, v2);
+                BigUInt<Double<Pow2.N32>> v = BigUInt<Pow2.N32>.Mul<Double<Pow2.N32>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -230,7 +230,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N32> v2 = BigUInt<Pow2.N32>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<Pow2.N32>> v = BigUInt<Pow2.N32>.ExpandMul(v1, v2);
+                BigUInt<Double<Pow2.N32>> v = BigUInt<Pow2.N32>.Mul<Double<Pow2.N32>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -243,7 +243,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<Pow2.N8> v2 = BigUInt<Pow2.N8>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<Pow2.N8>> v = BigUInt<Pow2.N8>.ExpandMul(v1, v2);
+                BigUInt<Double<Pow2.N8>> v = BigUInt<Pow2.N8>.Mul<Double<Pow2.N8>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -256,7 +256,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<N9> v2 = BigUInt<N9>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<N9>> v = BigUInt<N9>.ExpandMul(v1, v2);
+                BigUInt<Double<N9>> v = BigUInt<N9>.Mul<Double<N9>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -269,7 +269,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<N10> v2 = BigUInt<N10>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<N10>> v = BigUInt<N10>.ExpandMul(v1, v2);
+                BigUInt<Double<N10>> v = BigUInt<N10>.Mul<Double<N10>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -282,7 +282,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<N11> v2 = BigUInt<N11>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<N11>> v = BigUInt<N11>.ExpandMul(v1, v2);
+                BigUInt<Double<N11>> v = BigUInt<N11>.Mul<Double<N11>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -295,7 +295,7 @@ namespace MultiPrecisionTest.BigUInt {
                 BigUInt<N12> v2 = BigUInt<N12>.Full;
                 BigInteger bi1 = v1, bi2 = v2;
 
-                BigUInt<Double<N12>> v = BigUInt<N12>.ExpandMul(v1, v2);
+                BigUInt<Double<N12>> v = BigUInt<N12>.Mul<Double<N12>>(v1, v2);
                 BigInteger bi = bi1 * bi2;
 
                 Console.WriteLine(bi);
@@ -324,7 +324,7 @@ namespace MultiPrecisionTest.BigUInt {
                 }
 
                 (BigUInt<Pow2.N32> vdiv, BigUInt<Pow2.N32> vrem)
-                    = BigUInt<Pow2.N32>.Div(v1, v2);
+                    = BigUInt<Pow2.N32>.DivRem(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                 Assert.IsTrue(vrem < v2);
@@ -348,7 +348,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<Pow2.N8> vdiv, BigUInt<Pow2.N8> vrem)
-                        = BigUInt<Pow2.N8>.Div(v1, v2);
+                        = BigUInt<Pow2.N8>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -370,7 +370,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<N9> vdiv, BigUInt<N9> vrem)
-                        = BigUInt<N9>.Div(v1, v2);
+                        = BigUInt<N9>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -392,7 +392,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<N10> vdiv, BigUInt<N10> vrem)
-                        = BigUInt<N10>.Div(v1, v2);
+                        = BigUInt<N10>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -414,7 +414,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<N11> vdiv, BigUInt<N11> vrem)
-                        = BigUInt<N11>.Div(v1, v2);
+                        = BigUInt<N11>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -436,7 +436,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<N12> vdiv, BigUInt<N12> vrem)
-                        = BigUInt<N12>.Div(v1, v2);
+                        = BigUInt<N12>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);
@@ -471,7 +471,7 @@ namespace MultiPrecisionTest.BigUInt {
 
                 if (random.Next(3) < 2 || v1.IsZero || v2.IsZero || v3.IsZero) {
                     (BigUInt<Pow2.N32> vdiv, BigUInt<Pow2.N32> vrem) =
-                        BigUInt<Pow2.N32>.Div(BigUInt<Pow2.N32>.Add(BigUInt<Pow2.N32>.Mul(v1, v2), v3), v2);
+                        BigUInt<Pow2.N32>.DivRem(BigUInt<Pow2.N32>.Add(BigUInt<Pow2.N32>.Mul(v1, v2), v3), v2);
 
                     Assert.AreEqual(v1, vdiv);
                     Assert.AreEqual(v3, vrem);
@@ -479,7 +479,7 @@ namespace MultiPrecisionTest.BigUInt {
                 else {
                     try {
                         (BigUInt<Pow2.N32> vdiv, BigUInt<Pow2.N32> vrem) =
-                            BigUInt<Pow2.N32>.Div(BigUInt<Pow2.N32>.Sub(BigUInt<Pow2.N32>.Mul(v1, v2), v3), v2);
+                            BigUInt<Pow2.N32>.DivRem(BigUInt<Pow2.N32>.Sub(BigUInt<Pow2.N32>.Mul(v1, v2), v3), v2);
 
                         Assert.AreEqual(v1 - new BigUInt<Pow2.N32>(1), vdiv);
                         Assert.AreEqual(v2 - v3, vrem);
@@ -544,7 +544,7 @@ namespace MultiPrecisionTest.BigUInt {
                 }
 
                 (BigUInt<Pow2.N32> vdiv, UInt64 vrem)
-                    = BigUInt<Pow2.N32>.Div(v1, v2);
+                    = BigUInt<Pow2.N32>.DivRem(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                 Assert.IsTrue(vrem < v2);
@@ -568,7 +568,7 @@ namespace MultiPrecisionTest.BigUInt {
                     BigInteger bi1 = v1, bi2 = v2;
 
                     (BigUInt<Pow2.N8> vdiv, UInt64 vrem)
-                        = BigUInt<Pow2.N8>.Div(v1, v2);
+                        = BigUInt<Pow2.N8>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
                     Assert.IsTrue(vrem < v2);

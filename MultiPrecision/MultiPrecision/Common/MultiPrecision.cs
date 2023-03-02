@@ -77,7 +77,7 @@ namespace MultiPrecision {
             UInt32[] vs = new UInt32[2], us = new UInt32[Length];
             (vs[^1], vs[^2]) = UIntUtil.Unpack(num);
 
-            int lzc = UIntUtil.LeadingZeroCount(vs);
+            int lzc = (int)UIntUtil.LeadingZeroCount(vs);
 
             UIntUtil.LeftShift(vs, lzc);
 

@@ -48,11 +48,11 @@ namespace MultiPrecision {
         }
 
         public static Accumulator<N> Mul(Mantissa<N> v1, Mantissa<N> v2) {
-            return new Accumulator<N>(BigUInt<N>.ExpandMul(v1.value, v2.value));
+            return new Accumulator<N>(BigUInt<N>.Mul<Double<N>>(v1.value, v2.value));
         }
 
         public static (Mantissa<N> div, Mantissa<N> rem) Div(Mantissa<N> v1, Mantissa<N> v2) {
-            (BigUInt<N> div, BigUInt<N> rem) = BigUInt<N>.Div(v1.value, v2.value);
+            (BigUInt<N> div, BigUInt<N> rem) = BigUInt<N>.DivRem(v1.value, v2.value);
 
             return (new Mantissa<N>(div), new Mantissa<N>(rem));
         }

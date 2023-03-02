@@ -2,10 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N> : IComparable<BigUInt<N>> {
+    public sealed partial class BigUInt<N> : IComparable<BigUInt<N>> {
 
         public static bool operator ==(BigUInt<N> a, BigUInt<N> b) {
-            return UIntUtil.Equal(Length, a.value, b.value);
+            return UIntUtil.Equal((uint)Length, a.value, b.value);
         }
 
         public static bool operator !=(BigUInt<N> a, BigUInt<N> b) {
@@ -13,11 +13,11 @@ namespace MultiPrecision {
         }
 
         public static bool operator <=(BigUInt<N> a, BigUInt<N> b) {
-            return UIntUtil.LessThanOrEqual(Length, a.value, b.value);
+            return UIntUtil.LessThanOrEqual((uint)Length, a.value, b.value);
         }
 
         public static bool operator >=(BigUInt<N> a, BigUInt<N> b) {
-            return UIntUtil.GreaterThanOrEqual(Length, a.value, b.value);
+            return UIntUtil.GreaterThanOrEqual((uint)Length, a.value, b.value);
         }
 
         public static bool operator <(BigUInt<N> a, BigUInt<N> b) {
@@ -44,8 +44,8 @@ namespace MultiPrecision {
             return 1;
         }
 
-        public static int MatchBits(BigUInt<N> a, BigUInt<N> b) {
-            return UIntUtil.MatchBits(Length, a.value, b.value);
+        public static uint MatchBits(BigUInt<N> a, BigUInt<N> b) {
+            return UIntUtil.MatchBits((uint)Length, a.value, b.value);
         }
     }
 }

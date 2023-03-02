@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 
 namespace MultiPrecision {
-    internal sealed partial class BigUInt<N> {
-
-        public static BigUInt<N> Zero { get; } = new BigUInt<N>();
-
-        public static BigUInt<N> Full { get; } = new BigUInt<N>(Enumerable.Repeat(~0u, Length).ToArray(), enable_clone: false);
-
-        private static partial class Consts {
-            public static Dictionary<int, BigUInt<N>> decimals = new();
-        }
+    public sealed partial class BigUInt<N> {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        private static readonly Dictionary<int, BigUInt<N>> decimals = new();
 
         public static BigUInt<N> Decimal(int digits) {
-            if (!Consts.decimals.ContainsKey(digits)) {
-                Consts.decimals.Add(digits, GenerateDecimal(digits));
+            if (!decimals.ContainsKey(digits)) {
+                decimals.Add(digits, GenerateDecimal(digits));
             }
 
-            return Consts.decimals[digits];
+            return decimals[digits];
         }
 
         private static BigUInt<N> GenerateDecimal(int digits) {
-            if (digits < 1) {
+            if (digits < 0) {
                 throw new ArgumentOutOfRangeException(nameof(digits));
             }
 

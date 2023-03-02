@@ -53,7 +53,7 @@ namespace MultiPrecision {
         }
 
         public static (Accumulator<N> div, Accumulator<N> rem) Div(Accumulator<N> v1, Accumulator<N> v2) {
-            (BigUInt<Double<N>> div, BigUInt<Double<N>> rem) = BigUInt<Double<N>>.Div(v1.value, v2.value);
+            (BigUInt<Double<N>> div, BigUInt<Double<N>> rem) = BigUInt<Double<N>>.DivRem(v1.value, v2.value);
 
             return (new Accumulator<N>(div), new Accumulator<N>(rem));
         }

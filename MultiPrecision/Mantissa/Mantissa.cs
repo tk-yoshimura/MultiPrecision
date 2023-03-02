@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace MultiPrecision {
 
@@ -43,9 +44,9 @@ namespace MultiPrecision {
 
         public bool IsFull => value.IsFull;
 
-        public int Digits => value.Digits;
+        public int Digits => (int)value.Digits;
 
-        public int LeadingZeroCount => value.LeadingZeroCount;
+        public int LeadingZeroCount => (int)value.LeadingZeroCount;
 
         public UInt64 MostSignificantDigits => value.MostSignificantDigits;
 
@@ -57,8 +58,8 @@ namespace MultiPrecision {
             return new Mantissa<N>(value.Copy());
         }
 
-        public override bool Equals(object obj) {
-            return (obj is Mantissa<N> n) && (n == this);
+        public override bool Equals([AllowNull] object obj) {
+            return obj is not null && obj is Mantissa<N> n && n == this;
         }
 
         public override int GetHashCode() {
