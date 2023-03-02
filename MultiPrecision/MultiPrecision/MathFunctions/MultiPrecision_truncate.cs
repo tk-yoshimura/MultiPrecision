@@ -22,7 +22,7 @@ namespace MultiPrecision {
 
             UInt32[] vs = x.mantissa.Value.ToArray();
 
-            UIntUtil.ZerosetLowerBit(vs, checked((uint)(MultiPrecision<N>.Bits - (int)x.Exponent)));
+            UIntUtil.ZerosetLowerBit(vs, checked((uint)(Mantissa<N>.Bits - (int)x.Exponent - 1)));
             MultiPrecision<N> y = new(x.Sign, x.exponent, new Mantissa<N>(vs, enable_clone: false));
 
             return y;
