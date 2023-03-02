@@ -10,7 +10,7 @@
         }
 
         public static Accumulator<N> LeftShift(Accumulator<N> n, int sft) {
-            return new Accumulator<N>(BigUInt<Double<N>>.LeftShift(n.value, sft));
+            return new Accumulator<N>(BigUInt<Double<N>>.LeftShift(n.value, sft, check_overflow: true));
         }
 
         public static Accumulator<N> RightShift(Accumulator<N> n, int sft) {
@@ -18,7 +18,7 @@
         }
 
         public static Accumulator<N> LeftBlockShift(Accumulator<N> n, int sft) {
-            return new Accumulator<N>(BigUInt<Double<N>>.LeftBlockShift(n.value, sft));
+            return new Accumulator<N>(BigUInt<Double<N>>.LeftBlockShift(n.value, sft, check_overflow: true));
         }
 
         public static Accumulator<N> RightBlockShift(Accumulator<N> n, int sft) {

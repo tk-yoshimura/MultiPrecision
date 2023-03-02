@@ -10,7 +10,7 @@
         }
 
         public static Mantissa<N> LeftShift(Mantissa<N> n, int sft) {
-            return new Mantissa<N>(BigUInt<N>.LeftShift(n.value, sft));
+            return new Mantissa<N>(BigUInt<N>.LeftShift(n.value, sft, check_overflow: true));
         }
 
         public static Mantissa<N> RightShift(Mantissa<N> n, int sft) {
@@ -18,7 +18,7 @@
         }
 
         public static Mantissa<N> LeftBlockShift(Mantissa<N> n, int sft) {
-            return new Mantissa<N>(BigUInt<N>.LeftBlockShift(n.value, sft));
+            return new Mantissa<N>(BigUInt<N>.LeftBlockShift(n.value, sft, check_overflow: true));
         }
 
         public static Mantissa<N> RightBlockShift(Mantissa<N> n, int sft) {
