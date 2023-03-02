@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MultiPrecision")]
-[assembly: AssemblyDescription("Float multi precision arithmetic implements")]
+[assembly: AssemblyDescription("Float MultiPrecision Arithmetic Implements")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
