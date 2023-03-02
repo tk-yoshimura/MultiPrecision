@@ -109,6 +109,15 @@ namespace MultiPrecision {
         public bool IsFinite => exponent < ExponentMax;
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool IsInfinity => exponent >= ExponentMax && mantissa.IsZero;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool IsPositiveInfinity => IsInfinity && Sign == Sign.Plus;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public bool IsNegativeInfinity => IsInfinity && Sign == Sign.Minus;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsNormal => (exponent > ExponentMin && exponent < ExponentMax) || IsZero;
 
         public object Clone() {

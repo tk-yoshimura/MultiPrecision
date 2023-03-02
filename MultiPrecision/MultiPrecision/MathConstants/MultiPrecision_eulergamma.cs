@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> EulerGamma {
             get {
-                if (Consts.eulergamma is null) {
-                    Consts.eulergamma = GenerateEulerGamma();
-                }
+                Consts.eulergamma ??= GenerateEulerGamma();
 
                 return Consts.eulergamma;
             }

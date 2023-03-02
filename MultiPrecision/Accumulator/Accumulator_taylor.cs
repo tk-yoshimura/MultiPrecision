@@ -9,9 +9,7 @@ namespace MultiPrecision {
 
         public static ReadOnlyCollection<Accumulator<N>> TaylorTable {
             get {
-                if (taylor_table is null) {
-                    taylor_table = GenerateTaylorTable();
-                }
+                taylor_table ??= GenerateTaylorTable();
 
                 return taylor_table;
             }

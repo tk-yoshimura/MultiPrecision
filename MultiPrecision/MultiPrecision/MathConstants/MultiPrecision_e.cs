@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> E {
             get {
-                if (Consts.e is null) {
-                    Consts.e = GenerateE();
-                }
+                Consts.e ??= GenerateE();
 
                 return Consts.e;
             }

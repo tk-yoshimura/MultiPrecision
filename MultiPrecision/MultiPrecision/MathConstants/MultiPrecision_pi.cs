@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> PI {
             get {
-                if (Consts.pi is null) {
-                    Consts.pi = GeneratePI();
-                }
+                Consts.pi ??= GeneratePI();
 
                 return Consts.pi;
             }
@@ -23,9 +21,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> RcpPI {
             get {
-                if (Consts.rcp_pi is null) {
-                    Consts.rcp_pi = (1 / MultiPrecision<Plus1<N>>.PI).Convert<N>();
-                }
+                Consts.rcp_pi ??= (1 / MultiPrecision<Plus1<N>>.PI).Convert<N>();
 
                 return Consts.rcp_pi;
             }

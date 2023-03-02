@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Zero {
             get {
-                if (Consts.zero is null) {
-                    Consts.zero = new MultiPrecision<N>(Sign.Plus, ExponentMin, Mantissa<N>.Zero);
-                }
+                Consts.zero ??= new MultiPrecision<N>(Sign.Plus, ExponentMin, Mantissa<N>.Zero);
 
                 return Consts.zero;
             }
@@ -23,9 +21,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinusZero {
             get {
-                if (Consts.minus_zero is null) {
-                    Consts.minus_zero = new MultiPrecision<N>(Sign.Minus, ExponentMin, Mantissa<N>.Zero);
-                }
+                Consts.minus_zero ??= new MultiPrecision<N>(Sign.Minus, ExponentMin, Mantissa<N>.Zero);
 
                 return Consts.minus_zero;
             }
@@ -34,9 +30,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> One {
             get {
-                if (Consts.one is null) {
-                    Consts.one = new MultiPrecision<N>(Sign.Plus, ExponentZero, Mantissa<N>.One);
-                }
+                Consts.one ??= new MultiPrecision<N>(Sign.Plus, ExponentZero, Mantissa<N>.One);
 
                 return Consts.one;
             }
@@ -45,9 +39,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Point5 {
             get {
-                if (Consts.p5 is null) {
-                    Consts.p5 = new MultiPrecision<N>(Sign.Plus, ExponentZero - 1u, Mantissa<N>.One);
-                }
+                Consts.p5 ??= new MultiPrecision<N>(Sign.Plus, ExponentZero - 1u, Mantissa<N>.One);
 
                 return Consts.p5;
             }
@@ -56,9 +48,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinusOne {
             get {
-                if (Consts.minus_one is null) {
-                    Consts.minus_one = new MultiPrecision<N>(Sign.Minus, ExponentZero, Mantissa<N>.One);
-                }
+                Consts.minus_one ??= new MultiPrecision<N>(Sign.Minus, ExponentZero, Mantissa<N>.One);
 
                 return Consts.minus_one;
             }
@@ -67,9 +57,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> NaN {
             get {
-                if (Consts.nan is null) {
-                    Consts.nan = new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Full);
-                }
+                Consts.nan ??= new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Full);
 
                 return Consts.nan;
             }
@@ -78,9 +66,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MaxValue {
             get {
-                if (Consts.max_value is null) {
-                    Consts.max_value = new MultiPrecision<N>(Sign.Plus, ExponentMax - 1, Mantissa<N>.Full);
-                }
+                Consts.max_value ??= new MultiPrecision<N>(Sign.Plus, ExponentMax - 1, Mantissa<N>.Full);
 
                 return Consts.max_value;
             }
@@ -89,9 +75,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinValue {
             get {
-                if (Consts.min_value is null) {
-                    Consts.min_value = new MultiPrecision<N>(Sign.Minus, ExponentMax - 1, Mantissa<N>.Full);
-                }
+                Consts.min_value ??= new MultiPrecision<N>(Sign.Minus, ExponentMax - 1, Mantissa<N>.Full);
 
                 return Consts.min_value;
             }
@@ -100,9 +84,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> PositiveInfinity {
             get {
-                if (Consts.positive_inf is null) {
-                    Consts.positive_inf = new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Zero);
-                }
+                Consts.positive_inf ??= new MultiPrecision<N>(Sign.Plus, ExponentMax, Mantissa<N>.Zero);
 
                 return Consts.positive_inf;
             }
@@ -111,9 +93,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> NegativeInfinity {
             get {
-                if (Consts.negative_inf is null) {
-                    Consts.negative_inf = new MultiPrecision<N>(Sign.Minus, ExponentMax, Mantissa<N>.Zero);
-                }
+                Consts.negative_inf ??= new MultiPrecision<N>(Sign.Minus, ExponentMax, Mantissa<N>.Zero);
 
                 return Consts.negative_inf;
             }
@@ -122,9 +102,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Epsilon {
             get {
-                if (Consts.epsilon is null) {
-                    Consts.epsilon = new MultiPrecision<N>(Sign.Plus, 1, Mantissa<N>.One);
-                }
+                Consts.epsilon ??= new MultiPrecision<N>(Sign.Plus, 1, Mantissa<N>.One);
 
                 return Consts.epsilon;
             }

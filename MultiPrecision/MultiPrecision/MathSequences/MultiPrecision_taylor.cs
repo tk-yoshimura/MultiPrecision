@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static ReadOnlyCollection<MultiPrecision<N>> TaylorSequence {
             get {
-                if (Consts.taylor_sequence is null) {
-                    Consts.taylor_sequence = GenerateTaylorSequence();
-                }
+                Consts.taylor_sequence ??= GenerateTaylorSequence();
 
                 return Consts.taylor_sequence;
             }

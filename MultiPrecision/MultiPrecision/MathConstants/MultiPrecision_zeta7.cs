@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Zeta7 {
             get {
-                if (Consts.zeta7 is null) {
-                    Consts.zeta7 = GenerateZeta7();
-                }
+                Consts.zeta7 ??= GenerateZeta7();
 
                 return Consts.zeta7;
             }

@@ -12,9 +12,7 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Sqrt2 {
             get {
-                if (Consts.sqrt2 is null) {
-                    Consts.sqrt2 = GenerateSqrt2();
-                }
+                Consts.sqrt2 ??= GenerateSqrt2();
 
                 return Consts.sqrt2;
             }

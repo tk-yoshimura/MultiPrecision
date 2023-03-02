@@ -726,5 +726,36 @@ namespace MultiPrecisionTest.Common {
                 }, v);
             }
         }
+
+        [TestMethod]
+        public void ParseIrregularTest() {
+            MultiPrecision<Pow2.N8> nan1 = double.NaN.ToString();
+            MultiPrecision<Pow2.N8> nan2 = "nan";
+            MultiPrecision<Pow2.N8> nan3 = "NaN";
+
+            MultiPrecision<Pow2.N8> pinf1 = double.PositiveInfinity.ToString();
+            MultiPrecision<Pow2.N8> pinf2 = "inf";
+            MultiPrecision<Pow2.N8> pinf3 = "+inf";
+            MultiPrecision<Pow2.N8> pinf4 = "INF";
+            MultiPrecision<Pow2.N8> pinf5 = "+INF";
+
+            MultiPrecision<Pow2.N8> ninf1 = double.NegativeInfinity.ToString();
+            MultiPrecision<Pow2.N8> ninf2 = "-inf";
+            MultiPrecision<Pow2.N8> ninf3 = "-INF";
+
+            Assert.IsTrue(nan1.IsNaN);
+            Assert.IsTrue(nan2.IsNaN);
+            Assert.IsTrue(nan3.IsNaN);
+
+            Assert.IsTrue(pinf1.IsPositiveInfinity);
+            Assert.IsTrue(pinf2.IsPositiveInfinity);
+            Assert.IsTrue(pinf3.IsPositiveInfinity);
+            Assert.IsTrue(pinf4.IsPositiveInfinity);
+            Assert.IsTrue(pinf5.IsPositiveInfinity);
+
+            Assert.IsTrue(ninf1.IsNegativeInfinity);
+            Assert.IsTrue(ninf2.IsNegativeInfinity);
+            Assert.IsTrue(ninf3.IsNegativeInfinity);
+        }
     }
 }

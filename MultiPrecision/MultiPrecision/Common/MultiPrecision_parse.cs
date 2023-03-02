@@ -10,30 +10,34 @@ namespace MultiPrecision {
         private static readonly Regex parse_regex = new(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
 
         public static implicit operator MultiPrecision<N>(string num) {
-            if (!parse_regex.IsMatch(num)) {
-                throw new FormatException();
+            return Parse(num);
+        }
+
+        public static MultiPrecision<N> Parse(string s) {
+            if (string.IsNullOrEmpty(s) || !parse_regex.IsMatch(s)) {
+                return FromIrregularString(s);
             }
 
             Sign sign = Sign.Plus;
 
-            if (num[0] == '+' || num[0] == '-') {
-                if (num[0] == '-') {
+            if (s[0] == '+' || s[0] == '-') {
+                if (s[0] == '-') {
                     sign = Sign.Minus;
                 }
 
-                num = num[1..];
+                s = s[1..];
             }
 
-            int exponent_symbol_index = num.Length;
+            int exponent_symbol_index = s.Length;
 
-            if (num.Contains('e')) {
-                exponent_symbol_index = num.IndexOf('e');
+            if (s.Contains('e')) {
+                exponent_symbol_index = s.IndexOf('e');
             }
-            else if (num.Contains('E')) {
-                exponent_symbol_index = num.IndexOf('E');
+            else if (s.Contains('E')) {
+                exponent_symbol_index = s.IndexOf('E');
             }
 
-            string mantissa = num[..exponent_symbol_index].TrimStart('0');
+            string mantissa = s[..exponent_symbol_index].TrimStart('0');
 
             if (string.IsNullOrEmpty(mantissa)) {
                 return sign == Sign.Plus ? Zero : MinusZero;
@@ -57,14 +61,25 @@ namespace MultiPrecision {
 
             Accumulator<Plus1<N>> mantissa_dec = new(dec);
 
-            string exponent = (exponent_symbol_index + 1 < num.Length) ? num[(exponent_symbol_index + 1)..] : "0";
+            string exponent = (exponent_symbol_index + 1 < s.Length) ? s[(exponent_symbol_index + 1)..] : "0";
             if (!Int64.TryParse(exponent, NumberStyles.Integer, CultureInfo.InvariantCulture, out Int64 exponent_dec)) {
-                throw new FormatException(nameof(num));
+                throw new FormatException(nameof(s));
             }
 
             exponent_dec = checked(exponent_dec + point_symbol_index - leading_zeros);
 
             return FromStringCore(sign, exponent_dec, mantissa_dec, digits);
+        }
+
+        public static bool TryParse(string s, out MultiPrecision<N> result) {
+            try {
+                result = (MultiPrecision<N>)s;
+                return true;
+            }
+            catch (FormatException) {
+                result = MultiPrecision<N>.Zero;
+                return false;
+            }
         }
 
         internal static MultiPrecision<N> FromStringCore(Sign sign, Int64 exponent_dec, Accumulator<Plus1<N>> mantissa_dec, int digits) {
@@ -79,6 +94,20 @@ namespace MultiPrecision {
             MultiPrecision<Plus1<N>> exponent = MultiPrecision<Plus1<N>>.Pow(5, p);
 
             return MultiPrecision<Plus1<N>>.Ldexp(mantissa * exponent, p).Convert<N>();
+        }
+
+        private static MultiPrecision<N> FromIrregularString(string str) {
+            if (str == double.NaN.ToString() || str.ToLower() == "nan") {
+                return MultiPrecision<N>.NaN;
+            }
+            if (str == double.PositiveInfinity.ToString() || str.ToLower() == "inf" || str.ToLower() == "+inf") {
+                return MultiPrecision<N>.PositiveInfinity;
+            }
+            if (str == double.NegativeInfinity.ToString() || str.ToLower() == "-inf") {
+                return MultiPrecision<N>.NegativeInfinity;
+            }
+
+            throw new FormatException($"Invalid numeric string. : {str}");
         }
     }
 }
