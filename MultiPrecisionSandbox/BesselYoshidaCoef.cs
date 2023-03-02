@@ -1,10 +1,5 @@
 ﻿using MultiPrecision;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MultiPrecisionSandbox {
     public static class BesselYoshidaCoef<N> where N : struct, IConstant {
@@ -41,7 +36,7 @@ namespace MultiPrecisionSandbox {
             for (int k = 2; k <= m; k++) {
                 (ps[k], qs[k]) = (new BigInteger[k + 1], new BigInteger[k + 1]);
 
-                int sq2km1 = (2 * k - 1) * (2 * k - 1), sq2mkp3 = (2 * (m - k) + 3) * (2 * (m - k) + 3); 
+                int sq2km1 = (2 * k - 1) * (2 * k - 1), sq2mkp3 = (2 * (m - k) + 3) * (2 * (m - k) + 3);
 
                 ps[k][0] = -sq2km1 * ps[k - 1][0];
                 ps[k][k] = 1;
@@ -65,7 +60,7 @@ namespace MultiPrecisionSandbox {
                 for (int j = 0; j <= i; j++) {
                     MultiPrecision<Plus16<N>> b = 0;
 
-                    for (int l = 0; l <= j; l++) { 
+                    for (int l = 0; l <= j; l++) {
                         for (int k = j - l; k <= i - l; k++) {
                             b += (MultiPrecision<Plus16<N>>)(ShiftedLegendre.Table(m, m - k) * ps[i - k][l] * qs[k][j - l] * fs[m - k]) / (fs[i - k] * fs[m + 1]);
                         }
@@ -104,7 +99,7 @@ namespace MultiPrecisionSandbox {
             return (cs, ds);
         }
 
-        public static MultiPrecision<N> Value(MultiPrecision<N> z, MultiPrecision<N>[] cs, MultiPrecision<N>[] ds) { 
+        public static MultiPrecision<N> Value(MultiPrecision<N> z, MultiPrecision<N>[] cs, MultiPrecision<N>[] ds) {
             MultiPrecision<N> t = 1 / z, tn = 1;
             MultiPrecision<N> c = 0, d = 0;
 

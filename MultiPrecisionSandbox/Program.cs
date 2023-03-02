@@ -1,7 +1,5 @@
 ﻿using MultiPrecision;
 using System;
-using System.IO;
-using System.Numerics;
 
 namespace MultiPrecisionSandbox {
     class Program {

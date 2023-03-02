@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
-using static System.Runtime.Intrinsics.X86.Avx;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {

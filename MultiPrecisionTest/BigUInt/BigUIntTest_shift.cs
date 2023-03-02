@@ -84,7 +84,7 @@ namespace MultiPrecisionTest.BigUInt {
 
             {
                 BigUInt<Pow2.N32> v = new(0x12345678u);
-            
+
                 Assert.ThrowsException<OverflowException>(() => {
                     BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftBlockShift(v, BigUInt<Pow2.N32>.Length, check_overflow: true);
                 });
