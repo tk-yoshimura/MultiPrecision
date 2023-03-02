@@ -1,18 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
-        private static ReadOnlyCollection<MultiPrecision<N>> taylor_sequence = null;
+        private static partial class Consts {
+            public static ReadOnlyCollection<MultiPrecision<N>> taylor_sequence = null;
+        }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static ReadOnlyCollection<MultiPrecision<N>> TaylorSequence {
             get {
-                if (taylor_sequence is null) {
-                    taylor_sequence = GenerateTaylorSequence();
+                if (Consts.taylor_sequence is null) {
+                    Consts.taylor_sequence = GenerateTaylorSequence();
                 }
 
-                return taylor_sequence;
+                return Consts.taylor_sequence;
             }
         }
 

@@ -1,4 +1,6 @@
-﻿namespace MultiPrecision {
+﻿using System.Diagnostics;
+
+namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         private static partial class Consts {
@@ -7,6 +9,7 @@
             public static MultiPrecision<N> epsilon = null;
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Zero {
             get {
                 if (Consts.zero is null) {
@@ -17,6 +20,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinusZero {
             get {
                 if (Consts.minus_zero is null) {
@@ -27,6 +31,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> One {
             get {
                 if (Consts.one is null) {
@@ -37,16 +42,18 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Point5 {
             get {
                 if (Consts.p5 is null) {
-                    Consts.p5 = One / 2;
+                    Consts.p5 = new MultiPrecision<N>(Sign.Plus, ExponentZero - 1u, Mantissa<N>.One);
                 }
 
                 return Consts.p5;
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinusOne {
             get {
                 if (Consts.minus_one is null) {
@@ -57,6 +64,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> NaN {
             get {
                 if (Consts.nan is null) {
@@ -67,6 +75,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MaxValue {
             get {
                 if (Consts.max_value is null) {
@@ -77,6 +86,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinValue {
             get {
                 if (Consts.min_value is null) {
@@ -87,6 +97,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> PositiveInfinity {
             get {
                 if (Consts.positive_inf is null) {
@@ -97,6 +108,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> NegativeInfinity {
             get {
                 if (Consts.negative_inf is null) {
@@ -107,6 +119,7 @@
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Epsilon {
             get {
                 if (Consts.epsilon is null) {

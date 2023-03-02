@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -8,6 +9,7 @@ namespace MultiPrecision {
             public static MultiPrecision<N> pi = null, rcp_pi = null;
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> PI {
             get {
                 if (Consts.pi is null) {
@@ -18,6 +20,7 @@ namespace MultiPrecision {
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> RcpPI {
             get {
                 if (Consts.rcp_pi is null) {

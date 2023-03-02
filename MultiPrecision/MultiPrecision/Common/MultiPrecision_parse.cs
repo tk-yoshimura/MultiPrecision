@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
-
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private static readonly Regex parse_regex = new(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
 
         public static implicit operator MultiPrecision<N>(string num) {

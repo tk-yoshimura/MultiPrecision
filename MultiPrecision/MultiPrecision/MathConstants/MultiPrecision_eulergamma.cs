@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -8,6 +9,7 @@ namespace MultiPrecision {
             public static MultiPrecision<N> eulergamma = null;
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> EulerGamma {
             get {
                 if (Consts.eulergamma is null) {

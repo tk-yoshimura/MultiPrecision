@@ -713,8 +713,10 @@ namespace MultiPrecision {
             return y.Convert<N>();
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal static MultiPrecision<N> BesselJYApproxThreshold => Consts.BesselJY.ApproxThreshold;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         internal static MultiPrecision<N> BesselIKApproxThreshold => Consts.BesselIK.ApproxThreshold;
 
         private static partial class Consts {

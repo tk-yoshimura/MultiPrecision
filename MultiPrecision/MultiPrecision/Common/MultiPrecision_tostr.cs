@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace MultiPrecision {
-
+    [DebuggerDisplay("{Convert<MultiPrecision.Pow2.N4>().ToString(),nq}")]
     public sealed partial class MultiPrecision<N> : IFormattable {
 
         public override string ToString() {

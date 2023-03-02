@@ -1,22 +1,34 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> : ICloneable where N : struct, IConstant {
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public const UInt32 ExponentMin = UInt32.MinValue;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public const UInt32 ExponentMax = UInt32.MaxValue;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public const UInt32 ExponentZero = UInt32.MaxValue / 2 + 1;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly UInt32 exponent;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly Mantissa<N> mantissa;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int Length { get; } = Mantissa<N>.Length;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int Bits { get; } = Mantissa<N>.Bits;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static int DecimalDigits { get; } = BigUInt<N>.MaxDecimalDigits;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Sign Sign { get; }
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public Int64 Exponent => (Int64)exponent - (Int64)ExponentZero;
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public ReadOnlyCollection<UInt32> Mantissa => mantissa.Value;
 
         public MultiPrecision(Sign sign, Int64 exponent, UInt32[] mantissa)
@@ -87,12 +99,16 @@ namespace MultiPrecision {
             return new MultiPrecision<N>(sign, (uint)(UIntUtil.UInt64Bits - lzc - 1) + ExponentZero, new Mantissa<N>(us, enable_clone: false));
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsNaN => exponent >= ExponentMax && !mantissa.IsZero;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsFinite => exponent < ExponentMax;
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsNormal => (exponent > ExponentMin && exponent < ExponentMax) || IsZero;
 
         public object Clone() {

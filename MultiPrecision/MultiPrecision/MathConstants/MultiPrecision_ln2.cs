@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace MultiPrecision {
@@ -8,6 +9,7 @@ namespace MultiPrecision {
             public static MultiPrecision<N> ln_2 = null, lb_e = null;
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> Ln2 {
             get {
                 if (Consts.ln_2 is null) {
@@ -18,6 +20,7 @@ namespace MultiPrecision {
             }
         }
 
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> LbE {
             get {
                 if (Consts.lb_e is null) {

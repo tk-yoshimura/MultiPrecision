@@ -4,7 +4,6 @@ using System.Numerics;
 
 namespace MultiPrecision {
 
-    [DebuggerDisplay("{ToDouble()}")]
     public sealed partial class MultiPrecision<N> {
 
         public static explicit operator double(MultiPrecision<N> v) {
