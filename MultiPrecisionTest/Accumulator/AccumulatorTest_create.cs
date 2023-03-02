@@ -9,15 +9,15 @@ namespace MultiPrecisionTest.Accumulator {
     public partial class AccumulatorTest {
         [TestMethod]
         public void CreateTest() {
-            Mantissa<Pow2.N4> n = new Mantissa<Pow2.N4>(new UInt32[] { 0x12345678u, 0xABCDEF01u, 0x97531ABCu, 0xAE012458u }, enable_clone: false);
+            Mantissa<Pow2.N4> n = new(new UInt32[] { 0x12345678u, 0xABCDEF01u, 0x97531ABCu, 0xAE012458u }, enable_clone: false);
 
-            Accumulator<Pow2.N4> acc0 = new Accumulator<Pow2.N4>(n);
-            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(n, 4);
-            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(n, 8);
-            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(n, 32);
-            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(n, -4);
-            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(n, -8);
-            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(n, -32);
+            Accumulator<Pow2.N4> acc0 = new(n);
+            Accumulator<Pow2.N4> acc1 = new(n, 4);
+            Accumulator<Pow2.N4> acc2 = new(n, 8);
+            Accumulator<Pow2.N4> acc3 = new(n, 32);
+            Accumulator<Pow2.N4> acc4 = new(n, -4);
+            Accumulator<Pow2.N4> acc5 = new(n, -8);
+            Accumulator<Pow2.N4> acc6 = new(n, -32);
 
             CollectionAssert.AreEqual(new UInt32[] { 0x12345678u, 0xABCDEF01u, 0x97531ABCu, 0xAE012458u, 0u, 0u, 0u, 0u }, acc0.Value);
             CollectionAssert.AreEqual(new UInt32[] { 0x23456780u, 0xBCDEF011u, 0x7531ABCAu, 0xE0124589u, 0xAu, 0u, 0u, 0u }, acc1.Value);

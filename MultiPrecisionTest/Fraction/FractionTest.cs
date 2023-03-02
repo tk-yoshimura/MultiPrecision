@@ -7,22 +7,22 @@ namespace MultiPrecisionTest.Fractions {
     public partial class FractionTest {
         [TestMethod]
         public void CreateTest() {
-            Fraction v1 = new Fraction(6, 12);
+            Fraction v1 = new(6, 12);
 
             Assert.AreEqual(1, v1.Numer);
             Assert.AreEqual(2, v1.Denom);
 
-            Fraction v2 = new Fraction(-6, 12);
+            Fraction v2 = new(-6, 12);
 
             Assert.AreEqual(-1, v2.Numer);
             Assert.AreEqual(2, v2.Denom);
 
-            Fraction v3 = new Fraction(6, 12);
+            Fraction v3 = new(6, 12);
 
             Assert.AreEqual(1, v3.Numer);
             Assert.AreEqual(2, v3.Denom);
 
-            Fraction v4 = new Fraction(6, -12);
+            Fraction v4 = new(6, -12);
 
             Assert.AreEqual(-1, v4.Numer);
             Assert.AreEqual(2, v4.Denom);

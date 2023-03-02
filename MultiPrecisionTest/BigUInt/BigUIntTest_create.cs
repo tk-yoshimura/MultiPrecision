@@ -12,21 +12,21 @@ namespace MultiPrecisionTest.BigUInt {
             UInt32[] value1 = new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u };
             UInt32[] value2 = new UInt32[] { 0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du };
 
-            BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>();
-            BigUInt<Pow2.N4> n2 = new BigUInt<Pow2.N4>(2u);
-            BigUInt<Pow2.N4> n3 = new BigUInt<Pow2.N4>(0x12345678ABCDEFul);
-            BigUInt<Pow2.N4> n4 = new BigUInt<Pow2.N4>(value1, enable_clone: true);
+            BigUInt<Pow2.N4> n1 = new();
+            BigUInt<Pow2.N4> n2 = new(2u);
+            BigUInt<Pow2.N4> n3 = new(0x12345678ABCDEFul);
+            BigUInt<Pow2.N4> n4 = new(value1, enable_clone: true);
             BigUInt<Pow2.N4> n5 = 2u;
             BigUInt<Pow2.N4> n6 = 0x12345678ABCDEFul;
-            BigUInt<Pow2.N4> n7 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value1));
-            BigUInt<Pow2.N4> n8 = new BigUInt<Pow2.N4>(value2, -2);
-            BigUInt<Pow2.N4> n9 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), -2, carry: false);
-            BigUInt<Pow2.N4> n10 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), -2, carry: true);
-            BigUInt<Pow2.N4> n11 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), -3, carry: false);
-            BigUInt<Pow2.N4> n12 = new BigUInt<Pow2.N4>(Array.AsReadOnly(value2), -3, carry: true);
-            BigUInt<Pow2.N4> n13 = new BigUInt<Pow2.N4>(value1, 0);
-            BigUInt<Pow2.N8> n14 = new BigUInt<Pow2.N8>(value1, 1);
-            BigUInt<Pow2.N8> n15 = new BigUInt<Pow2.N8>(value1, 0);
+            BigUInt<Pow2.N4> n7 = new(Array.AsReadOnly(value1));
+            BigUInt<Pow2.N4> n8 = new(value2, -2);
+            BigUInt<Pow2.N4> n9 = new(Array.AsReadOnly(value2), -2, carry: false);
+            BigUInt<Pow2.N4> n10 = new(Array.AsReadOnly(value2), -2, carry: true);
+            BigUInt<Pow2.N4> n11 = new(Array.AsReadOnly(value2), -3, carry: false);
+            BigUInt<Pow2.N4> n12 = new(Array.AsReadOnly(value2), -3, carry: true);
+            BigUInt<Pow2.N4> n13 = new(value1, 0);
+            BigUInt<Pow2.N8> n14 = new(value1, 1);
+            BigUInt<Pow2.N8> n15 = new(value1, 0);
 
             value1[1] = 0xFFFFu;
 
@@ -70,31 +70,31 @@ namespace MultiPrecisionTest.BigUInt {
             UInt32[] value_full = new UInt32[] { ~0u, ~0u, ~0u, ~0u };
 
             Assert.ThrowsException<OverflowException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(Array.AsReadOnly(value_full), 0, carry: true);
+                BigUInt<Pow2.N4> n = new(Array.AsReadOnly(value_full), 0, carry: true);
             });
 
             Assert.ThrowsException<ArgumentException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1, enable_clone: true);
+                BigUInt<Pow2.N4> n = new(value1, enable_clone: true);
             });
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, -1);
+                BigUInt<Pow2.N4> n = new(value2, -1);
             });
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, 0);
+                BigUInt<Pow2.N4> n = new(value2, 0);
             });
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value2, 1);
+                BigUInt<Pow2.N4> n = new(value2, 1);
             });
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(value1, 2);
+                BigUInt<Pow2.N4> n = new(value1, 2);
             });
 
             Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
-                BigUInt<Pow2.N4> n = new BigUInt<Pow2.N4>(Array.AsReadOnly(value_full), 1, carry: true);
+                BigUInt<Pow2.N4> n = new(Array.AsReadOnly(value_full), 1, carry: true);
             });
         }
     }

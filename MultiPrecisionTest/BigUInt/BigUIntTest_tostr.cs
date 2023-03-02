@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void ToStringTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             for (int i = 0; i <= 2500; i++) {
                 UInt32[] mantissa =
@@ -20,7 +20,7 @@ namespace MultiPrecisionTest.BigUInt {
                         random.Next(BigUInt<Pow2.N32>.Bits + 1)
                     );
 
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+                BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
                 BigInteger bi = v;
 
                 Assert.AreEqual(bi.ToString(), v.ToString());

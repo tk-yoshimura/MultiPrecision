@@ -59,7 +59,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (long i = int.MinValue; i < int.MinValue + 120; i++) {
-                MultiPrecision<Pow2.N8> v = new MultiPrecision<Pow2.N8>(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> v = new(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
 
                 (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
@@ -80,7 +80,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             for (long i = int.MaxValue - 120; i < int.MaxValue; i++) {
-                MultiPrecision<Pow2.N8> v = new MultiPrecision<Pow2.N8>(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> v = new(Sign.Plus, i, Mantissa<Pow2.N8>.One, round: false);
 
                 (Sign sign, Int64 exponent_dec, Accumulator<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 

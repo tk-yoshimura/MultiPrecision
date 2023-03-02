@@ -16,20 +16,20 @@ namespace MultiPrecisionTest.Common {
             Int64 max_exponent = inf_exponent - 1;
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: false);
 
                 Assert.AreEqual(0, (double)n1);
                 Assert.AreEqual(-0, (double)n2);
@@ -48,20 +48,20 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: false);
 
                 Assert.AreEqual(1, (double)n1);
                 Assert.AreEqual(-1, (double)n2);
@@ -80,20 +80,20 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: false);
 
                 Assert.AreEqual(2, (double)n1);
                 Assert.AreEqual(-2, (double)n2);
@@ -112,20 +112,20 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Zero, round: true);
 
                 Assert.AreEqual(0, (double)n1);
                 Assert.AreEqual(-0, (double)n2);
@@ -144,20 +144,20 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.One, round: true);
 
                 Assert.AreEqual(1, (double)n1);
                 Assert.AreEqual(-1, (double)n2);
@@ -176,20 +176,20 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> n1 = new MultiPrecision<Pow2.N8>(Sign.Plus, 0, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n2 = new MultiPrecision<Pow2.N8>(Sign.Minus, 0, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n3 = new MultiPrecision<Pow2.N8>(Sign.Plus, +1, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n4 = new MultiPrecision<Pow2.N8>(Sign.Minus, +1, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n5 = new MultiPrecision<Pow2.N8>(Sign.Plus, -1, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n6 = new MultiPrecision<Pow2.N8>(Sign.Minus, -1, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n7 = new MultiPrecision<Pow2.N8>(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n8 = new MultiPrecision<Pow2.N8>(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n9 = new MultiPrecision<Pow2.N8>(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n10 = new MultiPrecision<Pow2.N8>(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n11 = new MultiPrecision<Pow2.N8>(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n12 = new MultiPrecision<Pow2.N8>(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n13 = new MultiPrecision<Pow2.N8>(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
-                MultiPrecision<Pow2.N8> n14 = new MultiPrecision<Pow2.N8>(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n1 = new(Sign.Plus, 0, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n2 = new(Sign.Minus, 0, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n3 = new(Sign.Plus, +1, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n4 = new(Sign.Minus, +1, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n5 = new(Sign.Plus, -1, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n6 = new(Sign.Minus, -1, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n7 = new(Sign.Plus, min_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n8 = new(Sign.Minus, min_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n9 = new(Sign.Plus, one_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n10 = new(Sign.Minus, one_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n11 = new(Sign.Plus, max_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n12 = new(Sign.Minus, max_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n13 = new(Sign.Plus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
+                MultiPrecision<Pow2.N8> n14 = new(Sign.Minus, inf_exponent, Mantissa<Pow2.N8>.Full, round: true);
 
                 Assert.AreEqual(2, (double)n1);
                 Assert.AreEqual(-2, (double)n2);

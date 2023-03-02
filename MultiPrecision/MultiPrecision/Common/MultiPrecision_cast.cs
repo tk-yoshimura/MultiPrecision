@@ -28,7 +28,7 @@ namespace MultiPrecision {
             mantissa[1] = (UInt32)((num >> 32) & (BigInteger)~0u);
             mantissa[2] = (UInt32)(num >> 64);
 
-            decimal d = new decimal(
+            decimal d = new(
                 unchecked((int)mantissa[0]),
                 unchecked((int)mantissa[1]),
                 unchecked((int)mantissa[2]),

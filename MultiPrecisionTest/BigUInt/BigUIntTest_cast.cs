@@ -9,10 +9,10 @@ namespace MultiPrecisionTest.BigUInt {
     public partial class BigUIntTest {
         [TestMethod]
         public void ToBigIntegerTest() {
-            BigUInt<Pow2.N4> n1 = new BigUInt<Pow2.N4>();
-            BigUInt<Pow2.N4> n2 = new BigUInt<Pow2.N4>(2u);
-            BigUInt<Pow2.N4> n3 = new BigUInt<Pow2.N4>(0x12345678ABCDEFul);
-            BigUInt<Pow2.N4> n4 = new BigUInt<Pow2.N4>(new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u }, enable_clone: false);
+            BigUInt<Pow2.N4> n1 = new();
+            BigUInt<Pow2.N4> n2 = new(2u);
+            BigUInt<Pow2.N4> n3 = new(0x12345678ABCDEFul);
+            BigUInt<Pow2.N4> n4 = new(new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u }, enable_clone: false);
 
             Assert.AreEqual(new BigInteger(0), (BigInteger)n1);
             Assert.AreEqual(new BigInteger(2u), (BigInteger)n2);

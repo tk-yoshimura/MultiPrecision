@@ -13,7 +13,7 @@ namespace MultiPrecisionTest.ParameterSearchUtil {
             for (long a = -50; a <= 450; a++) {
                 Console.WriteLine($"a = {a}");
 
-                MaxSearch<Pow2.N4> search = new MaxSearch<Pow2.N4>((100, 200), (0, 400));
+                MaxSearch<Pow2.N4> search = new((100, 200), (0, 400));
 
                 while (!search.IsSearched) {
                     foreach (long sample_point in search.SampleRequests) {

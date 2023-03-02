@@ -10,12 +10,12 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void LeftShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             for (int sft = 0; sft < BigUInt<Pow2.N32>.Bits; sft++) {
                 UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits - sft);
 
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+                BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
                 BigInteger bi = v;
 
                 BigUInt<Pow2.N32> v_sft = v << sft;
@@ -41,11 +41,11 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void RightShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits);
 
-            BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+            BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
             BigInteger bi = v;
 
             for (int sft = 0; sft <= BigUInt<Pow2.N32>.Bits + 4; sft++) {
@@ -63,12 +63,12 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void LeftBlockShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             for (int sft = 0; sft < BigUInt<Pow2.N32>.Length; sft++) {
                 UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits - sft * UIntUtil.UInt32Bits);
 
-                BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+                BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
                 BigInteger bi = v;
 
                 BigUInt<Pow2.N32> v_sft = BigUInt<Pow2.N32>.LeftBlockShift(v, sft);
@@ -95,11 +95,11 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void RightBlockShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits);
 
-            BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+            BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
             BigInteger bi = v;
 
             for (int sft = 0; sft <= BigUInt<Pow2.N32>.Length + 4; sft++) {
@@ -117,11 +117,11 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void RightRoundShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits);
 
-            BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+            BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
             BigInteger bi = v;
 
             for (int sft = 0; sft <= BigUInt<Pow2.N32>.Bits + 4; sft++) {
@@ -156,11 +156,11 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void RightRoundBlockShiftTest() {
-            Random random = new Random(1234);
+            Random random = new(1234);
 
             UInt32[] mantissa = UIntUtil.Random(random, BigUInt<Pow2.N32>.Length, BigUInt<Pow2.N32>.Bits);
 
-            BigUInt<Pow2.N32> v = new BigUInt<Pow2.N32>(mantissa, enable_clone: false);
+            BigUInt<Pow2.N32> v = new(mantissa, enable_clone: false);
             BigInteger bi = v;
 
             for (int sft = 0; sft <= BigUInt<Pow2.N32>.Length + 4; sft++) {

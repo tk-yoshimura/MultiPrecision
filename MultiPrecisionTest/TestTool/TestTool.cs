@@ -8,7 +8,7 @@ namespace MultiPrecisionTest {
     public static class TestTool {
 
         public static IEnumerable<MultiPrecision<N>> EnumerateNeighbor<N>(MultiPrecision<N> v, int n = 10) where N : struct, IConstant {
-            List<MultiPrecision<N>> vs = new List<MultiPrecision<N>>();
+            List<MultiPrecision<N>> vs = new();
 
             MultiPrecision<N> u = v;
             for (int i = 0; i < n; i++) {

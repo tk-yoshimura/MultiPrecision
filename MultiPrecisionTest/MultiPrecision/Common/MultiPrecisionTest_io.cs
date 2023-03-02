@@ -41,15 +41,15 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8>.NaN,
             };
 
-            List<MultiPrecision<Pow2.N8>> us = new List<MultiPrecision<Pow2.N8>>();
+            List<MultiPrecision<Pow2.N8>> us = new();
 
-            using (BinaryWriter stream = new BinaryWriter(File.OpenWrite(filename_bin))) {
+            using (BinaryWriter stream = new(File.OpenWrite(filename_bin))) {
                 foreach (MultiPrecision<Pow2.N8> v in vs) {
                     stream.Write(v);
                 }
             }
 
-            using (BinaryReader stream = new BinaryReader(File.OpenRead(filename_bin))) {
+            using (BinaryReader stream = new(File.OpenRead(filename_bin))) {
                 for (int i = 0; i < vs.Length; i++) {
                     MultiPrecision<Pow2.N8> u = stream.ReadMultiPrecision<Pow2.N8>();
 

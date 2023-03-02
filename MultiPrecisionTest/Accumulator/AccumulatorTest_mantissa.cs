@@ -28,23 +28,23 @@ namespace MultiPrecisionTest.Accumulator {
             UInt32[] v15 = new UInt32[] { 0u, ~0u, ~0u, ~0u, ~0u, 0x80000000u, 0u, 0u };
             UInt32[] v16 = new UInt32[] { 0u, ~0u, ~0u, ~0u, ~0u, ~0u, 0u, 0u };
 
-            Accumulator<Pow2.N4> acc0 = new Accumulator<Pow2.N4>(v0.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(v1.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(v2.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(v3.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(v4.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(v5.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(v6.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc7 = new Accumulator<Pow2.N4>(v7.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc8 = new Accumulator<Pow2.N4>(v8.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc9 = new Accumulator<Pow2.N4>(v9.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc10 = new Accumulator<Pow2.N4>(v10.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc11 = new Accumulator<Pow2.N4>(v11.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc12 = new Accumulator<Pow2.N4>(v12.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc13 = new Accumulator<Pow2.N4>(v13.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc14 = new Accumulator<Pow2.N4>(v14.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc15 = new Accumulator<Pow2.N4>(v15.Reverse().ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc16 = new Accumulator<Pow2.N4>(v16.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc0 = new(v0.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc1 = new(v1.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc2 = new(v2.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc3 = new(v3.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc4 = new(v4.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc5 = new(v5.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc6 = new(v6.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc7 = new(v7.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc8 = new(v8.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc9 = new(v9.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc10 = new(v10.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc11 = new(v11.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc12 = new(v12.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc13 = new(v13.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc14 = new(v14.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc15 = new(v15.Reverse().ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc16 = new(v16.Reverse().ToArray(), enable_clone: false);
 
             (Mantissa<Pow2.N4> n0, int sft0) = acc0.Mantissa;
             (Mantissa<Pow2.N4> n1, int sft1) = acc1.Mantissa;
@@ -126,12 +126,12 @@ namespace MultiPrecisionTest.Accumulator {
             };
             UInt32[] us = vs.Reverse().ToArray();
 
-            Accumulator<Pow2.N4> acc1 = new Accumulator<Pow2.N4>(vs.Take(length * 2).ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc2 = new Accumulator<Pow2.N4>(vs.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc3 = new Accumulator<Pow2.N4>(vs.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc4 = new Accumulator<Pow2.N4>(us.Take(length * 2).ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc5 = new Accumulator<Pow2.N4>(us.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
-            Accumulator<Pow2.N4> acc6 = new Accumulator<Pow2.N4>(us.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc1 = new(vs.Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc2 = new(vs.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc3 = new(vs.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc4 = new(us.Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc5 = new(us.Skip(length).Take(length * 2).ToArray(), enable_clone: false);
+            Accumulator<Pow2.N4> acc6 = new(us.Skip(length * 2).Take(length * 2).ToArray(), enable_clone: false);
 
             (Mantissa<Pow2.N4> n1, int sft1) = acc1.Mantissa;
             (Mantissa<Pow2.N4> n2, int sft2) = acc2.Mantissa;

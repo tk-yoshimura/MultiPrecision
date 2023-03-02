@@ -9,8 +9,8 @@ namespace MultiPrecisionTest.Accumulator {
 
         [TestMethod]
         public void MulShiftTest() {
-            Accumulator<Pow2.N4> v1 = new Accumulator<Pow2.N4>(Mantissa<Pow2.N4>.Full);
-            Accumulator<Pow2.N4> v2 = new Accumulator<Pow2.N4>(Mantissa<Pow2.N4>.One);
+            Accumulator<Pow2.N4> v1 = new(Mantissa<Pow2.N4>.Full);
+            Accumulator<Pow2.N4> v2 = new(Mantissa<Pow2.N4>.One);
             Accumulator<Pow2.N4> v3 = v1 * 5 / 9;
 
             Accumulator<Pow2.N4> v11 = Accumulator<Pow2.N4>.MulShift(v1, v1);
