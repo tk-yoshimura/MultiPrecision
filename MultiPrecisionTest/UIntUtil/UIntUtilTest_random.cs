@@ -1,7 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using MultiPrecision;
-
 using System;
 
 namespace MultiPrecisionTest.UIntUtils {

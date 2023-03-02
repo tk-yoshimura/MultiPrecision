@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 using MultiPrecision;
 
 namespace MultiPrecisionTest.Fractions {
