@@ -1,5 +1,5 @@
 # MultiPrecision
- Float multi precision arithmetic implements
+ Float MultiPrecision Arithmetic Implements
 
 ## Requirement
 .NET 6.0
