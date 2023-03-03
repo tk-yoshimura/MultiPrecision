@@ -147,28 +147,28 @@ MaxValue: &plusmn;8.808065x10^646456992
 - long (accurately)
 
 ```csharp
-MultiPrecision<N>; v0 = 123;
+MultiPrecision<N> v0 = 123;
 long n0 = (long)v0;
 ```
 
 - double (accurately)
 
 ```csharp
-MultiPrecision<N>; v1 = 0.5;
+MultiPrecision<N> v1 = 0.5;
 double n1 = (double)v1;
 ```
 
 - decimal (approximately)
 
 ```csharp
-MultiPrecision<N>; v1 = 0.1m;
+MultiPrecision<N> v1 = 0.1m;
 decimal n1 = (decimal)v1;
 ```
 
 - string (approximately)
 
 ```csharp
-MultiPrecision<N>; v2 = "3.14e0";
+MultiPrecision<N> v2 = "3.14e0";
 string s0 = v2.ToString();
 string s1 = v2.ToString("E8");
 string s2 = $"{v2:E8}";
