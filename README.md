@@ -146,31 +146,33 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 - long (accurately)
 
-  MultiPrecision&lt;*N*&gt; v0 = 123;
-
-  long n0 = (long)v0;
+```csharp
+MultiPrecision&lt;*N*&gt; v0 = 123;
+long n0 = (long)v0;
+```
 
 - double (accurately)
 
-  MultiPrecision&lt;*N*&gt; v1 = 0.5;
+```csharp
+MultiPrecision&lt;*N*&gt; v1 = 0.5;
+double n1 = (double)v1;
+```
 
-  double n1 = (double)v1;
-  
 - decimal (approximately)
 
-  MultiPrecision&lt;*N*&gt; v1 = 0.1m;
-
-  decimal n1 = (decimal)v1;
+```csharp
+MultiPrecision&lt;*N*&gt; v1 = 0.1m;
+decimal n1 = (decimal)v1;
+```
 
 - string (approximately)
 
-  MultiPrecision&lt;*N*&gt; v2 = "3.14e0";
-
-  string s0 = v2.ToString();
-
-  string s1 = v2.ToString("E8");
-
-  string s2 = $"{v2:E8}";
+```csharp
+MultiPrecision&lt;*N*&gt; v2 = "3.14e0";
+string s0 = v2.ToString();
+string s1 = v2.ToString("E8");
+string s2 = $"{v2:E8}";
+```
   
 ## I/O
 
