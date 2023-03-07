@@ -1,9 +1,6 @@
 ﻿using MultiPrecision.Properties;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecision {

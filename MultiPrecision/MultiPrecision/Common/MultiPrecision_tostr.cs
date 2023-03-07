@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
@@ -121,11 +120,11 @@ namespace MultiPrecision {
             BigUInt<N> n = new(mantissa.Value), f = new(exponent_frac.mantissa.Value);
 
             n = BigUInt<Double<N>>.RightRoundShift(
-                BigUInt<N>.Mul<Double<N>>(n, BigUInt<N>.Decimal(digits + presicion)), 
+                BigUInt<N>.Mul<Double<N>>(n, BigUInt<N>.Decimal(digits + presicion)),
                 Bits - 1, enable_clone: false).Convert<N>(check_overflow: false);
 
             n = BigUInt<Double<N>>.RightRoundShift(
-                BigUInt<N>.Mul<Double<N>>(n, f), 
+                BigUInt<N>.Mul<Double<N>>(n, f),
                 Bits - 1 - (int)exponent_frac.Exponent, enable_clone: false).Convert<N>(check_overflow: false);
 
             int n_length = n.ToString().Length;

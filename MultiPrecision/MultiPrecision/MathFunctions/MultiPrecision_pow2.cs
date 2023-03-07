@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
@@ -37,7 +34,7 @@ namespace MultiPrecision {
 
             BigUInt<Double<N>> a = new(Mantissa<N>.One.Value, Length);
             BigUInt<N> m = new(v.mantissa.Value), w = m;
-            
+
             foreach (var t in BigUInt<N>.TaylorTable) {
                 BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
                 if (d.Digits < Length) {
@@ -46,7 +43,7 @@ namespace MultiPrecision {
 
                 a += d;
                 w = BigUInt<Double<N>>.RightRoundShift(
-                    BigUInt<N>.Mul<Double<N>>(w, m), 
+                    BigUInt<N>.Mul<Double<N>>(w, m),
                     Mantissa<N>.Bits - 1, enable_clone: false)
                     .Convert<N>(check_overflow: false);
             }

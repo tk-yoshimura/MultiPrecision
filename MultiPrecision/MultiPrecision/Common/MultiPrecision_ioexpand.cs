@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public static class MultiPrecisionIOExpand {
 

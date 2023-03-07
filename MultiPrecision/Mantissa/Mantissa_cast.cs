@@ -1,5 +1,4 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {

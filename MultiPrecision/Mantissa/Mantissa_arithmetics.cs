@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
         public static Mantissa<N> operator +(Mantissa<N> a, UInt32 b) {
             return Add(a, b);
@@ -12,7 +10,7 @@ namespace MultiPrecision {
 
         public static (Mantissa<N> v, int sft) Add(Mantissa<N> v1, Mantissa<N> v2, int v2_sft) {
             BigUInt<Plus1<N>> ret = BigUInt<N>.Add<Plus1<N>>(
-                v1.value, 
+                v1.value,
                 BigUInt<N>.RightRoundShift(v2.value, v2_sft)
             );
 
@@ -28,13 +26,13 @@ namespace MultiPrecision {
             else {
                 ret = BigUInt<Plus1<N>>.LeftShift(ret, -sft, enable_clone: false);
             }
-            
+
             return (new Mantissa<N>(ret.Convert<N>(check_overflow: false)), exponent);
         }
 
         public static (Mantissa<N> v, int sft) Sub(Mantissa<N> v1, Mantissa<N> v2, int v2_sft) {
             BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Sub(
-                v1.value.Convert<Plus1<N>>(offset: 1), 
+                v1.value.Convert<Plus1<N>>(offset: 1),
                 BigUInt<Plus1<N>>.RightRoundShift(v2.value.Convert<Plus1<N>>(offset: 1), v2_sft)
             );
 
@@ -50,7 +48,7 @@ namespace MultiPrecision {
             else {
                 ret = BigUInt<Plus1<N>>.LeftShift(ret, -sft, enable_clone: false);
             }
-            
+
             return (new Mantissa<N>(ret.Convert<N>(check_overflow: false)), exponent);
         }
 
@@ -83,7 +81,7 @@ namespace MultiPrecision {
 
         public static (Mantissa<N> v, int sft) Div(Mantissa<N> v1, Mantissa<N> v2) {
             BigUInt<Double<N>> ret = BigUInt<N>.RoundDiv(
-                v1.value.Convert<Double<N>>(offset: Length), 
+                v1.value.Convert<Double<N>>(offset: Length),
                 v2.value
             );
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
         public Mantissa(string s) : this(new BigUInt<N>(s)) { }
