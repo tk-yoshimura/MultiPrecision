@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+﻿namespace MultiPrecision {
+    internal sealed partial class BigUInt<N> {
 
         public static BigUInt<N> operator *(BigUInt<N> a, BigUInt<N> b) {
             return Mul(a, b);
@@ -24,7 +22,7 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<N> Mul(BigUInt<N> a, BigUInt<N> b) {
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b.value);
 
@@ -36,7 +34,7 @@ namespace MultiPrecision {
                 return LeftShift(a, UIntUtil.Power2(b), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b);
 
@@ -48,7 +46,7 @@ namespace MultiPrecision {
                 return LeftShift(a, UIntUtil.Power2(b), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, a.value, b);
 
@@ -60,7 +58,7 @@ namespace MultiPrecision {
                 return LeftShift(b, UIntUtil.Power2(a), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, b.value, a);
 
@@ -72,7 +70,7 @@ namespace MultiPrecision {
                 return LeftShift(b, UIntUtil.Power2(a), check_overflow: true);
             }
 
-            BigUInt<N> ret = Zero.Copy();
+            BigUInt<N> ret = Zero;
 
             UIntUtil.Fma(ret.value, b.value, a);
 
@@ -80,7 +78,7 @@ namespace MultiPrecision {
         }
 
         public static BigUInt<M> Mul<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
-            BigUInt<M> ret = BigUInt<M>.Zero.Copy();
+            BigUInt<M> ret = BigUInt<M>.Zero;
 
             UIntUtil.Fma(ret.value, a.value, b.value);
 

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal static partial class UIntUtil {
 
         /// <summary>Operate uint32 array q += a / b, a = a % b</summary>

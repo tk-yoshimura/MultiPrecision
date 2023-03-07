@@ -4,11 +4,15 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
         public static MultiPrecision<N> Random(Random random) {
-            Accumulator<N> acc = new(new Mantissa<N>(UIntUtil.Random(random, Length, Bits), enable_clone: false));
+            BigUInt<Plus1<N>> n = new(UIntUtil.Random(random, BigUInt<Plus1<N>>.Length, BigUInt<Plus1<N>>.Bits), enable_clone: false);
 
-            (Mantissa<N> n, int sft) = acc.Mantissa;
+            int sft = UIntUtil.UInt32Bits - (int)n.LeadingZeroCount;
+            BigUInt<N> n_sft = ((sft >= 0)
+                ? BigUInt<Plus1<N>>.RightShift(n, sft, enable_clone: false)
+                : BigUInt<Plus1<N>>.LeftShift(n, -sft, enable_clone: false)
+            ).Convert<N>();
 
-            return new MultiPrecision<N>(Sign.Plus, Mantissa<N>.Bits - sft - 1, n, round: false);
+            return new MultiPrecision<N>(Sign.Plus, Mantissa<N>.Bits - (int)sft - 1, new Mantissa<N>(n_sft), round: false);
         }
     }
 }

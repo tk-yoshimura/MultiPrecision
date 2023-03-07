@@ -1,11 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 namespace MultiPrecision {
 
-    [DebuggerDisplay("{ToString(),nq}")]
-    public sealed partial class BigUInt<N> {
+    [DebuggerDisplay("{ToHexcode(),nq}")]
+    internal sealed partial class BigUInt<N> {
 
         public override string ToString() {
             int bin_digits = (int)Digits, dec_digits = 0;

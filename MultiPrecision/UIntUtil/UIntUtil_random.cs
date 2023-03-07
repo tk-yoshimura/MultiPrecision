@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal static partial class UIntUtil {
         public static UInt32[] Random(Random random, int length, int bits) {
             int block = bits / UIntUtil.UInt32Bits, rem = bits % UIntUtil.UInt32Bits;

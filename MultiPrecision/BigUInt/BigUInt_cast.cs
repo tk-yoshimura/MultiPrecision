@@ -1,8 +1,7 @@
-﻿using System;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+    internal sealed partial class BigUInt<N> {
 
         public static implicit operator BigInteger(BigUInt<N> n) {
             byte[] b = new byte[Length * 4 + 1];

@@ -54,12 +54,12 @@ namespace MultiPrecision {
             int leading_zeros = dec.Length - dec_trim.Length;
             dec = dec_trim;
 
-            if (dec.Length > Accumulator<Plus1<N>>.MaxDecimalDigits) {
-                dec = dec[..Accumulator<Plus1<N>>.MaxDecimalDigits];
+            if (dec.Length > BigUInt<Plus1<N>>.MaxDecimalDigits) {
+                dec = dec[..BigUInt<Plus1<N>>.MaxDecimalDigits];
             }
             int digits = dec.Length - 1;
 
-            Accumulator<Plus1<N>> mantissa_dec = new(dec);
+            BigUInt<Plus1<N>> mantissa_dec = new(dec);
 
             string exponent = (exponent_symbol_index + 1 < s.Length) ? s[(exponent_symbol_index + 1)..] : "0";
             if (!Int64.TryParse(exponent, NumberStyles.Integer, CultureInfo.InvariantCulture, out Int64 exponent_dec)) {
@@ -82,10 +82,10 @@ namespace MultiPrecision {
             }
         }
 
-        internal static MultiPrecision<N> FromStringCore(Sign sign, Int64 exponent_dec, Accumulator<Plus1<N>> mantissa_dec, int digits) {
+        internal static MultiPrecision<N> FromStringCore(Sign sign, Int64 exponent_dec, BigUInt<Plus1<N>> n, int digits) {
             Int64 p = checked(exponent_dec - digits);
 
-            MultiPrecision<Plus1<N>> mantissa = MultiPrecision<Plus1<N>>.CreateInteger(sign, mantissa_dec);
+            MultiPrecision<Plus1<N>> mantissa = MultiPrecision<Plus1<N>>.CreateInteger(sign, n);
 
             if (p == 0) {
                 return mantissa.Convert<N>();

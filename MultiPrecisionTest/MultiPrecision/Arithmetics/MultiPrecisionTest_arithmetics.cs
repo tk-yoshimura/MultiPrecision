@@ -101,6 +101,8 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void SubTest() {
+            Assert.AreNotEqual(MultiPrecision<Pow2.N8>.Zero, MultiPrecision<Pow2.N8>.One - MultiPrecision<Pow2.N8>.BitDecrement(1));
+
             foreach (MultiPrecision<Pow2.N8> a in vs) {
                 foreach (MultiPrecision<Pow2.N8> b in vs) {
                     MultiPrecision<Pow2.N8> c_actual = a - b;
@@ -144,6 +146,8 @@ namespace MultiPrecisionTest.Arithmetics {
                     }
                 }
             }
+
+            Assert.AreNotEqual(MultiPrecision<Pow2.N8>.Zero, MultiPrecision<Pow2.N8>.One - MultiPrecision<Pow2.N8>.BitDecrement(1));
         }
 
         [TestMethod]
@@ -399,7 +403,7 @@ namespace MultiPrecisionTest.Arithmetics {
                         Console.WriteLine($"{a} + {b} = {c_actual}");
                         Console.Write("\n");
 
-                        Assert.AreEqual(c_expect, c_actual);
+                        Assert.AreEqual(c_expect, c_actual, $"\n{c_expect.ToHexcode()}\n{c_actual.ToHexcode()}");
                     }
                 }
             }
@@ -433,7 +437,7 @@ namespace MultiPrecisionTest.Arithmetics {
                         Console.WriteLine($"{a} - {b} = {c_actual}");
                         Console.Write("\n");
 
-                        Assert.AreEqual(c_expect, c_actual);
+                        Assert.AreEqual(c_expect, c_actual, $"\n{c_expect.ToHexcode()}\n{c_actual.ToHexcode()}");
                     }
                 }
             }

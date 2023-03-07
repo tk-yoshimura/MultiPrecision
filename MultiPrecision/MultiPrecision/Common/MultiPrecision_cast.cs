@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Numerics;
 
 namespace MultiPrecision {
@@ -49,13 +50,10 @@ namespace MultiPrecision {
                 throw new OverflowException();
             }
 
-            Accumulator<N> acc = new(v.mantissa, v.Exponent - Mantissa<N>.Bits + 1);
+            UInt32[] arr = v.mantissa.Value.ToArray();
+            UIntUtil.RightShift(arr, Bits - (int)v.Exponent - 1);
 
-            if (acc.Digits > 2) {
-                throw new OverflowException();
-            }
-
-            UInt64 u = UIntUtil.Pack(acc.Value[1], acc.Value[0]);
+            UInt64 u = UIntUtil.Pack(arr[1], arr[0]);
 
             if (v.Sign == Sign.Plus) {
                 if (u > (UInt64)Int64.MaxValue) {
@@ -98,13 +96,13 @@ namespace MultiPrecision {
             Sign sign = arr[3] >= 0 ? Sign.Plus : Sign.Minus;
             int exponent = (arr[3] >> 16) & 0xFF;
 
-            UInt32[] mantissa = new UInt32[Length * 2 + 2];
+            UInt32[] n = new UInt32[Length + 1];
 
-            mantissa[0] = (uint)arr[0];
-            mantissa[1] = (uint)arr[1];
-            mantissa[2] = (uint)arr[2];
+            n[0] = (uint)arr[0];
+            n[1] = (uint)arr[1];
+            n[2] = (uint)arr[2];
 
-            Accumulator<Plus1<N>> num = new(mantissa, enable_clone: false);
+            BigUInt<Plus1<N>> num = new(n, enable_clone: false);
 
             while (exponent > 0 && num % 10 == 0) {
                 exponent--;

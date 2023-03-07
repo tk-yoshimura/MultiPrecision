@@ -35,21 +35,25 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
-            Accumulator<N> a = Accumulator<N>.One, m = new(v.mantissa, (int)v.Exponent), w = m;
-
-            foreach (var t in Accumulator<N>.TaylorTable) {
-                Accumulator<N> d = w * t;
+            BigUInt<Double<N>> a = new(Mantissa<N>.One.Value, Length);
+            BigUInt<N> m = new(v.mantissa.Value), w = m;
+            
+            foreach (var t in BigUInt<N>.TaylorTable) {
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
                 if (d.Digits < Length) {
                     break;
                 }
 
                 a += d;
-                w = Accumulator<N>.RightRoundShift(w * m, Mantissa<N>.Bits - 1);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m), 
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
-            (Mantissa<N> n, int sft) = a.Mantissa;
+            BigUInt<N> n = BigUInt<Double<N>>.RightBlockShift(a, Length, enable_clone: false).Convert<N>(check_overflow: false);
 
-            MultiPrecision<N> y = new(Sign.Plus, exponent - sft + 1, n, round: false);
+            MultiPrecision<N> y = new(Sign.Plus, exponent + 1, new Mantissa<N>(n), round: false);
 
             return y;
         }

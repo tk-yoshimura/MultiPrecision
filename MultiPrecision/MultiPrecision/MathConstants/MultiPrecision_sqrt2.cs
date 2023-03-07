@@ -27,22 +27,21 @@ namespace MultiPrecision {
                 );
             }
 
-            Accumulator<Plus1<N>> x = 1, y = 0;
+            BigUInt<Double<Plus1<N>>> x = 1, y = 0;
 
             while (x.LeadingZeroCount >= 2) {
-                Accumulator<Plus1<N>> x_next = x + (y << 1);
-                Accumulator<Plus1<N>> y_next = x + y;
+                BigUInt<Double<Plus1<N>>> x_next = x + (y << 1);
+                BigUInt<Double<Plus1<N>>> y_next = x + y;
 
                 x = x_next;
                 y = y_next;
             }
 
-            y = Accumulator<Plus1<N>>.RightRoundBlockShift(y, Mantissa<Plus1<N>>.Length);
+            y = BigUInt<Double<Plus1<N>>>.RightRoundBlockShift(y, Mantissa<Double<Plus1<N>>>.Length + 1);
 
-            Accumulator<Plus1<N>> acc = Accumulator<Plus1<N>>.RoundDiv(x, y);
-            (Mantissa<Plus1<N>> n, int _) = acc.Mantissa;
+            BigUInt<N> n = BigUInt<Double<Plus1<N>>>.RoundDiv(x, y).Convert<N>();
 
-            return (new MultiPrecision<Plus1<N>>(Sign.Plus, exponent: 0, n, round: false)).Convert<N>();
+            return new MultiPrecision<N>(Sign.Plus, exponent: 0, new Mantissa<N>(n), round: false);
         }
 
         private static partial class Consts {

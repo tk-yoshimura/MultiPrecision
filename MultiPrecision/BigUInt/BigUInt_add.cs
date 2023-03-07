@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+﻿namespace MultiPrecision {
+    internal sealed partial class BigUInt<N> {
 
         public static BigUInt<N> operator +(BigUInt<N> a, BigUInt<N> b) {
             return Add(a, b);
@@ -35,6 +33,25 @@ namespace MultiPrecision {
             }
             else {
                 BigUInt<N> ret = b.Copy();
+
+                UIntUtil.Add(ret.value, a.value);
+
+                return ret;
+            }
+        }
+
+        public static BigUInt<M> Add<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
+            uint v1_digits = a.Digits, v2_digits = b.Digits;
+
+            if (v1_digits >= v2_digits) {
+                BigUInt<M> ret = a.Convert<M>();
+
+                UIntUtil.Add(ret.value, b.value);
+
+                return ret;
+            }
+            else {
+                BigUInt<M> ret = b.Convert<M>();
 
                 UIntUtil.Add(ret.value, a.value);
 

@@ -9,15 +9,9 @@ namespace MultiPrecision {
             if (a.exponent > b.exponent) {
                 Int64 d = a.exponent - b.exponent;
 
-                if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1 - (int)d);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-                    Int64 exponent = checked(a.exponent - sft + 1);
+                if (d <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int sft) = Mantissa<N>.Add(a.n, b.n, checked((int)d));
+                    Int64 exponent = checked(a.exponent + sft);
 
                     return (n, exponent);
                 }
@@ -28,15 +22,9 @@ namespace MultiPrecision {
             else {
                 Int64 d = b.exponent - a.exponent;
 
-                if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Add(a_acc, b_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-                    Int64 exponent = checked(b.exponent - sft + 1);
+                if (d <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int sft) = Mantissa<N>.Add(b.n, a.n, checked((int)d));
+                    Int64 exponent = checked(b.exponent + sft);
 
                     return (n, exponent);
                 }
@@ -50,15 +38,9 @@ namespace MultiPrecision {
             if (a.exponent > b.exponent) {
                 Int64 d = a.exponent - b.exponent;
 
-                if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
-                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1 - (int)d);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Sub(a_acc, b_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-                    Int64 exponent = checked(a.exponent - sft + 1);
+                if (d <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int sft) = Mantissa<N>.Sub(a.n, b.n, checked((int)d));
+                    Int64 exponent = checked(a.exponent + sft);
 
                     return (n, exponent, Sign.Plus);
                 }
@@ -69,15 +51,9 @@ namespace MultiPrecision {
             else if (a.exponent < b.exponent) {
                 Int64 d = b.exponent - a.exponent;
 
-                if (d < Accumulator<N>.Bits) {
-                    Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1 - (int)d);
-                    Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
-
-                    Accumulator<N> c_acc = Accumulator<N>.Sub(b_acc, a_acc);
-
-                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-                    Int64 exponent = checked(b.exponent - sft + 1);
+                if (d <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int sft) = Mantissa<N>.Sub(b.n, a.n, checked((int)d));
+                    Int64 exponent = checked(b.exponent + sft);
 
                     return (n, exponent, Sign.Minus);
                 }
@@ -86,27 +62,15 @@ namespace MultiPrecision {
                 }
             }
             else {
-                Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits - 1);
-                Accumulator<N> b_acc = new(b.n, Mantissa<N>.Bits - 1);
-                Accumulator<N> c_acc;
-                Sign sign;
+                ((Mantissa<N> n, int sft), Sign sign) = (a.n >= b.n)
+                    ? (Mantissa<N>.Sub(a.n, b.n, 0), Sign.Plus)
+                    : (Mantissa<N>.Sub(b.n, a.n, 0), Sign.Minus);
 
-                if (a.n >= b.n) {
-                    c_acc = Accumulator<N>.Sub(a_acc, b_acc);
-                    sign = Sign.Plus;
-                }
-                else {
-                    c_acc = Accumulator<N>.Sub(b_acc, a_acc);
-                    sign = Sign.Minus;
-                }
-
-                if (c_acc.IsZero) {
+                if (n.IsZero) {
                     return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax, sign);
                 }
                 else {
-                    (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-                    Int64 exponent = checked(a.exponent - sft + 1);
+                    Int64 exponent = checked(a.exponent + sft);
 
                     return (n, exponent, sign);
                 }
@@ -114,24 +78,17 @@ namespace MultiPrecision {
         }
 
         internal static (Mantissa<N> n, Int64 exponent) Mul((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> c_acc = Mantissa<N>.Mul(a.n, b.n);
+            (Mantissa<N> n, int sft) = Mantissa<N>.Mul(a.n, b.n);
 
-            (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-            Int64 exponent = checked(a.exponent + b.exponent - sft + 1);
+            Int64 exponent = checked(a.exponent + b.exponent + sft);
 
             return (n, exponent);
         }
 
         internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
-            Accumulator<N> a_acc = new(a.n, Mantissa<N>.Bits);
-            Accumulator<N> b_acc = new(b.n);
+            (Mantissa<N> n, int sft) = Mantissa<N>.Div(a.n, b.n);
 
-            Accumulator<N> c_acc = Accumulator<N>.RoundDiv(a_acc, b_acc);
-
-            (Mantissa<N> n, int sft) = c_acc.Mantissa;
-
-            Int64 exponent = checked(a.exponent - b.exponent - sft + Mantissa<N>.Bits - 1);
+            Int64 exponent = checked(a.exponent - b.exponent + sft);
 
             return (n, exponent);
         }
@@ -145,18 +102,18 @@ namespace MultiPrecision {
             BigUInt<Plus4<N>> b_acc = new(new UInt32[] { b_lo, b_hi }, Length + 1);
 
             if (relative_exponent < 1) {
-                b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
+                b_acc = BigUInt<Plus4<N>>.RightRoundShift(b_acc, checked((int)-relative_exponent) + 1);
             }
             else if (relative_exponent > 1) {
-                a_acc = BigUInt<Plus4<N>>.RightShift(a_acc, checked((int)relative_exponent) - 1);
+                a_acc = BigUInt<Plus4<N>>.RightRoundShift(a_acc, checked((int)relative_exponent) - 1);
             }
 
             BigUInt<Plus4<N>> c_acc = a_acc + b_acc;
 
-            int lzc = (int)c_acc.LeadingZeroCount;
-            c_acc <<= lzc;
+            uint lzc = c_acc.LeadingZeroCount;
+            BigUInt<Plus4<N>>.LeftShift(c_acc, (int)lzc, check_overflow: false, enable_clone: false);
 
-            Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
+            Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - (int)lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
             bool round = c_acc[expands - 1] > UIntUtil.UInt32Round;
             Mantissa<N> mantissa = new(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
@@ -172,10 +129,10 @@ namespace MultiPrecision {
             BigUInt<Plus4<N>> b_acc = new(new UInt32[] { b_lo, b_hi }, Length + 1);
 
             if (relative_exponent < 1) {
-                b_acc = BigUInt<Plus4<N>>.RightShift(b_acc, checked((int)-relative_exponent) + 1);
+                b_acc = BigUInt<Plus4<N>>.RightRoundShift(b_acc, checked((int)-relative_exponent) + 1);
             }
             else if (relative_exponent > 1) {
-                a_acc = BigUInt<Plus4<N>>.RightShift(a_acc, checked((int)relative_exponent) - 1);
+                a_acc = BigUInt<Plus4<N>>.RightRoundShift(a_acc, checked((int)relative_exponent) - 1);
             }
 
             BigUInt<Plus4<N>> c_acc;
@@ -193,10 +150,10 @@ namespace MultiPrecision {
                 return (Mantissa<N>.Zero, 0, round: false, Sign.Plus);
             }
 
-            int lzc = (int)c_acc.LeadingZeroCount;
-            c_acc <<= lzc;
+            uint lzc = c_acc.LeadingZeroCount;
+            BigUInt<Plus4<N>>.LeftShift(c_acc, (int)lzc, check_overflow: false, enable_clone: false);
 
-            Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
+            Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - (int)lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
             bool round = c_acc[expands - 1] > UIntUtil.UInt32Round;
             Mantissa<N> mantissa = new(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
 
