@@ -216,6 +216,32 @@
             return q;
         }
 
+        public static BigUInt<N> RoundDiv(BigUInt<N> a, UInt64 b) {
+            (BigUInt<N> q, UInt64 r) = DivRem(a, b);
+
+            uint lzc_r = UIntUtil.LeadingZeroCount(r);
+
+            if (lzc_r == 0u) {
+                UIntUtil.Add(q.value, 1u);
+            }
+            else {
+                uint lzc_b = UIntUtil.LeadingZeroCount(b);
+
+                if (lzc_r == lzc_b) {
+                    UIntUtil.Add(q.value, 1u);
+                }
+                else if ((lzc_r - lzc_b) == 1u) {
+                    r <<= 1;
+
+                    if (r >= b) {
+                        UIntUtil.Add(q.value, 1u);
+                    }
+                }
+            }
+
+            return q;
+        }
+
         public static BigUInt<M> RoundDiv<M>(BigUInt<M> a, BigUInt<N> b) where M : struct, IConstant {
             (BigUInt<M> q, BigUInt<N> r) = DivRem(a, b);
 

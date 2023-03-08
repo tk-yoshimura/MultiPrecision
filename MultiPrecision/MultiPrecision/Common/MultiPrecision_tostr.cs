@@ -119,13 +119,20 @@ namespace MultiPrecision {
 
             BigUInt<N> n = new(mantissa.Value), f = new(exponent_frac.mantissa.Value);
 
+            const bool check_overflow =
+#if DEBUG
+                true;
+#else 
+                false;
+#endif
+
             n = BigUInt<Double<N>>.RightRoundShift(
                 BigUInt<N>.Mul<Double<N>>(n, BigUInt<N>.Decimal(digits + presicion)),
-                Bits - 1, enable_clone: false).Convert<N>(check_overflow: false);
+                Bits - 1, enable_clone: false).Convert<N>(check_overflow);
 
             n = BigUInt<Double<N>>.RightRoundShift(
                 BigUInt<N>.Mul<Double<N>>(n, f),
-                Bits - 1 - (int)exponent_frac.Exponent, enable_clone: false).Convert<N>(check_overflow: false);
+                Bits - 1 - (int)exponent_frac.Exponent, enable_clone: false).Convert<N>(check_overflow);
 
             int n_length = n.ToString().Length;
 

@@ -34,6 +34,27 @@ namespace MultiPrecision {
             Sub(0u, arr_a, b);
         }
 
+        /// <summary>Operate uint32 array a -= b &lt;&lt; sft</summary>
+        public static void Sub(UInt32[] arr_a, UInt64 b, int sft) {
+            if (sft < 0) {
+                b >>= -sft;
+                sft = 0;
+            }
+
+            uint offset = (uint)sft / UInt32Bits, lsft = (uint)sft % UInt32Bits;
+
+            if (lsft == 0) {
+                Sub(offset, arr_a, b);
+            }
+            else {
+                UInt64 b0 = unchecked(b << (int)lsft);
+                UInt32 b1 = unchecked((UInt32)(b >> (int)(UInt64Bits - lsft)));
+
+                Sub(offset, arr_a, b0);
+                Sub(offset + 2u, arr_a, b1);
+            }
+        }
+
         /// <summary>Operate uint32 array a-= b &lt;&lt; offset</summary>
         private static unsafe void Sub(uint offset, uint digits_b, UInt32[] arr_a, UInt32[] arr_b) {
 #if DEBUG

@@ -74,5 +74,13 @@
 
             return ret;
         }
+
+        public static BigUInt<N> Add(BigUInt<N> a, UInt64 b, int sft) {
+            BigUInt<N> ret = a.Copy();
+
+            UIntUtil.Add(ret.value, b, sft);
+
+            return ret;
+        }
     }
 }

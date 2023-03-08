@@ -84,5 +84,13 @@
 
             return ret;
         }
+
+        public static BigUInt<M> Mul<M>(BigUInt<N> a, UInt64 b) where M : struct, IConstant {
+            BigUInt<M> ret = BigUInt<M>.Zero;
+
+            UIntUtil.Fma(ret.value, a.value, b);
+
+            return ret;
+        }
     }
 }

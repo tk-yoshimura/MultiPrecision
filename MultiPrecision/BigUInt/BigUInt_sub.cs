@@ -78,5 +78,13 @@
 
             return a - n;
         }
+
+        public static BigUInt<N> Sub(BigUInt<N> a, UInt64 b, int sft) {
+            BigUInt<N> ret = a.Copy();
+
+            UIntUtil.Sub(ret.value, b, sft);
+
+            return ret;
+        }
     }
 }
