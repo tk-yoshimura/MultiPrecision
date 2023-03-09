@@ -32,8 +32,8 @@
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
-            BigUInt<Double<N>> a = new(Mantissa<N>.One.Value, Length);
-            BigUInt<N> m = new(v.mantissa.Value), w = m;
+            BigUInt<Double<N>> a = new(Enumerable.Repeat(0u, Length * 2 - 1).Concat(new UInt32[] { 0x40000000u }).ToArray());
+            BigUInt<N> m = BigUInt<N>.RightRoundShift(new BigUInt<N>(v.mantissa.Value), checked(-(int)v.Exponent)), w = m;
 
             foreach (var t in BigUInt<N>.TaylorTable) {
                 BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
@@ -48,9 +48,11 @@
                     .Convert<N>(check_overflow: false);
             }
 
-            BigUInt<N> n = BigUInt<Double<N>>.RightBlockShift(a, Length, enable_clone: false).Convert<N>(check_overflow: false);
+            uint lzc = a.LeadingZeroCount;
 
-            MultiPrecision<N> y = new(Sign.Plus, exponent + 1, new Mantissa<N>(n), round: false);
+            BigUInt<N> n = BigUInt<Double<N>>.RightRoundShift(a, Bits - (int)lzc, enable_clone: false).Convert<N>(check_overflow: false);
+
+            MultiPrecision<N> y = new(Sign.Plus, exponent + 1 - (long)lzc, new Mantissa<N>(n), round: false);
 
             return y;
         }

@@ -20,10 +20,11 @@ namespace MultiPrecision {
 
             List<BigUInt<N>> table = new();
 
-            BigUInt<N> v = new BigUInt<N>(1) << sft, d = 1;
+            BigUInt<Plus1<N>> v = new(Enumerable.Repeat(0u, Length).Concat(new UInt32[] { UIntUtil.UInt32Round + 1u }).ToArray());
+            BigUInt<Plus1<N>> d = 1;
 
             while (table.Count < 1 || !table.Last().IsZero) {
-                table.Add(RightRoundShift(v, sft));
+                table.Add(BigUInt<Plus1<N>>.RightRoundBlockShift(v, 1).Convert<N>(check_overflow: false));
                 d += 1;
                 v /= d;
             }
