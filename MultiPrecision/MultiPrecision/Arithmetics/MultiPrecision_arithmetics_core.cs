@@ -2,13 +2,13 @@
 
     public sealed partial class MultiPrecision<N> {
 
-        internal static (Mantissa<N> n, Int64 exponent) Add((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, long exponent) Add((Mantissa<N> n, long exponent) a, (Mantissa<N> n, long exponent) b) {
             if (a.exponent > b.exponent) {
-                Int64 d = a.exponent - b.exponent;
+                long exponent_delta = a.exponent - b.exponent;
 
-                if (d <= Mantissa<N>.Bits) {
-                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b.n, checked((int)d));
-                    Int64 exponent = checked(a.exponent + n_exponent);
+                if (exponent_delta <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b.n, checked((int)exponent_delta));
+                    long exponent = checked(a.exponent + n_exponent);
 
                     return (n, exponent);
                 }
@@ -17,11 +17,11 @@
                 }
             }
             else {
-                Int64 d = b.exponent - a.exponent;
+                long exponent_delta = b.exponent - a.exponent;
 
-                if (d <= Mantissa<N>.Bits) {
-                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(b.n, a.n, checked((int)d));
-                    Int64 exponent = checked(b.exponent + n_exponent);
+                if (exponent_delta <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(b.n, a.n, checked((int)exponent_delta));
+                    long exponent = checked(b.exponent + n_exponent);
 
                     return (n, exponent);
                 }
@@ -31,13 +31,13 @@
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent, Sign sign) Diff((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, long exponent, Sign sign) Diff((Mantissa<N> n, long exponent) a, (Mantissa<N> n, long exponent) b) {
             if (a.exponent > b.exponent) {
-                Int64 d = a.exponent - b.exponent;
+                long exponent_delta = a.exponent - b.exponent;
 
-                if (d <= Mantissa<N>.Bits) {
-                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(a.n, b.n, checked((int)d));
-                    Int64 exponent = checked(a.exponent + n_exponent);
+                if (exponent_delta <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(a.n, b.n, checked((int)exponent_delta));
+                    long exponent = checked(a.exponent + n_exponent);
 
                     return (n, exponent, Sign.Plus);
                 }
@@ -46,11 +46,11 @@
                 }
             }
             else if (a.exponent < b.exponent) {
-                Int64 d = b.exponent - a.exponent;
+                long exponent_delta = b.exponent - a.exponent;
 
-                if (d <= Mantissa<N>.Bits) {
-                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(b.n, a.n, checked((int)d));
-                    Int64 exponent = checked(b.exponent + n_exponent);
+                if (exponent_delta <= Mantissa<N>.Bits) {
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(b.n, a.n, checked((int)exponent_delta));
+                    long exponent = checked(b.exponent + n_exponent);
 
                     return (n, exponent, Sign.Minus);
                 }
@@ -67,63 +67,63 @@
                     return (Mantissa<N>.Zero, (Int64)ExponentMin - (Int64)ExponentMax, sign);
                 }
                 else {
-                    Int64 exponent = checked(a.exponent + n_exponent);
+                    long exponent = checked(a.exponent + n_exponent);
 
                     return (n, exponent, sign);
                 }
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Mul((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, long exponent) Mul((Mantissa<N> n, long exponent) a, (Mantissa<N> n, long exponent) b) {
             (Mantissa<N> n, int n_exponent) = Mantissa<N>.Mul(a.n, b.n);
 
-            Int64 exponent = checked(a.exponent + b.exponent + n_exponent);
+            long exponent = checked(a.exponent + b.exponent + n_exponent);
 
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Mul((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
+        internal static (Mantissa<N> n, long exponent) Mul((Mantissa<N> n, long exponent) a, UInt64 b) {
             (Mantissa<N> n, int n_exponent) = Mantissa<N>.Mul(a.n, b);
 
-            Int64 exponent = checked(a.exponent + n_exponent);
+            long exponent = checked(a.exponent + n_exponent);
 
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, (Mantissa<N> n, Int64 exponent) b) {
+        internal static (Mantissa<N> n, long exponent) Div((Mantissa<N> n, long exponent) a, (Mantissa<N> n, long exponent) b) {
             (Mantissa<N> n, int n_exponent) = Mantissa<N>.Div(a.n, b.n);
 
-            Int64 exponent = checked(a.exponent - b.exponent + n_exponent);
+            long exponent = checked(a.exponent - b.exponent + n_exponent);
 
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Div((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
+        internal static (Mantissa<N> n, long exponent) Div((Mantissa<N> n, long exponent) a, UInt64 b) {
             (Mantissa<N> n, int n_exponent) = Mantissa<N>.Div(a.n, b);
 
-            Int64 exponent = checked(a.exponent + n_exponent);
+            long exponent = checked(a.exponent + n_exponent);
 
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Add((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
-            Int64 d = (b > 0uL) ? a.exponent : Int64.MaxValue;
+        internal static (Mantissa<N> n, long exponent) Add((Mantissa<N> n, long exponent) a, UInt64 b) {
+            long exponent_delta = (b > 0uL) ? a.exponent : Int64.MaxValue;
 
-            if (d < -Mantissa<N>.Bits) {
+            if (exponent_delta < -Mantissa<N>.Bits) {
                 uint lzc = UIntUtil.LeadingZeroCount(b);
                 Mantissa<N> n = new(
                     BigUInt<N>.LeftShift(
                         b,
-                        BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
+                        checked(BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc),
                         check_overflow: false, enable_clone: false)
                     );
-                int exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
+                long exponent = checked(UIntUtil.UInt64Bits - 1 - (long)lzc);
 
                 return (n, exponent);
             }
-            else if (d <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
-                (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b, (int)d);
-                Int64 exponent = checked(a.exponent + n_exponent);
+            else if (exponent_delta <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
+                (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b, checked((int)exponent_delta));
+                long exponent = checked(a.exponent + n_exponent);
 
                 return (n, exponent);
             }
@@ -132,38 +132,38 @@
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent, Sign sign) Diff((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
-            Int64 d = (b > 0uL) ? a.exponent : Int64.MaxValue;
+        internal static (Mantissa<N> n, long exponent, Sign sign) Diff((Mantissa<N> n, long exponent) a, UInt64 b) {
+            long exponent_delta = (b > 0uL) ? a.exponent : Int64.MaxValue;
 
-            if (d < -Mantissa<N>.Bits) {
+            if (exponent_delta < -Mantissa<N>.Bits) {
                 uint lzc = UIntUtil.LeadingZeroCount(b);
                 Mantissa<N> n = new(
                     BigUInt<N>.LeftShift(
                         b,
-                        BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
+                        checked(BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc),
                         check_overflow: false, enable_clone: false)
                     );
-                int exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
+                long exponent = checked(UIntUtil.UInt64Bits - 1 - (long)lzc);
 
                 return (n, exponent, Sign.Minus);
             }
-            else if (d <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
+            else if (exponent_delta <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
                 uint lzc = UIntUtil.LeadingZeroCount(b);
 
-                if (a.exponent <= checked(UIntUtil.UInt64Bits - 1 - (int)lzc)) {
+                if (a.exponent <= checked(UIntUtil.UInt64Bits - 1 - (long)lzc)) {
                     Mantissa<N> b_n = new(
                         BigUInt<N>.LeftShift(
                             b,
-                            BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
+                            checked(BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc),
                             check_overflow: false, enable_clone: false)
                         );
-                    long b_exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
+                    long b_exponent = checked(UIntUtil.UInt64Bits - 1 - (long)lzc);
 
                     return Diff(a, (b_n, b_exponent));
                 }
                 else {
-                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(a.n, b, (int)d);
-                    Int64 exponent = checked(a.exponent + n_exponent);
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(a.n, b, checked((int)exponent_delta));
+                    long exponent = checked(a.exponent + n_exponent);
 
                     return (n, exponent, Sign.Plus);
                 }
