@@ -16,11 +16,9 @@ namespace MultiPrecision {
         }
 
         private static ReadOnlyCollection<BigUInt<N>> GenerateTaylorTable() {
-            int sft = Mantissa<N>.Bits - 1;
-
             List<BigUInt<N>> table = new();
 
-            BigUInt<Plus1<N>> v = new(Enumerable.Repeat(0u, Length).Concat(new UInt32[] { UIntUtil.UInt32Round + 1u }).ToArray());
+            BigUInt<Plus1<N>> v = BigUInt<Plus1<N>>.Top80000000u;
             BigUInt<Plus1<N>> d = 1;
 
             while (table.Count < 1 || !table.Last().IsZero) {

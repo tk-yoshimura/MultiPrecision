@@ -79,16 +79,17 @@
                 return Zero;
             }
 
-            BigUInt<Double<N>> a = new(Mantissa<N>.One.Value, Length);
-            BigUInt<Double<N>> m = BigUInt<Double<N>>.LeftShift(
-                new BigUInt<Double<N>>(squa_xpi.mantissa.Value, 0), checked((int)squa_xpi.Exponent),
-                enable_clone: false);
-            BigUInt<Double<N>> w = m;
+            BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
+            BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent))
+                : 0u;
+            BigUInt<N> w = m;
+            
             Sign s = Sign.Minus;
 
-            for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < BigUInt<Double<N>>.TaylorTable.Count; i += 2) {
-                BigUInt<Double<N>> t = BigUInt<Double<N>>.TaylorTable[i];
-                BigUInt<Double<N>> d = w * t;
+            for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {
+                BigUInt<N> t = BigUInt<N>.TaylorTable[i];
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -103,7 +104,10 @@
                     break;
                 }
 
-                w = BigUInt<Double<N>>.RightShift(w * m, Bits - 1);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m),
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
             uint lzc = a.LeadingZeroCount;
@@ -132,17 +136,17 @@
                 return Zero;
             }
 
-            BigUInt<Double<N>> a = new(Mantissa<N>.One.Value, Length);
-            BigUInt<Double<N>> m = BigUInt<Double<N>>.LeftShift(
-                new BigUInt<Double<N>>(squa_xpi.mantissa.Value, 0), checked((int)squa_xpi.Exponent),
-                enable_clone: false);
-            BigUInt<Double<N>> w = m;
-
+            BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
+            BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent))
+                : 0u;
+            BigUInt<N> w = m;
+            
             Sign s = Sign.Minus;
 
-            for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < BigUInt<Double<N>>.TaylorTable.Count; i += 2) {
-                BigUInt<Double<N>> t = BigUInt<Double<N>>.TaylorTable[i];
-                BigUInt<Double<N>> d = w * t;
+            for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {
+                BigUInt<N> t = BigUInt<N>.TaylorTable[i];
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -157,7 +161,10 @@
                     break;
                 }
 
-                w = BigUInt<Double<N>>.RightShift(w * m, Bits - 1);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m),
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
             uint lzc = a.LeadingZeroCount;
