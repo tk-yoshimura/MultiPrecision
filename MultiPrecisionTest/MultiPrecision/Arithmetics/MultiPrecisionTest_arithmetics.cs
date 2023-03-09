@@ -10,8 +10,8 @@ namespace MultiPrecisionTest.Arithmetics {
         readonly MultiPrecision<Pow2.N8>[] vs = {
             MultiPrecision<Pow2.N8>.Zero,
             MultiPrecision<Pow2.N8>.MinusZero,
-            1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000,
-            -1, -2, -3, -4, -5, -7, -8, -10, -11, -13, -100, -1000,
+            1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000, 255, 256, 65535, 65536, 16777215, 16777216, 
+            -1, -2, -3, -4, -5, -7, -8, -10, -11, -13, -100, -1000, -255, -256, -65535, -65536, -16777215, -16777216,
             MultiPrecision<Pow2.N8>.One / 2,
             MultiPrecision<Pow2.N8>.One / 3,
             MultiPrecision<Pow2.N8>.One / 4,
@@ -24,10 +24,18 @@ namespace MultiPrecisionTest.Arithmetics {
             -MultiPrecision<Pow2.N8>.Ldexp(1, -244),
             MultiPrecision<Pow2.N8>.Ldexp(1, +244),
             -MultiPrecision<Pow2.N8>.Ldexp(1, +244),
+            MultiPrecision<Pow2.N8>.Ldexp(1, -255),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -255),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +255),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +255),
             MultiPrecision<Pow2.N8>.Ldexp(1, -256),
             -MultiPrecision<Pow2.N8>.Ldexp(1, -256),
             MultiPrecision<Pow2.N8>.Ldexp(1, +256),
             -MultiPrecision<Pow2.N8>.Ldexp(1, +256),
+            MultiPrecision<Pow2.N8>.Ldexp(1, -257),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, -257),
+            MultiPrecision<Pow2.N8>.Ldexp(1, +257),
+            -MultiPrecision<Pow2.N8>.Ldexp(1, +257),
             MultiPrecision<Pow2.N8>.Ldexp(1, -264),
             -MultiPrecision<Pow2.N8>.Ldexp(1, -264),
             MultiPrecision<Pow2.N8>.Ldexp(1, +264),
@@ -45,10 +53,10 @@ namespace MultiPrecisionTest.Arithmetics {
 
         readonly long[] us = {
             long.MinValue, long.MinValue + 1, -9999999999999999, int.MinValue, int.MinValue + 1,
-            -99999999, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
+            -99999999, -1000000, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
             0,
             long.MaxValue, int.MaxValue,
-            9999999999999999, 99999999, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
+            9999999999999999, 99999999, 1000000, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
         };
 
 
@@ -381,6 +389,10 @@ namespace MultiPrecisionTest.Arithmetics {
                 foreach (long b in us) {
                     MultiPrecision<Pow2.N8> c_actual = MultiPrecision<Pow2.N8>.Add(a, b);
                     MultiPrecision<Pow2.N8> c_expect = MultiPrecision<Pow2.N8>.Add(a, (MultiPrecision<Pow2.N8>)b);
+
+                    if (a < 0 ^ b < 0) {
+                        continue;
+                    }
 
                     Trace.WriteLine($"{a} + {b} = {c_expect}");
                     Trace.WriteLine($"{a} + {b} = {c_actual}");

@@ -114,7 +114,7 @@ namespace MultiPrecision {
                 Console.WriteLine();
             }
 
-            Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10, exponent_frac.ToHexcode());
+            Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10, $"{ToDouble()}, {exponent_frac.ToHexcode()}");
 #endif
 
             BigUInt<N> n = new(mantissa.Value), f = new(exponent_frac.mantissa.Value);

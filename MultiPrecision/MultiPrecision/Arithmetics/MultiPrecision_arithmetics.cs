@@ -219,7 +219,7 @@
             UInt64 b_abs = UIntUtil.Abs(b);
 
             if (a.Sign == UIntUtil.Sign(b)) {
-                (Mantissa<N> n, Int64 exponent) = Add((a.mantissa, a.Exponent), (b_abs, 0));
+                (Mantissa<N> n, Int64 exponent) = Add((a.mantissa, a.Exponent), b_abs);
 
                 return new MultiPrecision<N>(a.Sign, exponent, n, round: false);
             }
@@ -255,7 +255,7 @@
                     exponent + a.Exponent, n, round);
             }
             else {
-                (Mantissa<N> n, Int64 exponent) = Add((a.mantissa, a.Exponent), (b_abs, 0));
+                (Mantissa<N> n, Int64 exponent) = Add((a.mantissa, a.Exponent), b_abs);
 
                 return new MultiPrecision<N>(a.Sign, exponent, n, round: false);
             }

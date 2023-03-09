@@ -106,22 +106,22 @@
             return (n, exponent);
         }
 
-        internal static (Mantissa<N> n, Int64 exponent) Add((Mantissa<N> n, Int64 exponent) a, (UInt64 n, Int64 exponent) b) {
-            Int64 d = (b.n > 0uL) ? a.exponent - b.exponent : Int64.MaxValue;
+        internal static (Mantissa<N> n, Int64 exponent) Add((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
+            Int64 d = (b > 0uL) ? a.exponent : Int64.MaxValue;
 
-            if (d <= -Mantissa<N>.Bits) {
-                uint lzc = UIntUtil.LeadingZeroCount(b.n);
+            if (d < -Mantissa<N>.Bits) {
+                uint lzc = UIntUtil.LeadingZeroCount(b);
                 Mantissa<N> n = new(
                     BigUInt<N>.LeftShift(
-                        b.n, 
+                        b, 
                         BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc, 
                         check_overflow: false, enable_clone: false)
                     );
 
-                return (n, (int)lzc - UIntUtil.UInt64Bits + 1);
+                return (n, UIntUtil.UInt64Bits - 1 - (int)lzc);
             }
-            else if (d <= Mantissa<N>.Bits) {
-                (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b.n, checked((int)d));
+            else if (d <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
+                (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b, (int)d);
                 Int64 exponent = checked(a.exponent + n_exponent);
 
                 return (n, exponent);
