@@ -25,19 +25,14 @@ namespace MultiPrecision {
                 );
             }
 
-            BigUInt<Double<Plus1<N>>> x = 1, y = 0;
+            BigUInt<Plus2<N>> x = 1, y = 0;
 
             while (x.LeadingZeroCount >= 2) {
-                BigUInt<Double<Plus1<N>>> x_next = x + (y << 1);
-                BigUInt<Double<Plus1<N>>> y_next = x + y;
-
-                x = x_next;
-                y = y_next;
+                (x, y) = (x + (y << 1), x + y);
             }
 
-            y = BigUInt<Double<Plus1<N>>>.RightRoundBlockShift(y, Mantissa<Double<Plus1<N>>>.Length + 1);
-
-            BigUInt<N> n = BigUInt<Double<Plus1<N>>>.RoundDiv(x, y).Convert<N>();
+            BigUInt<Double<Plus2<N>>> q = BigUInt<Plus2<N>>.Div(x.Convert<Double<Plus2<N>>>(offset: Length + 2), y);
+            BigUInt<N> n = BigUInt<Double<Plus2<N>>>.RightRoundShift(q, UIntUtil.UInt32Bits * 2 + 1, enable_clone: false).Convert<N>();
 
             return new MultiPrecision<N>(Sign.Plus, exponent: 0, new Mantissa<N>(n), round: false);
         }
