@@ -25,9 +25,9 @@ namespace MultiPrecision {
                 );
             }
 
-            BigUInt<Plus1<N>> v = new(Mantissa<Plus1<N>>.One.Value);
-            BigUInt<Plus1<N>> m = v;
-            BigUInt<Plus1<N>> i = 2;
+            BigUInt<Plus2<N>> v = new(Mantissa<N>.One.Value, offset: 1);
+            BigUInt<Plus2<N>> m = v;
+            BigUInt<Plus2<N>> i = 2;
 
             while (!v.IsZero) {
                 m += v;
@@ -35,7 +35,7 @@ namespace MultiPrecision {
                 i += 1;
             }
 
-            BigUInt<N> n = BigUInt<Plus1<N>>.RightBlockShift(m, 1, enable_clone: false).Convert<N>(check_overflow: false);
+            BigUInt<N> n = BigUInt<Plus2<N>>.RightRoundShift(m, UIntUtil.UInt32Bits + 1, enable_clone: false).Convert<N>(check_overflow: false);
 
             return new MultiPrecision<N>(Sign.Plus, exponent: 1, new Mantissa<N>(n), round: false);
         }
