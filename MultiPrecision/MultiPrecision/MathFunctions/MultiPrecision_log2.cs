@@ -16,7 +16,7 @@
                 return x.Exponent;
             }
 
-            BigUInt<Double<N>> v = new(x.mantissa.Value);
+            BigUInt<Double<N>> v = new(x.mantissa.Value, offset: 0);
 
             int sft;
             for (sft = 0; sft < BigUInt<Double<N>>.Bits; sft++) {
