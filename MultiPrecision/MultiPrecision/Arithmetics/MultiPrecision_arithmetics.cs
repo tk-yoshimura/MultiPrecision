@@ -251,7 +251,7 @@
                 (Mantissa<N> n, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), b_abs);
 
                 return new MultiPrecision<N>(
-                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus,
                     exponent, n, round: false
                 );
             }
@@ -261,7 +261,7 @@
                 return new MultiPrecision<N>(a.Sign, exponent, n, round: false);
             }
         }
-                
+
         public static MultiPrecision<N> Mul(MultiPrecision<N> a, long b) {
             if (a.IsNaN) {
                 return NaN;

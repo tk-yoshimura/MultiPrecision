@@ -50,7 +50,7 @@
 
                 if (v2_exponent < 0) {
                     int v2_mantissa_sft = checked(BigUInt<N>.Bits - 1 - v2_sft);
-    
+
                     BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(
                         v1.value.Convert<Plus1<N>>(),
                         v2,
@@ -82,7 +82,7 @@
         public static (Mantissa<N> v, int exponent) Sub(Mantissa<N> v1, Mantissa<N> v2, int v2_sft) {
             BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Sub(
                 v1.value.Convert<Plus1<N>>(offset: 1),
-                BigUInt<Plus1<N>>.RightRoundShift(v2.value.Convert<Plus1<N>>(offset: 1), v2_sft)
+                BigUInt<Plus1<N>>.RightRoundShift(v2.value.Convert<Plus1<N>>(offset: 1), v2_sft, enable_clone: false)
             );
 
             uint lzc = ret.LeadingZeroCount;
@@ -121,7 +121,7 @@
 
                 if (v2_exponent < 0) {
                     int v2_mantissa_sft = checked(BigUInt<Plus1<N>>.Bits - 1 - v2_sft);
-    
+
                     BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Sub(
                         v1.value.Convert<Plus1<N>>(offset: 1),
                         v2,
@@ -188,7 +188,7 @@
             return Adjust(ret, sft, exponent);
         }
 
-        private static (Mantissa<N> v, int exponent) Adjust<M>(BigUInt<M> ret, int sft, int exponent) where M: struct, IConstant {
+        private static (Mantissa<N> v, int exponent) Adjust<M>(BigUInt<M> ret, int sft, int exponent) where M : struct, IConstant {
             if (sft > 0) {
                 ret = BigUInt<M>.RightRoundShift(ret, sft, enable_clone: false);
                 if (ret.Digits > Length) {

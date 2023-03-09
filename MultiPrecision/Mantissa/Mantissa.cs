@@ -30,10 +30,6 @@ namespace MultiPrecision {
             this.value = new BigUInt<N>(arr, enable_clone);
         }
 
-        public Mantissa(IReadOnlyList<UInt32> arr) {
-            this.value = new BigUInt<N>(arr);
-        }
-
         public Mantissa(BigUInt<N> value) {
             this.value = value;
         }

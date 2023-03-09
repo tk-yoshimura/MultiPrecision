@@ -81,10 +81,10 @@
 
             BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
             BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
-                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent))
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent), enable_clone: false)
                 : 0u;
             BigUInt<N> w = m;
-            
+
             Sign s = Sign.Minus;
 
             for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {
@@ -138,10 +138,10 @@
 
             BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
             BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
-                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent))
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent), enable_clone: false)
                 : 0u;
             BigUInt<N> w = m;
-            
+
             Sign s = Sign.Minus;
 
             for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {

@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.Arithmetics {
         readonly MultiPrecision<Pow2.N8>[] vs = {
             MultiPrecision<Pow2.N8>.Zero,
             MultiPrecision<Pow2.N8>.MinusZero,
-            1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000, 255, 256, 65535, 65536, 16777215, 16777216, 
+            1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000, 255, 256, 65535, 65536, 16777215, 16777216,
             -1, -2, -3, -4, -5, -7, -8, -10, -11, -13, -100, -1000, -255, -256, -65535, -65536, -16777215, -16777216,
             MultiPrecision<Pow2.N8>.One / 2,
             MultiPrecision<Pow2.N8>.One / 3,

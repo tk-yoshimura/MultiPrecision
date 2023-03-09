@@ -45,10 +45,7 @@ namespace MultiPrecision {
                 MultiPrecision<Plus1<N>> t_next = t - p * (a - a_next) * (a - a_next);
                 MultiPrecision<Plus1<N>> p_next = p * 2;
 
-                a = a_next;
-                b = b_next;
-                t = t_next;
-                p = p_next;
+                (a, b, t, p) = (a_next, b_next, t_next, p_next);
             }
 
             MultiPrecision<Plus1<N>> c = a + b;

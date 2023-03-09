@@ -33,7 +33,7 @@
             }
 
             BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
-            BigUInt<N> m = BigUInt<N>.RightRoundShift(new BigUInt<N>(v.mantissa.Value), checked(-(int)v.Exponent)), w = m;
+            BigUInt<N> m = BigUInt<N>.RightRoundShift(new BigUInt<N>(v.mantissa.Value), checked(-(int)v.Exponent), enable_clone: false), w = m;
 
             foreach (var t in BigUInt<N>.TaylorTable) {
                 BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
