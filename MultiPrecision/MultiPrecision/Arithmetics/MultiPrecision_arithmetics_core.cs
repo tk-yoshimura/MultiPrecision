@@ -113,12 +113,13 @@
                 uint lzc = UIntUtil.LeadingZeroCount(b);
                 Mantissa<N> n = new(
                     BigUInt<N>.LeftShift(
-                        b, 
-                        BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc, 
+                        b,
+                        BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
                         check_overflow: false, enable_clone: false)
                     );
+                int exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
 
-                return (n, UIntUtil.UInt64Bits - 1 - (int)lzc);
+                return (n, exponent);
             }
             else if (d <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
                 (Mantissa<N> n, int n_exponent) = Mantissa<N>.Add(a.n, b, (int)d);
@@ -131,44 +132,45 @@
             }
         }
 
-        internal static (Mantissa<N> n, Int64 exponent, bool round, Sign sign) Diff(Mantissa<N> a, UInt64 b, Int64 relative_exponent) {
-            int expands = BigUInt<Plus4<N>>.Length - BigUInt<N>.Length;
+        internal static (Mantissa<N> n, Int64 exponent, Sign sign) Diff((Mantissa<N> n, Int64 exponent) a, UInt64 b) {
+            Int64 d = (b > 0uL) ? a.exponent : Int64.MaxValue;
 
-            (UInt32 b_hi, UInt32 b_lo) = UIntUtil.Unpack(b);
+            if (d < -Mantissa<N>.Bits) {
+                uint lzc = UIntUtil.LeadingZeroCount(b);
+                Mantissa<N> n = new(
+                    BigUInt<N>.LeftShift(
+                        b,
+                        BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
+                        check_overflow: false, enable_clone: false)
+                    );
+                int exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
 
-            BigUInt<Plus4<N>> a_acc = new(a.Value.ToArray(), 1);
-            BigUInt<Plus4<N>> b_acc = new(new UInt32[] { b_lo, b_hi }, Length + 1);
-
-            if (relative_exponent < 1) {
-                b_acc = BigUInt<Plus4<N>>.RightRoundShift(b_acc, checked((int)-relative_exponent) + 1);
+                return (n, exponent, Sign.Minus);
             }
-            else if (relative_exponent > 1) {
-                a_acc = BigUInt<Plus4<N>>.RightRoundShift(a_acc, checked((int)relative_exponent) - 1);
-            }
+            else if (d <= Mantissa<N>.Bits + UIntUtil.UInt64Bits) {
+                uint lzc = UIntUtil.LeadingZeroCount(b);
 
-            BigUInt<Plus4<N>> c_acc;
-            Sign sign;
+                if (a.exponent <= checked(UIntUtil.UInt64Bits - 1 - (int)lzc)) {
+                    Mantissa<N> b_n = new(
+                        BigUInt<N>.LeftShift(
+                            b,
+                            BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)lzc,
+                            check_overflow: false, enable_clone: false)
+                        );
+                    long b_exponent = checked(UIntUtil.UInt64Bits - 1 - (int)lzc);
 
-            if (a_acc > b_acc) {
-                c_acc = a_acc - b_acc;
-                sign = Sign.Plus;
-            }
-            else if (a_acc < b_acc) {
-                c_acc = b_acc - a_acc;
-                sign = Sign.Minus;
+                    return Diff(a, (b_n, b_exponent));
+                }
+                else {
+                    (Mantissa<N> n, int n_exponent) = Mantissa<N>.Sub(a.n, b, (int)d);
+                    Int64 exponent = checked(a.exponent + n_exponent);
+
+                    return (n, exponent, Sign.Plus);
+                }
             }
             else {
-                return (Mantissa<N>.Zero, 0, round: false, Sign.Plus);
+                return (a.n, a.exponent, Sign.Plus);
             }
-
-            uint lzc = c_acc.LeadingZeroCount;
-            BigUInt<Plus4<N>>.LeftShift(c_acc, (int)lzc, check_overflow: false, enable_clone: false);
-
-            Int64 exponent = UIntUtil.UInt32Bits * (expands - 1) - (int)lzc + ((relative_exponent > 1) ? relative_exponent - 1 : 0);
-            bool round = c_acc[expands - 1] > UIntUtil.UInt32Round;
-            Mantissa<N> mantissa = new(c_acc.Value.Skip(expands).ToArray(), enable_clone: false);
-
-            return (mantissa, exponent, round, sign);
         }
     }
 }

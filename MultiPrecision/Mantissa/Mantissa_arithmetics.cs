@@ -91,6 +91,53 @@
             return Adjust(ret, sft, exponent);
         }
 
+        public static (Mantissa<N> v, int exponent) Sub(Mantissa<N> v1, UInt64 v2, int v2_sft) {
+            if (v2 == 0uL) {
+                return (v1, 0);
+            }
+
+            bool v2_truncation = v2_sft > BigUInt<Plus1<N>>.Bits - 1;
+
+            if (v2_truncation) {
+                int truncation_bits = checked(v2_sft - BigUInt<Plus1<N>>.Bits + 1);
+
+                if (truncation_bits > UIntUtil.UInt64Bits) {
+                    return (v1, 0);
+                }
+                else {
+                    v2 = RightRoundShift(v2, truncation_bits);
+
+                    BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Sub(v1.value.Convert<Plus1<N>>(offset: 1), v2);
+
+                    uint lzc = ret.LeadingZeroCount;
+                    int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = -(int)lzc;
+
+                    return Adjust(ret, sft, exponent);
+                }
+            }
+            else {
+                uint v2_lzc = UIntUtil.LeadingZeroCount(v2);
+                int v2_exponent = checked(UIntUtil.UInt64Bits - 1 - v2_sft - (int)v2_lzc);
+
+                if (v2_exponent < 0) {
+                    int v2_mantissa_sft = checked(BigUInt<Plus1<N>>.Bits - 1 - v2_sft);
+    
+                    BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Sub(
+                        v1.value.Convert<Plus1<N>>(offset: 1),
+                        v2,
+                        v2_mantissa_sft
+                    );
+
+                    uint lzc = ret.LeadingZeroCount;
+                    int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = -(int)lzc;
+
+                    return Adjust(ret, sft, exponent);
+                }
+
+                throw new ArithmeticException();
+            }
+        }
+
         public static Mantissa<N> Add(Mantissa<N> v1, UInt32 v2) {
             return new Mantissa<N>(BigUInt<N>.Add(v1.value, v2));
         }

@@ -224,9 +224,9 @@
                 return new MultiPrecision<N>(a.Sign, exponent, n, round: false);
             }
             else {
-                (Mantissa<N> n, Int64 exponent, bool round, Sign sign) = Diff(a.mantissa, b_abs, -a.Exponent);
+                (Mantissa<N> n, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), b_abs);
 
-                return new MultiPrecision<N>(sign == Sign.Plus ? a.Sign : UIntUtil.Sign(b), exponent + a.Exponent, n, round);
+                return new MultiPrecision<N>(sign == Sign.Plus ? a.Sign : UIntUtil.Sign(b), exponent, n, round: false);
             }
         }
 
@@ -248,11 +248,12 @@
             UInt64 b_abs = UIntUtil.Abs(b);
 
             if (a.Sign == UIntUtil.Sign(b)) {
-                (Mantissa<N> n, Int64 exponent, bool round, Sign sign) = Diff(a.mantissa, b_abs, -a.Exponent);
+                (Mantissa<N> n, Int64 exponent, Sign sign) = Diff((a.mantissa, a.Exponent), b_abs);
 
                 return new MultiPrecision<N>(
-                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus,
-                    exponent + a.Exponent, n, round);
+                    (a.Sign == Sign.Plus ^ sign == Sign.Plus) ? Sign.Minus : Sign.Plus, 
+                    exponent, n, round: false
+                );
             }
             else {
                 (Mantissa<N> n, Int64 exponent) = Add((a.mantissa, a.Exponent), b_abs);
