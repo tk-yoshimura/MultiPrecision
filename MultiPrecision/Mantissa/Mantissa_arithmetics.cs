@@ -25,51 +25,57 @@
                 return (v1, 0);
             }
 
-            int mantissa_sft = checked(BigUInt<N>.Bits - 1 - v2_sft);
-            
-            if (mantissa_sft < 0) {
-                int truncation_bits = -mantissa_sft;
+            bool v2_truncation = v2_sft > BigUInt<N>.Bits - 1;
+
+            if (v2_truncation) {
+                int truncation_bits = checked(v2_sft - BigUInt<N>.Bits + 1);
 
                 if (truncation_bits > UIntUtil.UInt64Bits) {
                     return (v1, 0);
                 }
+                else {
+                    v2 = RightRoundShift(v2, truncation_bits);
 
-                v2 = RightRoundShift(v2, truncation_bits);
+                    BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(v1.value.Convert<Plus1<N>>(), v2);
 
-                BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(v1.value.Convert<Plus1<N>>(), v2);
+                    uint lzc = ret.LeadingZeroCount;
+                    int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft;
 
-                uint lzc = ret.LeadingZeroCount;
-                int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft;
-
-                return Adjust(ret, sft, exponent);
+                    return Adjust(ret, sft, exponent);
+                }
             }
+            else {
+                uint v2_lzc = UIntUtil.LeadingZeroCount(v2);
+                int v2_exponent = checked(UIntUtil.UInt64Bits - 1 - v2_sft - (int)v2_lzc);
 
-            uint v2_lzc = UIntUtil.LeadingZeroCount(v2);
-            int v2_exponent = checked(UIntUtil.UInt64Bits - 1 - v2_sft - (int)v2_lzc);
+                if (v2_exponent < 0) {
+                    int v2_mantissa_sft = checked(BigUInt<N>.Bits - 1 - v2_sft);
+    
+                    BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(
+                        v1.value.Convert<Plus1<N>>(),
+                        v2,
+                        v2_mantissa_sft
+                    );
 
-            if(v2_exponent < 0){
-                BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(
-                    v1.value.Convert<Plus1<N>>(),
-                    v2,
-                    mantissa_sft
-                );
+                    uint lzc = ret.LeadingZeroCount;
+                    int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft;
 
-                uint lzc = ret.LeadingZeroCount;
-                int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft;
+                    return Adjust(ret, sft, exponent);
+                }
+                else {
+                    int v2_mantissa_sft = checked(BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)v2_lzc);
 
-                return Adjust(ret, sft, exponent);
-            }
-            else { 
-                BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(
-                    BigUInt<Plus1<N>>.RightRoundShift(v1.value.Convert<Plus1<N>>(), v2_exponent, enable_clone: false),
-                    v2,
-                    BigUInt<N>.Bits - UIntUtil.UInt64Bits + (int)v2_lzc
-                );
+                    BigUInt<Plus1<N>> ret = BigUInt<Plus1<N>>.Add(
+                        BigUInt<Plus1<N>>.RightRoundShift(v1.value.Convert<Plus1<N>>(), v2_exponent, enable_clone: false),
+                        v2,
+                        v2_mantissa_sft
+                    );
 
-                uint lzc = ret.LeadingZeroCount;
-                int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft + v2_exponent;
+                    uint lzc = ret.LeadingZeroCount;
+                    int sft = UIntUtil.UInt32Bits - (int)lzc, exponent = sft + v2_exponent;
 
-                return Adjust(ret, sft, exponent);
+                    return Adjust(ret, sft, exponent);
+                }
             }
         }
 
