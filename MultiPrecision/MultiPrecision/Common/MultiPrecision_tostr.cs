@@ -108,11 +108,6 @@ namespace MultiPrecision {
             MultiPrecision<N> exponent_frac = Ldexp(Pow(5, -exponent_dec), checked(Exponent - exponent_dec));
 
 #if DEBUG
-
-            if (!(exponent_frac >= 1 && exponent_frac < 10)) {
-                Console.WriteLine();
-            }
-
             Debug<ArithmeticException>.Assert(exponent_frac >= 1 && exponent_frac < 10, $"{ToDouble()}, {exponent_frac.ToHexcode()}");
 #endif
 
