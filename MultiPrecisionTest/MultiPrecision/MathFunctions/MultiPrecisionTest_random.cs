@@ -9,7 +9,7 @@ namespace MultiPrecisionTest.Functions {
         public void RandomTest() {
             Random random = new(1234);
 
-            MultiPrecision<Pow2.N8>[] vs = (new MultiPrecision<Pow2.N8>[1000]).Select((v) => MultiPrecision<Pow2.N8>.Random(random)).ToArray();
+            MultiPrecision<Pow2.N8>[] vs = (new MultiPrecision<Pow2.N8>[10000]).Select((v) => MultiPrecision<Pow2.N8>.Random(random)).ToArray();
 
             //foreach (var v in vs) {
             //    Console.WriteLine(v);
