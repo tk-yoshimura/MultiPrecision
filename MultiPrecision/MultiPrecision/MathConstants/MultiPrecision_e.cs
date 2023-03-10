@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
@@ -27,9 +25,9 @@ namespace MultiPrecision {
                 );
             }
 
-            Accumulator<N> v = new(Mantissa<N>.One, UIntUtil.UInt32Bits - 1);
-            Accumulator<N> m = v;
-            Accumulator<N> i = 2;
+            BigUInt<Plus2<N>> v = new(Mantissa<N>.One.Value, offset: 1);
+            BigUInt<Plus2<N>> m = v;
+            BigUInt<Plus2<N>> i = 2;
 
             while (!v.IsZero) {
                 m += v;
@@ -37,9 +35,9 @@ namespace MultiPrecision {
                 i += 1;
             }
 
-            (Mantissa<N> n, int _) = m.Mantissa;
+            BigUInt<N> n = BigUInt<Plus2<N>>.RightRoundShift(m, UIntUtil.UInt32Bits + 1, enable_clone: false).Convert<N>(check_overflow: false);
 
-            return new MultiPrecision<N>(Sign.Plus, exponent: 1, n, round: false);
+            return new MultiPrecision<N>(Sign.Plus, exponent: 1, new Mantissa<N>(n), round: false);
         }
 
         private static partial class Consts {

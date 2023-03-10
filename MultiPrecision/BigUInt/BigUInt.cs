@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 
 namespace MultiPrecision {
-    public sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
+    internal sealed partial class BigUInt<N> : ICloneable where N : struct, IConstant {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private readonly UInt32[] value;
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -85,12 +82,12 @@ namespace MultiPrecision {
             : this(arr.ToArray(), offset, carry) { }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static BigUInt<N> Zero { get; } = new();
+        public static BigUInt<N> Zero => new();
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsZero => UIntUtil.IsZero((uint)Length, value);
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static BigUInt<N> Full { get; } =
+        public static BigUInt<N> Full =>
             new(Enumerable.Repeat(~0u, Length).ToArray(), enable_clone: false);
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public bool IsFull => UIntUtil.IsFull((uint)Length, value);
@@ -112,6 +109,35 @@ namespace MultiPrecision {
 
         public BigUInt<N> Copy() {
             return new BigUInt<N>(value, enable_clone: true);
+        }
+
+        public BigUInt<M> Convert<M>(bool check_overflow = true) where M : struct, IConstant {
+            int length_src = Length, length_dst = default(M).Value;
+
+            if (!check_overflow && length_src > length_dst) {
+                return new BigUInt<M>(value[..length_dst], enable_clone: false);
+            }
+            else if (length_src <= length_dst) {
+                UInt32[] ret = new UInt32[length_dst];
+                Array.Copy(value, ret, length_src);
+
+                return new BigUInt<M>(ret, enable_clone: false);
+            }
+            else {
+                uint digits = Digits;
+                if (digits > length_dst) {
+                    throw new OverflowException();
+                }
+
+                UInt32[] ret = new UInt32[length_dst];
+                Array.Copy(value, ret, digits);
+
+                return new BigUInt<M>(ret, enable_clone: false);
+            }
+        }
+
+        public BigUInt<M> Convert<M>(int offset) where M : struct, IConstant {
+            return new BigUInt<M>(value, offset, carry: false);
         }
 
         public override bool Equals([AllowNull] object obj) {

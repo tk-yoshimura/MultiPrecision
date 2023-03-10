@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public static class MultiPrecisionEnumerableExpand {
         public static MultiPrecision<N> Sum<N>(this IEnumerable<MultiPrecision<N>> source) where N : struct, IConstant {

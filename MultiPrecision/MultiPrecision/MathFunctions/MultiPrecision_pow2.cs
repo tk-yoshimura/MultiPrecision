@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
@@ -35,21 +32,27 @@ namespace MultiPrecision {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 
-            Accumulator<N> a = Accumulator<N>.One, m = new(v.mantissa, (int)v.Exponent), w = m;
+            BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
+            BigUInt<N> m = BigUInt<N>.RightRoundShift(new BigUInt<N>(v.mantissa.Value), checked(-(int)v.Exponent), enable_clone: false), w = m;
 
-            foreach (var t in Accumulator<N>.TaylorTable) {
-                Accumulator<N> d = w * t;
+            foreach (var t in BigUInt<N>.TaylorTable) {
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
                 if (d.Digits < Length) {
                     break;
                 }
 
                 a += d;
-                w = Accumulator<N>.RightRoundShift(w * m, Mantissa<N>.Bits - 1);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m),
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
-            (Mantissa<N> n, int sft) = a.Mantissa;
+            uint lzc = a.LeadingZeroCount;
 
-            MultiPrecision<N> y = new(Sign.Plus, exponent - sft + 1, n, round: false);
+            BigUInt<N> n = BigUInt<Double<N>>.RightRoundShift(a, Bits - (int)lzc, enable_clone: false).Convert<N>(check_overflow: false);
+
+            MultiPrecision<N> y = new(Sign.Plus, exponent + 1 - (long)lzc, new Mantissa<N>(n), round: false);
 
             return y;
         }

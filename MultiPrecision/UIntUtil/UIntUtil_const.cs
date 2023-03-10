@@ -1,7 +1,13 @@
-﻿using System;
+﻿using System.Runtime.Intrinsics.X86;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
+        static UIntUtil() {
+            if (!Avx2.IsSupported) {
+                throw new PlatformNotSupportedException("This platform is not supported avx2 operations.");
+            }
+        }
+
         public const int UInt32Bits = sizeof(UInt32) * 8;
         public const int UInt64Bits = sizeof(UInt64) * 8;
         public const int UInt32MaxDecimalDigits = UInt32Bits * 30103 / 100000;

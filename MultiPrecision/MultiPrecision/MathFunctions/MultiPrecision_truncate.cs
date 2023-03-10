@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 

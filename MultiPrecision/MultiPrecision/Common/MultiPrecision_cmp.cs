@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> : IComparable<MultiPrecision<N>> {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 
 namespace MultiPrecision.ParameterSearchUtil {
     public class MaxSearch<N> : ParameterSearch<N> where N : struct, IConstant {

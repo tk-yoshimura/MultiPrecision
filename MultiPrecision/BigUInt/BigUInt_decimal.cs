@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+    internal sealed partial class BigUInt<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private static readonly Dictionary<int, BigUInt<N>> decimals = new();
 

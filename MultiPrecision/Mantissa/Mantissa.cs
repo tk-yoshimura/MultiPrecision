@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
@@ -30,10 +28,6 @@ namespace MultiPrecision {
 
         public Mantissa(UInt32[] arr, bool enable_clone) {
             this.value = new BigUInt<N>(arr, enable_clone);
-        }
-
-        public Mantissa(IReadOnlyList<UInt32> arr) {
-            this.value = new BigUInt<N>(arr);
         }
 
         public Mantissa(BigUInt<N> value) {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
 
@@ -81,12 +79,17 @@ namespace MultiPrecision {
                 return Zero;
             }
 
-            Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
+            BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
+            BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent), enable_clone: false)
+                : 0u;
+            BigUInt<N> w = m;
+
             Sign s = Sign.Minus;
 
-            for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
-                Accumulator<N> t = Accumulator<N>.TaylorTable[i];
-                Accumulator<N> d = w * t;
+            for (int i = (cycle == 0 || cycle == 2) ? 2 : 1; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {
+                BigUInt<N> t = BigUInt<N>.TaylorTable[i];
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -101,18 +104,24 @@ namespace MultiPrecision {
                     break;
                 }
 
-                w = Accumulator<N>.MulShift(w, m);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m),
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
-            (Mantissa<N> n, int sft) = a.Mantissa;
+            uint lzc = a.LeadingZeroCount;
+            BigUInt<Double<N>>.RightRoundShift(a, Bits - (int)lzc, enable_clone: false);
+
+            BigUInt<N> n = a.Convert<N>(check_overflow: false);
 
             MultiPrecision<N> y;
             if (cycle == 0 || cycle == 2) {
-                y = new MultiPrecision<N>((cycle == 0 ^ x.Sign == Sign.Plus) ? Sign.Minus : Sign.Plus, -sft + 1, n, round: false);
+                y = new MultiPrecision<N>((cycle == 0 ^ x.Sign == Sign.Plus) ? Sign.Minus : Sign.Plus, -(int)lzc + 1, new Mantissa<N>(n), round: false);
                 y *= xpi;
             }
             else {
-                y = new MultiPrecision<N>((cycle == 1 ^ x.Sign == Sign.Plus) ? Sign.Minus : Sign.Plus, -sft + 1, n, round: false);
+                y = new MultiPrecision<N>((cycle == 1 ^ x.Sign == Sign.Plus) ? Sign.Minus : Sign.Plus, -(int)lzc + 1, new Mantissa<N>(n), round: false);
             }
 
             return y;
@@ -127,12 +136,17 @@ namespace MultiPrecision {
                 return Zero;
             }
 
-            Accumulator<N> a = Accumulator<N>.One, m = new(squa_xpi.mantissa, squa_xpi.Exponent), w = m;
+            BigUInt<Double<N>> a = BigUInt<Double<N>>.Top40000000u;
+            BigUInt<N> m = (squa_xpi.Exponent > -Bits - 1)
+                ? BigUInt<N>.RightRoundShift(new BigUInt<N>(squa_xpi.mantissa.Value), checked(-(int)squa_xpi.Exponent), enable_clone: false)
+                : 0u;
+            BigUInt<N> w = m;
+
             Sign s = Sign.Minus;
 
-            for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < Accumulator<N>.TaylorTable.Count; i += 2) {
-                Accumulator<N> t = Accumulator<N>.TaylorTable[i];
-                Accumulator<N> d = w * t;
+            for (int i = (cycle == 0 || cycle == 2) ? 1 : 2; i + 1 < BigUInt<N>.TaylorTable.Count; i += 2) {
+                BigUInt<N> t = BigUInt<N>.TaylorTable[i];
+                BigUInt<Double<N>> d = BigUInt<N>.Mul<Double<N>>(w, t);
 
                 if (s == Sign.Plus) {
                     a += d;
@@ -147,17 +161,23 @@ namespace MultiPrecision {
                     break;
                 }
 
-                w = Accumulator<N>.MulShift(w, m);
+                w = BigUInt<Double<N>>.RightRoundShift(
+                    BigUInt<N>.Mul<Double<N>>(w, m),
+                    Mantissa<N>.Bits - 1, enable_clone: false)
+                    .Convert<N>(check_overflow: false);
             }
 
-            (Mantissa<N> n, int sft) = a.Mantissa;
+            uint lzc = a.LeadingZeroCount;
+            BigUInt<Double<N>>.RightRoundShift(a, Bits - (int)lzc, enable_clone: false);
+
+            BigUInt<N> n = a.Convert<N>(check_overflow: false);
 
             MultiPrecision<N> y;
             if (cycle == 0 || cycle == 2) {
-                y = new MultiPrecision<N>((cycle == 0) ? Sign.Plus : Sign.Minus, -sft + 1, n, round: false);
+                y = new MultiPrecision<N>((cycle == 0) ? Sign.Plus : Sign.Minus, -(int)lzc + 1, new Mantissa<N>(n), round: false);
             }
             else {
-                y = new MultiPrecision<N>((cycle == 1) ? Sign.Minus : Sign.Plus, -sft + 1, n, round: false);
+                y = new MultiPrecision<N>((cycle == 1) ? Sign.Minus : Sign.Plus, -(int)lzc + 1, new Mantissa<N>(n), round: false);
                 y *= xpi;
             }
 

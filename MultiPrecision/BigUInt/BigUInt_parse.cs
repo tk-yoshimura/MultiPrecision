@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+    internal sealed partial class BigUInt<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private static readonly Regex parse_regex = new(@"^\d+$");
 

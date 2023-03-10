@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
     internal sealed partial class Mantissa<N> {
 
         public static Mantissa<N> Zero { get; } = new Mantissa<N>(BigUInt<N>.Zero);

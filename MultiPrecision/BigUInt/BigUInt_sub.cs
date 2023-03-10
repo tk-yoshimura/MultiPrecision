@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+﻿namespace MultiPrecision {
+    internal sealed partial class BigUInt<N> {
 
         public static BigUInt<N> operator -(BigUInt<N> a, BigUInt<N> b) {
             return Sub(a, b);
@@ -25,6 +23,14 @@ namespace MultiPrecision {
 
         public static BigUInt<N> Sub(BigUInt<N> a, BigUInt<N> b) {
             BigUInt<N> ret = a.Copy();
+
+            UIntUtil.Sub(ret.value, b.value);
+
+            return ret;
+        }
+
+        public static BigUInt<M> Sub<M>(BigUInt<N> a, BigUInt<N> b) where M : struct, IConstant {
+            BigUInt<M> ret = a.Convert<M>();
 
             UIntUtil.Sub(ret.value, b.value);
 
@@ -71,6 +77,14 @@ namespace MultiPrecision {
             }
 
             return a - n;
+        }
+
+        public static BigUInt<N> Sub(BigUInt<N> a, UInt64 b, int sft) {
+            BigUInt<N> ret = a.Copy();
+
+            UIntUtil.Sub(ret.value, b, sft);
+
+            return ret;
         }
     }
 }

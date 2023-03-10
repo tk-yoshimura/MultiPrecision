@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 namespace MultiPrecision {
 
@@ -117,9 +115,7 @@ namespace MultiPrecision {
                 MultiPrecision<N> b_next = Sqrt(a * b);
                 MultiPrecision<N> c_next = squa_c / Ldexp(a_next, 2);
 
-                a = a_next;
-                b = b_next;
-                c = c_next;
+                (a, b, c) = (a_next, b_next, c_next);
             }
 
             MultiPrecision<N> y = q * PI / Ldexp(a, 1);
@@ -143,10 +139,7 @@ namespace MultiPrecision {
                 MultiPrecision<N> p_next = p_squa_pab / (2 * p);
                 MultiPrecision<N> q_next = q / 2 * p_squa_mab / p_squa_pab;
 
-                a = a_next;
-                b = b_next;
-                p = p_next;
-                q = q_next;
+                (a, b, p, q) = (a_next, b_next, p_next, q_next);
 
                 sum_q += q;
             }

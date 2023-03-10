@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace MultiPrecision {
@@ -75,10 +74,9 @@ namespace MultiPrecision {
             }
         }
 
-        private static MultiPrecision<N> CreateInteger(Sign sign, Accumulator<N> acc) {
-            (Mantissa<N> n, int sft) = acc.Mantissa;
-
-            return new MultiPrecision<N>(sign, (Int64)Accumulator<N>.Bits - sft - 1, n, round: false);
+        private static MultiPrecision<N> CreateInteger(Sign sign, BigUInt<N> n) {
+            int lzc = (int)n.LeadingZeroCount;
+            return new MultiPrecision<N>(sign, (Int64)BigUInt<N>.Bits - lzc - 1, new Mantissa<N>(n << lzc), round: false);
         }
 
         private static MultiPrecision<N> CreateInteger(Sign sign, UInt64 num) {

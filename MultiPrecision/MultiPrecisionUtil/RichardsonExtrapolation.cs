@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace MultiPrecision {
+﻿namespace MultiPrecision {
 
     public static partial class MultiPrecisionUtil {
         public class RichardsonExtrapolation<N> where N : struct, IConstant {

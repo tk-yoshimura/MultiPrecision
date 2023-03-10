@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 using static System.Runtime.Intrinsics.X86.Avx;
 using static System.Runtime.Intrinsics.X86.Avx2;
@@ -22,6 +21,10 @@ namespace MultiPrecision {
 
             if (check_overflow && sft > LeadingZeroCount(value)) {
                 throw new OverflowException();
+            }
+            if (!check_overflow && sft_block >= value.Length) {
+                Zeroset(value);
+                return;
             }
 
             byte lsft = (byte)sft_rem, rsft = (byte)(UInt32Bits - sft_rem);
@@ -93,8 +96,12 @@ namespace MultiPrecision {
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
-            if (sft_rem == 0 || sft_block >= value.Length) {
+            if (sft_rem == 0) {
                 RightBlockShift(value, sft_block);
+                return;
+            }
+            if (sft_block >= value.Length) {
+                Zeroset(value);
                 return;
             }
 
@@ -169,6 +176,10 @@ namespace MultiPrecision {
 
             if (check_overflow && checked(sft + Digits(value)) > value.Length) {
                 throw new OverflowException();
+            }
+            if (!check_overflow && sft >= value.Length) {
+                Zeroset(value);
+                return;
             }
 
             uint r = (uint)(value.Length - sft), rem = r % MM256UInt32s;

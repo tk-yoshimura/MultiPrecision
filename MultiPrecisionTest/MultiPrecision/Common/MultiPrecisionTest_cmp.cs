@@ -171,22 +171,22 @@ namespace MultiPrecisionTest.Common {
                                 if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 0)) {
                                     Console.WriteLine("match");
 
-                                    Assert.IsTrue(dist == 0);
+                                    Assert.IsTrue(dist == 0, $"\n{v.ToHexcode()}\n{u.ToHexcode()}");
                                 }
                                 else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 1)) {
                                     Console.WriteLine("nearly 1bits");
 
-                                    Assert.IsTrue(dist == 1);
+                                    Assert.IsTrue(dist == 1, $"\n{v.ToHexcode()}\n{u.ToHexcode()}");
                                 }
                                 else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 2)) {
                                     Console.WriteLine("nearly 2bits");
 
-                                    Assert.IsTrue(dist >= 2 && dist < 4);
+                                    Assert.IsTrue(dist >= 2 && dist < 4, $"\n{v.ToHexcode()}\n{u.ToHexcode()}");
                                 }
                                 else if (MultiPrecision<Pow2.N8>.NearlyEqualBits(v, u, 3)) {
                                     Console.WriteLine("nearly 3bits");
 
-                                    Assert.IsTrue(dist >= 3 && dist < 8);
+                                    Assert.IsTrue(dist >= 3 && dist < 8, $"\n{v.ToHexcode()}\n{u.ToHexcode()}");
                                 }
                                 else {
                                     Console.WriteLine("nearly more 4bits");

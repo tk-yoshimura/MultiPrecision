@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Runtime.CompilerServices;
 using System.Runtime.Intrinsics;
 
 namespace MultiPrecision {
@@ -34,6 +34,27 @@ namespace MultiPrecision {
             Sub(0u, arr_a, b);
         }
 
+        /// <summary>Operate uint32 array a -= b &lt;&lt; sft</summary>
+        public static void Sub(UInt32[] arr_a, UInt64 b, int sft) {
+            if (sft < 0) {
+                b >>= -sft;
+                sft = 0;
+            }
+
+            uint offset = (uint)sft / UInt32Bits, lsft = (uint)sft % UInt32Bits;
+
+            if (lsft == 0) {
+                Sub(offset, arr_a, b);
+            }
+            else {
+                UInt64 b0 = unchecked(b << (int)lsft);
+                UInt32 b1 = unchecked((UInt32)(b >> (int)(UInt64Bits - lsft)));
+
+                Sub(offset, arr_a, b0);
+                Sub(offset + 2u, arr_a, b1);
+            }
+        }
+
         /// <summary>Operate uint32 array a-= b &lt;&lt; offset</summary>
         private static unsafe void Sub(uint offset, uint digits_b, UInt32[] arr_a, UInt32[] arr_b) {
 #if DEBUG
@@ -51,71 +72,62 @@ namespace MultiPrecision {
                 Vector256<UInt32> a0, a1, a2, a3, b0, b1, b2, b3;
 
                 uint digit = 0;
+                UInt32 carry_prev = 0u;
 
                 while (digit + MM256UInt32s * 4 <= digits_b) {
                     (a0, a1, a2, a3) = LoadX4(va, va0, arr_a.Length);
                     (b0, b1, b2, b3) = LoadX4(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
+                    (a1, b1) = Sub(a1, b1);
+                    (a2, b2) = Sub(a2, b2);
+                    (a3, b3) = Sub(a3, b3);
 
-                    while (!(IsAllZero(b0) & IsAllZero(b1) & IsAllZero(b2) & IsAllZero(b3))) {
-                        (a0, b0) = Sub(a0, b0);
-                        (a1, b1) = Sub(a1, b1);
-                        (a2, b2) = Sub(a2, b2);
-                        (a3, b3) = Sub(a3, b3);
-
-                        (b0, b1, b2, b3, carry) = CarryShiftX4(b0, b1, b2, b3, carry);
-                    }
+                    (b0, b1, b2, b3, UInt32 carry) = CarryShiftX4(b0, b1, b2, b3, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
+                    (a0, a1, a2, a3, carry) = FlushCarrySubX4(a0, a1, a2, a3, b0, b1, b2, b3, carry);
 
                     StoreX4(va, a0, a1, a2, a3, va0, arr_a.Length);
-                    Sub(digit + offset + ShiftIDX4, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 4;
                     vb += MM256UInt32s * 4;
-                    digit += (int)MM256UInt32s * 4;
+                    digit += MM256UInt32s * 4;
                 }
                 if (digit + MM256UInt32s * 2 <= digits_b) {
                     (a0, a1) = LoadX2(va, va0, arr_a.Length);
                     (b0, b1) = LoadX2(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
+                    (a1, b1) = Sub(a1, b1);
 
-                    while (!(IsAllZero(b0) & IsAllZero(b1))) {
-                        (a0, b0) = Sub(a0, b0);
-                        (a1, b1) = Sub(a1, b1);
-
-                        (b0, b1, carry) = CarryShiftX2(b0, b1, carry);
-                    }
+                    (b0, b1, UInt32 carry) = CarryShiftX2(b0, b1, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
+                    (a0, a1, carry) = FlushCarrySubX2(a0, a1, b0, b1, carry);
 
                     StoreX2(va, a0, a1, va0, arr_a.Length);
-                    Sub(digit + offset + ShiftIDX2, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 2;
                     vb += MM256UInt32s * 2;
-                    digit += (int)MM256UInt32s * 2;
+                    digit += MM256UInt32s * 2;
                 }
                 if (digit + MM256UInt32s <= digits_b) {
                     a0 = Load(va, va0, arr_a.Length);
                     b0 = Load(vb, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
 
-                    while (!IsAllZero(b0)) {
-                        (a0, b0) = Sub(a0, b0);
-
-                        if (IsAllZero(b0)) {
-                            break;
-                        }
-
-                        (b0, carry) = CarryShift(b0, carry);
-                    }
+                    (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
+                    (a0, carry) = FlushCarrySub(a0, b0, carry);
 
                     Store(va, a0, va0, arr_a.Length);
-                    Sub(digit + offset + ShiftIDX1, arr_a, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s;
                     vb += MM256UInt32s;
-                    digit += (int)MM256UInt32s;
+                    digit += MM256UInt32s;
                 }
                 if (digit < digits_b) {
                     uint rem_a = (uint)arr_a.Length - digit - offset;
@@ -126,17 +138,11 @@ namespace MultiPrecision {
                     a0 = MaskLoad(va, mask_a, va0, arr_a.Length);
                     b0 = MaskLoad(vb, mask_b, vb0, arr_b.Length);
 
-                    UInt32 carry = 0;
+                    (a0, b0) = Sub(a0, b0);
 
-                    while (!IsAllZero(b0)) {
-                        (a0, b0) = Sub(a0, b0);
-
-                        if (IsAllZero(b0)) {
-                            break;
-                        }
-
-                        (b0, carry) = CarryShift(b0, carry);
-                    }
+                    (b0, UInt32 carry) = CarryShift(b0, 0u);
+                    b0 = b0.WithElement(0, carry_prev);
+                    (a0, carry) = FlushCarrySub(a0, b0, carry);
 
                     if (rem_a < MM256UInt32s) {
                         if (a0.GetElement((int)rem_a) > 0u) {
@@ -146,14 +152,17 @@ namespace MultiPrecision {
                     }
                     else {
                         Store(va, a0, va0, arr_a.Length);
+                        Sub(digit + MM256UInt32s, arr_a, carry);
                     }
-
-                    Sub(digit + offset + ShiftIDX1, arr_a, carry);
+                }
+                else {
+                    Sub(digit, arr_a, carry_prev);
                 }
             }
         }
 
         /// <summary>Operate uint32 array a -= b &lt;&lt; offset</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Sub(uint offset, UInt32[] arr_a, UInt32 b) {
             fixed (UInt32* va0 = arr_a) {
                 for (uint i = offset, length = (uint)arr_a.Length; i < length && b > 0u; i++) {
@@ -170,6 +179,7 @@ namespace MultiPrecision {
         }
 
         /// <summary>Operate uint32 array a -= b &lt;&lt; offset</summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Sub(uint offset, UInt32[] arr_a, UInt64 b) {
             if (b == 0uL) {
                 return;

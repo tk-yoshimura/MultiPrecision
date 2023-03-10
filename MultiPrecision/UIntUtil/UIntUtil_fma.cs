@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.Intrinsics;
+﻿using System.Runtime.Intrinsics;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
@@ -56,6 +55,7 @@ namespace MultiPrecision {
 
                 Vector256<UInt32> b0 = Vector256.Create((UInt64)b).AsUInt32();
                 uint r = digits_a;
+                UInt32 carry_prev = 0u;
 
                 Vector256<UInt32> a0, a1, a2, a3, d0, d1, d2, d3, r0, r1, r2, r3, c0, c1, c2, c3;
 
@@ -69,15 +69,7 @@ namespace MultiPrecision {
                     (r3, c3) = Mul(a3, b0);
 
                     (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-
-                    while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                        (r0, c0) = Add(r0, c0);
-                        (r1, c1) = Add(r1, c1);
-                        (r2, c2) = Add(r2, c2);
-                        (r3, c3) = Add(r3, c3);
-
-                        (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                    }
+                    (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                     (d0, c0) = Add(d0, r0);
                     (d1, c1) = Add(d1, r1);
@@ -85,18 +77,11 @@ namespace MultiPrecision {
                     (d3, c3) = Add(d3, r3);
 
                     (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-
-                    while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                        (d0, c0) = Add(d0, c0);
-                        (d1, c1) = Add(d1, c1);
-                        (d2, c2) = Add(d2, c2);
-                        (d3, c3) = Add(d3, c3);
-
-                        (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                    }
+                    c0 = c0.WithElement(0, carry_prev);
+                    (d0, d1, d2, d3, carry) = FlushCarryAddX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                     StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
-                    Add(offset + ShiftIDX4, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 4;
                     vd += MM256UInt32s * 4;
@@ -111,28 +96,17 @@ namespace MultiPrecision {
                     (r1, c1) = Mul(a1, b0);
 
                     (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-
-                    while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                        (r0, c0) = Add(r0, c0);
-                        (r1, c1) = Add(r1, c1);
-
-                        (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                    }
+                    (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                     (d0, c0) = Add(d0, r0);
                     (d1, c1) = Add(d1, r1);
 
                     (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-
-                    while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                        (d0, c0) = Add(d0, c0);
-                        (d1, c1) = Add(d1, c1);
-
-                        (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                    }
+                    c0 = c0.WithElement(0, carry_prev);
+                    (d0, d1, carry) = FlushCarryAddX2(d0, d1, c0, c1, carry);
 
                     StoreX2(vd, d0, d1, vd0, arr_dst.Length);
-                    Add(offset + ShiftIDX2, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s * 2;
                     vd += MM256UInt32s * 2;
@@ -146,25 +120,16 @@ namespace MultiPrecision {
                     (r0, c0) = Mul(a0, b0);
 
                     (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                    while (!IsAllZero(c0)) {
-                        (r0, c0) = Add(r0, c0);
-
-                        (c0, carry) = CarryShift(c0, carry);
-                    }
+                    (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                     (d0, c0) = Add(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
-
-                    while (!IsAllZero(c0)) {
-                        (d0, c0) = Add(d0, c0);
-
-                        (c0, carry) = CarryShift(c0, carry);
-                    }
+                    c0 = c0.WithElement(0, carry_prev);
+                    (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                     Store(vd, d0, vd0, arr_dst.Length);
-                    Add(offset + ShiftIDX1, arr_dst, carry);
+                    carry_prev = carry;
 
                     va += MM256UInt32s;
                     vd += MM256UInt32s;
@@ -182,22 +147,13 @@ namespace MultiPrecision {
                     (r0, c0) = Mul(a0, b0);
 
                     (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                    while (!IsAllZero(c0)) {
-                        (r0, c0) = Add(r0, c0);
-
-                        (c0, carry) = CarryShift(c0, carry);
-                    }
+                    (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                     (d0, c0) = Add(d0, r0);
 
                     (c0, carry) = CarryShift(c0, carry);
-
-                    while (!IsAllZero(c0)) {
-                        (d0, c0) = Add(d0, c0);
-
-                        (c0, carry) = CarryShift(c0, carry);
-                    }
+                    c0 = c0.WithElement(0, carry_prev);
+                    (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                     if (rem_d < MM256UInt32s) {
                         if (d0.GetElement((int)rem_d) > 0u) {
@@ -207,9 +163,11 @@ namespace MultiPrecision {
                     }
                     else {
                         Store(vd, d0, vd0, arr_dst.Length);
+                        Add(offset + MM256UInt32s, arr_dst, carry);
                     }
-
-                    Add(offset + ShiftIDX1, arr_dst, carry);
+                }
+                else {
+                    Add(offset, arr_dst, carry_prev);
                 }
             }
         }
@@ -241,6 +199,7 @@ namespace MultiPrecision {
                 Vector256<UInt32> b0 = Vector256.Create((UInt64)b_lo).AsUInt32();
                 Vector256<UInt32> b1 = Vector256.Create((UInt64)b_hi).AsUInt32();
                 uint r = digits_a;
+                UInt32 carry_lo_prev = 0u, carry_hi_prev = 0u;
 
                 Vector256<UInt32> a0, a1, a2, a3, d0, d1, d2, d3, r0, r1, r2, r3, c0, c1, c2, c3;
 
@@ -257,15 +216,7 @@ namespace MultiPrecision {
                         (r3, c3) = Mul(a3, b0);
 
                         (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                            (r0, c0) = Add(r0, c0);
-                            (r1, c1) = Add(r1, c1);
-                            (r2, c2) = Add(r2, c2);
-                            (r3, c3) = Add(r3, c3);
-
-                            (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                        }
+                        (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                         (d0, c0) = Add(d0, r0);
                         (d1, c1) = Add(d1, r1);
@@ -273,18 +224,11 @@ namespace MultiPrecision {
                         (d3, c3) = Add(d3, r3);
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                            (d0, c0) = Add(d0, c0);
-                            (d1, c1) = Add(d1, c1);
-                            (d2, c2) = Add(d2, c2);
-                            (d3, c3) = Add(d3, c3);
-
-                            (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_lo_prev);
+                        (d0, d1, d2, d3, carry) = FlushCarryAddX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd, d0, d1, d2, d3, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX4, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -297,15 +241,7 @@ namespace MultiPrecision {
                         (r3, c3) = Mul(a3, b1);
 
                         (c0, c1, c2, c3, UInt32 carry) = CarryShiftX4(c0, c1, c2, c3, 0u);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                            (r0, c0) = Add(r0, c0);
-                            (r1, c1) = Add(r1, c1);
-                            (r2, c2) = Add(r2, c2);
-                            (r3, c3) = Add(r3, c3);
-
-                            (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                        }
+                        (r0, r1, r2, r3, carry) = FlushCarryAddX4(r0, r1, r2, r3, c0, c1, c2, c3, carry);
 
                         (d0, c0) = Add(d0, r0);
                         (d1, c1) = Add(d1, r1);
@@ -313,18 +249,11 @@ namespace MultiPrecision {
                         (d3, c3) = Add(d3, r3);
 
                         (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1) & IsAllZero(c2) & IsAllZero(c3))) {
-                            (d0, c0) = Add(d0, c0);
-                            (d1, c1) = Add(d1, c1);
-                            (d2, c2) = Add(d2, c2);
-                            (d3, c3) = Add(d3, c3);
-
-                            (c0, c1, c2, c3, carry) = CarryShiftX4(c0, c1, c2, c3, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_hi_prev);
+                        (d0, d1, d2, d3, carry) = FlushCarryAddX4(d0, d1, d2, d3, c0, c1, c2, c3, carry);
 
                         StoreX4(vd + 1u, d0, d1, d2, d3, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX4 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s * 4;
@@ -343,28 +272,17 @@ namespace MultiPrecision {
                         (r1, c1) = Mul(a1, b0);
 
                         (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                            (r0, c0) = Add(r0, c0);
-                            (r1, c1) = Add(r1, c1);
-
-                            (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                        }
+                        (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                         (d0, c0) = Add(d0, r0);
                         (d1, c1) = Add(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                            (d0, c0) = Add(d0, c0);
-                            (d1, c1) = Add(d1, c1);
-
-                            (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_lo_prev);
+                        (d0, d1, carry) = FlushCarryAddX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd, d0, d1, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX2, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -375,28 +293,17 @@ namespace MultiPrecision {
                         (r1, c1) = Mul(a1, b1);
 
                         (c0, c1, UInt32 carry) = CarryShiftX2(c0, c1, 0u);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                            (r0, c0) = Add(r0, c0);
-                            (r1, c1) = Add(r1, c1);
-
-                            (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                        }
+                        (r0, r1, carry) = FlushCarryAddX2(r0, r1, c0, c1, carry);
 
                         (d0, c0) = Add(d0, r0);
                         (d1, c1) = Add(d1, r1);
 
                         (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-
-                        while (!(IsAllZero(c0) & IsAllZero(c1))) {
-                            (d0, c0) = Add(d0, c0);
-                            (d1, c1) = Add(d1, c1);
-
-                            (c0, c1, carry) = CarryShiftX2(c0, c1, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_hi_prev);
+                        (d0, d1, carry) = FlushCarryAddX2(d0, d1, c0, c1, carry);
 
                         StoreX2(vd + 1u, d0, d1, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX2 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s * 2;
@@ -414,25 +321,16 @@ namespace MultiPrecision {
                         (r0, c0) = Mul(a0, b0);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                        while (!IsAllZero(c0)) {
-                            (r0, c0) = Add(r0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Add(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
-
-                        while (!IsAllZero(c0)) {
-                            (d0, c0) = Add(d0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_lo_prev);
+                        (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                         Store(vd, d0, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX1, arr_dst, carry);
+                        carry_lo_prev = carry;
                     }
 
                     /*mul hi*/
@@ -442,25 +340,16 @@ namespace MultiPrecision {
                         (r0, c0) = Mul(a0, b1);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                        while (!IsAllZero(c0)) {
-                            (r0, c0) = Add(r0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Add(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
-
-                        while (!IsAllZero(c0)) {
-                            (d0, c0) = Add(d0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_hi_prev);
+                        (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                         Store(vd + 1u, d0, vd0, arr_dst.Length);
-                        Add(offset + ShiftIDX1 + 1, arr_dst, carry);
+                        carry_hi_prev = carry;
                     }
 
                     va += MM256UInt32s;
@@ -481,22 +370,13 @@ namespace MultiPrecision {
                         (r0, c0) = Mul(a0, b0);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                        while (!IsAllZero(c0)) {
-                            (r0, c0) = Add(r0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Add(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
-
-                        while (!IsAllZero(c0)) {
-                            (d0, c0) = Add(d0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_lo_prev);
+                        (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
                             if (d0.GetElement((int)rem_d) > 0u) {
@@ -506,9 +386,8 @@ namespace MultiPrecision {
                         }
                         else {
                             Store(vd, d0, vd0, arr_dst.Length);
+                            Add(offset + MM256UInt32s, arr_dst, carry);
                         }
-
-                        Add(offset + ShiftIDX1, arr_dst, carry);
                     }
 
                     /*mul hi*/
@@ -520,22 +399,13 @@ namespace MultiPrecision {
                         (r0, c0) = Mul(a0, b1);
 
                         (c0, UInt32 carry) = CarryShift(c0, 0u);
-
-                        while (!IsAllZero(c0)) {
-                            (r0, c0) = Add(r0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        (r0, carry) = FlushCarryAdd(r0, c0, carry);
 
                         (d0, c0) = Add(d0, r0);
 
                         (c0, carry) = CarryShift(c0, carry);
-
-                        while (!IsAllZero(c0)) {
-                            (d0, c0) = Add(d0, c0);
-
-                            (c0, carry) = CarryShift(c0, carry);
-                        }
+                        c0 = c0.WithElement(0, carry_hi_prev);
+                        (d0, carry) = FlushCarryAdd(d0, c0, carry);
 
                         if (rem_d < MM256UInt32s) {
                             if (d0.GetElement((int)rem_d) > 0u) {
@@ -545,10 +415,13 @@ namespace MultiPrecision {
                         }
                         else {
                             Store(vd + 1u, d0, vd0, arr_dst.Length);
+                            Add(offset + MM256UInt32s + 1u, arr_dst, carry);
                         }
-
-                        Add(offset + ShiftIDX1 + 1, arr_dst, carry);
                     }
+                }
+                else {
+                    Add(offset, arr_dst, carry_lo_prev);
+                    Add(offset + 1u, arr_dst, carry_hi_prev);
                 }
             }
         }

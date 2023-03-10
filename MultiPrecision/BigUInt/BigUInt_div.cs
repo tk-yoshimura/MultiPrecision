@@ -1,7 +1,5 @@
-﻿using System;
-
-namespace MultiPrecision {
-    public sealed partial class BigUInt<N> {
+﻿namespace MultiPrecision {
+    internal sealed partial class BigUInt<N> {
 
         public static BigUInt<N> operator /(BigUInt<N> a, BigUInt<N> b) {
             return Div(a, b);
@@ -44,7 +42,7 @@ namespace MultiPrecision {
         }
 
         public static (BigUInt<N> q, BigUInt<N> r) DivRem(BigUInt<N> a, BigUInt<N> b) {
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b.value);
 
@@ -64,7 +62,7 @@ namespace MultiPrecision {
                 return (a >> UIntUtil.Power2(b), a.value[0] & (b - 1u));
             }
 
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b);
 
@@ -92,7 +90,7 @@ namespace MultiPrecision {
                 return (a >> UIntUtil.Power2(b), UIntUtil.Pack(a.value[1], a.value[0]) & (b - 1uL));
             }
 
-            BigUInt<N> q = Zero.Copy(), r = a.Copy();
+            BigUInt<N> q = Zero, r = a.Copy();
 
             UIntUtil.DivRem(q.value, r.value, b);
 
@@ -210,6 +208,32 @@ namespace MultiPrecision {
                     UIntUtil.LeftShift(r.value, 1, check_overflow: false);
 
                     if (UIntUtil.GreaterThanOrEqual((uint)Length, r.value, b.value)) {
+                        UIntUtil.Add(q.value, 1u);
+                    }
+                }
+            }
+
+            return q;
+        }
+
+        public static BigUInt<N> RoundDiv(BigUInt<N> a, UInt64 b) {
+            (BigUInt<N> q, UInt64 r) = DivRem(a, b);
+
+            uint lzc_r = UIntUtil.LeadingZeroCount(r);
+
+            if (lzc_r == 0u) {
+                UIntUtil.Add(q.value, 1u);
+            }
+            else {
+                uint lzc_b = UIntUtil.LeadingZeroCount(b);
+
+                if (lzc_r == lzc_b) {
+                    UIntUtil.Add(q.value, 1u);
+                }
+                else if ((lzc_r - lzc_b) == 1u) {
+                    r <<= 1;
+
+                    if (r >= b) {
                         UIntUtil.Add(q.value, 1u);
                     }
                 }
