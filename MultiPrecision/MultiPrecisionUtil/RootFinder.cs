@@ -4,12 +4,12 @@ namespace MultiPrecision {
 
     public static partial class MultiPrecisionUtil {
 
-        public static MultiPrecision<N> NewtonRaphsonRootFinding<N>(MultiPrecision<N> x0,
-                                                                    Func<MultiPrecision<N>, MultiPrecision<N>> f,
-                                                                    Func<MultiPrecision<N>, MultiPrecision<N>> df,
-                                                                    [AllowNull] MultiPrecision<N> x_min = null,
-                                                                    [AllowNull] MultiPrecision<N> x_max = null,
-                                                                    int max_iterations = -1, bool break_overshoot = false) where N : struct, IConstant {
+        internal static MultiPrecision<N> NewtonRaphsonRootFinding<N>(MultiPrecision<N> x0,
+                                                                      Func<MultiPrecision<N>, MultiPrecision<N>> f,
+                                                                      Func<MultiPrecision<N>, MultiPrecision<N>> df,
+                                                                      [AllowNull] MultiPrecision<N> x_min = null,
+                                                                      [AllowNull] MultiPrecision<N> x_max = null,
+                                                                      int max_iterations = -1, bool break_overshoot = false) where N : struct, IConstant {
 
             if ((x_min != null && x0 < x_min) || (x_max != null && x0 > x_max)) {
                 throw new ArgumentOutOfRangeException(nameof(x0));

@@ -153,10 +153,6 @@ namespace MultiPrecisionTest.Functions {
             Console.WriteLine(y32);
             Console.WriteLine(y32.ToHexcode());
 
-            MultiPrecision<Pow2.N32> diff = MultiPrecisionUtil.FiniteDifference<Pow2.N32>(MultiPrecision<Pow2.N32>.Digamma, zeropoint).value;
-
-            Console.WriteLine(diff);
-
             Console.WriteLine(MultiPrecision<Pow2.N32>.Digamma((MultiPrecision<Pow2.N32>)zeropoint - 9.765625e-4d));
             Console.WriteLine(MultiPrecision<Pow2.N32>.Digamma((MultiPrecision<Pow2.N32>)zeropoint + 9.765625e-4d));
         }

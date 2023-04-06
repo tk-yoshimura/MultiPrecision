@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("MultiPrecision")]
-[assembly: AssemblyDescription("Float MultiPrecision Arithmetic Implements")]
+[assembly: AssemblyDescription("MultiPrecision Arithmetic Implements")]
 
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("6.1.0.*")]
+[assembly: AssemblyVersion("6.1.1.*")]
 
 [assembly: InternalsVisibleTo("MultiPrecisionTest")]
 [assembly: InternalsVisibleTo("MultiPrecisionBesselTest")]

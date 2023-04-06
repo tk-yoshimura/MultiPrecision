@@ -41,7 +41,7 @@ namespace MultiPrecisionTest.Common {
 
             List<MultiPrecision<Pow2.N8>> us = new();
 
-            using (BinaryWriter stream = new(File.OpenWrite(filename_bin))) {
+            using (BinaryWriter stream = new(File.Open(filename_bin, FileMode.Create))) {
                 foreach (MultiPrecision<Pow2.N8> v in vs) {
                     stream.Write(v);
                 }

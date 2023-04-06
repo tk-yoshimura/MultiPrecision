@@ -11,9 +11,6 @@ AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 [Download DLL](https://github.com/tk-yoshimura/MultiPrecision/releases)  
 [Download Nuget package](https://www.nuget.org/packages/tyoshimura.multiprecision/)
 
-- To install, just import the DLL.
-- This library does not change the environment at all.
-
 ## More Functions ?
 [DoubleDouble (30-31 digits)](https://github.com/tk-yoshimura/DoubleDouble)  
 
@@ -131,16 +128,6 @@ MaxValue: &plusmn;8.808065x10^646456992
 |coefficient|note|usage|
 |----|----|----|
 |Chebyshev|C(n, m)|MultiPrecision&lt;*N*&gt;.ChebyshevCoef|
-
-## Util
-
-- NewtonRaphsonRootFinding
-
-- HalleyRootFinding
-
-- RombergIntegrate
-
-- FiniteDifference
 
 ## Casts
 
