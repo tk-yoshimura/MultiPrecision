@@ -17,5 +17,13 @@
 
             return (a > b) ? a : b;
         }
+
+        public static MultiPrecision<N> Clamp(MultiPrecision<N> v, MultiPrecision<N> min, MultiPrecision<N> max) {
+            if (!(min <= max)) {
+                throw new ArgumentException($"{nameof(min)},{nameof(max)}");
+            }
+
+            return Min(Max(v, min), max);
+        }
     }
 }

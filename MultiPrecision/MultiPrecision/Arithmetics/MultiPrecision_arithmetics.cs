@@ -72,6 +72,14 @@
             return Neg(x);
         }
 
+        public static MultiPrecision<N> operator ++(MultiPrecision<N> a) {
+            return Add(a, 1L);
+        }
+
+        public static MultiPrecision<N> operator --(MultiPrecision<N> a) {
+            return Sub(a, 1L);
+        }
+
         public static MultiPrecision<N> Add(MultiPrecision<N> a, MultiPrecision<N> b) {
             if (a.IsNaN || b.IsNaN) {
                 return NaN;
