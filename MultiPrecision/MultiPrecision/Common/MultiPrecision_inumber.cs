@@ -1,8 +1,7 @@
-﻿using System.Numerics;
-using System;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics;
 using System.Globalization;
+using System.Numerics;
 
 namespace MultiPrecision {
 
@@ -174,7 +173,7 @@ namespace MultiPrecision {
         public bool Equals(MultiPrecision<N> x, MultiPrecision<N> y) => x == y;
         public bool Equals(MultiPrecision<N> other) => this == other;
         public int GetHashCode([DisallowNull] MultiPrecision<N> obj) => obj.GetHashCode();
-        
+
         public int CompareTo(object obj) {
             if (obj is MultiPrecision<N> value) {
                 return CompareTo(value);

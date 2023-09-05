@@ -13,90 +13,86 @@ namespace MultiPrecisionBesselTest {
         }
 
         private static void CheckGridPoints<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
+            MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
 
-                sw.WriteLine($"z threshold: {z_threshold}");
+            sw.WriteLine($"z threshold: {z_threshold}");
 
-                for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
-                    sw.WriteLine($"nu: {nu}");
+            for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
+                sw.WriteLine($"nu: {nu}");
 
-                    for (MultiPrecision<N> z = 0; z < MultiPrecision<N>.Min(4 + 1 / 8m, z_threshold - 4); z += 1 / 8m) {
-                        Check(sw, nu, z);
-                    }
-                    for (MultiPrecision<N> z = MultiPrecision<N>.Max(0, z_threshold - 4); z <= z_threshold + 4; z += 1 / 8m) {
-                        Check(sw, nu, z);
-                    }
+                for (MultiPrecision<N> z = 0; z < MultiPrecision<N>.Min(4 + 1 / 8m, z_threshold - 4); z += 1 / 8m) {
+                    Check(sw, nu, z);
+                }
+                for (MultiPrecision<N> z = MultiPrecision<N>.Max(0, z_threshold - 4); z <= z_threshold + 4; z += 1 / 8m) {
+                    Check(sw, nu, z);
                 }
             }
         }
 
         private static void CheckNearlyThreshold<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
+            MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
 
-                sw.WriteLine($"z threshold: {z_threshold}");
+            sw.WriteLine($"z threshold: {z_threshold}");
 
-                for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
-                    sw.WriteLine($"nu: {nu}");
+            for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
+                sw.WriteLine($"nu: {nu}");
 
-                    Check(sw, nu, MultiPrecision<N>.BitDecrement(z_threshold));
-                    Check(sw, nu, z_threshold);
-                    Check(sw, nu, MultiPrecision<N>.BitIncrement(z_threshold));
-                }
+                Check(sw, nu, MultiPrecision<N>.BitDecrement(z_threshold));
+                Check(sw, nu, z_threshold);
+                Check(sw, nu, MultiPrecision<N>.BitIncrement(z_threshold));
             }
         }
 
         private static void CheckNearlyZero<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z = MultiPrecision<N>.Ldexp(1, -0xFFFFFF);
+            MultiPrecision<N> z = MultiPrecision<N>.Ldexp(1, -0xFFFFFF);
 
-                sw.WriteLine($"z threshold: {z}");
+            sw.WriteLine($"z threshold: {z}");
 
-                for (decimal nu = -64; nu <= 64; nu += 1 / 4m) {
-                    sw.WriteLine($"nu: {nu}");
+            for (decimal nu = -64; nu <= 64; nu += 1 / 4m) {
+                sw.WriteLine($"nu: {nu}");
 
-                    Check(sw, nu, MultiPrecision<N>.BitDecrement(z));
-                    Check(sw, nu, z);
-                    Check(sw, nu, MultiPrecision<N>.BitIncrement(z));
-                }
+                Check(sw, nu, MultiPrecision<N>.BitDecrement(z));
+                Check(sw, nu, z);
+                Check(sw, nu, MultiPrecision<N>.BitIncrement(z));
             }
         }
 
         private static void CheckHugeValue<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z = MultiPrecision<N>.BitDecrement(MultiPrecision<N>.Ldexp(1, MultiPrecision<N>.Bits));
+            MultiPrecision<N> z = MultiPrecision<N>.BitDecrement(MultiPrecision<N>.Ldexp(1, MultiPrecision<N>.Bits));
 
-                sw.WriteLine($"z: {z}");
+            sw.WriteLine($"z: {z}");
 
-                for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
-                    sw.WriteLine($"nu: {nu}");
+            for (decimal nu = -64; nu <= 64; nu += 1 / 8m) {
+                sw.WriteLine($"nu: {nu}");
 
-                    MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
+                MultiPrecision<N> t = MultiPrecision<N>.BesselY(nu, z);
 
-                    sw.WriteLine($"  f: {t}");
-                    sw.WriteLine($"  {t.ToHexcode()}");
-                }
+                sw.WriteLine($"  f: {t}");
+                sw.WriteLine($"  {t.ToHexcode()}");
             }
         }
 
         private static void CheckNearlyIntegerNu<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
+            MultiPrecision<N> z_threshold = MultiPrecision<N>.BesselJYApproxThreshold;
 
-                sw.WriteLine($"z threshold: {z_threshold}");
+            sw.WriteLine($"z threshold: {z_threshold}");
 
-                MultiPrecision<N>[] test_dnu = new MultiPrecision<N>[] {
+            MultiPrecision<N>[] test_dnu = new MultiPrecision<N>[] {
                     MultiPrecision<N>.Ldexp(1, -2),
                     MultiPrecision<N>.Ldexp(1, -32),
                     MultiPrecision<N>.Ldexp(1, -33),
@@ -105,9 +101,9 @@ namespace MultiPrecisionBesselTest {
                     MultiPrecision<N>.Ldexp(1, -Math.Min(MultiPrecision<N>.Bits - 6, 272)),
                 };
 
-                foreach (MultiPrecision<N> dnu in test_dnu) {
-                    {
-                        MultiPrecision<N>[] nu0_zero_points = new MultiPrecision<N>[] {
+            foreach (MultiPrecision<N> dnu in test_dnu) {
+                {
+                    MultiPrecision<N>[] nu0_zero_points = new MultiPrecision<N>[] {
                             "0.8935769662791675215848871020583382412251468619300144870692289451101261886209958468476980855212341547083919007783428836719177862718449240760723364443367198175285",
                             "3.957678419314857868375677186917401281418603765563630625507511794841152377008364081070026802491738758953368717131036448243607664697386892330925025606907824314372",
                             "7.086051060301772697623624596820352468971510381177764469855167652353577761541125328123068209083562480135249294413905585962783459943442523631224114508742977573347",
@@ -134,7 +130,7 @@ namespace MultiPrecisionBesselTest {
                             "73.04374033239207346165235952076134487617330454080136129122428237695003182362782720589819153334265885826198692183953732259112463807427524128007075390407459692156"
                         };
 
-                        MultiPrecision<N>[] nu64_zero_points = new MultiPrecision<N>[] {
+                    MultiPrecision<N>[] nu64_zero_points = new MultiPrecision<N>[] {
                             "67.79157602729105819716206295639812309481729937317270668897501754130318718224513449268483836520572870078524859310074141529057748045797420773024537535307344389957",
                             "74.88973991150033018309935567163704320210293116586172808411944092520414333107947789187914597531480926113144200224249773147010982313963608794700543785635370417822",
                             "80.43541729354031426885470662307695702295171648273750067650504280745578942076311073202424146965768579061522224400598361545288343956492892317809129696509117995310",
@@ -145,140 +141,138 @@ namespace MultiPrecisionBesselTest {
                             "102.6129292388276862007628679910648029236700629361630018743067089669948220548208020785575218687040527684295037961603966096930141541920752898466516224842395014536"
                         };
 
-                        {
-                            MultiPrecision<N> nu = dnu;
-                            sw.WriteLine($"nu: {nu} exp: {nu.Exponent}");
+                    {
+                        MultiPrecision<N> nu = dnu;
+                        sw.WriteLine($"nu: {nu} exp: {nu.Exponent}");
 
-                            foreach (MultiPrecision<N> zeropoint in nu0_zero_points) {
-                                if (zeropoint > z_threshold) {
-                                    continue;
-                                }
-
-                                Check(sw, nu, zeropoint);
-
-                                sw.Write("\n");
+                        foreach (MultiPrecision<N> zeropoint in nu0_zero_points) {
+                            if (zeropoint > z_threshold) {
+                                continue;
                             }
+
+                            Check(sw, nu, zeropoint);
+
+                            sw.Write("\n");
                         }
+                    }
 
-                        {
-                            MultiPrecision<N> nu = -dnu;
-                            sw.WriteLine($"nu: {nu} exp: {nu.Exponent}");
+                    {
+                        MultiPrecision<N> nu = -dnu;
+                        sw.WriteLine($"nu: {nu} exp: {nu.Exponent}");
 
-                            foreach (MultiPrecision<N> zeropoint in nu0_zero_points) {
-                                if (zeropoint > z_threshold) {
-                                    continue;
-                                }
-
-                                Check(sw, nu, zeropoint);
-
-                                sw.Write("\n");
+                        foreach (MultiPrecision<N> zeropoint in nu0_zero_points) {
+                            if (zeropoint > z_threshold) {
+                                continue;
                             }
+
+                            Check(sw, nu, zeropoint);
+
+                            sw.Write("\n");
                         }
+                    }
 
-                        if (-64 != -64 + dnu) {
-                            MultiPrecision<N> nu = -64 + dnu;
-                            sw.WriteLine($"nu: {nu} exp: {dnu.Exponent}");
+                    if (-64 != -64 + dnu) {
+                        MultiPrecision<N> nu = -64 + dnu;
+                        sw.WriteLine($"nu: {nu} exp: {dnu.Exponent}");
 
-                            foreach (MultiPrecision<N> zeropoint in nu64_zero_points) {
-                                if (zeropoint > z_threshold) {
-                                    continue;
-                                }
-
-                                Check(sw, nu, zeropoint);
-
-                                sw.Write("\n");
+                        foreach (MultiPrecision<N> zeropoint in nu64_zero_points) {
+                            if (zeropoint > z_threshold) {
+                                continue;
                             }
+
+                            Check(sw, nu, zeropoint);
+
+                            sw.Write("\n");
                         }
+                    }
 
-                        if (64 != 64 - dnu) {
-                            MultiPrecision<N> nu = 64 - dnu;
-                            sw.WriteLine($"nu: {nu} exp: {dnu.Exponent}");
+                    if (64 != 64 - dnu) {
+                        MultiPrecision<N> nu = 64 - dnu;
+                        sw.WriteLine($"nu: {nu} exp: {dnu.Exponent}");
 
-                            foreach (MultiPrecision<N> zeropoint in nu64_zero_points) {
-                                if (zeropoint > z_threshold) {
-                                    continue;
-                                }
-
-                                Check(sw, nu, zeropoint);
-
-                                sw.Write("\n");
+                        foreach (MultiPrecision<N> zeropoint in nu64_zero_points) {
+                            if (zeropoint > z_threshold) {
+                                continue;
                             }
+
+                            Check(sw, nu, zeropoint);
+
+                            sw.Write("\n");
                         }
                     }
                 }
+            }
 
-                for (int n = -64; n <= 64; n += (n >= -4 && n < 4) ? 1 : 4) {
-                    foreach (MultiPrecision<N> dnu in test_dnu) {
-                        MultiPrecision<N> nu_pos = n + dnu;
+            for (int n = -64; n <= 64; n += (n >= -4 && n < 4) ? 1 : 4) {
+                foreach (MultiPrecision<N> dnu in test_dnu) {
+                    MultiPrecision<N> nu_pos = n + dnu;
 
-                        if (nu_pos <= 64 && n != n + dnu) {
-                            sw.WriteLine($"nu: {nu_pos}");
+                    if (nu_pos <= 64 && n != n + dnu) {
+                        sw.WriteLine($"nu: {nu_pos}");
 
-                            Check(sw, nu_pos, MultiPrecision<N>.BitDecrement(z_threshold));
-                            Check(sw, nu_pos, z_threshold);
-                            Check(sw, nu_pos, MultiPrecision<N>.BitIncrement(z_threshold));
-                        }
-
-                        MultiPrecision<N> nu_neg = n - dnu;
-
-                        if (nu_neg >= -64 && n != n + dnu) {
-                            sw.WriteLine($"nu: {nu_neg}");
-
-                            Check(sw, nu_neg, MultiPrecision<N>.BitDecrement(z_threshold));
-                            Check(sw, nu_neg, z_threshold);
-                            Check(sw, nu_neg, MultiPrecision<N>.BitIncrement(z_threshold));
-                        }
+                        Check(sw, nu_pos, MultiPrecision<N>.BitDecrement(z_threshold));
+                        Check(sw, nu_pos, z_threshold);
+                        Check(sw, nu_pos, MultiPrecision<N>.BitIncrement(z_threshold));
                     }
 
-                    if ((n - MultiPrecision<N>.BitDecrement(n)).Exponent >= -272 && MultiPrecision<N>.BitDecrement(n) > -64) {
-                        sw.WriteLine($"nu: {MultiPrecision<N>.BitDecrement(n).ToHexcode()}");
+                    MultiPrecision<N> nu_neg = n - dnu;
 
-                        Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
-                        Check(sw, MultiPrecision<N>.BitDecrement(n), z_threshold);
-                        Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
-                    }
-                    if ((n - MultiPrecision<N>.BitIncrement(n)).Exponent >= -272 && MultiPrecision<N>.BitIncrement(n) < 64) {
-                        sw.WriteLine($"nu: {MultiPrecision<N>.BitIncrement(n).ToHexcode()}");
+                    if (nu_neg >= -64 && n != n + dnu) {
+                        sw.WriteLine($"nu: {nu_neg}");
 
-                        Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
-                        Check(sw, MultiPrecision<N>.BitIncrement(n), z_threshold);
-                        Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
+                        Check(sw, nu_neg, MultiPrecision<N>.BitDecrement(z_threshold));
+                        Check(sw, nu_neg, z_threshold);
+                        Check(sw, nu_neg, MultiPrecision<N>.BitIncrement(z_threshold));
                     }
                 }
 
+                if ((n - MultiPrecision<N>.BitDecrement(n)).Exponent >= -272 && MultiPrecision<N>.BitDecrement(n) > -64) {
+                    sw.WriteLine($"nu: {MultiPrecision<N>.BitDecrement(n).ToHexcode()}");
+
+                    Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
+                    Check(sw, MultiPrecision<N>.BitDecrement(n), z_threshold);
+                    Check(sw, MultiPrecision<N>.BitDecrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
+                }
+                if ((n - MultiPrecision<N>.BitIncrement(n)).Exponent >= -272 && MultiPrecision<N>.BitIncrement(n) < 64) {
+                    sw.WriteLine($"nu: {MultiPrecision<N>.BitIncrement(n).ToHexcode()}");
+
+                    Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitDecrement(z_threshold));
+                    Check(sw, MultiPrecision<N>.BitIncrement(n), z_threshold);
+                    Check(sw, MultiPrecision<N>.BitIncrement(n), MultiPrecision<N>.BitIncrement(z_threshold));
+                }
             }
         }
 
         private static void CheckZeropoints<N>(string filepath) where N : struct, IConstant {
-            using (StreamWriter sw = new(filepath)) {
-                sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
+            using StreamWriter sw = new(filepath);
+            sw.WriteLine($"bits: {MultiPrecision<N>.Bits}");
 
-                {
-                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
-                        "0.893576966279167521584887102058338241225146861930014487069228945110126188620995846847698",
-                        "3.95767841931485786837567718691740128141860376556363062550751179484115237700836408107003",
-                        "7.08605106030177269762362459682035246897151038117776446985516765235357776154112532812307",
-                        "10.2223450434964170189920422763421871259940596131812411831190854840310423296635913060548",
-                        "13.3610974738727634782676945857137864265791351748799264196287493067636445742092596648417",
-                        "16.5009224415280907534211436664897741157513331047907082511444202634884373936447032877302",
-                        "19.6413097008879397737760454722859800254415174918698689830372115929531567822136459018370",
-                        "22.7820280472915593169320819683965166628163060018404614276284266796404574107863359626246"
-                    };
+            {
+                MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+                    "0.893576966279167521584887102058338241225146861930014487069228945110126188620995846847698",
+                    "3.95767841931485786837567718691740128141860376556363062550751179484115237700836408107003",
+                    "7.08605106030177269762362459682035246897151038117776446985516765235357776154112532812307",
+                    "10.2223450434964170189920422763421871259940596131812411831190854840310423296635913060548",
+                    "13.3610974738727634782676945857137864265791351748799264196287493067636445742092596648417",
+                    "16.5009224415280907534211436664897741157513331047907082511444202634884373936447032877302",
+                    "19.6413097008879397737760454722859800254415174918698689830372115929531567822136459018370",
+                    "22.7820280472915593169320819683965166628163060018404614276284266796404574107863359626246"
+                };
 
-                    MultiPrecision<N> nu = 0;
-                    sw.WriteLine($"nu: {nu}");
+                MultiPrecision<N> nu = 0;
+                sw.WriteLine($"nu: {nu}");
 
-                    foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
-                        Check(sw, nu, zeropoint);
-                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
+                foreach (MultiPrecision<N> zeropoint in zero_points) {
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                    Check(sw, nu, zeropoint);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
 
-                        sw.Write("\n");
-                    }
+                    sw.Write("\n");
                 }
+            }
 
-                {
-                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+            {
+                MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
                         "1.24166195461328950351275938208640519065296305408953845392951269229140545494438019421315",
                         "4.34077049854568078681893271665775654398509937571705952330700552587713960565580622974156",
                         "7.47371653864979702671850676503756514593354043443651953505658291210361575811735498641022",
@@ -289,20 +283,20 @@ namespace MultiPrecisionBesselTest {
                         "23.1732875646158094848003044097156859064788361096496737128724446862510972325322761734604"
                     };
 
-                    MultiPrecision<N> nu = MultiPrecision<N>.Ldexp(1, -2);
-                    sw.WriteLine($"nu: {nu}");
+                MultiPrecision<N> nu = MultiPrecision<N>.Ldexp(1, -2);
+                sw.WriteLine($"nu: {nu}");
 
-                    foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
-                        Check(sw, nu, zeropoint);
-                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
+                foreach (MultiPrecision<N> zeropoint in zero_points) {
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                    Check(sw, nu, zeropoint);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
 
-                        sw.Write("\n");
-                    }
+                    sw.Write("\n");
                 }
+            }
 
-                {
-                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+            {
+                MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
                         "35.0399324955572840598962157990095527434346726968215435017776438617918151870180764950570",
                         "40.8774791567184769185893299417567951742267629916578793944329619601825961978908703972312",
                         "45.5527513372744955680188240169806590270592291092666218870734761071929247754107937807392",
@@ -313,24 +307,24 @@ namespace MultiPrecisionBesselTest {
                         "64.9958469901666894262730588006486212232768980099095886296071501738790620683186620829463"
                     };
 
-                    MultiPrecision<N> nu = 32;
-                    sw.WriteLine($"nu: {nu}");
+                MultiPrecision<N> nu = 32;
+                sw.WriteLine($"nu: {nu}");
 
-                    foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        if (zeropoint > MultiPrecision<N>.BesselJYApproxThreshold) {
-                            continue;
-                        }
-
-                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
-                        Check(sw, nu, zeropoint);
-                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
-
-                        sw.Write("\n");
+                foreach (MultiPrecision<N> zeropoint in zero_points) {
+                    if (zeropoint > MultiPrecision<N>.BesselJYApproxThreshold) {
+                        continue;
                     }
-                }
 
-                {
-                    MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                    Check(sw, nu, zeropoint);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
+
+                    sw.Write("\n");
+                }
+            }
+
+            {
+                MultiPrecision<N>[] zero_points = new MultiPrecision<N>[] {
                         "67.7915760272910581971620629563981230948172993731727066889750175413031871822451344926848",
                         "74.8897399115003301830993556716370432021029311658617280841194409252041433310794778918791",
                         "80.4354172935403142688547066230769570229517164827375006765050428074557894207631107320242",
@@ -341,20 +335,19 @@ namespace MultiPrecisionBesselTest {
                         "102.612929238827686200762867991064802923670062936163001874306708966994822054820802078557"
                     };
 
-                    MultiPrecision<N> nu = 64;
-                    sw.WriteLine($"nu: {nu}");
+                MultiPrecision<N> nu = 64;
+                sw.WriteLine($"nu: {nu}");
 
-                    foreach (MultiPrecision<N> zeropoint in zero_points) {
-                        if (zeropoint > MultiPrecision<N>.BesselJYApproxThreshold) {
-                            continue;
-                        }
-
-                        Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
-                        Check(sw, nu, zeropoint);
-                        Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
-
-                        sw.Write("\n");
+                foreach (MultiPrecision<N> zeropoint in zero_points) {
+                    if (zeropoint > MultiPrecision<N>.BesselJYApproxThreshold) {
+                        continue;
                     }
+
+                    Check(sw, nu, MultiPrecision<N>.BitDecrement(zeropoint));
+                    Check(sw, nu, zeropoint);
+                    Check(sw, nu, MultiPrecision<N>.BitIncrement(zeropoint));
+
+                    sw.Write("\n");
                 }
             }
         }
