@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
@@ -49,8 +50,8 @@ namespace MultiPrecision {
         public static bool IsNegative(MultiPrecision<N> value) => value.Sign == Sign.Minus;
 
         public static bool IsInteger(MultiPrecision<N> value) => Truncate(value) == value;
-        public static bool IsEvenInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2d) == 0d);
-        public static bool IsOddInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2d) == 1d);
+        public static bool IsEvenInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2) == 0);
+        public static bool IsOddInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2) == 1);
 
         public static MultiPrecision<N> MaxMagnitude(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || IsNaN(x)) ? x : y;
         public static MultiPrecision<N> MaxMagnitudeNumber(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || IsNaN(y)) ? x : y;
@@ -93,11 +94,11 @@ namespace MultiPrecision {
         }
 
         public static bool TryConvertFromSaturating<TOther>(TOther value, out MultiPrecision<N> result) where TOther : INumberBase<TOther> {
-            return TryConvertFromChecked<TOther>(value, out result);
+            return TryConvertFromChecked(value, out result);
         }
 
         public static bool TryConvertFromTruncating<TOther>(TOther value, out MultiPrecision<N> result) where TOther : INumberBase<TOther> {
-            return TryConvertFromChecked<TOther>(value, out result);
+            return TryConvertFromChecked(value, out result);
         }
 
         public static bool TryConvertToChecked<TOther>(MultiPrecision<N> value, out TOther result) where TOther : INumberBase<TOther> {
@@ -154,7 +155,7 @@ namespace MultiPrecision {
         }
 
         public static bool TryConvertToTruncating<TOther>(MultiPrecision<N> value, out TOther result) where TOther : INumberBase<TOther> {
-            return TryConvertToSaturating<TOther>(value, out result);
+            return TryConvertToSaturating(value, out result);
         }
 
         public bool TryFormat(Span<char> destination, out int charsWritten, ReadOnlySpan<char> format, IFormatProvider provider) {
@@ -170,8 +171,10 @@ namespace MultiPrecision {
             }
         }
 
-        public bool Equals(MultiPrecision<N> x, MultiPrecision<N> y) => x == y;
-        public bool Equals(MultiPrecision<N> other) => this == other;
+        public bool Equals(MultiPrecision<N> x, MultiPrecision<N> y) => (x == y) || (IsNaN(x) && IsNaN(y));
+        public bool Equals(MultiPrecision<N> other) => (this == other) || (IsNaN(this) && IsNaN(other));
+        public override bool Equals(object obj) => (obj is MultiPrecision<N> n) && Equals(n);
+    
         public int GetHashCode([DisallowNull] MultiPrecision<N> obj) => obj.GetHashCode();
 
         public int CompareTo(object obj) {

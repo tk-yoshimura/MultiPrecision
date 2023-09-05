@@ -124,10 +124,6 @@ namespace MultiPrecision {
             return MultiPrecisionUtil.Convert<Ndst, N>(this);
         }
 
-        public override bool Equals(object obj) {
-            return (obj is MultiPrecision<N> n) && (n == this || (IsNaN(n) && IsNaN(this)));
-        }
-
         public override int GetHashCode() {
             return Sign.GetHashCode() ^ exponent.GetHashCode() ^ mantissa.GetHashCode();
         }
