@@ -7,10 +7,10 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> : IFormattable {
 
         public override string ToString() {
-            if (IsNaN) {
+            if (IsNaN(this)) {
                 return double.NaN.ToString();
             }
-            if (!IsFinite) {
+            if (!IsFinite(this)) {
                 return (Sign == Sign.Plus) ? double.PositiveInfinity.ToString() : double.NegativeInfinity.ToString();
             }
 
@@ -67,10 +67,10 @@ namespace MultiPrecision {
                 throw new FormatException(format);
             }
 
-            if (IsNaN) {
+            if (IsNaN(this)) {
                 return double.NaN.ToString();
             }
-            if (!IsFinite) {
+            if (!IsFinite(this)) {
                 return (Sign == Sign.Plus) ? double.PositiveInfinity.ToString() : double.NegativeInfinity.ToString();
             }
 
@@ -97,7 +97,7 @@ namespace MultiPrecision {
                 throw new ArgumentOutOfRangeException(nameof(digits));
             }
 
-            if (IsZero) {
+            if (IsZero(this)) {
                 return (Sign, 0, BigUInt<N>.Zero);
             }
 

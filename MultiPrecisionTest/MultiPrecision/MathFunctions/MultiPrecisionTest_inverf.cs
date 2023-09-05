@@ -202,11 +202,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(z.ToHexcode());
                     Console.Write("\n");
 
-                    if (y.IsFinite && !y.IsZero) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y) && !MultiPrecision<Pow2.N8>.IsZero(y)) {
                         Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 1));
                     }
 
-                    if (y.IsFinite) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y)) {
                         ys.Add(y);
                     }
                 }
@@ -245,11 +245,11 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(z.ToHexcode());
                     Console.Write("\n");
 
-                    if (y.IsFinite && !y.IsZero) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y) && !MultiPrecision<Pow2.N8>.IsZero(y)) {
                         Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(x, z, 1));
                     }
 
-                    if (y.IsFinite) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y)) {
                         ys.Add(y);
                     }
                 }
@@ -271,11 +271,11 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> m1 = MultiPrecision<Pow2.N8>.InverseErf(-1);
             MultiPrecision<Pow2.N8> p1 = MultiPrecision<Pow2.N8>.InverseErf(+1);
 
-            Assert.IsTrue(!m1.IsFinite && !m1.IsNaN && m1.Sign == Sign.Minus);
-            Assert.IsTrue(!p1.IsFinite && !p1.IsNaN && p1.Sign == Sign.Plus);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErf(MultiPrecision<Pow2.N8>.NaN).IsNaN);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErf(-2).IsNaN);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErf(+2).IsNaN);
+            Assert.IsTrue(!MultiPrecision<Pow2.N8>.IsFinite(m1) && !MultiPrecision<Pow2.N8>.IsNaN(m1) && m1.Sign == Sign.Minus);
+            Assert.IsTrue(!MultiPrecision<Pow2.N8>.IsFinite(p1) && !MultiPrecision<Pow2.N8>.IsNaN(p1) && p1.Sign == Sign.Plus);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErf(MultiPrecision<Pow2.N8>.NaN)));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErf(-2)));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErf(+2)));
         }
 
         [TestMethod]
@@ -283,11 +283,11 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> z = MultiPrecision<Pow2.N8>.InverseErfc(0);
             MultiPrecision<Pow2.N8> p2 = MultiPrecision<Pow2.N8>.InverseErfc(2);
 
-            Assert.IsTrue(!z.IsFinite && !z.IsNaN && z.Sign == Sign.Plus);
-            Assert.IsTrue(!p2.IsFinite && !p2.IsNaN && p2.Sign == Sign.Minus);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErfc(MultiPrecision<Pow2.N8>.NaN).IsNaN);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErfc(-1).IsNaN);
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.InverseErfc(+3).IsNaN);
+            Assert.IsTrue(!MultiPrecision<Pow2.N8>.IsFinite(z) && !MultiPrecision<Pow2.N8>.IsNaN(z) && z.Sign == Sign.Plus);
+            Assert.IsTrue(!MultiPrecision<Pow2.N8>.IsFinite(p2) && !MultiPrecision<Pow2.N8>.IsNaN(p2) && p2.Sign == Sign.Minus);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErfc(MultiPrecision<Pow2.N8>.NaN)));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErfc(-1)));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.InverseErfc(+3)));
         }
     }
 }

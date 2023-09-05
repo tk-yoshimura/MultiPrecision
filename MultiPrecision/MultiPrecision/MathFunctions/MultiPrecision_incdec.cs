@@ -3,13 +3,13 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> BitIncrement(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
-                if (x.IsNaN) {
+            if (!IsFinite(x)) {
+                if (IsNaN(x)) {
                     return NaN;
                 }
                 return x.Sign == Sign.Plus ? PositiveInfinity : MinValue;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return Epsilon;
             }
             if (x == -Epsilon) {
@@ -33,13 +33,13 @@
         }
 
         public static MultiPrecision<N> BitDecrement(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
-                if (x.IsNaN) {
+            if (!IsFinite(x)) {
+                if (IsNaN(x)) {
                     return NaN;
                 }
                 return x.Sign == Sign.Minus ? NegativeInfinity : MaxValue;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return -Epsilon;
             }
             if (x == Epsilon) {

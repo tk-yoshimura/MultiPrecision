@@ -1128,7 +1128,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticK(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
 
@@ -1145,7 +1145,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticE(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
 
@@ -1166,10 +1166,10 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticPi(0.5, v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.EllipticPi(2, 0.5).IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.EllipticPi(2, 0.5)));
         }
     }
 }

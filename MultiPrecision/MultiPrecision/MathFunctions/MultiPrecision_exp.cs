@@ -21,7 +21,7 @@
                 MultiPrecision<Plus1<N>> dy = t * z;
                 y += dy;
 
-                if (dy.IsZero || y.Exponent - dy.Exponent > Bits) {
+                if (MultiPrecision<Plus1<N>>.IsZero(dy) || y.Exponent - dy.Exponent > Bits) {
                     break;
                 }
 

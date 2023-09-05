@@ -65,7 +65,7 @@ namespace MultiPrecision {
                 }
                 else {
                     if (mantissa.Value[Length - 1] <= UIntUtil.UInt32Round) {
-                        throw new ArgumentException(nameof(mantissa));
+                        throw new ArgumentException(null, nameof(mantissa));
                     }
 
                     this.exponent = unchecked((UInt32)exponent_zerosft);
@@ -97,26 +97,20 @@ namespace MultiPrecision {
             return new MultiPrecision<N>(sign, (uint)(UIntUtil.UInt64Bits - lzc - 1) + ExponentZero, new Mantissa<N>(us, enable_clone: false));
         }
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsZero => exponent <= ExponentMin && mantissa.IsZero;
+        public static bool IsZero(MultiPrecision<N> value) => value.exponent <= ExponentMin && value.mantissa.IsZero;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsNaN => exponent >= ExponentMax && !mantissa.IsZero;
+        public static bool IsNaN(MultiPrecision<N> value) => value.exponent >= ExponentMax && !value.mantissa.IsZero;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsFinite => exponent < ExponentMax;
+        public static bool IsFinite(MultiPrecision<N> value) => value.exponent < ExponentMax;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsInfinity => exponent >= ExponentMax && mantissa.IsZero;
+        public static bool IsInfinity(MultiPrecision<N> value) => value.exponent >= ExponentMax && value.mantissa.IsZero;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsPositiveInfinity => IsInfinity && Sign == Sign.Plus;
+        public static bool IsPositiveInfinity(MultiPrecision<N> value) => IsInfinity(value) && value.Sign == Sign.Plus;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsNegativeInfinity => IsInfinity && Sign == Sign.Minus;
+        public static bool IsNegativeInfinity(MultiPrecision<N> value) => IsInfinity(value) && value.Sign == Sign.Minus;
 
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public bool IsNormal => (exponent > ExponentMin && exponent < ExponentMax) || IsZero;
+        public static bool IsNormal(MultiPrecision<N> value) => (value.exponent > ExponentMin && value.exponent < ExponentMax) || IsZero(value);
+        public static bool IsSubnormal(MultiPrecision<N> value) => false;
 
         public object Clone() {
             return Copy();
@@ -131,7 +125,7 @@ namespace MultiPrecision {
         }
 
         public override bool Equals(object obj) {
-            return (obj is MultiPrecision<N> n) && (n == this || (n.IsNaN && this.IsNaN));
+            return (obj is MultiPrecision<N> n) && (n == this || (IsNaN(n) && IsNaN(this)));
         }
 
         public override int GetHashCode() {

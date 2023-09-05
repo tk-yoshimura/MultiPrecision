@@ -3,8 +3,8 @@
     public static partial class MultiPrecisionUtil {
 
         public static MultiPrecision<Ndst> Convert<Ndst, Nsrc>(MultiPrecision<Nsrc> v) where Nsrc : struct, IConstant where Ndst : struct, IConstant {
-            if (!v.IsFinite) {
-                if (v.IsNaN) {
+            if (!MultiPrecision<Nsrc>.IsFinite(v)) {
+                if (MultiPrecision<Nsrc>.IsNaN(v)) {
                     return MultiPrecision<Ndst>.NaN;
                 }
                 return v.Sign == Sign.Plus ? MultiPrecision<Ndst>.PositiveInfinity : MultiPrecision<Ndst>.NegativeInfinity;

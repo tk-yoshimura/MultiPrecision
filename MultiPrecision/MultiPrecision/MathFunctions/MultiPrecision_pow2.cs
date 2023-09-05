@@ -4,7 +4,7 @@
 
         public static MultiPrecision<N> Pow2(MultiPrecision<N> x) {
 
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
 
@@ -28,7 +28,7 @@
 
             MultiPrecision<N> v = Ln2 * x_frac;
 
-            if (v.IsZero || v.Exponent < int.MinValue) {
+            if (IsZero(v) || v.Exponent < int.MinValue) {
                 return new MultiPrecision<N>(Sign.Plus, exponent, Mantissa<N>.One, round: false);
             }
 

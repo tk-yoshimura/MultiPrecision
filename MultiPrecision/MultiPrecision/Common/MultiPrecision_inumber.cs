@@ -40,9 +40,9 @@ namespace MultiPrecision {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         static int INumberBase<MultiPrecision<N>>.Radix => 2;
 
-        public static bool IsCanonical(MultiPrecision<N> value) => value.IsFinite;
+        public static bool IsCanonical(MultiPrecision<N> value) => IsFinite(value);
 
-        public static bool IsRealNumber(MultiPrecision<N> value) => !value.IsNaN;
+        public static bool IsRealNumber(MultiPrecision<N> value) => !IsNaN(value);
         public static bool IsImaginaryNumber(MultiPrecision<N> value) => false;
         public static bool IsComplexNumber(MultiPrecision<N> value) => false;
 
@@ -53,10 +53,10 @@ namespace MultiPrecision {
         public static bool IsEvenInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2d) == 0d);
         public static bool IsOddInteger(MultiPrecision<N> value) => IsInteger(value) && (Abs(value % 2d) == 1d);
 
-        public static MultiPrecision<N> MaxMagnitude(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || x.IsNaN) ? x : y;
-        public static MultiPrecision<N> MaxMagnitudeNumber(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || y.IsNaN) ? x : y;
-        public static MultiPrecision<N> MinMagnitude(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) < Abs(y) || x.IsNaN) ? x : y;
-        public static MultiPrecision<N> MinMagnitudeNumber(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) < Abs(y) || y.IsNaN) ? x : y;
+        public static MultiPrecision<N> MaxMagnitude(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || IsNaN(x)) ? x : y;
+        public static MultiPrecision<N> MaxMagnitudeNumber(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) > Abs(y) || IsNaN(y)) ? x : y;
+        public static MultiPrecision<N> MinMagnitude(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) < Abs(y) || IsNaN(x)) ? x : y;
+        public static MultiPrecision<N> MinMagnitudeNumber(MultiPrecision<N> x, MultiPrecision<N> y) => (Abs(x) < Abs(y) || IsNaN(y)) ? x : y;
 
         public static MultiPrecision<N> Parse(string s, NumberStyles style, IFormatProvider provider) => Parse(s);
         public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out MultiPrecision<N> result) => TryParse(s, out result);
@@ -174,5 +174,13 @@ namespace MultiPrecision {
         public bool Equals(MultiPrecision<N> x, MultiPrecision<N> y) => x == y;
         public bool Equals(MultiPrecision<N> other) => this == other;
         public int GetHashCode([DisallowNull] MultiPrecision<N> obj) => obj.GetHashCode();
+        
+        public int CompareTo(object obj) {
+            if (obj is MultiPrecision<N> value) {
+                return CompareTo(value);
+            }
+
+            throw new ArgumentException(null, nameof(obj));
+        }
     }
 }

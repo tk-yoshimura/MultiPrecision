@@ -3,18 +3,18 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Digamma(MultiPrecision<N> x) {
-            if (x.IsNaN || (x.Sign == Sign.Minus && !x.IsFinite)) {
+            if (IsNaN(x) || (x.Sign == Sign.Minus && !IsFinite(x))) {
                 return NaN;
             }
 
-            if (x.IsZero || (x.Sign == Sign.Plus && !x.IsFinite)) {
+            if (IsZero(x) || (x.Sign == Sign.Plus && !IsFinite(x))) {
                 return PositiveInfinity;
             }
 
             if (x.Sign == Sign.Minus || x.Exponent < -1) {
                 MultiPrecision<N> tanpi = TanPI(x);
 
-                if (tanpi.IsZero) {
+                if (IsZero(tanpi)) {
                     return NaN;
                 }
 
@@ -77,7 +77,7 @@
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
+                if (MultiPrecision<SterlingExpand<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
                     break;
                 }
 

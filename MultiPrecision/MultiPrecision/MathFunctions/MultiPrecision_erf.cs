@@ -8,13 +8,13 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Erf(MultiPrecision<N> x) {
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return 0;
             }
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return x.Sign == Sign.Plus ? 1 : -1;
             }
             if (x.Sign == Sign.Minus) {
@@ -43,13 +43,13 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Erfc(MultiPrecision<N> x) {
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return 1;
             }
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return x.Sign == Sign.Plus ? 0 : 2;
             }
             if (x.Sign == Sign.Minus) {
@@ -79,7 +79,7 @@ namespace MultiPrecision {
                 MultiPrecision<Plus4<N>> dy = t * v;
                 y += dy;
 
-                if (dy.IsZero || y.Exponent - dy.Exponent > MultiPrecision<Plus4<N>>.Bits) {
+                if (MultiPrecision<Plus4<N>>.IsZero(dy) || y.Exponent - dy.Exponent > MultiPrecision<Plus4<N>>.Bits) {
                     break;
                 }
 

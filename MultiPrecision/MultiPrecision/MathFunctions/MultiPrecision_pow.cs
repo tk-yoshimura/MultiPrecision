@@ -7,8 +7,8 @@
                 return NaN;
             }
 
-            if (y.IsZero) {
-                return x.IsNaN ? NaN : 1;
+            if (IsZero(y)) {
+                return IsNaN(x) ? NaN : 1;
             }
 
             MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Pow2(y.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Log2(x.Convert<Plus1<N>>()));
@@ -17,7 +17,7 @@
         }
 
         public static MultiPrecision<N> Pow(MultiPrecision<N> x, long n) {
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
 

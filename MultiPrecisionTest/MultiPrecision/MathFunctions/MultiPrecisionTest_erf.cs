@@ -605,14 +605,14 @@ namespace MultiPrecisionTest.Functions {
         public void ErfUnnormalValueTest() {
             Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.NegativeInfinity));
             Assert.AreEqual(+1, MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.PositiveInfinity));
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.NaN).IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.Erf(MultiPrecision<Pow2.N8>.NaN)));
         }
 
         [TestMethod]
         public void ErfcUnnormalValueTest() {
             Assert.AreEqual(2, MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.NegativeInfinity));
             Assert.AreEqual(0, MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.PositiveInfinity));
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.NaN).IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(MultiPrecision<Pow2.N8>.Erfc(MultiPrecision<Pow2.N8>.NaN)));
         }
 
         [TestMethod]

@@ -368,7 +368,7 @@ namespace MultiPrecisionTest.Functions {
         public void AtanUnnormalValueTest() {
             MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan(MultiPrecision<Pow2.N8>.NaN);
 
-            Assert.IsTrue(y.IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
         }
 
         [TestMethod]
@@ -384,7 +384,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Asin(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
 
@@ -401,7 +401,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Acos(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
 
@@ -416,19 +416,19 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(0, v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(v, 0);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(v, v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
     }

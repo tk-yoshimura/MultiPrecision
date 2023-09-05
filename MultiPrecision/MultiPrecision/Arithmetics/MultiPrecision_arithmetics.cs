@@ -51,11 +51,11 @@
         }
 
         public static MultiPrecision<N> operator %(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (b.IsZero || a.IsNaN || b.IsNaN) {
+            if (IsZero(b) || IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
-            if (!b.IsFinite) {
+            if (!IsFinite(b)) {
                 return a;
             }
 
@@ -81,19 +81,19 @@
         }
 
         public static MultiPrecision<N> Add(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 return b;
             }
-            if (b.IsZero) {
+            if (IsZero(b)) {
                 return a;
             }
 
-            if (!a.IsFinite) {
-                if (b.IsFinite) {
+            if (!IsFinite(a)) {
+                if (IsFinite(b)) {
                     return a;
                 }
                 if (a.Sign != b.Sign) {
@@ -102,7 +102,7 @@
 
                 return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
             }
-            if (!b.IsFinite) {
+            if (!IsFinite(b)) {
                 return b;
             }
 
@@ -119,19 +119,19 @@
         }
 
         public static MultiPrecision<N> Sub(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 return -b;
             }
-            if (b.IsZero) {
+            if (IsZero(b)) {
                 return a;
             }
 
-            if (!a.IsFinite) {
-                if (b.IsFinite) {
+            if (!IsFinite(a)) {
+                if (IsFinite(b)) {
                     return a;
                 }
                 if (a.Sign == b.Sign) {
@@ -139,7 +139,7 @@
                 }
                 return new MultiPrecision<N>(a.Sign, ExponentMax, Mantissa<N>.Zero);
             }
-            if (!b.IsFinite) {
+            if (!IsFinite(b)) {
                 return -b;
             }
 
@@ -158,18 +158,18 @@
         }
 
         public static MultiPrecision<N> Mul(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
-            if (a.IsZero || b.IsZero) {
-                if (!a.IsFinite || !b.IsFinite) {
+            if (IsZero(a) || IsZero(b)) {
+                if (!IsFinite(a) || !IsFinite(b)) {
                     return NaN;
                 }
                 return a.Sign == b.Sign ? Zero : MinusZero;
             }
 
-            if (!a.IsFinite || !b.IsFinite) {
+            if (!IsFinite(a) || !IsFinite(b)) {
                 return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
             }
 
@@ -179,24 +179,24 @@
         }
 
         public static MultiPrecision<N> Div(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
-            if (b.IsZero) {
-                if (a.IsZero) {
+            if (IsZero(b)) {
+                if (IsZero(a)) {
                     return NaN;
                 }
                 return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
             }
 
-            if (!a.IsFinite) {
-                if (b.IsFinite) {
+            if (!IsFinite(a)) {
+                if (IsFinite(b)) {
                     return (a.Sign == b.Sign) ? PositiveInfinity : NegativeInfinity;
                 }
                 return NaN;
             }
-            if (!b.IsFinite) {
+            if (!IsFinite(b)) {
                 return (a.Sign == b.Sign) ? Zero : MinusZero;
             }
 
@@ -214,13 +214,13 @@
                 return a;
             }
 
-            if (a.IsNaN) {
+            if (IsNaN(a)) {
                 return NaN;
             }
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 return b;
             }
-            if (!a.IsFinite) {
+            if (!IsFinite(a)) {
                 return a;
             }
 
@@ -243,13 +243,13 @@
                 return a;
             }
 
-            if (a.IsNaN) {
+            if (IsNaN(a)) {
                 return NaN;
             }
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 return Neg(b);
             }
-            if (!a.IsFinite) {
+            if (!IsFinite(a)) {
                 return a;
             }
 
@@ -271,13 +271,13 @@
         }
 
         public static MultiPrecision<N> Mul(MultiPrecision<N> a, long b) {
-            if (a.IsNaN) {
+            if (IsNaN(a)) {
                 return NaN;
             }
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 return a;
             }
-            if (!a.IsFinite) {
+            if (!IsFinite(a)) {
                 if (b == 0) {
                     return NaN;
                 }
@@ -308,16 +308,16 @@
         }
 
         public static MultiPrecision<N> Div(MultiPrecision<N> a, long b) {
-            if (a.IsNaN) {
+            if (IsNaN(a)) {
                 return NaN;
             }
-            if (a.IsZero) {
+            if (IsZero(a)) {
                 if (b == 0) {
                     return NaN;
                 }
                 return (a.Sign == UIntUtil.Sign(b)) ? Zero : MinusZero;
             }
-            if (!a.IsFinite) {
+            if (!IsFinite(a)) {
                 return (a.Sign == UIntUtil.Sign(b)) ? PositiveInfinity : NegativeInfinity;
             }
 

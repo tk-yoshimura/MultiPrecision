@@ -52,7 +52,7 @@ namespace MultiPrecisionSandbox {
                 x += c;
                 u *= w;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<N>.Bits) {
+                if (MultiPrecision<Plus1<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<N>.Bits) {
                     return terms;
                 }
                 if (prev_c is not null && prev_c.Exponent < c.Exponent) {

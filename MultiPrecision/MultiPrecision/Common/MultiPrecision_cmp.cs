@@ -5,9 +5,9 @@ namespace MultiPrecision {
 
         public static bool operator ==([AllowNull] MultiPrecision<N> a, [AllowNull] MultiPrecision<N> b) {
             if (a is null && b is null) return true;
-            if (a is null || b is null || a.IsNaN || b.IsNaN) return false;
+            if (a is null || b is null || IsNaN(a) || IsNaN(b)) return false;
 
-            return ((a.Sign == b.Sign) && (a.exponent == b.exponent) && (a.mantissa == b.mantissa)) || (a.IsZero && b.IsZero);
+            return ((a.Sign == b.Sign) && (a.exponent == b.exponent) && (a.mantissa == b.mantissa)) || (IsZero(a) && IsZero(b));
         }
 
         public static bool operator !=([AllowNull] MultiPrecision<N> a, [AllowNull] MultiPrecision<N> b) {
@@ -15,10 +15,10 @@ namespace MultiPrecision {
         }
 
         public static bool operator <=(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) return false;
+            if (IsNaN(a) || IsNaN(b)) return false;
 
             if (a.Sign != b.Sign) {
-                return a.Sign == Sign.Minus || (a.IsZero && b.IsZero);
+                return a.Sign == Sign.Minus || (IsZero(a) && IsZero(b));
             }
 
             if (a.Sign == Sign.Plus) {
@@ -38,10 +38,10 @@ namespace MultiPrecision {
         }
 
         public static bool operator >=(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) return false;
+            if (IsNaN(a) || IsNaN(b)) return false;
 
             if (a.Sign != b.Sign) {
-                return a.Sign == Sign.Plus || (a.IsZero && b.IsZero);
+                return a.Sign == Sign.Plus || (IsZero(a) && IsZero(b));
             }
 
             if (a.Sign == Sign.Plus) {
@@ -61,13 +61,13 @@ namespace MultiPrecision {
         }
 
         public static bool operator <(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) return false;
+            if (IsNaN(a) || IsNaN(b)) return false;
 
             return !(a >= b);
         }
 
         public static bool operator >(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) return false;
+            if (IsNaN(a) || IsNaN(b)) return false;
 
             return !(a <= b);
         }
@@ -77,11 +77,11 @@ namespace MultiPrecision {
         }
 
         public static bool NearlyEqualBits(MultiPrecision<N> a, MultiPrecision<N> b, int ignore_bits) {
-            if (a.IsZero && b.IsZero) {
+            if (IsZero(a) && IsZero(b)) {
                 return true;
             }
 
-            if (a.IsNaN || b.IsNaN || (a.Sign != b.Sign)) {
+            if (IsNaN(a) || IsNaN(b) || (a.Sign != b.Sign)) {
                 return false;
             }
 

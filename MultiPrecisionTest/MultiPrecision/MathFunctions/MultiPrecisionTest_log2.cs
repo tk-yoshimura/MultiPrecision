@@ -32,7 +32,7 @@ namespace MultiPrecisionTest.Functions {
 
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(x);
 
-                    if (y.IsFinite) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y)) {
                         ys.Add(y);
                     }
 
@@ -70,7 +70,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Log2(MultiPrecision<Pow2.N8>.PositiveInfinity);

@@ -3,7 +3,7 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Ldexp(MultiPrecision<N> x, int y) {
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return x;
             }
 
@@ -11,7 +11,7 @@
         }
 
         public static MultiPrecision<N> Ldexp(MultiPrecision<N> x, long y) {
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return x;
             }
 

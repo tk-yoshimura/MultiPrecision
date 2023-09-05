@@ -3,13 +3,13 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Rcp(MultiPrecision<N> x) {
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return Zero;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return x.Sign == Sign.Plus ? PositiveInfinity : NegativeInfinity;
             }
 
@@ -21,7 +21,7 @@
             MultiPrecision<Plus1<N>> h = 1 - v * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
-            while (h_exponent_prev > h_exponent_post && !h.IsZero) {
+            while (h_exponent_prev > h_exponent_post && !MultiPrecision<Plus1<N>>.IsZero(h)) {
                 MultiPrecision<Plus1<N>> squa_h = h * h;
 
                 a *= 1 + (1 + squa_h) * (h + squa_h);

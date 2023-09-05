@@ -3,7 +3,7 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Min(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 
@@ -11,7 +11,7 @@
         }
 
         public static MultiPrecision<N> Max(MultiPrecision<N> a, MultiPrecision<N> b) {
-            if (a.IsNaN || b.IsNaN) {
+            if (IsNaN(a) || IsNaN(b)) {
                 return NaN;
             }
 

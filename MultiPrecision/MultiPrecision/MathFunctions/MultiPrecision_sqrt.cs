@@ -3,13 +3,13 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sqrt(MultiPrecision<N> x) {
-            if (x.Sign == Sign.Minus || x.IsNaN) {
+            if (x.Sign == Sign.Minus || IsNaN(x)) {
                 return NaN;
             }
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return PositiveInfinity;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return Zero;
             }
 
@@ -22,7 +22,7 @@
             MultiPrecision<Plus1<N>> h = 1 - v * a * a;
             UInt32 h_exponent_prev = ExponentMax, h_exponent_post = h.exponent;
 
-            while (h_exponent_prev > h_exponent_post && !h.IsZero) {
+            while (h_exponent_prev > h_exponent_post && !MultiPrecision<Plus1<N>>.IsZero(h)) {
                 a *= 1 + h * (4 + h * 3) / 8;
                 h = 1 - v * a * a;
 

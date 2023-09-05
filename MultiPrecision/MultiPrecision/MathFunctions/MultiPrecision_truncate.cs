@@ -3,7 +3,7 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Truncate(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return NaN;
             }
 
@@ -60,7 +60,7 @@
             if (round_bits < 0 || round_bits >= Bits) {
                 throw new ArgumentOutOfRangeException(nameof(round_bits));
             }
-            if (round_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
+            if (round_bits == 0 || x.mantissa.IsZero || IsNaN(x)) {
                 return x;
             }
 
@@ -75,7 +75,7 @@
             if (truncate_bits < 0 || truncate_bits >= Bits) {
                 throw new ArgumentOutOfRangeException(nameof(truncate_bits));
             }
-            if (truncate_bits == 0 || x.mantissa.IsZero || x.IsNaN) {
+            if (truncate_bits == 0 || x.mantissa.IsZero || IsNaN(x)) {
                 return x;
             }
 

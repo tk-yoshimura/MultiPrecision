@@ -6,11 +6,11 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Atan(MultiPrecision<N> x) {
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
 
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return x.Sign == Sign.Plus ? PI / 2 : -PI / 2;
             }
 
@@ -20,7 +20,7 @@ namespace MultiPrecision {
                 MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Abs(x_ex) / MultiPrecision<Plus1<N>>.Sqrt(x_ex * x_ex + 1);
                 MultiPrecision<N> w = MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.SquareAsin(z)).Convert<N>();
 
-                if (w.IsZero) {
+                if (IsZero(w)) {
                     return x;
                 }
 
@@ -60,7 +60,7 @@ namespace MultiPrecision {
                         MultiPrecision<Plus1<N>>.SquareAsin(
                             MultiPrecision<Plus1<N>>.Abs(x_ex))).Convert<N>();
 
-                if (w.IsZero) {
+                if (IsZero(w)) {
                     return x;
                 }
 
@@ -77,10 +77,10 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Atan2(MultiPrecision<N> y, MultiPrecision<N> x) {
-            if (x.IsZero && y.IsZero) {
+            if (IsZero(x) && IsZero(y)) {
                 return Zero;
             }
-            if (!x.IsFinite || !y.IsFinite) {
+            if (!IsFinite(x) || !IsFinite(y)) {
                 return NaN;
             }
             if (Abs(x) >= Abs(y)) {
@@ -111,7 +111,7 @@ namespace MultiPrecision {
                 z += dz;
                 t *= s;
 
-                if (dz.IsZero || z.Exponent - dz.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Plus1<N>>.IsZero(dz) || z.Exponent - dz.Exponent > MultiPrecision<Plus1<N>>.Bits) {
 #if DEBUG
                     convergenced = true;
 #endif
@@ -141,7 +141,7 @@ namespace MultiPrecision {
                         n_frac *= n;
                         n2_frac *= (2 * n - 1) * (2 * n);
 
-                        if (!n2_frac.IsFinite) {
+                        if (!MultiPrecision<Plus1<N>>.IsFinite(n2_frac)) {
                             break;
                         }
                     }

@@ -5,11 +5,11 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> EllipticK(MultiPrecision<N> m) {
-            if (!m.IsFinite || m.Sign == Sign.Minus || m > One) {
+            if (!IsFinite(m) || m.Sign == Sign.Minus || m > One) {
                 return NaN;
             }
 
-            if (m.IsZero) {
+            if (IsZero(m)) {
                 return PI / 2;
             }
 
@@ -28,11 +28,11 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> EllipticE(MultiPrecision<N> m) {
-            if (!m.IsFinite || m.Sign == Sign.Minus || m > One) {
+            if (!IsFinite(m) || m.Sign == Sign.Minus || m > One) {
                 return NaN;
             }
 
-            if (m.IsZero) {
+            if (IsZero(m)) {
                 return PI / 2;
             }
 
@@ -46,11 +46,11 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> EllipticPi(MultiPrecision<N> n, MultiPrecision<N> m) {
-            if (!m.IsFinite || m.Sign == Sign.Minus || m > One || n > One) {
+            if (!IsFinite(m) || m.Sign == Sign.Minus || m > One || n > One) {
                 return NaN;
             }
 
-            if (n.IsZero) {
+            if (IsZero(n)) {
                 return EllipticK(m);
             }
 
@@ -58,7 +58,7 @@ namespace MultiPrecision {
                 return PositiveInfinity;
             }
 
-            if (m.IsZero) {
+            if (IsZero(m)) {
                 return PI / (2 * Sqrt(1 - n));
             }
 
@@ -87,7 +87,7 @@ namespace MultiPrecision {
 
                     x += c;
 
-                    if (c.IsZero || x.Exponent - c.Exponent > Bits) {
+                    if (IsZero(c) || x.Exponent - c.Exponent > Bits) {
                         break;
                     }
 
@@ -106,7 +106,7 @@ namespace MultiPrecision {
             MultiPrecision<N> c = Sqrt(Abs(a * a - b * b));
             MultiPrecision<N> q = 1;
 
-            for (int n = 0; n < int.MaxValue && !c.IsZero && a != b; n++) {
+            for (int n = 0; n < int.MaxValue && !IsZero(c) && a != b; n++) {
                 MultiPrecision<N> squa_c = c * c;
                 MultiPrecision<N> dq = Ldexp(squa_c, n - 1);
                 q -= dq;
@@ -130,7 +130,7 @@ namespace MultiPrecision {
             MultiPrecision<N> q = 1;
             MultiPrecision<N> sum_q = 1;
 
-            while (!q.IsZero && sum_q.Exponent - q.Exponent < Bits) {
+            while (!IsZero(q) && sum_q.Exponent - q.Exponent < Bits) {
                 MultiPrecision<N> ab = a * b, p_squa = p * p;
                 MultiPrecision<N> p_squa_pab = p_squa + ab, p_squa_mab = p_squa - ab;
 

@@ -141,15 +141,15 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
                     Trace.WriteLine($"{a} + {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && double.IsNaN(c_expect)) {
                         continue;
                     }
                     if ((double.IsInfinity((double)a) || double.IsInfinity((double)b)) && !double.IsFinite(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN || b.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a) || MultiPrecision<N>.IsNaN(b)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{(double)a} + {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} + {b} = {c_actual}");
                             Console.Write("\n");
@@ -198,15 +198,15 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
                     Trace.WriteLine($"{a} - {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && double.IsNaN(c_expect)) {
                         continue;
                     }
                     if ((double.IsInfinity((double)a) || double.IsInfinity((double)b)) && !double.IsFinite(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN || b.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a) || MultiPrecision<N>.IsNaN(b)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{(double)a} - {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} - {b} = {c_actual}");
                             Console.Write("\n");
@@ -253,7 +253,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                     Trace.WriteLine($"{a} * {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && double.IsNaN(c_expect)) {
                         continue;
                     }
                     if ((double.IsInfinity((double)a) || double.IsInfinity((double)b)) && !double.IsFinite(c_expect)) {
@@ -262,8 +262,8 @@ namespace MultiPrecisionTest.Arithmetics {
                     if (c_expect < 1e-304) {
                         continue;
                     }
-                    if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
-                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
+                    if ((!MultiPrecision<N>.IsZero(a) && (double)a == 0) || (!MultiPrecision<N>.IsZero(b) && (double)b == 0)
+                        || (!MultiPrecision<N>.IsZero(c_actual) && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
                         Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                         Console.WriteLine($"{a} * {b} = {c_actual}");
 
@@ -272,8 +272,8 @@ namespace MultiPrecisionTest.Arithmetics {
                         continue;
                     }
 
-                    if (a.IsNaN || b.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a) || MultiPrecision<N>.IsNaN(b)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{(double)a} * {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} * {b} = {c_actual}");
                             Console.Write("\n");
@@ -320,7 +320,7 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                     Trace.WriteLine($"{a} / {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && double.IsNaN(c_expect)) {
                         continue;
                     }
                     if (double.IsInfinity((double)b) && c_expect == 0) {
@@ -336,8 +336,8 @@ namespace MultiPrecisionTest.Arithmetics {
                         continue;
                     }
 
-                    if ((!a.IsZero && (double)a == 0) || (!b.IsZero && (double)b == 0)
-                        || (!c_actual.IsZero && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
+                    if ((!MultiPrecision<N>.IsZero(a) && (double)a == 0) || (!MultiPrecision<N>.IsZero(b) && (double)b == 0)
+                        || (!MultiPrecision<N>.IsZero(c_actual) && (double)c_actual == 0 && Math.Abs(c_expect) < 1e-308)) {
                         Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                         Console.WriteLine($"{a} / {b} = {c_actual}");
 
@@ -346,8 +346,8 @@ namespace MultiPrecisionTest.Arithmetics {
                         continue;
                     }
 
-                    if (a.IsNaN || b.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a) || MultiPrecision<N>.IsNaN(b)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{(double)a} / {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} / {b} = {c_actual}");
                             Console.Write("\n");
@@ -396,12 +396,12 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
                     Trace.WriteLine($"{a} % {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && double.IsNaN(c_expect)) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && double.IsNaN(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN || b.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a) || MultiPrecision<N>.IsNaN(b)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{(double)a} % {(double)b} = {c_expect}");
                             Console.WriteLine($"{a} % {b} = {c_actual}");
                             Console.Write("\n");
@@ -436,12 +436,12 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{a} * {b} = {c_expect}");
                     Trace.WriteLine($"{a} * {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && MultiPrecision<N>.IsNaN(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{a} * {b} = {c_expect}");
                             Console.WriteLine($"{a} * {b} = {c_actual}");
                             Console.Write("\n");
@@ -469,12 +469,12 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{a} / {b} = {c_expect}");
                     Trace.WriteLine($"{a} / {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && MultiPrecision<N>.IsNaN(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{a} / {b} = {c_expect}");
                             Console.WriteLine($"{a} / {b} = {c_actual}");
                             Console.Write("\n");
@@ -502,12 +502,12 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{a} + {b} = {c_expect}");
                     Trace.WriteLine($"{a} + {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && MultiPrecision<N>.IsNaN(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{a} + {b} = {c_expect}");
                             Console.WriteLine($"{a} + {b} = {c_actual}");
                             Console.Write("\n");
@@ -535,12 +535,12 @@ namespace MultiPrecisionTest.Arithmetics {
                     Trace.WriteLine($"{a} - {b} = {c_expect}");
                     Trace.WriteLine($"{a} - {b} = {c_actual}");
 
-                    if (c_actual.IsNaN && c_expect.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(c_actual) && MultiPrecision<N>.IsNaN(c_expect)) {
                         continue;
                     }
 
-                    if (a.IsNaN) {
-                        if (!c_actual.IsNaN) {
+                    if (MultiPrecision<N>.IsNaN(a)) {
+                        if (!MultiPrecision<N>.IsNaN(c_actual)) {
                             Console.WriteLine($"{a} - {b} = {c_expect}");
                             Console.WriteLine($"{a} - {b} = {c_actual}");
                             Console.Write("\n");

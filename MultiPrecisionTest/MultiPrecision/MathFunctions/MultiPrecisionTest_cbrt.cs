@@ -95,7 +95,7 @@ namespace MultiPrecisionTest.Functions {
         public void CbrtUnnormalValueTest() {
             MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cbrt(MultiPrecision<Pow2.N8>.NaN);
 
-            Assert.IsTrue(y.IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
 
             MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Cbrt(MultiPrecision<Pow2.N8>.PositiveInfinity);
 

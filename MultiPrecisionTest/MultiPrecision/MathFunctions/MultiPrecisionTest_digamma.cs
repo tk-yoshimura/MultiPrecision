@@ -320,7 +320,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Digamma(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {

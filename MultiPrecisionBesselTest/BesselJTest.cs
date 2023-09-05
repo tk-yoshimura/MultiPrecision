@@ -208,10 +208,10 @@ namespace MultiPrecisionBesselTest {
             sw.WriteLine($"  {t.ToHexcode()}");
             sw.WriteLine($"  {s.ToHexcode()}");
 
-            if (t.IsNaN && s.IsNaN) {
+            if (MultiPrecision<N>.IsNaN(t) && MultiPrecision<Plus1<N>>.IsNaN(s)) {
                 return;
             }
-            if (!t.IsFinite && !s.IsFinite && t.Sign == s.Sign) {
+            if (!MultiPrecision<N>.IsFinite(t) && !MultiPrecision<Plus1<N>>.IsFinite(s) && t.Sign == s.Sign) {
                 return;
             }
 

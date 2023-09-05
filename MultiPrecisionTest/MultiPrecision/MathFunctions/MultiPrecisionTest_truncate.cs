@@ -148,7 +148,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
     }

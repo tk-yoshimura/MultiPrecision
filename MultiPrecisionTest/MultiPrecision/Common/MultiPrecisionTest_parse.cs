@@ -741,19 +741,19 @@ namespace MultiPrecisionTest.Common {
             MultiPrecision<Pow2.N8> ninf2 = "-inf";
             MultiPrecision<Pow2.N8> ninf3 = "-INF";
 
-            Assert.IsTrue(nan1.IsNaN);
-            Assert.IsTrue(nan2.IsNaN);
-            Assert.IsTrue(nan3.IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(nan1));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(nan2));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(nan3));
 
-            Assert.IsTrue(pinf1.IsPositiveInfinity);
-            Assert.IsTrue(pinf2.IsPositiveInfinity);
-            Assert.IsTrue(pinf3.IsPositiveInfinity);
-            Assert.IsTrue(pinf4.IsPositiveInfinity);
-            Assert.IsTrue(pinf5.IsPositiveInfinity);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPositiveInfinity(pinf1));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPositiveInfinity(pinf2));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPositiveInfinity(pinf3));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPositiveInfinity(pinf4));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPositiveInfinity(pinf5));
 
-            Assert.IsTrue(ninf1.IsNegativeInfinity);
-            Assert.IsTrue(ninf2.IsNegativeInfinity);
-            Assert.IsTrue(ninf3.IsNegativeInfinity);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNegativeInfinity(ninf1));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNegativeInfinity(ninf2));
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNegativeInfinity(ninf3));
         }
     }
 }

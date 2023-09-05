@@ -228,7 +228,7 @@ namespace MultiPrecisionTest {
         public static void Tolerance<N>(double expected, MultiPrecision<N> actual, double minerr = 1e-10, double rateerr = 1e-8, bool ignore_expected_nan = false, bool ignore_sign = false) where N : struct, IConstant {
             if (double.IsNaN(expected)) {
                 if (!ignore_expected_nan) {
-                    Assert.IsTrue(actual.IsNaN, "unmatch nan");
+                    Assert.IsTrue(MultiPrecision<N>.IsNaN(actual), "unmatch nan");
                 }
 
                 return;
@@ -279,7 +279,7 @@ namespace MultiPrecisionTest {
                 diff[i - 1] = a - b;
             }
 
-            int signs = diff.Where((d) => !d.IsZero).Select((d) => d.Sign).Distinct().Count();
+            int signs = diff.Where((d) => !MultiPrecision<N>.IsZero(d)).Select((d) => d.Sign).Distinct().Count();
 
             if (signs > 1) {
                 Assert.Fail($"Monotonicity not satisfied.");
@@ -300,14 +300,14 @@ namespace MultiPrecisionTest {
                 diff[i - 1] = a - b;
             }
 
-            diff = diff.Where((d) => d.IsFinite).ToArray();
+            diff = diff.Where(MultiPrecision<N>.IsFinite).ToArray();
 
             MultiPrecision<N> diff_avg = diff.Average();
             MultiPrecision<N> diff_absave = diff.Select((d) => MultiPrecision<N>.Abs(d)).Average();
-            MultiPrecision<N> diff_nonzeromin = diff.Where((d) => !d.IsZero).Select((d) => MultiPrecision<N>.Abs(d)).Min();
+            MultiPrecision<N> diff_nonzeromin = diff.Where((d) => !MultiPrecision<N>.IsZero(d)).Select((d) => MultiPrecision<N>.Abs(d)).Min();
             MultiPrecision<N> error_range = diff_absave * safe_error + diff_nonzeromin;
 
-            if (diff_absave.IsZero || error_range.IsZero) {
+            if (MultiPrecision<N>.IsZero(diff_absave) || MultiPrecision<N>.IsZero(error_range)) {
                 Console.WriteLine("Smoothness satisfied. (No error)");
                 return;
             }

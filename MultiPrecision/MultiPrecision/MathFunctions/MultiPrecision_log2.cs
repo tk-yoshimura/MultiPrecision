@@ -6,7 +6,7 @@
             if (!(x >= Zero)) {
                 return NaN;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return NegativeInfinity;
             }
             if (x == PositiveInfinity) {

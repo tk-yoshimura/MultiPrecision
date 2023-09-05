@@ -292,7 +292,7 @@ namespace MultiPrecisionTest.Functions {
                     Console.WriteLine(y.ToHexcode());
                     Console.Write("\n");
 
-                    if (y.IsFinite) {
+                    if (MultiPrecision<Pow2.N8>.IsFinite(y)) {
                         ys.Add(y);
                     }
                 }
@@ -838,7 +838,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Gamma(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {
@@ -866,7 +866,7 @@ namespace MultiPrecisionTest.Functions {
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.LogGamma(v);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
             MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {

@@ -3,7 +3,7 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> InverseErf(MultiPrecision<N> x) {
-            if (x.IsNaN || x < MinusOne || x > One) {
+            if (IsNaN(x) || x < MinusOne || x > One) {
                 return NaN;
             }
             if (x == MinusOne) {
@@ -31,7 +31,7 @@
         }
 
         public static MultiPrecision<N> InverseErfc(MultiPrecision<N> x) {
-            if (x.IsNaN || x < Zero || x > 2) {
+            if (IsNaN(x) || x < Zero || x > 2) {
                 return NaN;
             }
             if (x == Zero) {

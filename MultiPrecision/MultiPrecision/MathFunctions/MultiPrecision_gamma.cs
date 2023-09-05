@@ -7,18 +7,18 @@ namespace MultiPrecision {
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Gamma(MultiPrecision<N> x) {
-            if (x.IsNaN || (x.Sign == Sign.Minus && !x.IsFinite)) {
+            if (IsNaN(x) || (x.Sign == Sign.Minus && !IsFinite(x))) {
                 return NaN;
             }
 
-            if (x.IsZero || (x.Sign == Sign.Plus && !x.IsFinite)) {
+            if (IsZero(x) || (x.Sign == Sign.Plus && !IsFinite(x))) {
                 return PositiveInfinity;
             }
 
             if (x.Sign == Sign.Minus || x.Exponent < -1) {
                 MultiPrecision<N> sinpi = SinPI(x);
 
-                if (sinpi.IsZero) {
+                if (IsZero(sinpi)) {
                     return NaN;
                 }
 
@@ -53,11 +53,11 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> LogGamma(MultiPrecision<N> x) {
-            if (x.IsNaN || x.IsZero || x.Sign == Sign.Minus) {
+            if (IsNaN(x) || IsZero(x) || x.Sign == Sign.Minus) {
                 return NaN;
             }
 
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return PositiveInfinity;
             }
 
@@ -139,7 +139,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
+                if (MultiPrecision<SterlingExpand<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<SterlingExpand<N>>.Bits) {
                     break;
                 }
 
@@ -156,31 +156,16 @@ namespace MultiPrecision {
                 public static MultiPrecision<N> Threshold { private set; get; }
 
                 static Gamma() {
-                    switch (Length) {
-                        case <= 4:
-                            Threshold = 16;
-                            break;
-                        case <= 8:
-                            Threshold = 32;
-                            break;
-                        case <= 16:
-                            Threshold = 60;
-                            break;
-                        case <= 32:
-                            Threshold = 116;
-                            break;
-                        case <= 64:
-                            Threshold = 228;
-                            break;
-                        case <= 128:
-                            Threshold = 456;
-                            break;
-                        case <= 256:
-                            Threshold = 908;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException(nameof(Length));
-                    }
+                    Threshold = Length switch {
+                        <= 4 => (MultiPrecision<N>)16,
+                        <= 8 => (MultiPrecision<N>)32,
+                        <= 16 => (MultiPrecision<N>)60,
+                        <= 32 => (MultiPrecision<N>)116,
+                        <= 64 => (MultiPrecision<N>)228,
+                        <= 128 => (MultiPrecision<N>)456,
+                        <= 256 => (MultiPrecision<N>)908,
+                        _ => throw new ArgumentOutOfRangeException(nameof(Length)),
+                    };
 
 #if DEBUG
                     Trace.WriteLine($"Gamma<{Length}> initialized.");
@@ -198,32 +183,16 @@ namespace MultiPrecision {
                     static Lanczos() {
                         byte[] state = null;
 
-                        switch (Length) {
-                            case <= 4:
-                                state = Resources.lanczos_mp4;
-                                break;
-                            case <= 8:
-                                state = Resources.lanczos_mp8;
-                                break;
-                            case <= 16:
-                                state = Resources.lanczos_mp16;
-                                break;
-                            case <= 32:
-                                state = Resources.lanczos_mp32;
-                                break;
-                            case <= 64:
-                                state = Resources.lanczos_mp64;
-                                break;
-                            case <= 128:
-                                state = Resources.lanczos_mp128;
-                                break;
-                            case <= 256:
-                                state = Resources.lanczos_mp256;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException(nameof(Length));
-                        }
-
+                        state = Length switch {
+                            <= 4 => Resources.lanczos_mp4,
+                            <= 8 => Resources.lanczos_mp8,
+                            <= 16 => Resources.lanczos_mp16,
+                            <= 32 => Resources.lanczos_mp32,
+                            <= 64 => Resources.lanczos_mp64,
+                            <= 128 => Resources.lanczos_mp128,
+                            <= 256 => Resources.lanczos_mp256,
+                            _ => throw new ArgumentOutOfRangeException(nameof(Length)),
+                        };
                         (MultiPrecision<LanczosExpand<N>> g, MultiPrecision<LanczosExpand<N>>[] table) = ReadLanczosState(state);
 
                         Lanczos.g = g;
@@ -269,34 +238,16 @@ namespace MultiPrecision {
                     public static ReadOnlyCollection<MultiPrecision<SterlingExpand<N>>> Coef => Array.AsReadOnly(coef);
 
                     static Sterling() {
-                        int terms;
-
-                        switch (Length) {
-                            case <= 4:
-                                terms = 32;
-                                break;
-                            case <= 8:
-                                terms = 60;
-                                break;
-                            case <= 16:
-                                terms = 134;
-                                break;
-                            case <= 32:
-                                terms = 294;
-                                break;
-                            case <= 64:
-                                terms = 640;
-                                break;
-                            case <= 128:
-                                terms = 1262;
-                                break;
-                            case <= 256:
-                                terms = 2608;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException(nameof(Length));
-                        }
-
+                        var terms = Length switch {
+                            <= 4 => 32,
+                            <= 8 => 60,
+                            <= 16 => 134,
+                            <= 32 => 294,
+                            <= 64 => 640,
+                            <= 128 => 1262,
+                            <= 256 => 2608,
+                            _ => throw new ArgumentOutOfRangeException(nameof(Length)),
+                        };
                         logbias = MultiPrecision<SterlingExpand<N>>.Log(
                             MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.PI * 2)
                         );
@@ -317,59 +268,43 @@ namespace MultiPrecision {
     }
 
     internal struct LanczosExpand<N> : IConstant where N : struct, IConstant {
-        public int Value {
+        public readonly int Value {
             get {
                 int length = default(N).Value;
-                switch (length) {
-                    case <= 4:
-                        return 5;
-                    case <= 8:
-                        return 10;
-                    case <= 16:
-                        return 20;
-                    case <= 32:
-                        return 40;
-                    case <= 64:
-                        return 80;
-                    case <= 128:
-                        return 160;
-                    case <= 256:
-                        return 320;
-                    default:
-                        throw new ArgumentOutOfRangeException(
-                            "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
-                            nameof(N)
-                        );
-                }
+                return length switch {
+                    <= 4 => 5,
+                    <= 8 => 10,
+                    <= 16 => 20,
+                    <= 32 => 40,
+                    <= 64 => 80,
+                    <= 128 => 160,
+                    <= 256 => 320,
+                    _ => throw new ArgumentOutOfRangeException(
+                                                "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
+                                                nameof(N)
+                                            ),
+                };
             }
         }
     }
 
     internal struct SterlingExpand<N> : IConstant where N : struct, IConstant {
-        public int Value {
+        public readonly int Value {
             get {
                 int length = default(N).Value;
-                switch (length) {
-                    case <= 4:
-                        return 5;
-                    case <= 8:
-                        return 9;
-                    case <= 16:
-                        return 17;
-                    case <= 32:
-                        return 33;
-                    case <= 64:
-                        return 65;
-                    case <= 128:
-                        return 129;
-                    case <= 256:
-                        return 257;
-                    default:
-                        throw new ArgumentOutOfRangeException(
-                            "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
-                            nameof(N)
-                        );
-                }
+                return length switch {
+                    <= 4 => 5,
+                    <= 8 => 9,
+                    <= 16 => 17,
+                    <= 32 => 33,
+                    <= 64 => 65,
+                    <= 128 => 129,
+                    <= 256 => 257,
+                    _ => throw new ArgumentOutOfRangeException(
+                                                "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
+                                                nameof(N)
+                                            ),
+                };
             }
         }
     }

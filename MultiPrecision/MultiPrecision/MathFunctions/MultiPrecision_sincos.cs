@@ -44,10 +44,10 @@
         }
 
         internal static MultiPrecision<N> SinHalfPI(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return NaN;
             }
-            if (x.IsZero) {
+            if (IsZero(x)) {
                 return x;
             }
 
@@ -59,7 +59,7 @@
         }
 
         internal static MultiPrecision<N> CosHalfPI(MultiPrecision<N> x) {
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return NaN;
             }
 
@@ -75,7 +75,7 @@
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
-            if ((cycle == 0 || cycle == 2) && x_frac.IsZero) {
+            if ((cycle == 0 || cycle == 2) && IsZero(x_frac)) {
                 return Zero;
             }
 
@@ -132,7 +132,7 @@
             MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
-            if ((cycle == 1 || cycle == 3) && x_frac.IsZero) {
+            if ((cycle == 1 || cycle == 3) && IsZero(x_frac)) {
                 return Zero;
             }
 

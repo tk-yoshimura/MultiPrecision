@@ -53,7 +53,7 @@ namespace MultiPrecisionTest.Functions {
 
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.NaN, p);
 
-                Assert.IsTrue(y.IsNaN);
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
 
                 MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.PositiveInfinity, p);
 
@@ -66,7 +66,7 @@ namespace MultiPrecisionTest.Functions {
 
             MultiPrecision<Pow2.N8> yeps = MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Epsilon, -1);
 
-            Assert.IsTrue(yeps.IsZero);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsZero(yeps));
         }
     }
 }

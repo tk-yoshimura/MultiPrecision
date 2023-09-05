@@ -77,7 +77,7 @@ namespace MultiPrecisionTest.Functions {
         public void Pow2UnnormalValueTest() {
             MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Pow2(MultiPrecision<Pow2.N8>.NaN);
 
-            Assert.IsTrue(y.IsNaN);
+            Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
 
             MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Pow2(MultiPrecision<Pow2.N8>.PositiveInfinity);
 

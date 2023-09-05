@@ -14,7 +14,7 @@ namespace MultiPrecision {
             if ((x_min != null && x0 < x_min) || (x_max != null && x0 > x_max)) {
                 throw new ArgumentOutOfRangeException(nameof(x0));
             }
-            if (!x0.IsFinite) {
+            if (!MultiPrecision<N>.IsFinite(x0)) {
                 return x0;
             }
 
@@ -25,7 +25,7 @@ namespace MultiPrecision {
             int overshoots = 0;
 
             int iter = 0;
-            while ((max_iterations < 0 || iter < max_iterations) && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
+            while ((max_iterations < 0 || iter < max_iterations) && !MultiPrecision<N>.IsZero(dx) && MultiPrecision<N>.IsFinite(dx) && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
                 dx = f(x) / df(x);
 
                 x -= dx;
@@ -64,7 +64,7 @@ namespace MultiPrecision {
             if ((x_min != null && x0 < x_min) || (x_max != null && x0 > x_max)) {
                 throw new ArgumentOutOfRangeException(nameof(x0));
             }
-            if (!x0.IsFinite) {
+            if (!MultiPrecision<N>.IsFinite(x0)) {
                 return x0;
             }
 
@@ -77,7 +77,7 @@ namespace MultiPrecision {
             int overshoots = 0;
 
             int iter = 0;
-            while ((max_iterations < 0 || iter < max_iterations) && !dx.IsZero && dx.IsFinite && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
+            while ((max_iterations < 0 || iter < max_iterations) && !MultiPrecision<N>.IsZero(dx) && MultiPrecision<N>.IsFinite(dx) && x.Exponent - dx.Exponent <= MultiPrecision<N>.Bits) {
                 y = f(x);
                 (df1, df2) = df(x);
                 dx = (2 * y * df1) / (2 * df1 * df1 - y * df2);

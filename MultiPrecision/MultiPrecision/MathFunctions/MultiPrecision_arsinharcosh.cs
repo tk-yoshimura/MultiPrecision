@@ -23,7 +23,7 @@
         }
 
         public static MultiPrecision<N> Artanh(MultiPrecision<N> x) {
-            if (x.IsNaN || x.Exponent > 1 || x < MinusOne || x > One) {
+            if (IsNaN(x) || x.Exponent > 1 || x < MinusOne || x > One) {
                 return NaN;
             }
 

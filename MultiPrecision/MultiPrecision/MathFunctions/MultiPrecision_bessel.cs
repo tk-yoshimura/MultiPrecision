@@ -11,7 +11,7 @@ namespace MultiPrecision {
                     "In the calculation of the Bessel function, nu with an absolute value greater than 64 is not supported."
                 );
             }
-            if (nu.IsNaN || x.IsNaN) {
+            if (IsNaN(nu) || IsNaN(x)) {
                 return NaN;
             }
 
@@ -24,7 +24,7 @@ namespace MultiPrecision {
                 return ((n & 1L) == 0) ? BesselJ(nu, Abs(x)) : -BesselJ(nu, Abs(x));
             }
 
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return 0;
             }
             if (x.Exponent >= Bits) {
@@ -52,18 +52,18 @@ namespace MultiPrecision {
                     if (n == 0) {
                         MultiPrecision<N> y = (envelope * MultiPrecision<Plus1<N>>.Sin(x_ex)).Convert<N>();
 
-                        return y.IsNaN ? 0 : y;
+                        return IsNaN(y) ? 0 : y;
                     }
                     if (n == 1) {
                         MultiPrecision<N> y = (envelope * (MultiPrecision<Plus1<N>>.Sin(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cos(x_ex))).Convert<N>();
 
-                        return y.IsNaN ? 0 : y;
+                        return IsNaN(y) ? 0 : y;
                     }
                 }
             }
 
             if (x.Exponent <= -0x1000000) {
-                return nu.IsZero ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
+                return IsZero(nu) ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
             }
 
             if (x < Consts.BesselJY.ApproxThreshold) {
@@ -81,7 +81,7 @@ namespace MultiPrecision {
                     "In the calculation of the Bessel function, nu with an absolute value greater than 64 is not supported."
                 );
             }
-            if (nu.IsNaN || x.IsNaN) {
+            if (IsNaN(nu) || IsNaN(x)) {
                 return NaN;
             }
 
@@ -94,7 +94,7 @@ namespace MultiPrecision {
                 return ((n & 1L) == 0) ? BesselY(nu, Abs(x)) : -BesselY(nu, Abs(x));
             }
 
-            if (!x.IsFinite) {
+            if (!IsFinite(x)) {
                 return 0;
             }
             if (x.Exponent >= Bits) {
@@ -116,12 +116,12 @@ namespace MultiPrecision {
                     if (n == -2) {
                         MultiPrecision<N> y = -(envelope * (MultiPrecision<Plus1<N>>.Sin(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cos(x_ex))).Convert<N>();
 
-                        return y.IsNaN ? 0 : y;
+                        return IsNaN(y) ? 0 : y;
                     }
                     if (n == -1) {
                         MultiPrecision<N> y = (envelope * MultiPrecision<Plus1<N>>.Sin(x_ex)).Convert<N>();
 
-                        return y.IsNaN ? 0 : y;
+                        return IsNaN(y) ? 0 : y;
                     }
                     if (n == 0) {
                         return -(envelope * MultiPrecision<Plus1<N>>.Cos(x_ex)).Convert<N>();
@@ -133,7 +133,7 @@ namespace MultiPrecision {
             }
 
             if (x.Exponent <= -0x1000000) {
-                return nu.IsZero ? NegativeInfinity : NaN;
+                return IsZero(nu) ? NegativeInfinity : NaN;
             }
 
             if (x < Consts.BesselJY.ApproxThreshold) {
@@ -151,7 +151,7 @@ namespace MultiPrecision {
                     "In the calculation of the Bessel function, nu with an absolute value greater than 64 is not supported."
                 );
             }
-            if (nu.IsNaN || x.IsNaN || x.Sign == Sign.Minus) {
+            if (IsNaN(nu) || IsNaN(x) || x.Sign == Sign.Minus) {
                 return NaN;
             }
 
@@ -175,18 +175,18 @@ namespace MultiPrecision {
                     if (n == 0) {
                         MultiPrecision<N> y = (r * MultiPrecision<Plus1<N>>.Sinh(x_ex)).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return IsNormal(y) ? y : 0;
                     }
                     if (n == 1) {
                         MultiPrecision<N> y = -(r * (MultiPrecision<Plus1<N>>.Sinh(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cosh(x_ex))).Convert<N>();
 
-                        return y.IsNormal ? y : 0;
+                        return IsNormal(y) ? y : 0;
                     }
                 }
             }
 
             if (x.Exponent <= -0x1000000) {
-                return nu.IsZero ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
+                return IsZero(nu) ? 1 : ((nu.Sign == Sign.Plus || nu == Truncate(nu)) ? 0 : NaN);
             }
 
             if (x < Consts.BesselIK.ApproxThreshold) {
@@ -204,7 +204,7 @@ namespace MultiPrecision {
                     "In the calculation of the Bessel function, nu with an absolute value greater than 64 is not supported."
                 );
             }
-            if (nu.IsNaN || x.IsNaN || x.Sign == Sign.Minus) {
+            if (IsNaN(nu) || IsNaN(x) || x.Sign == Sign.Minus) {
                 return NaN;
             }
 
@@ -229,7 +229,7 @@ namespace MultiPrecision {
             }
 
             if (x.Exponent <= -0x1000000) {
-                return nu.IsZero ? PositiveInfinity : NaN;
+                return IsZero(nu) ? PositiveInfinity : NaN;
             }
 
             if (x < Consts.BesselIK.ApproxThreshold) {
@@ -255,7 +255,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     if (probably_convergenced) {
                         break;
                     }
@@ -312,10 +312,10 @@ namespace MultiPrecision {
                     sign = Sign.Plus;
                 }
 
-                if (!c.IsZero && x.Exponent - c.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
+                if (!MultiPrecision<Plus4<N>>.IsZero(c) && x.Exponent - c.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
                     continue;
                 }
-                if (!s.IsZero && y.Exponent - s.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
+                if (!MultiPrecision<Plus4<N>>.IsZero(c) && y.Exponent - s.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
                     continue;
                 }
 
@@ -375,7 +375,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     if (probably_convergenced) {
                         break;
                     }
@@ -431,7 +431,7 @@ namespace MultiPrecision {
                     x -= u * inv_mm * finite_table.Value(k);
                 }
                 else {
-                    if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                    if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                         if (probably_convergenced) {
                             break;
                         }
@@ -479,10 +479,10 @@ namespace MultiPrecision {
                     sign = Sign.Plus;
                 }
 
-                if (!c.IsZero && x.Exponent - c.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
+                if (!MultiPrecision<Plus4<N>>.IsZero(c) && x.Exponent - c.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
                     continue;
                 }
-                if (!s.IsZero && y.Exponent - s.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
+                if (!MultiPrecision<Plus4<N>>.IsZero(c) && y.Exponent - s.Exponent <= MultiPrecision<Plus2<N>>.Bits) {
                     continue;
                 }
 
@@ -510,7 +510,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     break;
                 }
             }
@@ -552,7 +552,7 @@ namespace MultiPrecision {
                     sign = Sign.Plus;
                 }
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Plus4<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     break;
                 }
             }
@@ -606,7 +606,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     if (probably_convergenced) {
                         break;
                     }
@@ -665,7 +665,7 @@ namespace MultiPrecision {
                     }
                 }
                 else {
-                    if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                    if (MultiPrecision<Double<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                         if (probably_convergenced) {
                             break;
                         }
@@ -696,7 +696,7 @@ namespace MultiPrecision {
 
                 x += c;
 
-                if (c.IsZero || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
+                if (MultiPrecision<Plus4<N>>.IsZero(c) || x.Exponent - c.Exponent > MultiPrecision<Plus1<N>>.Bits) {
                     break;
                 }
             }

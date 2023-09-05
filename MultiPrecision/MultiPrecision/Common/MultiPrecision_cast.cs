@@ -36,11 +36,11 @@ namespace MultiPrecision {
         }
 
         public static explicit operator Int64(MultiPrecision<N> v) {
-            if (v.IsNaN) {
+            if (IsNaN(v)) {
                 throw new InvalidCastException("NaN");
             }
 
-            if (v.IsZero || v.Exponent < 0) {
+            if (IsZero(v) || v.Exponent < 0) {
                 return 0;
             }
 
@@ -123,7 +123,7 @@ namespace MultiPrecision {
         }
 
         public double ToDouble() {
-            if (IsFinite) {
+            if (IsFinite(this)) {
                 UInt64 n = mantissa.MostSignificantDigits;
 
                 return (double)n * Math.Pow(2, (double)(Exponent - UIntUtil.UInt64Bits + 1)) * ((Sign == Sign.Plus) ? 1 : -1);

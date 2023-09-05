@@ -16,14 +16,14 @@
         }
 
         public static MultiPrecision<N> Tanh(MultiPrecision<N> x) {
-            if (x.IsNaN) {
+            if (IsNaN(x)) {
                 return NaN;
             }
 
             MultiPrecision<N> x2 = 2 * x;
             MultiPrecision<N> x2_expm1 = Expm1(x2), x2_expp1 = Exp(x2) + 1;
 
-            if (x2_expm1.IsFinite && x2_expp1.IsFinite) {
+            if (IsFinite(x2_expm1) && IsFinite(x2_expp1)) {
                 return x2_expm1 / x2_expp1;
             }
             else {
