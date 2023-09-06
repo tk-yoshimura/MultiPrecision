@@ -27,7 +27,8 @@ namespace MultiPrecision {
         IEqualityComparer<MultiPrecision<N>>,
 
         IComparisonOperators<MultiPrecision<N>, MultiPrecision<N>, bool>,
-        IMinMaxValue<MultiPrecision<N>> {
+        IMinMaxValue<MultiPrecision<N>>,
+        IPowerFunctions<MultiPrecision<N>> {
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> AdditiveIdentity => Zero;

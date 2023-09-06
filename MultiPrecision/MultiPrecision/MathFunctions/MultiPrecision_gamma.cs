@@ -280,9 +280,9 @@ namespace MultiPrecision {
                     <= 128 => 160,
                     <= 256 => 320,
                     _ => throw new ArgumentOutOfRangeException(
-                                                "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
-                                                nameof(N)
-                                            ),
+                             "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
+                             nameof(N)
+                         ),
                 };
             }
         }
@@ -301,9 +301,9 @@ namespace MultiPrecision {
                     <= 128 => 129,
                     <= 256 => 257,
                     _ => throw new ArgumentOutOfRangeException(
-                                                "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
-                                                nameof(N)
-                                            ),
+                         "In the gamma function, the calculation is invalid for precision greater than 256 in length.",
+                         nameof(N)
+                     ),
                 };
             }
         }
