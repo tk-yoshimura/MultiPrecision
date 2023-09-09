@@ -8,6 +8,10 @@ namespace MultiPrecision {
             return v.ToDouble();
         }
 
+        public static explicit operator float(MultiPrecision<N> v) {
+            return (float)(double)v;
+        }
+
         public static explicit operator decimal(MultiPrecision<N> v) {
             const int digits = 28;
 
@@ -76,8 +80,8 @@ namespace MultiPrecision {
             if (double.IsInfinity(v)) {
                 return v > 0 ? PositiveInfinity : NegativeInfinity;
             }
-            if (v == 0) {
-                return Zero;
+            if (v == 0d) {
+                return double.IsPositive(v) ? Zero : MinusZero;
             }
 
             const int double_bits = 52;

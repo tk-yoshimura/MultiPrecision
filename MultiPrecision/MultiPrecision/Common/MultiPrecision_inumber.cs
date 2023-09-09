@@ -89,8 +89,12 @@ namespace MultiPrecision {
                 result = vdec;
                 return true;
             }
+            if (value is BigInteger vbint) {
+                result = vbint;
+                return true;
+            }
 
-            result = default;
+            result = Zero;
             return false;
         }
 
@@ -135,7 +139,7 @@ namespace MultiPrecision {
             }
 
             if (typeof(TOther) == typeof(float)) {
-                result = (TOther)(object)(float)Clamp(value, float.MinValue, float.MaxValue);
+                result = (TOther)(object)(float)value;
                 return true;
             }
             if (typeof(TOther) == typeof(long)) {
