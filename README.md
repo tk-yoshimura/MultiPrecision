@@ -41,93 +41,93 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 ## Functions
 
-|function|domain|mantissa error bits|note|usage|
-|----|----|----|----|----|
-|sqrt|&#91;0,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Sqrt(x)|
-|cbrt|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Cbrt(x)|
-|log2|&#40;0,+inf&#41;|0||MultiPrecision&lt;*N*&gt;.Log2(x)|
-|log|&#40;0,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Log(x)|
-|log10|&#40;0,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Log10(x)|
-|log1p|&#40;-1,+inf&#41;|1|log(1+x)|MultiPrecision&lt;*N*&gt;.Log1p(x)|
-|pow2|&#40;-inf,+inf&#41;|0||MultiPrecision&lt;*N*&gt;.Pow2(x)|
-|pow|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Pow(x, y)|
-|pow10|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Pow10(x)|
-|exp|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Exp(x)|
-|expm1|&#40;-inf,+inf&#41;|1|exp(x)-1|MultiPrecision&lt;*N*&gt;.Expm1(x)|
-|sin|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Sin(x)|
-|cos|&#40;-inf,+inf&#41;|1||MultiPrecision&lt;*N*&gt;.Cos(x)|
-|tan|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Tan(x)|
-|sinpi|&#40;-inf,+inf&#41;|0| sin(&pi;x) |MultiPrecision&lt;*N*&gt;.SinPI(x)|
-|cospi|&#40;-inf,+inf&#41;|0| cos(&pi;x) |MultiPrecision&lt;*N*&gt;.CosPI(x)|
-|tanpi|&#40;-inf,+inf&#41;|1| tan(&pi;x) |MultiPrecision&lt;*N*&gt;.TanPI(x)|
-|sinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Sinh(x)|
-|cosh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Cosh(x)|
-|tanh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Tanh(x)|
-|asin|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Asin(x)|
-|acos|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Acos(x)|
-|atan|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Atan(x)|
-|atan2|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Atan2(y, x)|
-|arsinh|&#40;-inf,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arsinh(x)|
-|arcosh|&#91;1,+inf&#41;|2||MultiPrecision&lt;*N*&gt;.Arcosh(x)|
-|artanh|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|MultiPrecision&lt;*N*&gt;.Artanh(x)|
-|erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erf(x)|
-|erfc|&#40;0,2&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.Erfc(x)|
-|inverse_erf|&#40;-1,1&#41;|2|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErf(x)|
-|inverse_erfc|&#40;0,2&#41;|4|*Length* &leq; 256|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|
-|loggamma|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.LogGamma(x)|
-|gamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Gamma(x)|
-|digamma|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers and zero points.<br/>*Length* &leq; 256 |MultiPrecision&lt;*N*&gt;.Digamma(x)|
-|bessel_j|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselJ(nu, z)|
-|bessel_y|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselY(nu, z)|
-|bessel_i|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselI(nu, z)|
-|bessel_k|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |MultiPrecision&lt;*N*&gt;.BesselK(nu, z)|
-|elliptic_k|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|MultiPrecision&lt;*N*&gt;.EllipticK(m)|
-|elliptic_e|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|MultiPrecision&lt;*N*&gt;.EllipticE(m)|
-|elliptic_pi|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|MultiPrecision&lt;*N*&gt;.EllipticPi(n, m)|
-|ldexp|&#40;-inf,+inf&#41;|N/A||MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|
-|random|N/A|N/A|generation uniform random &#91;0, 1&#41;|MultiPrecision&lt;*N*&gt;.Random(random)|
-|min|N/A|N/A||MultiPrecision&lt;*N*&gt;.Min(x, y)|
-|max|N/A|N/A||MultiPrecision&lt;*N*&gt;.Max(x, y)|
-|floor|N/A|N/A||MultiPrecision&lt;*N*&gt;.Floor(x)|
-|ceiling|N/A|N/A||MultiPrecision&lt;*N*&gt;.Ceiling(x)|
-|round|N/A|N/A||MultiPrecision&lt;*N*&gt;.Round(x)|
-|truncate|N/A|N/A||MultiPrecision&lt;*N*&gt;.Truncate(x)|
-|array sum|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Sum()|
-|array average|N/A|N/A|kahan summation|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Average()|
-|array variance|N/A|N/A|**population** variance|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Variance()|
-|array min|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Min()|
-|array max|N/A|N/A||IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Max()|
+|function|domain|mantissa error bits|note|
+|----|----|----|----|
+|MultiPrecision&lt;*N*&gt;.Sqrt(x)|&#91;0,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Cbrt(x)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Log2(x)|&#40;0,+inf&#41;|0||
+|MultiPrecision&lt;*N*&gt;.Log(x)|&#40;0,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Log10(x)|&#40;0,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Log1p(x)|&#40;-1,+inf&#41;|1|log(1+x)|
+|MultiPrecision&lt;*N*&gt;.Pow2(x)|&#40;-inf,+inf&#41;|0||
+|MultiPrecision&lt;*N*&gt;.Pow(x, y)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Pow10(x)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Exp(x)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Expm1(x)|&#40;-inf,+inf&#41;|1|exp(x)-1|
+|MultiPrecision&lt;*N*&gt;.Sin(x)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Cos(x)|&#40;-inf,+inf&#41;|1||
+|MultiPrecision&lt;*N*&gt;.Tan(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.SinPI(x)|&#40;-inf,+inf&#41;|0| sin(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.CosPI(x)|&#40;-inf,+inf&#41;|0| cos(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.TanPI(x)|&#40;-inf,+inf&#41;|1| tan(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.Sinh(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Cosh(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Tanh(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Asin(x)|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|
+|MultiPrecision&lt;*N*&gt;.Acos(x)|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|
+|MultiPrecision&lt;*N*&gt;.Atan(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Atan2(y, x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Arsinh(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Arcosh(x)|&#91;1,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Artanh(x)|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|
+|MultiPrecision&lt;*N*&gt;.Erf(x)|&#40;-1,1&#41;|2|*Length* &leq; 256|
+|MultiPrecision&lt;*N*&gt;.Erfc(x)|&#40;0,2&#41;|2|*Length* &leq; 256|
+|MultiPrecision&lt;*N*&gt;.InverseErf(x)|&#40;-1,1&#41;|2|*Length* &leq; 256|
+|MultiPrecision&lt;*N*&gt;.InverseErfc(x)|&#40;0,2&#41;|4|*Length* &leq; 256|
+|MultiPrecision&lt;*N*&gt;.LogGamma(x)|&#40;0,+inf&#41;|2|Accuracy deteriorates near x=0.<br/>*Length* &leq; 256 |
+|MultiPrecision&lt;*N*&gt;.Gamma(x)|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers.<br/>*Length* &leq; 256 |
+|MultiPrecision&lt;*N*&gt;.Digamma(x)|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near non-positive intergers and zero points.<br/>*Length* &leq; 256 |
+|MultiPrecision&lt;*N*&gt;.BesselJ(nu, z)|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |
+|MultiPrecision&lt;*N*&gt;.BesselY(nu, z)|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |
+|MultiPrecision&lt;*N*&gt;.BesselI(nu, z)|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |
+|MultiPrecision&lt;*N*&gt;.BesselK(nu, z)|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |
+|MultiPrecision&lt;*N*&gt;.EllipticK(m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
+|MultiPrecision&lt;*N*&gt;.EllipticE(m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
+|MultiPrecision&lt;*N*&gt;.EllipticPi(n, m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
+|MultiPrecision&lt;*N*&gt;.Ldexp(x, y)|&#40;-inf,+inf&#41;|N/A||
+|MultiPrecision&lt;*N*&gt;.Random(random)|N/A|N/A|generation uniform random &#91;0, 1&#41;|
+|MultiPrecision&lt;*N*&gt;.Min(x, y)|N/A|N/A||
+|MultiPrecision&lt;*N*&gt;.Max(x, y)|N/A|N/A||
+|MultiPrecision&lt;*N*&gt;.Floor(x)|N/A|N/A||
+|MultiPrecision&lt;*N*&gt;.Ceiling(x)|N/A|N/A||
+|MultiPrecision&lt;*N*&gt;.Round(x)|N/A|N/A||
+|MultiPrecision&lt;*N*&gt;.Truncate(x)|N/A|N/A||
+|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Sum()|N/A|N/A|kahan summation|
+|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Average()|N/A|N/A|kahan summation|
+|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Variance()|N/A|N/A|**population** variance|
+|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Min()|N/A|N/A||
+|IEnumerable&lt;MultiPrecision&lt;*N*&gt;&gt;.Max()|N/A|N/A||
 
 ## Constants
 
-|constant|value|note|usage|
-|----|----|----|----|
-|Pi|3.141592653589793238462...||MultiPrecision&lt;*N*&gt;.PI|
-|Napier's E|2.718281828459045235360...||MultiPrecision&lt;*N*&gt;.E|
-|Sqrt(2)|1.414213562373095048801...||MultiPrecision&lt;*N*&gt;.Sqrt2|
-|lg(2)|0.301029995663981195213...|log10(2)<br/>lg:=log10 (ISO 80000-2-12.6)|MultiPrecision&lt;*N*&gt;.Lg2|
-|lb(10)|3.321928094887362347870...|log2(10)<br/> lb:=log2 (ISO 80000-2-12.7)|MultiPrecision&lt;*N*&gt;.Lb10|
-|log(2)|0.693147180559945309417...|log(2)<br/>ln:=log (ISO 80000-2-12.5)|MultiPrecision&lt;*N*&gt;.Ln2|
-|lb(e)|1.442695040888963407359...|log2(e)|MultiPrecision&lt;*N*&gt;.LbE|
-|Euler's Gamma|0.577215664901532860606...||MultiPrecision&lt;*N*&gt;.EulerGamma|
-|&zeta;(3)|1.202056903159594285399...|Apery const.|MultiPrecision&lt;*N*&gt;.Zeta3|
-|&zeta;(5)|1.036927755143369926331...||MultiPrecision&lt;*N*&gt;.Zeta5|
-|&zeta;(7)|1.008349277381922826839...||MultiPrecision&lt;*N*&gt;.Zeta7|
+|constant|value|note|
+|----|----|----|
+|MultiPrecision&lt;*N*&gt;.PI|3.141592653589793238462...|Pi|
+|MultiPrecision&lt;*N*&gt;.E|2.718281828459045235360...|Napier's E|
+|MultiPrecision&lt;*N*&gt;.Sqrt2|1.414213562373095048801...|Sqrt(2)|
+|MultiPrecision&lt;*N*&gt;.Lg2|0.301029995663981195213...|log10(2)<br/>lg:=log10 (ISO 80000-2-12.6)|
+|MultiPrecision&lt;*N*&gt;.Lb10|3.321928094887362347870...|log2(10)<br/> lb:=log2 (ISO 80000-2-12.7)|
+|MultiPrecision&lt;*N*&gt;.Ln2|0.693147180559945309417...|log(2)<br/>ln:=log (ISO 80000-2-12.5)|
+|MultiPrecision&lt;*N*&gt;.LbE|1.442695040888963407359...|log2(e)|
+|MultiPrecision&lt;*N*&gt;.EulerGamma|0.577215664901532860606...|Euler's Gamma|
+|MultiPrecision&lt;*N*&gt;.Zeta3|1.202056903159594285399...|&zeta;(3), Apery const.|
+|MultiPrecision&lt;*N*&gt;.Zeta5|1.036927755143369926331...|&zeta;(5)|
+|MultiPrecision&lt;*N*&gt;.Zeta7|1.008349277381922826839...|&zeta;(7)|
 
 ## Sequence
 
-|sequence|note|usage|
-|----|----|----|
-|Taylor|1/n!|MultiPrecision&lt;*N*&gt;.TaylorSequence|
-|Bernoulli|B(2k)|MultiPrecision&lt;*N*&gt;.BernoulliSequence|
-|Stirling|Gamma convergent series, Bayes(1763)|MultiPrecision&lt;*N*&gt;.StirlingSequence|
-|HarmonicNumber|H_n|MultiPrecision&lt;*N*&gt;.HarmonicNumber|
+|sequence|note|
+|----|----|
+|MultiPrecision&lt;*N*&gt;.TaylorSequence|Taylor, 1/n!|
+|MultiPrecision&lt;*N*&gt;.BernoulliSequence|Bernoulli, B(2k)|
+|MultiPrecision&lt;*N*&gt;.StirlingSequence|Stirling, Gamma convergent series, Bayes(1763)|
+|MultiPrecision&lt;*N*&gt;.HarmonicNumber|HarmonicNumber, H_n|
 
 ## Coefficient
 
-|coefficient|note|usage|
-|----|----|----|
-|Chebyshev|C(n, m)|MultiPrecision&lt;*N*&gt;.ChebyshevCoef|
+|coefficient|note|
+|----|----|
+|MultiPrecision&lt;*N*&gt;.ChebyshevCoef|Chebyshev, C(n, m)|
 
 ## Casts
 
