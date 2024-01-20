@@ -16,12 +16,9 @@ AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 
 ## Spec
 
-Exponent : &plusmn;2147483647
-
-Mantissa : 128-32768 bits
-
-Round: half away from zero
-
+Exponent : &plusmn;2147483647  
+Mantissa : 128-32768 bits  
+Round: half away from zero  
 MaxValue: &plusmn;8.808065x10^646456992
 
 ## Types
