@@ -764,13 +764,13 @@ namespace MultiPrecision {
             }
 
             public static class Bessel {
-                private static readonly Dictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = new();
-                private static readonly Dictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = new();
+                private static readonly Dictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = [];
+                private static readonly Dictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = [];
 
-                private static readonly Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = new();
-                private static readonly Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = new();
+                private static readonly Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = [];
+                private static readonly Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = [];
 
-                private static readonly Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = new();
+                private static readonly Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = [];
 
                 public static BesselNearZeroCoef NearZeroCoef(MultiPrecision<N> nu) {
                     BesselNearZeroCoef table;
@@ -835,8 +835,8 @@ namespace MultiPrecision {
 
             public class BesselNearZeroCoef {
                 private readonly MultiPrecision<Double<N>> nu;
-                private readonly List<MultiPrecision<Double<N>>> a_table = new();
-                private readonly List<MultiPrecision<Double<N>>> c_table = new();
+                private readonly List<MultiPrecision<Double<N>>> a_table = [];
+                private readonly List<MultiPrecision<Double<N>>> c_table = [];
 
                 public BesselNearZeroCoef(MultiPrecision<N> nu) {
                     this.nu = nu.Convert<Double<N>>();
@@ -862,9 +862,7 @@ namespace MultiPrecision {
                 }
 
                 public MultiPrecision<Double<N>> Value(int n) {
-                    if (n < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(n));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(n);
 
                     if (n < c_table.Count) {
                         return c_table[n];
@@ -883,7 +881,7 @@ namespace MultiPrecision {
 
             public class BesselLimitCoef {
                 private readonly MultiPrecision<Plus4<N>> squa_nu4;
-                private readonly List<MultiPrecision<Plus4<N>>> a_table = new();
+                private readonly List<MultiPrecision<Plus4<N>>> a_table = [];
 
                 public BesselLimitCoef(MultiPrecision<N> nu) {
                     this.squa_nu4 = 4 * MultiPrecision<Plus4<N>>.Square(nu.Convert<Plus4<N>>());
@@ -895,9 +893,7 @@ namespace MultiPrecision {
                 }
 
                 public MultiPrecision<Plus4<N>> Value(int n) {
-                    if (n < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(n));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(n);
 
                     if (n < a_table.Count) {
                         return a_table[n];
@@ -915,12 +911,10 @@ namespace MultiPrecision {
             }
 
             public class BesselIntegerFiniteTermCoef {
-                private readonly List<MultiPrecision<Double<N>>> a_table = new();
+                private readonly List<MultiPrecision<Double<N>>> a_table = [];
 
                 public BesselIntegerFiniteTermCoef(int n) {
-                    if (n < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(n));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(n);
 
                     MultiPrecision<Double<N>> a = 1;
                     for (int i = 2; i < n; i++) {
@@ -948,7 +942,7 @@ namespace MultiPrecision {
                 private static readonly MultiPrecision<Double<N>> b;
 
                 private readonly int n;
-                private readonly List<MultiPrecision<Double<N>>> a_table = new();
+                private readonly List<MultiPrecision<Double<N>>> a_table = [];
                 private MultiPrecision<Double<N>> r;
 
                 static BesselIntegerConvergenceTermCoef() {
@@ -956,9 +950,7 @@ namespace MultiPrecision {
                 }
 
                 public BesselIntegerConvergenceTermCoef(int n) {
-                    if (n < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(n));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(n);
 
                     MultiPrecision<Double<N>> r0 = 1;
                     for (int i = 2; i <= n; i++) {
@@ -973,9 +965,7 @@ namespace MultiPrecision {
                 }
 
                 public MultiPrecision<Double<N>> Value(int k) {
-                    if (k < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(k));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(k);
 
                     if (k < a_table.Count) {
                         return a_table[k];

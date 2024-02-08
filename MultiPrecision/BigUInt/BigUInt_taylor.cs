@@ -16,7 +16,7 @@ namespace MultiPrecision {
         }
 
         private static ReadOnlyCollection<BigUInt<N>> GenerateTaylorTable() {
-            List<BigUInt<N>> table = new();
+            List<BigUInt<N>> table = [];
 
             BigUInt<Plus1<N>> v = BigUInt<Plus1<N>>.Top80000000u;
             BigUInt<Plus1<N>> d = 1;

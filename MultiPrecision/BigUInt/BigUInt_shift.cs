@@ -2,17 +2,13 @@
     internal sealed partial class BigUInt<N> {
 
         public static BigUInt<N> operator <<(BigUInt<N> n, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             return LeftShift(n, sft, check_overflow: false, enable_clone: true);
         }
 
         public static BigUInt<N> operator >>(BigUInt<N> n, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             return RightShift(n, sft, enable_clone: true);
         }

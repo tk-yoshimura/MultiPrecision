@@ -8,7 +8,7 @@
 
         private static partial class Consts {
             public static class Harmonic {
-                private static readonly List<MultiPrecision<N>> a_table = new();
+                private static readonly List<MultiPrecision<N>> a_table = [];
                 private static MultiPrecision<Plus1<N>> a_last;
 
                 static Harmonic() {
@@ -18,9 +18,7 @@
                 }
 
                 public static MultiPrecision<N> Value(int n) {
-                    if (n < 0) {
-                        throw new ArgumentOutOfRangeException(nameof(n));
-                    }
+                    ArgumentOutOfRangeException.ThrowIfNegative(n);
 
                     if (n < a_table.Count) {
                         return a_table[n];

@@ -93,9 +93,7 @@ namespace MultiPrecision {
         internal (Sign sign, Int64 exponent_dec, BigUInt<N> n) ToStringCore(int digits) {
             const int presicion = 2;
 
-            if (digits > DecimalDigits) {
-                throw new ArgumentOutOfRangeException(nameof(digits));
-            }
+            ArgumentOutOfRangeException.ThrowIfGreaterThan(digits, DecimalDigits);
 
             if (IsZero(this)) {
                 return (Sign, 0, BigUInt<N>.Zero);

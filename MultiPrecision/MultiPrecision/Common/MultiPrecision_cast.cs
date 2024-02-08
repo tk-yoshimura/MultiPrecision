@@ -24,11 +24,12 @@ namespace MultiPrecision {
                 num /= 10;
             }
 
-            UInt32[] mantissa = new UInt32[3];
-            mantissa[0] = (UInt32)(num & (BigInteger)~0u);
-            mantissa[1] = (UInt32)((num >> 32) & (BigInteger)~0u);
-            mantissa[2] = (UInt32)(num >> 64);
-
+            UInt32[] mantissa =
+            [
+                (UInt32)(num & (BigInteger)~0u),
+                (UInt32)((num >> 32) & (BigInteger)~0u),
+                (UInt32)(num >> 64),
+            ];
             decimal d = new(
                 unchecked((int)mantissa[0]),
                 unchecked((int)mantissa[1]),
@@ -52,7 +53,7 @@ namespace MultiPrecision {
                 throw new OverflowException();
             }
 
-            UInt32[] arr = v.mantissa.Value.ToArray();
+            UInt32[] arr = [.. v.mantissa.Value];
             UIntUtil.RightShift(arr, Bits - (int)v.Exponent - 1);
 
             UInt64 u = UIntUtil.Pack(arr[1], arr[0]);

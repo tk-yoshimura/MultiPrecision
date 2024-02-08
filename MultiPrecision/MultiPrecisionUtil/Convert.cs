@@ -13,7 +13,7 @@
             int src_length = MultiPrecision<Nsrc>.Length, dst_length = MultiPrecision<Ndst>.Length;
 
             if (src_length == dst_length) {
-                return new MultiPrecision<Ndst>(v.Sign, v.Exponent, v.Mantissa.ToArray());
+                return new MultiPrecision<Ndst>(v.Sign, v.Exponent, [.. v.Mantissa]);
             }
 
             UInt32[] mantissa = new UInt32[MultiPrecision<Ndst>.Length];

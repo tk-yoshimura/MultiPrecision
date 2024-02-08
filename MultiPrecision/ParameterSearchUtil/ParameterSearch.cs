@@ -2,8 +2,8 @@
 
 namespace MultiPrecision.ParameterSearchUtil {
     public abstract class ParameterSearch<N> where N : struct, IConstant {
-        private readonly SortedList<long, MultiPrecision<N>> samples = new();
-        private readonly List<long> samples_standby = new();
+        private readonly SortedList<long, MultiPrecision<N>> samples = [];
+        private readonly List<long> samples_standby = [];
 
         public ReadOnlyCollection<(long param, MultiPrecision<N> value)> Samples
             => samples.Keys.Select((key) => (key, samples[key])).ToList().AsReadOnly();
@@ -32,10 +32,10 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         public ParameterSearch((long min, long max) likely_range, (long min, long max) search_range) {
             if (likely_range.min >= likely_range.max) {
-                throw new ArgumentException(nameof(likely_range));
+                throw new ArgumentException(null, nameof(likely_range));
             }
             if (search_range.min >= search_range.max) {
-                throw new ArgumentException(nameof(search_range));
+                throw new ArgumentException(null, nameof(search_range));
             }
             if (likely_range.min < search_range.min || likely_range.max > search_range.max) {
                 throw new ArgumentException($"{nameof(likely_range)},{nameof(search_range)}");
@@ -63,7 +63,7 @@ namespace MultiPrecision.ParameterSearchUtil {
 
         protected void PushSampleRequest(long sample_point) {
             if (sample_point >= SearchRange.min && sample_point <= SearchRange.max
-                && !samples.Keys.Contains(sample_point)) {
+                && !samples.ContainsKey(sample_point)) {
 
                 samples_standby.Add(sample_point);
             }

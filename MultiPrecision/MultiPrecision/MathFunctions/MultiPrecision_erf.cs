@@ -131,7 +131,7 @@ namespace MultiPrecision {
 
                     C = 1 / MultiPrecision<Plus4<N>>.Sqrt(MultiPrecision<Plus4<N>>.PI);
 
-                    List<MultiPrecision<Plus4<N>>> table = new();
+                    List<MultiPrecision<Plus4<N>>> table = [];
                     MultiPrecision<Plus4<N>> coef = 1;
 
                     int n = 1;
@@ -153,18 +153,16 @@ namespace MultiPrecision {
     }
 
     static class ErfTaylorSeries {
-        private static readonly List<BigInteger> factorials = new() {
+        private static readonly List<BigInteger> factorials = [
             1
-        };
+        ];
 
-        private static readonly List<BigInteger> coefs = new() {
+        private static readonly List<BigInteger> coefs = [
             1
-        };
+        ];
 
         public static MultiPrecision<N> Coef<N>(int n) where N : struct, IConstant {
-            if (n < 0) {
-                throw new ArgumentOutOfRangeException(nameof(n));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(n);
 
             if (n < factorials.Count) {
                 return coefs[n];
@@ -197,7 +195,7 @@ namespace MultiPrecision {
             (int[] bits, List<double> zs, List<int[]> ns) = ReadTable();
 
             ErfcConvergenceTable.bits = bits;
-            ErfcConvergenceTable.zs = zs.ToArray();
+            ErfcConvergenceTable.zs = [.. zs];
             ErfcConvergenceTable.ns = new int[zs.Count, bits.Length];
             ErfcConvergenceTable.z_range = (zs[0], zs[^1]);
             ErfcConvergenceTable.bit_range = (bits[0], bits[^1]);
@@ -217,8 +215,8 @@ namespace MultiPrecision {
 
         private static (int[] bits, List<double> zs, List<int[]> ns) ReadTable() {
             int[] bits;
-            List<double> zs = new();
-            List<int[]> ns = new();
+            List<double> zs = [];
+            List<int[]> ns = [];
 
             string[] lines = Resources.erfc_convergence_table.Split("\r\n");
 

@@ -10,13 +10,11 @@ namespace MultiPrecision {
     }
 
     static class Stirling {
-        private static readonly List<Fraction> table = new() { new Fraction(1, 12) };
-        static BigInteger[] stirling = new BigInteger[] { 1 };
+        private static readonly List<Fraction> table = [new Fraction(1, 12)];
+        static BigInteger[] stirling = [1];
 
         public static Fraction Table(int n) {
-            if (n <= 0) {
-                throw new ArgumentOutOfRangeException(nameof(n));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegativeOrZero(n);
 
             if (n <= table.Count) {
                 return table[n - 1];

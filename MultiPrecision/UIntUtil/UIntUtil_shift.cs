@@ -5,12 +5,11 @@ using static System.Runtime.Intrinsics.X86.Avx2;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
+#pragma warning disable CA1857
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>
         public static unsafe void LeftShift(UInt32[] value, int sft, bool check_overflow = false) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
@@ -90,9 +89,7 @@ namespace MultiPrecision {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft</summary>
         public static unsafe void RightShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             int sft_block = sft / UInt32Bits, sft_rem = sft % UInt32Bits;
 
@@ -170,9 +167,7 @@ namespace MultiPrecision {
         /// <summary>Shift uint32 array v &lt;&lt;= sft * UInt32Bits</summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe void LeftBlockShift(UInt32[] value, int sft, bool check_overflow = false) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             if (check_overflow && checked(sft + Digits(value)) > value.Length) {
                 throw new OverflowException();
@@ -218,9 +213,7 @@ namespace MultiPrecision {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft * UInt32Bits</summary>
         public static unsafe void RightBlockShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
 
             if (sft >= value.Length) {
                 Zeroset(value);
@@ -263,9 +256,7 @@ namespace MultiPrecision {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft with round</summary>
         public static unsafe void RightRoundShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
             if (sft == 0) {
                 return;
             }
@@ -290,9 +281,7 @@ namespace MultiPrecision {
 
         /// <summary>Shift uint32 array v &gt;&gt;= sft with round</summary>
         public static unsafe void RightRoundBlockShift(UInt32[] value, int sft) {
-            if (sft < 0) {
-                throw new ArgumentOutOfRangeException(nameof(sft));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(sft);
             if (sft == 0) {
                 return;
             }
@@ -310,5 +299,7 @@ namespace MultiPrecision {
                 Add(value, 1u);
             }
         }
+
+#pragma warning restore CA1857
     }
 }

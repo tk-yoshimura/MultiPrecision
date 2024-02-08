@@ -3,7 +3,7 @@
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private static readonly Dictionary<int, BigUInt<N>> decimals = new();
+        private static readonly Dictionary<int, BigUInt<N>> decimals = [];
 
         public static BigUInt<N> Decimal(int digits) {
             if (!decimals.ContainsKey(digits)) {
@@ -14,9 +14,7 @@ namespace MultiPrecision {
         }
 
         private static BigUInt<N> GenerateDecimal(int digits) {
-            if (digits < 0) {
-                throw new ArgumentOutOfRangeException(nameof(digits));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(digits);
 
             UInt64 v = 1;
             for (int i = 0; i < digits % UIntUtil.UInt64MaxDecimalDigits; i++) {

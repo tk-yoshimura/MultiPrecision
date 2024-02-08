@@ -154,7 +154,7 @@ namespace MultiPrecision {
                 private static readonly List<MultiPrecision<N>> k_table;
 
                 static Elliptic() {
-                    k_table = new() { 1 };
+                    k_table = [1];
 
 #if DEBUG
                     Trace.WriteLine($"Elliptic<{Length}> initialized.");

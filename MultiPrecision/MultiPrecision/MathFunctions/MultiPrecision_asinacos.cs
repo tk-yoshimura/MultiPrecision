@@ -132,7 +132,7 @@ namespace MultiPrecision {
 
                 static SquareAsin() {
                     MultiPrecision<Plus1<N>> n = 1, n_frac = 1, n2_frac = 2;
-                    List<MultiPrecision<Plus1<N>>> fracs = new();
+                    List<MultiPrecision<Plus1<N>>> fracs = [];
 
                     while (fracs.Count < 1 || fracs.Last().Exponent >= -MultiPrecision<Plus1<N>>.Bits * 2) {
                         fracs.Add((n_frac * n_frac) / (n * n * n2_frac));

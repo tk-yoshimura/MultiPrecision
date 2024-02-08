@@ -46,7 +46,7 @@ namespace MultiPrecision {
                 throw new ArgumentException("invalid length.", nameof(arr));
             }
 
-            this.value = arr.ToArray();
+            this.value = [.. arr];
         }
 
         public BigUInt(UInt32[] arr, int offset, bool carry = false) : this() {
@@ -79,7 +79,7 @@ namespace MultiPrecision {
         }
 
         public BigUInt(IReadOnlyList<UInt32> arr, int offset, bool carry = false)
-            : this(arr.ToArray(), offset, carry) { }
+            : this([.. arr], offset, carry) { }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static BigUInt<N> Zero => new();

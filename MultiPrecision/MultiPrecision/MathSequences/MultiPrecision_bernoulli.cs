@@ -9,15 +9,13 @@ namespace MultiPrecision {
     }
 
     static class Bernoulli {
-        private static readonly List<Fraction> table = new() { 1 };
+        private static readonly List<Fraction> table = [1];
         private static readonly Fraction p5 = new(1, 2);
 
-        private static BigInteger[] binom = new BigInteger[] { 1, 1 };
+        private static BigInteger[] binom = [1, 1];
 
         public static Fraction Table(int n) {
-            if (n < 0) {
-                throw new ArgumentOutOfRangeException(nameof(n));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(n);
 
             if (n < table.Count) {
                 return table[n];
