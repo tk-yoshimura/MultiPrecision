@@ -28,6 +28,11 @@
                 }
                 else {
                     v = BigUInt<Double<N>>.RightRoundShift(v, Mantissa<N>.Bits - 1, enable_clone: false);
+
+                    if (v.Value[BigUInt<N>.Length] > 0) {
+                        v = BigUInt<Double<N>>.RightRoundShift(v, 1, enable_clone: false);
+                        break;
+                    }
                 }
             }
             if (sft == BigUInt<Double<N>>.Bits) {
@@ -48,6 +53,11 @@
                     }
                     else {
                         v = BigUInt<Double<N>>.RightRoundShift(v, Mantissa<N>.Bits - 1, enable_clone: false);
+
+                        if (v.Value[BigUInt<N>.Length] > 0) {
+                            v = BigUInt<Double<N>>.RightRoundShift(v, 1, enable_clone: false);
+                            m |= 1u;
+                        }
                     }
                 }
 

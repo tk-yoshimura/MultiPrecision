@@ -85,7 +85,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Log2OverFlowTest() {
-            for (double exponent = 0; exponent > -12; exponent -= 1d / 32) {
+            for (double exponent = -1; exponent >= -32; exponent -= 1d / 32) {
                 MultiPrecision<N12> x     = MultiPrecision<N12>.Pow2(exponent);
                 MultiPrecision<N12> x_inc = MultiPrecision<N12>.BitIncrement(x);
                 MultiPrecision<N12> x_dec = MultiPrecision<N12>.BitDecrement(x);
@@ -97,6 +97,14 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(y);
                 Console.WriteLine(y_inc);
                 Console.WriteLine(y_dec);
+                
+                Assert.AreEqual(exponent, (double)y);
+                Assert.AreEqual(exponent, (double)y_inc);
+                Assert.AreEqual(exponent, (double)y_dec);
+
+                Assert.IsTrue(MultiPrecision<N12>.NearlyEqualBits(exponent, y, 1));
+                Assert.IsTrue(MultiPrecision<N12>.NearlyEqualBits(exponent, y_inc, 2));
+                Assert.IsTrue(MultiPrecision<N12>.NearlyEqualBits(exponent, y_dec, 2));
             }
         }
     }
