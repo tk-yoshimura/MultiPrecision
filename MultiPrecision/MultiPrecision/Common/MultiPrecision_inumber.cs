@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Numerics;
@@ -179,7 +178,7 @@ namespace MultiPrecision {
         public bool Equals(MultiPrecision<N> x, MultiPrecision<N> y) => (x == y) || (IsNaN(x) && IsNaN(y));
         public bool Equals(MultiPrecision<N> other) => (this == other) || (IsNaN(this) && IsNaN(other));
         public override bool Equals(object obj) => (obj is MultiPrecision<N> n) && Equals(n);
-    
+
         public int GetHashCode([DisallowNull] MultiPrecision<N> obj) => obj.GetHashCode();
 
         public int CompareTo(object obj) {
