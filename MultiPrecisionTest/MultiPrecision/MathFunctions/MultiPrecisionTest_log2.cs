@@ -2,6 +2,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
 using System;
 using System.Collections.Generic;
+using static MultiPrecisionTest.BigUInt.BigUIntTest;
 
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
@@ -76,6 +77,27 @@ namespace MultiPrecisionTest.Functions {
             MultiPrecision<Pow2.N8> inf = MultiPrecision<Pow2.N8>.Log2(MultiPrecision<Pow2.N8>.PositiveInfinity);
 
             Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, inf);
+        }
+
+        internal struct N12 : IConstant {
+            public int Value => 12;
+        }
+
+        [TestMethod]
+        public void Log2OverFlowTest() {
+            for (double exponent = 0; exponent > -12; exponent -= 1d / 32) {
+                MultiPrecision<N12> x     = MultiPrecision<N12>.Pow2(exponent);
+                MultiPrecision<N12> x_inc = MultiPrecision<N12>.BitIncrement(x);
+                MultiPrecision<N12> x_dec = MultiPrecision<N12>.BitDecrement(x);
+
+                MultiPrecision<N12> y     = MultiPrecision<N12>.Log2(x);
+                MultiPrecision<N12> y_inc = MultiPrecision<N12>.Log2(x_inc);
+                MultiPrecision<N12> y_dec = MultiPrecision<N12>.Log2(x_dec);
+
+                Console.WriteLine(y);
+                Console.WriteLine(y_inc);
+                Console.WriteLine(y_dec);
+            }
         }
     }
 }
