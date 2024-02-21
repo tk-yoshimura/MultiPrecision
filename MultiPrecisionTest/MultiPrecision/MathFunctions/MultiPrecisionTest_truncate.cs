@@ -68,27 +68,27 @@ namespace MultiPrecisionTest.Functions {
         public void RoundMantissaTest() {
             const int cases = 8;
 
-            MultiPrecision<Pow2.N4>[] tests = new MultiPrecision<Pow2.N4>[cases] {
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7F, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7E, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-            };
+            MultiPrecision<Pow2.N4>[] tests = [
+                new(Sign.Plus, 0, [0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7F, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7E, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+            ];
 
-            MultiPrecision<Pow2.N4>[] expects = new MultiPrecision<Pow2.N4>[cases] {
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 1, new uint[]{ 0x00000000, 0x00000000, 0x00000000, 0x80000000 }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 1, new uint[]{ 0x00000000, 0x00000000, 0x00000000, 0x80000000 }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF80, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF80, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-            };
+            MultiPrecision<Pow2.N4>[] expects = [
+                new(Sign.Plus, 1, [0x00000000, 0x00000000, 0x00000000, 0x80000000]),
+                new(Sign.Plus, 1, [0x00000000, 0x00000000, 0x00000000, 0x80000000]),
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF80, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF80, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+            ];
 
             for (int i = 0; i < cases; i++) {
                 MultiPrecision<Pow2.N4> actual = MultiPrecision<Pow2.N4>.RoundMantissa(tests[i], 2);
@@ -104,27 +104,27 @@ namespace MultiPrecisionTest.Functions {
         public void TruncateMantissaTest() {
             const int cases = 8;
 
-            MultiPrecision<Pow2.N4>[] tests = new MultiPrecision<Pow2.N4>[cases] {
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7F, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7E, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-            };
+            MultiPrecision<Pow2.N4>[] tests = [
+                new(Sign.Plus, 0, [0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFE, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7F, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7E, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+            ];
 
-            MultiPrecision<Pow2.N4>[] expects = new MultiPrecision<Pow2.N4>[cases] {
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-                new MultiPrecision<Pow2.N4>(Sign.Plus, 0, new uint[]{ 0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF }),
-            };
+            MultiPrecision<Pow2.N4>[] expects = [
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFFC, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFFF8, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF7C, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+                new(Sign.Plus, 0, [0xFFFFFF78, 0xFFFFFFFF, 0xFFFFFFFF, 0xFFFFFFFF]),
+            ];
 
             for (int i = 0; i < cases; i++) {
                 MultiPrecision<Pow2.N4> actual = MultiPrecision<Pow2.N4>.TruncateMantissa(tests[i], 2);
@@ -139,11 +139,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void TruncateUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Truncate(v);

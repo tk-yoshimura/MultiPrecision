@@ -6,7 +6,7 @@ namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void EllipticKTest() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "1.570796326794896619231321691639751442099",
                 "1.570892213762634838383765013658148158242",
                 "1.571180032795041438223425908648837602791",
@@ -71,7 +71,7 @@ namespace MultiPrecisionTest.Functions {
                 "2.619693413111336250714012408473989800517",
                 "2.808743835865441295201859657801262772197",
                 "3.139811035182614296787416718055523464929"
-            };
+            ];
 
             for (int i = 0; i < 64; i++) {
                 decimal k = i / 64m;
@@ -99,7 +99,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticETest() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "1.570796326794896619231321691639751442099",
                 "1.570412761349269516545431818824656351298",
                 "1.569261220653362449692566293935990537979",
@@ -133,7 +133,7 @@ namespace MultiPrecisionTest.Functions {
                 "1.121593170232373842114401808256327787639",
                 "1.071400529143524596844038702321775497692",
                 "1.000000000000000000000000000000000000000"
-            };
+            ];
 
             for (int i = 0; i <= 32; i++) {
                 decimal k = i / 32m;
@@ -161,7 +161,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticPiNp0p75Test() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "3.141592653589793238462643383279502884197",
                 "3.141848356072601861213062516261944266874",
                 "3.142615932075808817696920204266802203076",
@@ -226,7 +226,7 @@ namespace MultiPrecisionTest.Functions {
                 "6.369747160733816472301728300366946215135",
                 "7.029686940714815962463709597822037430236",
                 "8.226867677452678248812077172999511628089"
-            };
+            ];
 
             const double n = 0.75;
 
@@ -256,7 +256,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticPiNp0p50Test() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "2.221441469079183123507940495030346849307",
                 "2.221600341057076015581426576251492744467",
                 "2.222077233978647090471864314006309150954",
@@ -321,7 +321,7 @@ namespace MultiPrecisionTest.Functions {
                 "4.086358401432419354624044401041017223356",
                 "4.443429350757277764371975016037277810877",
                 "5.078608879942593183706131328544063164289"
-            };
+            ];
 
             const double n = 0.50;
 
@@ -351,7 +351,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticPiNm8Test() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "0.5235987755982988730771072305465838140329",
                 "0.5236147563937753299709452182734969919369",
                 "0.5236627207412888084375505987483939659385",
@@ -416,7 +416,7 @@ namespace MultiPrecisionTest.Functions {
                 "0.6701840872748293567980948950080649557384",
                 "0.6931779253559472836926528710401542573529",
                 "0.7323256978683897733741437622522436421579"
-            };
+            ];
 
             const double n = -8;
 
@@ -446,7 +446,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticPiNm16Test() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "0.3809740689239761997006901461043671775548",
                 "0.3809831475408617782026675008322830056213",
                 "0.3810103953204535835971028231981213408891",
@@ -511,7 +511,7 @@ namespace MultiPrecisionTest.Functions {
                 "0.4614654941178051121627408186315149483680",
                 "0.4737799873688316635447690952751743305867",
                 "0.4946616092545485500906578694866806067099"
-            };
+            ];
 
             const double n = -16;
 
@@ -541,7 +541,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticPikp50Test() {
-            MultiPrecision<Pow2.N4>[] expecteds = {
+            MultiPrecision<Pow2.N4>[] expecteds = [
                 "0.3915154142719496271618903097782840238564",
                 "0.3922530789837960241156090772965459509676",
                 "0.3929948866873978006653866527420575239618",
@@ -814,7 +814,7 @@ namespace MultiPrecisionTest.Functions {
                 "4.006151866567190860324685980097537820471",
                 "4.935953323946320527337771310474635076877",
                 "7.043407879210064432464001257357567073886"
-            };
+            ];
 
             const double k = 0.5;
 
@@ -847,12 +847,12 @@ namespace MultiPrecisionTest.Functions {
             const int exponent = -32;
 
             {
-                MultiPrecision<Pow2.N4>[] ks = {
+                MultiPrecision<Pow2.N4>[] ks = [
                     MultiPrecision<Pow2.N4>.BitDecrement(1),
                     MultiPrecision<Pow2.N4>.BitDecrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N4>.BitIncrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticK(k);
@@ -868,12 +868,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N8>[] ks = {
+                MultiPrecision<Pow2.N8>[] ks = [
                     MultiPrecision<Pow2.N8>.BitDecrement(1),
                     MultiPrecision<Pow2.N8>.BitDecrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N8>.BitIncrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticK(k);
@@ -889,12 +889,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N16>[] ks = {
+                MultiPrecision<Pow2.N16>[] ks = [
                     MultiPrecision<Pow2.N16>.BitDecrement(1),
                     MultiPrecision<Pow2.N16>.BitDecrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N16>.BitIncrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticK(k);
@@ -910,12 +910,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N32>[] ks = {
+                MultiPrecision<Pow2.N32>[] ks = [
                     MultiPrecision<Pow2.N32>.BitDecrement(1),
                     MultiPrecision<Pow2.N32>.BitDecrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N32>.BitIncrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticK(k);
@@ -936,12 +936,12 @@ namespace MultiPrecisionTest.Functions {
             const int exponent = -32;
 
             {
-                MultiPrecision<Pow2.N4>[] ks = {
+                MultiPrecision<Pow2.N4>[] ks = [
                     MultiPrecision<Pow2.N4>.BitDecrement(1),
                     MultiPrecision<Pow2.N4>.BitDecrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N4>.BitIncrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticE(k);
@@ -957,12 +957,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N8>[] ks = {
+                MultiPrecision<Pow2.N8>[] ks = [
                     MultiPrecision<Pow2.N8>.BitDecrement(1),
                     MultiPrecision<Pow2.N8>.BitDecrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N8>.BitIncrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticE(k);
@@ -978,12 +978,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N16>[] ks = {
+                MultiPrecision<Pow2.N16>[] ks = [
                     MultiPrecision<Pow2.N16>.BitDecrement(1),
                     MultiPrecision<Pow2.N16>.BitDecrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N16>.BitIncrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticE(k);
@@ -999,12 +999,12 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                MultiPrecision<Pow2.N32>[] ks = {
+                MultiPrecision<Pow2.N32>[] ks = [
                     MultiPrecision<Pow2.N32>.BitDecrement(1),
                     MultiPrecision<Pow2.N32>.BitDecrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N32>.BitIncrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
-                };
+                ];
 
                 foreach (var k in ks) {
                     MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticE(k);
@@ -1026,12 +1026,12 @@ namespace MultiPrecisionTest.Functions {
 
             foreach (double n in new double[] { -1, -0.5, 0.5, 0.75, 0.99609375 }) {
                 {
-                    MultiPrecision<Pow2.N4>[] ks = {
+                    MultiPrecision<Pow2.N4>[] ks = [
                     MultiPrecision<Pow2.N4>.BitDecrement(1),
                     MultiPrecision<Pow2.N4>.BitDecrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N4>.BitIncrement(1 - MultiPrecision<Pow2.N4>.Ldexp(1, exponent)),
-                };
+                ];
 
                     foreach (var k in ks) {
                         MultiPrecision<Pow2.N4> y4 = MultiPrecision<Pow2.N4>.EllipticPi(n, k);
@@ -1047,12 +1047,12 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 {
-                    MultiPrecision<Pow2.N8>[] ks = {
+                    MultiPrecision<Pow2.N8>[] ks = [
                     MultiPrecision<Pow2.N8>.BitDecrement(1),
                     MultiPrecision<Pow2.N8>.BitDecrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N8>.BitIncrement(1 - MultiPrecision<Pow2.N8>.Ldexp(1, exponent)),
-                };
+                ];
 
                     foreach (var k in ks) {
                         MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.EllipticPi(n, k);
@@ -1068,12 +1068,12 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 {
-                    MultiPrecision<Pow2.N16>[] ks = {
+                    MultiPrecision<Pow2.N16>[] ks = [
                     MultiPrecision<Pow2.N16>.BitDecrement(1),
                     MultiPrecision<Pow2.N16>.BitDecrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N16>.BitIncrement(1 - MultiPrecision<Pow2.N16>.Ldexp(1, exponent)),
-                };
+                ];
 
                     foreach (var k in ks) {
                         MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.EllipticPi(n, k);
@@ -1089,12 +1089,12 @@ namespace MultiPrecisionTest.Functions {
                 }
 
                 {
-                    MultiPrecision<Pow2.N32>[] ks = {
+                    MultiPrecision<Pow2.N32>[] ks = [
                     MultiPrecision<Pow2.N32>.BitDecrement(1),
                     MultiPrecision<Pow2.N32>.BitDecrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
                     1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent),
                     MultiPrecision<Pow2.N32>.BitIncrement(1 - MultiPrecision<Pow2.N32>.Ldexp(1, exponent)),
-                };
+                ];
 
                     foreach (var k in ks) {
                         MultiPrecision<Pow2.N32> y32 = MultiPrecision<Pow2.N32>.EllipticPi(n, k);
@@ -1117,13 +1117,13 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, inf);
 
-            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] nans = [
                 -1,
                 2,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
                 MultiPrecision<Pow2.N8>.NaN
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticK(v);
@@ -1134,13 +1134,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void EllipticEUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] nans = [
                 -1,
                 2,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
                 MultiPrecision<Pow2.N8>.NaN
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticE(v);
@@ -1155,13 +1155,13 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.AreEqual(MultiPrecision<Pow2.N8>.PositiveInfinity, inf);
 
-            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] nans = [
                 -1,
                 2,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
                 MultiPrecision<Pow2.N8>.NaN
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.EllipticPi(0.5, v);

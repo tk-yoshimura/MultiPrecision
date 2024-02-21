@@ -6,11 +6,12 @@ namespace MultiPrecision {
         private static readonly Dictionary<int, BigUInt<N>> decimals = [];
 
         public static BigUInt<N> Decimal(int digits) {
-            if (!decimals.ContainsKey(digits)) {
-                decimals.Add(digits, GenerateDecimal(digits));
+            if (!decimals.TryGetValue(digits, out BigUInt<N> value)) {
+                value = GenerateDecimal(digits);
+                decimals.Add(digits, value);
             }
 
-            return decimals[digits];
+            return value;
         }
 
         private static BigUInt<N> GenerateDecimal(int digits) {

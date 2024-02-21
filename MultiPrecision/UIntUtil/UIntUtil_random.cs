@@ -1,7 +1,7 @@
 ﻿namespace MultiPrecision {
     internal static partial class UIntUtil {
         public static UInt32[] Random(Random random, int length, int bits) {
-            int block = bits / UIntUtil.UInt32Bits, rem = bits % UIntUtil.UInt32Bits;
+            int block = bits / UInt32Bits, rem = bits % UInt32Bits;
 
             if (block > length || (block == length && rem > 0)) {
                 throw new ArgumentOutOfRangeException(nameof(bits));
@@ -10,7 +10,7 @@
             UInt32[] value = (new UInt32[length]).Select((_, idx) => idx < block ? (UInt32)random.NextUInt32() : 0u).ToArray();
 
             if (rem > 0) {
-                value[block] = (UInt32)random.NextUInt32() >> (UIntUtil.UInt32Bits - rem);
+                value[block] = (UInt32)random.NextUInt32() >> (UInt32Bits - rem);
             }
 
             return value;

@@ -103,16 +103,16 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AtanBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders_n8 = [
                 MultiPrecision<Pow2.N8>.NegativeInfinity, -2, -1,
                 -MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
                 0,
                 +MultiPrecision<Pow2.N8>.Ldexp(1, int.MinValue / 2),
                 1, 2, MultiPrecision<Pow2.N8>.PositiveInfinity
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan(x);
@@ -137,16 +137,16 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] {
+            MultiPrecision<Pow2.N16>[] borders_n16 = [
                 MultiPrecision<Pow2.N16>.NegativeInfinity, -2, -1,
                 -MultiPrecision<Pow2.N16>.Ldexp(1, int.MinValue / 2),
                 0,
                 +MultiPrecision<Pow2.N16>.Ldexp(1, int.MinValue / 2),
                 1, 2, MultiPrecision<Pow2.N16>.PositiveInfinity
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Atan(x);
@@ -174,16 +174,16 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AsinBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders_n8 = [
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, int.MinValue / 2),
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
                 0,
                 MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
                 MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, int.MinValue / 2),
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Asin(x);
@@ -208,16 +208,16 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] {
+            MultiPrecision<Pow2.N16>[] borders_n16 = [
                 -MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, int.MinValue / 2),
                 -MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, -1),
                 0,
                 MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, -1),
                 MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, int.MinValue / 2),
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Asin(x);
@@ -245,14 +245,14 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AcosBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders_n8 = [
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
                 MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Sqrt2, -1),
                 0
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Acos(x);
@@ -275,14 +275,14 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] {
+            MultiPrecision<Pow2.N16>[] borders_n16 = [
                 -MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, -1),
                 MultiPrecision<Pow2.N16>.Ldexp(MultiPrecision<Pow2.N16>.Sqrt2, -1),
                 0
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Acos(x);
@@ -373,13 +373,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AsinUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.BitDecrement(-1),
                 MultiPrecision<Pow2.N8>.BitIncrement(1),
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Asin(v);
@@ -390,13 +390,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void AcosUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.BitDecrement(-1),
                 MultiPrecision<Pow2.N8>.BitIncrement(1),
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Acos(v);
@@ -407,11 +407,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Atan2UnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Atan2(0, v);

@@ -20,10 +20,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Log2BorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1, 2, 4 };
+            MultiPrecision<Pow2.N8>[] borders = [0, 1, 2, 4];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     if (x.Sign == Sign.Minus) {
@@ -61,11 +61,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Log2UnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.BitDecrement(0),
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Log2(v);
@@ -79,7 +79,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         internal struct N12 : IConstant {
-            public int Value => 12;
+            public readonly int Value => 12;
         }
 
         [TestMethod]

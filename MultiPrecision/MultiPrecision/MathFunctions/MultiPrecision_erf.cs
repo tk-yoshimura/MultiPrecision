@@ -197,8 +197,8 @@ namespace MultiPrecision {
             ErfcConvergenceTable.bits = bits;
             ErfcConvergenceTable.zs = [.. zs];
             ErfcConvergenceTable.ns = new int[zs.Count, bits.Length];
-            ErfcConvergenceTable.z_range = (zs[0], zs[^1]);
-            ErfcConvergenceTable.bit_range = (bits[0], bits[^1]);
+            z_range = (zs[0], zs[^1]);
+            bit_range = (bits[0], bits[^1]);
 
             for (int j = 0; j < zs.Count; j++) {
                 int[] n = ns[j];

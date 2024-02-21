@@ -76,7 +76,7 @@ namespace MultiPrecision {
                 return true;
             }
             catch (FormatException) {
-                result = MultiPrecision<N>.Zero;
+                result = Zero;
                 return false;
             }
         }
@@ -96,14 +96,14 @@ namespace MultiPrecision {
         }
 
         private static MultiPrecision<N> FromIrregularString(string str) {
-            if (str == double.NaN.ToString() || str.ToLower() == "nan") {
-                return MultiPrecision<N>.NaN;
+            if (str == double.NaN.ToString() || str.Equals("nan", StringComparison.CurrentCultureIgnoreCase)) {
+                return NaN;
             }
-            if (str == double.PositiveInfinity.ToString() || str.ToLower() == "inf" || str.ToLower() == "+inf") {
-                return MultiPrecision<N>.PositiveInfinity;
+            if (str == double.PositiveInfinity.ToString() || str.Equals("inf", StringComparison.CurrentCultureIgnoreCase) || str.Equals("+inf", StringComparison.CurrentCultureIgnoreCase)) {
+                return PositiveInfinity;
             }
-            if (str == double.NegativeInfinity.ToString() || str.ToLower() == "-inf") {
-                return MultiPrecision<N>.NegativeInfinity;
+            if (str == double.NegativeInfinity.ToString() || str.Equals("-inf", StringComparison.CurrentCultureIgnoreCase)) {
+                return NegativeInfinity;
             }
 
             throw new FormatException($"Invalid numeric string. : {str}");

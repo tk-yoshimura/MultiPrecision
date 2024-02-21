@@ -8,7 +8,7 @@ namespace MultiPrecisionTest {
     public static class TestTool {
 
         public static IEnumerable<MultiPrecision<N>> EnumerateNeighbor<N>(MultiPrecision<N> v, int n = 10) where N : struct, IConstant {
-            List<MultiPrecision<N>> vs = new();
+            List<MultiPrecision<N>> vs = [];
 
             MultiPrecision<N> u = v;
             for (int i = 0; i < n; i++) {
@@ -196,7 +196,7 @@ namespace MultiPrecisionTest {
         }
 
         public static IEnumerable<MultiPrecision<N>> TruncateSet<N>() where N : struct, IConstant {
-            MultiPrecision<N>[] ps = { 0, "0.1", "0.5", "0.9" };
+            MultiPrecision<N>[] ps = [0, "0.1", "0.5", "0.9"];
 
             foreach (var p in ps) {
                 for (Int64 i = 0; i <= 32; i++) {

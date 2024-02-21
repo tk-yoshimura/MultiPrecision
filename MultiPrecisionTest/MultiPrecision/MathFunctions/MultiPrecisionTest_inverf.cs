@@ -8,7 +8,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void InverseErfTest() {
-            MultiPrecision<Pow2.N8>[] xs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] xs = [
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -128)),
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -64)),
                 -(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -32)),
@@ -32,7 +32,7 @@ namespace MultiPrecisionTest.Functions {
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -32)),
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -64)),
                 +(1 - MultiPrecision<Pow2.N8>.Ldexp(1, -128)),
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> x in xs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErf(x);
@@ -52,7 +52,7 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void InverseErfcTest() {
-            MultiPrecision<Pow2.N8>[] xs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] xs = [
                 MultiPrecision<Pow2.N8>.Ldexp(1, -256),
                 MultiPrecision<Pow2.N8>.Ldexp(1, -128),
                 MultiPrecision<Pow2.N8>.Ldexp(1, -64),
@@ -75,7 +75,7 @@ namespace MultiPrecisionTest.Functions {
                 (2 - MultiPrecision<Pow2.N8>.Ldexp(1, -8)),
                 (2 - MultiPrecision<Pow2.N8>.Ldexp(1, -16)),
                 (2 - MultiPrecision<Pow2.N8>.Ldexp(1, -32)),
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> x in xs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.InverseErfc(x);
@@ -178,16 +178,16 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void InverseErfBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders = [
                 0, -1, 1,
                 -MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Epsilon, 1),
                 +MultiPrecision<Pow2.N8>.Ldexp(MultiPrecision<Pow2.N8>.Epsilon, 1),
                 -MultiPrecision<Pow2.N8>.Ldexp(1, -63),
                 +MultiPrecision<Pow2.N8>.Ldexp(1, -63)
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 4)) {
 
@@ -225,12 +225,12 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void InverseErfcBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders = [
                 0, MultiPrecision<Pow2.N8>.Point5, 1, 2
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 8)) {
 

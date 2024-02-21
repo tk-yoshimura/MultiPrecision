@@ -41,10 +41,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void Log1pBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] { -0.25, 0, 0.25 };
+            MultiPrecision<Pow2.N8>[] borders_n8 = [-0.25, 0, 0.25];
 
             foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, n: 4)) {
 
@@ -70,10 +70,10 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] { -0.25, 0, 0.25 };
+            MultiPrecision<Pow2.N16>[] borders_n16 = [-0.25, 0, 0.25];
 
             foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, n: 4)) {
 

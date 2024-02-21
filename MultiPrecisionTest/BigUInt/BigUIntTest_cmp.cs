@@ -35,9 +35,9 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void IsZeroFullTest() {
-            BigUInt<Pow2.N4> n1 = new(new UInt32[] { ~0u, ~0u, ~0u, ~0u }, enable_clone: false);
-            BigUInt<Pow2.N4> n2 = new(new UInt32[] { 0u, ~0u, ~0u, ~0u }, enable_clone: false);
-            BigUInt<Pow2.N4> n3 = new(new UInt32[] { 0u, 0u, 0u, 0u }, enable_clone: false);
+            BigUInt<Pow2.N4> n1 = new([~0u, ~0u, ~0u, ~0u], enable_clone: false);
+            BigUInt<Pow2.N4> n2 = new([0u, ~0u, ~0u, ~0u], enable_clone: false);
+            BigUInt<Pow2.N4> n3 = new([0u, 0u, 0u, 0u], enable_clone: false);
 
             Assert.IsFalse(n1.IsZero);
             Assert.IsTrue(n1.IsFull);

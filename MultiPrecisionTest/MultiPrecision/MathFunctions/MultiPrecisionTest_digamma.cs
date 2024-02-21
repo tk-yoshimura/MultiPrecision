@@ -160,7 +160,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void DigammaApproxBorderTest() {
             {
-                List<MultiPrecision<Pow2.N4>> ys = new();
+                List<MultiPrecision<Pow2.N4>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N4>)16, 4)) {
 
@@ -181,7 +181,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N8>)32, 4)) {
 
@@ -202,7 +202,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N16>)60, 4)) {
 
@@ -223,7 +223,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N32>> ys = new();
+                List<MultiPrecision<Pow2.N32>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N32>)116, 4)) {
 
@@ -244,7 +244,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N64>> ys = new();
+                List<MultiPrecision<Pow2.N64>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N64>)228, 4)) {
 
@@ -265,7 +265,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N128>> ys = new();
+                List<MultiPrecision<Pow2.N128>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N128>)456, 4)) {
 
@@ -286,7 +286,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             {
-                List<MultiPrecision<Pow2.N256>> ys = new();
+                List<MultiPrecision<Pow2.N256>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor((MultiPrecision<Pow2.N256>)908, 4)) {
 
@@ -309,13 +309,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void DigammaUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] nans = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] nans = [
                 MultiPrecision<Pow2.N8>.NaN,
                 0
                 -1,
                 -2,
                 MultiPrecision<Pow2.N8>.NegativeInfinity
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in nans) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Digamma(v);
@@ -323,9 +323,9 @@ namespace MultiPrecisionTest.Functions {
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
 
-            MultiPrecision<Pow2.N8>[] infs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] infs = [
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in infs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Digamma(v);

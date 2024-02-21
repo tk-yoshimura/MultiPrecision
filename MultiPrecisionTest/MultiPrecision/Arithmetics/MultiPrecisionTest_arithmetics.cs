@@ -10,7 +10,7 @@ namespace MultiPrecisionTest.Arithmetics {
     public static class MultiPrecisionTest<N> where N : struct, IConstant {
         static readonly int bits = default(N).Value * UIntUtil.UInt32Bits;
 
-        static readonly MultiPrecision<N>[] vs = {
+        static readonly MultiPrecision<N>[] vs = [
             MultiPrecision<N>.Zero,
             MultiPrecision<N>.MinusZero,
             1, 2, 3, 4, 5, 7, 8, 10, 11, 13, 100, 1000, 255, 256, 65535, 65536, 16777215, 16777216,
@@ -120,15 +120,15 @@ namespace MultiPrecisionTest.Arithmetics {
             MultiPrecision<N>.NaN,
             MultiPrecision<N>.Epsilon,
             -MultiPrecision<N>.Epsilon,
-        };
+        ];
 
-        static readonly long[] us = {
+        static readonly long[] us = [
             long.MinValue, long.MinValue + 1, -9999999999999999, int.MinValue, int.MinValue + 1,
             -99999999, -12345678, -1000000, -1000, -100, -64, -32, -16, -8, -7, -6, -5, -4, -3, -2, -1,
             0,
             long.MaxValue, int.MaxValue,
             9999999999999999, 12345678, 99999999, 1000000, 1000, 100, 64, 32, 16, 8, 7, 6, 5, 4, 3, 2, 1
-        };
+        ];
 
         public static void AddTest() {
             long passes = 0;

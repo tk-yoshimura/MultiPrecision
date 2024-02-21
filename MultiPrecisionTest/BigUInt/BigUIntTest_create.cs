@@ -7,8 +7,8 @@ namespace MultiPrecisionTest.BigUInt {
     public partial class BigUIntTest {
         [TestMethod]
         public void CreateTest() {
-            UInt32[] value1 = new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u };
-            UInt32[] value2 = new UInt32[] { 0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du };
+            UInt32[] value1 = [0x1234u, 0x5678u, 0x9ABCu, 0xDEF0u];
+            UInt32[] value2 = [0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du];
 
             BigUInt<Pow2.N4> n1 = new();
             BigUInt<Pow2.N4> n2 = new(2u);
@@ -63,9 +63,9 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void BadCreateTest() {
-            UInt32[] value1 = new UInt32[] { 0x1234u, 0x5678u, 0x9ABCu };
-            UInt32[] value2 = new UInt32[] { 0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du };
-            UInt32[] value_full = new UInt32[] { ~0u, ~0u, ~0u, ~0u };
+            UInt32[] value1 = [0x1234u, 0x5678u, 0x9ABCu];
+            UInt32[] value2 = [0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du];
+            UInt32[] value_full = [~0u, ~0u, ~0u, ~0u];
 
             Assert.ThrowsException<OverflowException>(() => {
                 BigUInt<Pow2.N4> n = new(Array.AsReadOnly(value_full), 0, carry: true);

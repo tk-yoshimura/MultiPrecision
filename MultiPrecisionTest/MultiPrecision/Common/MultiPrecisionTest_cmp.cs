@@ -6,7 +6,7 @@ namespace MultiPrecisionTest.Common {
     public partial class MultiPrecisionTest {
         [TestMethod]
         public void CmpTest() {
-            MultiPrecision<Pow2.N8>[] vs = {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.Zero,
                 MultiPrecision<Pow2.N8>.MinusZero,
                 1, 2, 3, 4, 5, 7, 10, 11, 13, 100, 1000,
@@ -34,7 +34,7 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
                 MultiPrecision<Pow2.N8>.NaN,
-            };
+            ];
 
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
@@ -86,71 +86,71 @@ namespace MultiPrecisionTest.Common {
         public void NearlyEqualBitsTest() {
             const int g = 8, n = 5;
 
-            MultiPrecision<Pow2.N8>[][] vss = new MultiPrecision<Pow2.N8>[][]{
-                new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[][] vss = [
+                [
                     -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(4)),
                     -MultiPrecision<Pow2.N8>.BitDecrement(4),
                     -4,
                     -MultiPrecision<Pow2.N8>.BitIncrement(4),
                     -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(4)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(4)),
                     MultiPrecision<Pow2.N8>.BitDecrement(4),
                     4,
                     MultiPrecision<Pow2.N8>.BitIncrement(4),
                     MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(4)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(3)),
                     -MultiPrecision<Pow2.N8>.BitDecrement(3),
                     -3,
                     -MultiPrecision<Pow2.N8>.BitIncrement(3),
                     -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(3)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(3)),
                     MultiPrecision<Pow2.N8>.BitDecrement(3),
                     3,
                     MultiPrecision<Pow2.N8>.BitIncrement(3),
                     MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(3)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(2)),
                     -MultiPrecision<Pow2.N8>.BitDecrement(2),
                     -2,
                     -MultiPrecision<Pow2.N8>.BitIncrement(2),
                     -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(2)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(2)),
                     MultiPrecision<Pow2.N8>.BitDecrement(2),
                     2,
                     MultiPrecision<Pow2.N8>.BitIncrement(2),
                     MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(2)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2)),
                     -MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2),
                     -MultiPrecision<Pow2.N8>.Sqrt2,
                     -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2),
                     -MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2)),
-                },
+                ],
 
-                new MultiPrecision<Pow2.N8>[] {
+                [
                     MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2)),
                     MultiPrecision<Pow2.N8>.BitDecrement(MultiPrecision<Pow2.N8>.Sqrt2),
                     MultiPrecision<Pow2.N8>.Sqrt2,
                     MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2),
                     MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.BitIncrement(MultiPrecision<Pow2.N8>.Sqrt2)),
-                },
-            };
+                ],
+            ];
 
             for (int i = 0; i < g; i++) {
                 for (int j = 0; j < n; j++) {

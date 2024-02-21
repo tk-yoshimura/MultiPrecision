@@ -691,7 +691,7 @@ namespace MultiPrecisionTest.Common {
 
         [TestMethod]
         public void BadParseTest() {
-            string[] vs = new string[] {
+            string[] vs = [
                 string.Empty,
                 "abcd",
                 "e",
@@ -715,7 +715,7 @@ namespace MultiPrecisionTest.Common {
                 "234.e",
                 ".2",
                 "*2.34"
-            };
+            ];
 
             foreach (string v in vs) {
                 Assert.ThrowsException<FormatException>(() => {

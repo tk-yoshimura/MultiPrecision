@@ -47,10 +47,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void TanhBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0 };
+            MultiPrecision<Pow2.N8>[] borders = [0];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Tanh(x);
@@ -75,10 +75,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void SinhBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -1, 0, 1 };
+            MultiPrecision<Pow2.N8>[] borders = [-1, 0, 1];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Sinh(x);

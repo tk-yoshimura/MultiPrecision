@@ -3,24 +3,23 @@ using System;
 
 namespace MultiPrecisionSandbox {
     class Program {
+        internal struct N12 : IConstant {
+            public int Value => 12;
+        }
+
         static void Main(string[] args) {
-            const int m = 5;
-            //(MultiPrecision<Pow2.N16>[] cs, MultiPrecision<Pow2.N16>[] ds) = BesselYoshidaCoef<Pow2.N16>.Table(0, m);
-            MultiPrecision<Pow2.N16>[][] dss = BesselYoshidaCoef<Pow2.N16>.Table(m);
-            (MultiPrecision<Pow2.N16>[] cs, MultiPrecision<Pow2.N16>[] ds) = BesselYoshidaCoef<Pow2.N16>.Table(0.25, dss);
+            for (double exponent = 0; exponent > -12; exponent -= 1d / 32) {
+                MultiPrecision<N12> x = MultiPrecision<N12>.Pow2(exponent);
+                MultiPrecision<N12> x_inc = MultiPrecision<N12>.BitIncrement(x);
+                MultiPrecision<N12> x_dec = MultiPrecision<N12>.BitDecrement(x);
 
-            for (int i = 0; i <= m; i++) {
-                Console.WriteLine($"c{i} | {cs[i]:e8}");
-            }
+                MultiPrecision<N12> y = MultiPrecision<N12>.Log2(x);
+                MultiPrecision<N12> y_inc = MultiPrecision<N12>.Log2(x_inc);
+                MultiPrecision<N12> y_dec = MultiPrecision<N12>.Log2(x_dec);
 
-            for (int i = 0; i <= m; i++) {
-                Console.WriteLine($"d{i} | {ds[i]:e8}");
-            }
-
-            for (MultiPrecision<Pow2.N16> z = 1; z <= 32; z += 0.5) {
-                MultiPrecision<Pow2.N16> y = BesselYoshidaCoef<Pow2.N16>.Value(z, cs, ds);
-
-                Console.WriteLine($"{z},{y}");
+                Console.WriteLine(y);
+                Console.WriteLine(y_inc);
+                Console.WriteLine(y_dec);
             }
 
             Console.WriteLine("END");

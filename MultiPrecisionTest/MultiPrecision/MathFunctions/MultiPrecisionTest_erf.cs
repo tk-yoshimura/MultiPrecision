@@ -236,10 +236,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ErfBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { 0, 1 };
+            MultiPrecision<Pow2.N8>[] borders = [0, 1];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erf(x);
@@ -262,7 +262,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N4> b in new MultiPrecision<Pow2.N4>[] { 8 }) {
-                List<MultiPrecision<Pow2.N4>> ys = new();
+                List<MultiPrecision<Pow2.N4>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Erf(x);
@@ -286,7 +286,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N8> b in new MultiPrecision<Pow2.N8>[] { 8 }) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erf(x);
@@ -310,7 +310,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N16> b in new MultiPrecision<Pow2.N16>[] { 8 }) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erf(x);
@@ -334,7 +334,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N32> b in new MultiPrecision<Pow2.N32>[] { 8 }) {
-                List<MultiPrecision<Pow2.N32>> ys = new();
+                List<MultiPrecision<Pow2.N32>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Erf(x);
@@ -358,7 +358,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N64> b in new MultiPrecision<Pow2.N64>[] { 8 }) {
-                List<MultiPrecision<Pow2.N64>> ys = new();
+                List<MultiPrecision<Pow2.N64>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Erf(x);
@@ -382,7 +382,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N128> b in new MultiPrecision<Pow2.N128>[] { 8 }) {
-                List<MultiPrecision<Pow2.N128>> ys = new();
+                List<MultiPrecision<Pow2.N128>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Erf(x);
@@ -406,7 +406,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N256> b in new MultiPrecision<Pow2.N256>[] { 8 }) {
-                List<MultiPrecision<Pow2.N256>> ys = new();
+                List<MultiPrecision<Pow2.N256>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Erf(x);
@@ -433,7 +433,7 @@ namespace MultiPrecisionTest.Functions {
         [TestMethod]
         public void ErfcBorderTest() {
             foreach (MultiPrecision<Pow2.N4> b in new MultiPrecision<Pow2.N4>[] { 8 }) {
-                List<MultiPrecision<Pow2.N4>> ys = new();
+                List<MultiPrecision<Pow2.N4>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N4> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N4> y = MultiPrecision<Pow2.N4>.Erfc(x);
@@ -457,7 +457,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N8> b in new MultiPrecision<Pow2.N8>[] { 8 }) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Erfc(x);
@@ -481,7 +481,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N16> b in new MultiPrecision<Pow2.N16>[] { 8 }) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erfc(x);
@@ -505,7 +505,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N32> b in new MultiPrecision<Pow2.N32>[] { 8 }) {
-                List<MultiPrecision<Pow2.N32>> ys = new();
+                List<MultiPrecision<Pow2.N32>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N32> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N32> y = MultiPrecision<Pow2.N32>.Erfc(x);
@@ -529,7 +529,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N64> b in new MultiPrecision<Pow2.N64>[] { 8 }) {
-                List<MultiPrecision<Pow2.N64>> ys = new();
+                List<MultiPrecision<Pow2.N64>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N64> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N64> y = MultiPrecision<Pow2.N64>.Erfc(x);
@@ -553,7 +553,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N128> b in new MultiPrecision<Pow2.N128>[] { 8 }) {
-                List<MultiPrecision<Pow2.N128>> ys = new();
+                List<MultiPrecision<Pow2.N128>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N128> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N128> y = MultiPrecision<Pow2.N128>.Erfc(x);
@@ -577,7 +577,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             foreach (MultiPrecision<Pow2.N256> b in new MultiPrecision<Pow2.N256>[] { 8 }) {
-                List<MultiPrecision<Pow2.N256>> ys = new();
+                List<MultiPrecision<Pow2.N256>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N256> x in TestTool.EnumerateNeighbor(b, 2)) {
                     MultiPrecision<Pow2.N256> y = MultiPrecision<Pow2.N256>.Erfc(x);

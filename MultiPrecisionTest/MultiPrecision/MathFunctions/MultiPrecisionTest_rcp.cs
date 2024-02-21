@@ -45,10 +45,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void RcpBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -2, -1, -0.5, 0.5, 1, 2 };
+            MultiPrecision<Pow2.N8>[] borders = [-2, -1, -0.5, 0.5, 1, 2];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Rcp(x);

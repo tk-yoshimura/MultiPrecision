@@ -9,7 +9,7 @@ namespace MultiPrecisionTest.Common {
         public void IOTest() {
             const string filename_bin = "mp_iotest.bin";
 
-            MultiPrecision<Pow2.N8>[] vs = {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.Zero,
                 MultiPrecision<Pow2.N8>.MinusZero,
                 1, 2, 3, 4, 5, 7, 10, 11, 13, 100, 1000,
@@ -37,9 +37,9 @@ namespace MultiPrecisionTest.Common {
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
                 MultiPrecision<Pow2.N8>.NaN,
-            };
+            ];
 
-            List<MultiPrecision<Pow2.N8>> us = new();
+            List<MultiPrecision<Pow2.N8>> us = [];
 
             using (BinaryWriter stream = new(File.Open(filename_bin, FileMode.Create))) {
                 foreach (MultiPrecision<Pow2.N8> v in vs) {

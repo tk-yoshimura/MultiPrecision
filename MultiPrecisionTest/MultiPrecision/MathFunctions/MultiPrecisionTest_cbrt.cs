@@ -20,10 +20,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void CbrtBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders_n8 = new MultiPrecision<Pow2.N8>[] { -8, -1, 0, 1, 8 };
+            MultiPrecision<Pow2.N8>[] borders_n8 = [-8, -1, 0, 1, 8];
 
             foreach (MultiPrecision<Pow2.N8> b in borders_n8) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Cbrt(x);
@@ -55,10 +55,10 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
 
-            MultiPrecision<Pow2.N16>[] borders_n16 = new MultiPrecision<Pow2.N16>[] { -8, -1, 0, 1, 8 };
+            MultiPrecision<Pow2.N16>[] borders_n16 = [-8, -1, 0, 1, 8];
 
             foreach (MultiPrecision<Pow2.N16> b in borders_n16) {
-                List<MultiPrecision<Pow2.N16>> ys = new();
+                List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
                     MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Cbrt(x);

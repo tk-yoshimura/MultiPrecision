@@ -49,12 +49,12 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArsinhBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders = [
                 -1, 0, 1, -MultiPrecision<Pow2.N8>.Ldexp(1, -256), MultiPrecision<Pow2.N8>.Ldexp(1, -256)
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
@@ -83,12 +83,12 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArcoshBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] borders = [
                 1, 2
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
@@ -118,10 +118,10 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArtanhBorderTest() {
-            MultiPrecision<Pow2.N8>[] borders = new MultiPrecision<Pow2.N8>[] { -1, 0, 1 };
+            MultiPrecision<Pow2.N8>[] borders = [-1, 0, 1];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
-                List<MultiPrecision<Pow2.N8>> ys = new();
+                List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
 
@@ -162,11 +162,11 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArcoshUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.BitDecrement(1),
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Arcosh(v);
@@ -181,13 +181,13 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void ArtanhUnnormalValueTest() {
-            MultiPrecision<Pow2.N8>[] vs = new MultiPrecision<Pow2.N8>[] {
+            MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.BitDecrement(-1),
                 MultiPrecision<Pow2.N8>.BitIncrement(1),
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
                 MultiPrecision<Pow2.N8>.NegativeInfinity,
-            };
+            ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Artanh(v);
