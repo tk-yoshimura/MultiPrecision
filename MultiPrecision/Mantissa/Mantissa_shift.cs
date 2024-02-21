@@ -32,5 +32,9 @@
         public static Mantissa<N> RightRoundBlockShift(Mantissa<N> n, int sft) {
             return new Mantissa<N>(BigUInt<N>.RightRoundBlockShift(n.value, sft));
         }
+
+        public static Mantissa<N> ZerosetLowerBit(Mantissa<N> n, uint sft) {
+            return new Mantissa<N>(BigUInt<N>.ZerosetLowerBit(n.value, sft));
+        }
     }
 }

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private static readonly Regex parse_regex = new(@"^\d+$");
+        private static readonly Regex parse_regex = ParserRegex();
 
         public BigUInt(string s)
             : this(ParseCore(s), enable_clone: false) { }
@@ -89,5 +89,8 @@ namespace MultiPrecision {
                 return false;
             }
         }
+
+        [GeneratedRegex(@"^\d+$")]
+        private static partial Regex ParserRegex();
     }
 }

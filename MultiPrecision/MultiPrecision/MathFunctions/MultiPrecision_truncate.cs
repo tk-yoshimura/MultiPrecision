@@ -79,7 +79,7 @@
                 return x;
             }
 
-            Mantissa<N> n = Mantissa<N>.RightShift(x.mantissa, truncate_bits) << truncate_bits;
+            Mantissa<N> n = Mantissa<N>.ZerosetLowerBit(x.mantissa, (uint)truncate_bits);
 
             return new MultiPrecision<N>(x.Sign, x.Exponent, n, round: false);
         }

@@ -490,5 +490,33 @@ namespace MultiPrecisionTest.Functions {
                 Console.Write("\n");
             }
         }
+
+        internal struct N18 : IConstant {
+            public int Value => 18;
+        }
+
+        [TestMethod]
+        public void SinPIMistakeSftValueTest() {
+            MultiPrecision<N18>[] borders = new MultiPrecision<N18>[] {
+                0.4580078125
+            };
+
+            foreach (MultiPrecision<N18> b in borders) {
+                List<MultiPrecision<N18>> ys = new();
+
+                foreach (MultiPrecision<N18> x in TestTool.EnumerateNeighbor(b, 2048)) {
+                    Console.WriteLine($"x = {x.ToHexcode()}");
+                    try {
+                        _ = MultiPrecision<N18>.SinPI(x);
+                    }
+                    catch (Exception) {
+                        Console.WriteLine($"err = {x.ToHexcode()}");
+                        throw;
+                    }
+                }
+
+                Console.Write("\n");
+            }
+        }
     }
 }

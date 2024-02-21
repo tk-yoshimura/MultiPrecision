@@ -6,7 +6,7 @@ namespace MultiPrecision {
 
     public sealed partial class MultiPrecision<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private static readonly Regex parse_regex = new(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$");
+        private static readonly Regex parse_regex = ParserRegex();
 
         public static implicit operator MultiPrecision<N>(string num) {
             return Parse(num);
@@ -108,5 +108,8 @@ namespace MultiPrecision {
 
             throw new FormatException($"Invalid numeric string. : {str}");
         }
+
+        [GeneratedRegex(@"^[\+-]?\d+(\.\d+)?([eE][\+-]?\d+)?$")]
+        private static partial Regex ParserRegex();
     }
 }

@@ -60,5 +60,13 @@
 
             return ret;
         }
+
+        public static BigUInt<N> ZerosetLowerBit(BigUInt<N> n, uint bits, bool enable_clone = true) {
+            BigUInt<N> ret = enable_clone ? n.Copy() : n;
+
+            UIntUtil.ZerosetLowerBit(ret.value, bits);
+
+            return ret;
+        }
     }
 }
