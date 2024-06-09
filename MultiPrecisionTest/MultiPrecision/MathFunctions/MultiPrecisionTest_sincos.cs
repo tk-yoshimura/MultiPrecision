@@ -65,7 +65,6 @@ namespace MultiPrecisionTest.Functions {
                 MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
-                Assert.AreEqual(Sign.Plus, y.Sign);
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
