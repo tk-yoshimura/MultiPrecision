@@ -47,8 +47,11 @@
             if (!IsFinite(x)) {
                 return NaN;
             }
+            if (IsNegative(x)) {
+                return -SinHalfPI(-x);
+            }
             if (IsZero(x)) {
-                return x;
+                return PlusZero;
             }
 
             if (x.Exponent < 0) {
@@ -71,8 +74,9 @@
         }
 
         private static MultiPrecision<N> SinCurveTaylorApprox(MultiPrecision<N> x) {
-            MultiPrecision<N> x_abs = Abs(x);
-            MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
+            Debug<ArithmeticException>.Assert(x >= 0);
+
+            MultiPrecision<N> x_int = Round(x), x_frac = x - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
             if ((cycle == 0 || cycle == 2) && IsZero(x_frac)) {

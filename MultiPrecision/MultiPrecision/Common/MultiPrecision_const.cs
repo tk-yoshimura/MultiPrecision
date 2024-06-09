@@ -19,6 +19,9 @@ namespace MultiPrecision {
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
+        public static MultiPrecision<N> PlusZero => Zero;
+
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         public static MultiPrecision<N> MinusZero {
             get {
                 Consts.minus_zero ??= new MultiPrecision<N>(Sign.Minus, ExponentMin, Mantissa<N>.Zero);

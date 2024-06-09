@@ -98,7 +98,11 @@ namespace MultiPrecision {
         }
 
         public static bool IsZero(MultiPrecision<N> value) => value.exponent <= ExponentMin && value.mantissa.IsZero;
+        
+        public static bool IsPlusZero(MultiPrecision<N> value) => IsZero(value) && value.Sign == Sign.Plus;
 
+        public static bool IsMinusZero(MultiPrecision<N> value) => IsZero(value) && value.Sign == Sign.Minus;
+        
         public static bool IsNaN(MultiPrecision<N> value) => value.exponent >= ExponentMax && !value.mantissa.IsZero;
 
         public static bool IsFinite(MultiPrecision<N> value) => value.exponent < ExponentMax;

@@ -104,6 +104,11 @@ namespace MultiPrecisionTest.Functions {
 
                 TestTool.Tolerance(Math.Cos((double)x * Math.PI), y, minerr: 1e-5, ignore_sign: true);
             }
+
+            for (MultiPrecision<Pow2.N8> n = 0; n <= 32; n++) { 
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPI(n + 0.5)), "cos intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPI(-n - 0.5)), "cos intn");
+            }
         }
 
         [TestMethod]
@@ -116,6 +121,11 @@ namespace MultiPrecisionTest.Functions {
                 Console.WriteLine(y);
 
                 TestTool.Tolerance(Math.Sin((double)x * Math.PI), y, minerr: 1e-5, ignore_sign: true);
+            }
+
+            for (MultiPrecision<Pow2.N8> n = 0; n <= 32; n++) { 
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.SinPI(n)), "sin intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsMinusZero(MultiPrecision<Pow2.N8>.SinPI(-n)), "sin intn");
             }
         }
 
