@@ -67,6 +67,8 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;*N*&gt;.Arsinh(x)|&#40;-inf,+inf&#41;|2||
 |MultiPrecision&lt;*N*&gt;.Arcosh(x)|&#91;1,+inf&#41;|2||
 |MultiPrecision&lt;*N*&gt;.Artanh(x)|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|
+|MultiPrecision&lt;*N*&gt;.Sinc(x, normalized)|&#40;-inf,+inf&#41;|2|normalized: x -> &pi;x|
+|MultiPrecision&lt;*N*&gt;.Sinhc(x)|&#40;-inf,+inf&#41;|3||
 |MultiPrecision&lt;*N*&gt;.Erf(x)|&#40;-1,1&#41;|2|*Length* &leq; 256|
 |MultiPrecision&lt;*N*&gt;.Erfc(x)|&#40;0,2&#41;|2|*Length* &leq; 256|
 |MultiPrecision&lt;*N*&gt;.InverseErf(x)|&#40;-1,1&#41;|2|*Length* &leq; 256|
@@ -78,6 +80,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;*N*&gt;.BesselY(nu, z)|&#40;-inf,+inf&#41;|2|Accuracy deteriorates near zero points.<br/>(error &leq; 2^-(*mantissa bits* + 64))<br/>*Length* &leq; 65<br/>abs(nu) &leq; 64 |
 |MultiPrecision&lt;*N*&gt;.BesselI(nu, z)|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |
 |MultiPrecision&lt;*N*&gt;.BesselK(nu, z)|&#91;0,+inf&#41;|2|*Length* &leq; 65<br/>abs(nu) &leq; 64 |
+|MultiPrecision&lt;*N*&gt;.Jinc(x)|&#40;-inf,+inf&#41;|3||
 |MultiPrecision&lt;*N*&gt;.EllipticK(m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
 |MultiPrecision&lt;*N*&gt;.EllipticE(m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
 |MultiPrecision&lt;*N*&gt;.EllipticPi(n, m)|&#91;0,1&#93;|1|k: elliptic modulus, m=k^2|
