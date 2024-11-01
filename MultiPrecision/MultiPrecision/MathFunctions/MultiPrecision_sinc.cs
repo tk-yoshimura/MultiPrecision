@@ -3,16 +3,16 @@
         public static MultiPrecision<N> Sinc(MultiPrecision<N> x, bool normalized = true) {
             if (normalized) {
                 if (Abs(x).Exponent < -Bits / 2) {
-                    return 1 - Square(x * PI) / 6;
+                    return 1 - Square(x * Pi) / 6;
                 }
 
-                MultiPrecision<N> c = PI * x;
+                MultiPrecision<N> c = Pi * x;
 
                 if (IsInfinity(c)) {
                     return Zero;
                 }
 
-                return SinPI(x) / c;
+                return SinPi(x) / c;
             }
             else {
                 if (Abs(x).Exponent < -Bits / 2) {

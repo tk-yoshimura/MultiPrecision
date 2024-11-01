@@ -54,9 +54,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;*N*&gt;.Sin(x)|&#40;-inf,+inf&#41;|1||
 |MultiPrecision&lt;*N*&gt;.Cos(x)|&#40;-inf,+inf&#41;|1||
 |MultiPrecision&lt;*N*&gt;.Tan(x)|&#40;-inf,+inf&#41;|2||
-|MultiPrecision&lt;*N*&gt;.SinPI(x)|&#40;-inf,+inf&#41;|0| sin(&pi;x) |
-|MultiPrecision&lt;*N*&gt;.CosPI(x)|&#40;-inf,+inf&#41;|0| cos(&pi;x) |
-|MultiPrecision&lt;*N*&gt;.TanPI(x)|&#40;-inf,+inf&#41;|1| tan(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.SinPi(x)|&#40;-inf,+inf&#41;|0| sin(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.CosPi(x)|&#40;-inf,+inf&#41;|0| cos(&pi;x) |
+|MultiPrecision&lt;*N*&gt;.TanPi(x)|&#40;-inf,+inf&#41;|1| tan(&pi;x) |
 |MultiPrecision&lt;*N*&gt;.Sinh(x)|&#40;-inf,+inf&#41;|2||
 |MultiPrecision&lt;*N*&gt;.Cosh(x)|&#40;-inf,+inf&#41;|2||
 |MultiPrecision&lt;*N*&gt;.Tanh(x)|&#40;-inf,+inf&#41;|2||
@@ -102,7 +102,7 @@ MaxValue: &plusmn;8.808065x10^646456992
 
 |constant|value|note|
 |----|----|----|
-|MultiPrecision&lt;*N*&gt;.PI|3.141592653589793238462...|Pi|
+|MultiPrecision&lt;*N*&gt;.Pi|3.141592653589793238462...|Pi|
 |MultiPrecision&lt;*N*&gt;.E|2.718281828459045235360...|Napier's E|
 |MultiPrecision&lt;*N*&gt;.Sqrt2|1.414213562373095048801...|Sqrt(2)|
 |MultiPrecision&lt;*N*&gt;.Lg2|0.301029995663981195213...|log10(2)<br/>lg:=log10 (ISO 80000-2-12.6)|

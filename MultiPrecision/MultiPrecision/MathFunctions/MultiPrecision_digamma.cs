@@ -12,13 +12,13 @@
             }
 
             if (x.Sign == Sign.Minus || x.Exponent < -1) {
-                MultiPrecision<N> tanpi = TanPI(x);
+                MultiPrecision<N> tanpi = TanPi(x);
 
                 if (IsZero(tanpi)) {
                     return NaN;
                 }
 
-                MultiPrecision<N> y = Digamma(1 - x) - PI / tanpi;
+                MultiPrecision<N> y = Digamma(1 - x) - Pi / tanpi;
 
                 return y;
             }

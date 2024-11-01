@@ -3,52 +3,52 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sin(MultiPrecision<N> x) {
-            return SinPI(x * RcpPI);
+            return SinPi(x * RcpPi);
         }
 
         public static MultiPrecision<N> Cos(MultiPrecision<N> x) {
-            return CosPI(x * RcpPI);
+            return CosPi(x * RcpPi);
         }
 
         public static MultiPrecision<N> Tan(MultiPrecision<N> x) {
-            return TanPI(x * RcpPI);
+            return TanPi(x * RcpPi);
         }
 
-        public static MultiPrecision<N> SinPI(MultiPrecision<N> x) {
-            return SinHalfPI(2 * x);
+        public static MultiPrecision<N> SinPi(MultiPrecision<N> x) {
+            return SinHalfPi(2 * x);
         }
 
-        public static MultiPrecision<N> CosPI(MultiPrecision<N> x) {
-            return CosHalfPI(2 * x);
+        public static MultiPrecision<N> CosPi(MultiPrecision<N> x) {
+            return CosHalfPi(2 * x);
         }
 
-        public static MultiPrecision<N> TanPI(MultiPrecision<N> x) {
+        public static MultiPrecision<N> TanPi(MultiPrecision<N> x) {
             if (x.Sign == Sign.Minus) {
-                return -TanPI(Abs(x));
+                return -TanPi(Abs(x));
             }
 
             MultiPrecision<N> s = x - Floor(x);
 
             if (s <= 0.25d) {
-                MultiPrecision<N> sn = SinPI(s), cn = Sqrt(1 - sn * sn);
+                MultiPrecision<N> sn = SinPi(s), cn = Sqrt(1 - sn * sn);
                 return sn / cn;
             }
             else if (s <= 0.75d) {
-                MultiPrecision<N> cn = CosPI(s), sn = Sqrt(1 - cn * cn);
+                MultiPrecision<N> cn = CosPi(s), sn = Sqrt(1 - cn * cn);
                 return sn / cn;
             }
             else {
-                MultiPrecision<N> sn = SinPI(s), cn = -Sqrt(1 - sn * sn);
+                MultiPrecision<N> sn = SinPi(s), cn = -Sqrt(1 - sn * sn);
                 return sn / cn;
             }
         }
 
-        internal static MultiPrecision<N> SinHalfPI(MultiPrecision<N> x) {
+        internal static MultiPrecision<N> SinHalfPi(MultiPrecision<N> x) {
             if (!IsFinite(x)) {
                 return NaN;
             }
             if (IsNegative(x)) {
-                return -SinHalfPI(-x);
+                return -SinHalfPi(-x);
             }
             if (IsZero(x)) {
                 return PlusZero;
@@ -61,7 +61,7 @@
             return SinCurveTaylorApprox(x);
         }
 
-        internal static MultiPrecision<N> CosHalfPI(MultiPrecision<N> x) {
+        internal static MultiPrecision<N> CosHalfPi(MultiPrecision<N> x) {
             if (!IsFinite(x)) {
                 return NaN;
             }
@@ -76,7 +76,7 @@
         private static MultiPrecision<N> SinCurveTaylorApprox(MultiPrecision<N> x) {
             Debug<ArithmeticException>.Assert(x >= 0);
 
-            MultiPrecision<N> x_int = Round(x), x_frac = x - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
+            MultiPrecision<N> x_int = Round(x), x_frac = x - x_int, xpi = x_frac * Pi / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
             if ((cycle == 0 || cycle == 2) && IsZero(x_frac)) {
@@ -133,7 +133,7 @@
 
         private static MultiPrecision<N> CosCurveTaylorApprox(MultiPrecision<N> x) {
             MultiPrecision<N> x_abs = Abs(x);
-            MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * PI / 2, squa_xpi = xpi * xpi;
+            MultiPrecision<N> x_int = Round(x_abs), x_frac = x_abs - x_int, xpi = x_frac * Pi / 2, squa_xpi = xpi * xpi;
             Int64 cycle = x_int.Exponent < UIntUtil.UInt32Bits / 2 ? ((Int64)x_int) % 4 : (Int64)(x_int % 4);
 
             if ((cycle == 1 || cycle == 3) && IsZero(x_frac)) {

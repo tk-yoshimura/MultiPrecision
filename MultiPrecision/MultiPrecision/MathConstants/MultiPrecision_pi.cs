@@ -8,29 +8,29 @@ namespace MultiPrecision {
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static MultiPrecision<N> PI {
+        public static MultiPrecision<N> Pi {
             get {
-                Consts.pi ??= GeneratePI();
+                Consts.pi ??= GeneratePi();
 
                 return Consts.pi;
             }
         }
 
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        public static MultiPrecision<N> RcpPI {
+        public static MultiPrecision<N> RcpPi {
             get {
-                Consts.rcp_pi ??= (1 / MultiPrecision<Plus1<N>>.PI).Convert<N>();
+                Consts.rcp_pi ??= (1 / MultiPrecision<Plus1<N>>.Pi).Convert<N>();
 
                 return Consts.rcp_pi;
             }
         }
 
-        private static MultiPrecision<N> GeneratePI() {
-            if (Length < Consts.PI.Table.Length) {
+        private static MultiPrecision<N> GeneratePi() {
+            if (Length < Consts.Pi.Table.Length) {
                 return new MultiPrecision<N>(
                     Sign.Plus, exponent: 1,
-                    new Mantissa<N>(Consts.PI.Table[..Length].Reverse().ToArray(), enable_clone: false),
-                    round: Consts.PI.Table[Length] > UIntUtil.UInt32Round
+                    new Mantissa<N>(Consts.Pi.Table[..Length].Reverse().ToArray(), enable_clone: false),
+                    round: Consts.Pi.Table[Length] > UIntUtil.UInt32Round
                 );
             }
 
@@ -55,7 +55,7 @@ namespace MultiPrecision {
         }
 
         private static partial class Consts {
-            public static class PI {
+            public static class Pi {
                 public static readonly UInt32[] Table = [
                     0xC90FDAA2u, 0x2168C234u, 0xC4C6628Bu, 0x80DC1CD1u, 0x29024E08u, 0x8A67CC74u, 0x020BBEA6u, 0x3B139B22u, 0x514A0879u, 0x8E3404DDu, 0xEF9519B3u, 0xCD3A431Bu, 0x302B0A6Du, 0xF25F1437u, 0x4FE1356Du, 0x6D51C245u,
                     0xE485B576u, 0x625E7EC6u, 0xF44C42E9u, 0xA637ED6Bu, 0x0BFF5CB6u, 0xF406B7EDu, 0xEE386BFBu, 0x5A899FA5u, 0xAE9F2411u, 0x7C4B1FE6u, 0x49286651u, 0xECE45B3Du, 0xC2007CB8u, 0xA163BF05u, 0x98DA4836u, 0x1C55D39Au,

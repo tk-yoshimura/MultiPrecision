@@ -129,7 +129,7 @@ namespace MultiPrecision {
                         );
                     }
 
-                    C = 1 / MultiPrecision<Plus4<N>>.Sqrt(MultiPrecision<Plus4<N>>.PI);
+                    C = 1 / MultiPrecision<Plus4<N>>.Sqrt(MultiPrecision<Plus4<N>>.Pi);
 
                     List<MultiPrecision<Plus4<N>>> table = [];
                     MultiPrecision<Plus4<N>> coef = 1;

@@ -41,7 +41,7 @@ namespace MultiPrecision {
 
                 if (n >= -2 && n < 2) {
                     MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
-                    MultiPrecision<Plus1<N>> envelope = MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.PI * x_ex));
+                    MultiPrecision<Plus1<N>> envelope = MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.Pi * x_ex));
 
                     if (n == -2) {
                         return -(envelope * (MultiPrecision<Plus1<N>>.Cos(x_ex) / x_ex + MultiPrecision<Plus1<N>>.Sin(x_ex))).Convert<N>();
@@ -111,7 +111,7 @@ namespace MultiPrecision {
 
                 if (n >= -2 && n < 2) {
                     MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
-                    MultiPrecision<Plus1<N>> envelope = MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.PI * x_ex));
+                    MultiPrecision<Plus1<N>> envelope = MultiPrecision<Plus1<N>>.Sqrt(2 / (MultiPrecision<Plus1<N>>.Pi * x_ex));
 
                     if (n == -2) {
                         MultiPrecision<N> y = -(envelope * (MultiPrecision<Plus1<N>>.Sin(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Cos(x_ex))).Convert<N>();
@@ -164,7 +164,7 @@ namespace MultiPrecision {
 
                 if (n >= -2 && n < 2) {
                     MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
-                    MultiPrecision<Plus1<N>> r = MultiPrecision<Plus1<N>>.Sqrt2 / MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.PI * x_ex);
+                    MultiPrecision<Plus1<N>> r = MultiPrecision<Plus1<N>>.Sqrt2 / MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.Pi * x_ex);
 
                     if (n == -2) {
                         return -(r * (MultiPrecision<Plus1<N>>.Cosh(x_ex) / x_ex - MultiPrecision<Plus1<N>>.Sinh(x_ex))).Convert<N>();
@@ -217,7 +217,7 @@ namespace MultiPrecision {
 
                 if (n >= 0 && n < 2) {
                     MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
-                    MultiPrecision<Plus1<N>> r = MultiPrecision<Plus1<N>>.Exp(-x_ex) * MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.PI / (2 * x_ex));
+                    MultiPrecision<Plus1<N>> r = MultiPrecision<Plus1<N>>.Exp(-x_ex) * MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.Pi / (2 * x_ex));
 
                     if (n == 0) {
                         return r.Convert<N>();
@@ -322,9 +322,9 @@ namespace MultiPrecision {
                 break;
             }
 
-            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.PI / 4;
+            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.Pi / 4;
             MultiPrecision<Plus4<N>> m = x * MultiPrecision<Plus4<N>>.Cos(omega) - y * MultiPrecision<Plus4<N>>.Sin(omega);
-            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.PI * z_ex));
+            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.Pi * z_ex));
 
             return t.Convert<N>();
         }
@@ -448,7 +448,7 @@ namespace MultiPrecision {
                 }
             }
 
-            MultiPrecision<Plus1<N>> d = x.Convert<Plus1<N>>() / MultiPrecision<Plus1<N>>.PI;
+            MultiPrecision<Plus1<N>> d = x.Convert<Plus1<N>>() / MultiPrecision<Plus1<N>>.Pi;
 
             return d.Convert<N>();
         }
@@ -489,9 +489,9 @@ namespace MultiPrecision {
                 break;
             }
 
-            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.PI / 4;
+            MultiPrecision<Plus4<N>> omega = z_ex - (2 * nu.Convert<Plus4<N>>() + 1) * MultiPrecision<Plus4<N>>.Pi / 4;
             MultiPrecision<Plus4<N>> m = x * MultiPrecision<Plus4<N>>.Sin(omega) + y * MultiPrecision<Plus4<N>>.Cos(omega);
-            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.PI * z_ex));
+            MultiPrecision<Plus4<N>> t = m * MultiPrecision<Plus4<N>>.Sqrt(2 / (MultiPrecision<Plus4<N>>.Pi * z_ex));
 
             return t.Convert<N>();
         }
@@ -559,7 +559,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> r =
-                MultiPrecision<Plus1<N>>.Exp(z_ex1) / MultiPrecision<Plus1<N>>.Sqrt(2 * MultiPrecision<Plus1<N>>.PI * z_ex1);
+                MultiPrecision<Plus1<N>>.Exp(z_ex1) / MultiPrecision<Plus1<N>>.Sqrt(2 * MultiPrecision<Plus1<N>>.Pi * z_ex1);
 
             MultiPrecision<Plus1<N>> y = r * x.Convert<Plus1<N>>();
 
@@ -620,7 +620,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> sin = MultiPrecision<Plus1<N>>.Consts.Bessel.SinCos(nu.Convert<Plus1<N>>()).sin;
 
-            MultiPrecision<Plus1<N>> y = (x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.PI) / (2 * sin);
+            MultiPrecision<Plus1<N>> y = (x.Convert<Plus1<N>>() * MultiPrecision<Plus1<N>>.Pi) / (2 * sin);
 
             return y.Convert<N>();
         }
@@ -703,7 +703,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> z_ex1 = z.Convert<Plus1<N>>();
             MultiPrecision<Plus1<N>> r =
-                MultiPrecision<Plus1<N>>.Exp(-z_ex1) * MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.PI / (2 * z_ex1));
+                MultiPrecision<Plus1<N>>.Exp(-z_ex1) * MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.Pi / (2 * z_ex1));
 
             MultiPrecision<Plus1<N>> y = r * x.Convert<Plus1<N>>();
 
@@ -826,7 +826,7 @@ namespace MultiPrecision {
 
                 public static (MultiPrecision<N> sin, MultiPrecision<N> cos) SinCos(MultiPrecision<N> nu) {
                     if (!sincos_table.ContainsKey(nu)) {
-                        sincos_table.Add(nu, (SinPI(nu), CosPI(nu)));
+                        sincos_table.Add(nu, (SinPi(nu), CosPi(nu)));
                     }
 
                     return sincos_table[nu];

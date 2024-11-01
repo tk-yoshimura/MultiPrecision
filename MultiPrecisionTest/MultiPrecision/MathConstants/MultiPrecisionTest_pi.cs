@@ -6,8 +6,8 @@ namespace MultiPrecisionTest.Constants {
     [TestClass]
     public partial class MultiPrecisionTest {
         [TestMethod]
-        public void PITest() {
-            MultiPrecision<Pow2.N8> pi = MultiPrecision<Pow2.N8>.PI;
+        public void PiTest() {
+            MultiPrecision<Pow2.N8> pi = MultiPrecision<Pow2.N8>.Pi;
 
             Console.WriteLine(pi);
             Console.WriteLine(pi.ToHexcode());
@@ -16,23 +16,23 @@ namespace MultiPrecisionTest.Constants {
         }
 
         [TestMethod]
-        public void PIDigitsTest() {
-            Console.WriteLine(MultiPrecision<Pow2.N8>.PI);
-            Console.WriteLine(MultiPrecision<Pow2.N8>.PI.ToHexcode());
+        public void PiDigitsTest() {
+            Console.WriteLine(MultiPrecision<Pow2.N8>.Pi);
+            Console.WriteLine(MultiPrecision<Pow2.N8>.Pi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N16>.PI);
-            Console.WriteLine(MultiPrecision<Pow2.N16>.PI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N16>.Pi);
+            Console.WriteLine(MultiPrecision<Pow2.N16>.Pi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N32>.PI);
-            Console.WriteLine(MultiPrecision<Pow2.N32>.PI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N32>.Pi);
+            Console.WriteLine(MultiPrecision<Pow2.N32>.Pi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N64>.PI);
-            Console.WriteLine(MultiPrecision<Pow2.N64>.PI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N64>.Pi);
+            Console.WriteLine(MultiPrecision<Pow2.N64>.Pi.ToHexcode());
         }
 
         [TestMethod]
-        public void RcpPITest() {
-            MultiPrecision<Pow2.N8> rcp_pi = MultiPrecision<Pow2.N8>.RcpPI;
+        public void RcpPiTest() {
+            MultiPrecision<Pow2.N8> rcp_pi = MultiPrecision<Pow2.N8>.RcpPi;
 
             Console.WriteLine(rcp_pi);
             Console.WriteLine(rcp_pi.ToHexcode());
@@ -41,18 +41,18 @@ namespace MultiPrecisionTest.Constants {
         }
 
         [TestMethod]
-        public void RcpPIDigitsTest() {
-            Console.WriteLine(MultiPrecision<Pow2.N8>.RcpPI);
-            Console.WriteLine(MultiPrecision<Pow2.N8>.RcpPI.ToHexcode());
+        public void RcpPiDigitsTest() {
+            Console.WriteLine(MultiPrecision<Pow2.N8>.RcpPi);
+            Console.WriteLine(MultiPrecision<Pow2.N8>.RcpPi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N16>.RcpPI);
-            Console.WriteLine(MultiPrecision<Pow2.N16>.RcpPI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N16>.RcpPi);
+            Console.WriteLine(MultiPrecision<Pow2.N16>.RcpPi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N32>.RcpPI);
-            Console.WriteLine(MultiPrecision<Pow2.N32>.RcpPI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N32>.RcpPi);
+            Console.WriteLine(MultiPrecision<Pow2.N32>.RcpPi.ToHexcode());
 
-            Console.WriteLine(MultiPrecision<Pow2.N64>.RcpPI);
-            Console.WriteLine(MultiPrecision<Pow2.N64>.RcpPI.ToHexcode());
+            Console.WriteLine(MultiPrecision<Pow2.N64>.RcpPi);
+            Console.WriteLine(MultiPrecision<Pow2.N64>.RcpPi.ToHexcode());
         }
     }
 }

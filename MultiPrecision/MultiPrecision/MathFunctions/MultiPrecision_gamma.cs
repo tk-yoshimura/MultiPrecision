@@ -16,13 +16,13 @@ namespace MultiPrecision {
             }
 
             if (x.Sign == Sign.Minus || x.Exponent < -1) {
-                MultiPrecision<N> sinpi = SinPI(x);
+                MultiPrecision<N> sinpi = SinPi(x);
 
                 if (IsZero(sinpi)) {
                     return NaN;
                 }
 
-                MultiPrecision<N> y = PI / (sinpi * Gamma(1 - x));
+                MultiPrecision<N> y = Pi / (sinpi * Gamma(1 - x));
 
                 return y;
             }
@@ -41,7 +41,7 @@ namespace MultiPrecision {
                 else {
                     MultiPrecision<SterlingExpand<N>> z_ex = x.Convert<SterlingExpand<N>>();
 
-                    MultiPrecision<SterlingExpand<N>> r = MultiPrecision<SterlingExpand<N>>.Sqrt(2 * MultiPrecision<SterlingExpand<N>>.PI / z_ex);
+                    MultiPrecision<SterlingExpand<N>> r = MultiPrecision<SterlingExpand<N>>.Sqrt(2 * MultiPrecision<SterlingExpand<N>>.Pi / z_ex);
                     MultiPrecision<SterlingExpand<N>> p = MultiPrecision<SterlingExpand<N>>.Pow(z_ex / MultiPrecision<SterlingExpand<N>>.E, z_ex);
                     MultiPrecision<SterlingExpand<N>> s = MultiPrecision<SterlingExpand<N>>.Exp(SterlingTerm(z_ex));
 
@@ -69,26 +69,26 @@ namespace MultiPrecision {
                 x -= 1;
 
                 return x * (-226800 * EulerGamma
-                        + x * (18900 * (PI * PI)
+                        + x * (18900 * (Pi * Pi)
                         + x * (-75600 * Zeta3
-                        + x * (630 * Pow(PI, 4)
+                        + x * (630 * Pow(Pi, 4)
                         + x * (-45360 * Zeta5
-                        + x * (40 * Pow(PI, 6)
+                        + x * (40 * Pow(Pi, 6)
                         + x * (-32400 * Zeta7
-                        + x * (3 * Pow(PI, 8))))))))) / 226800;
+                        + x * (3 * Pow(Pi, 8))))))))) / 226800;
             }
 
             if ((x - 2).Exponent <= -Bits / 8) {
                 x -= 2;
 
                 return x * (226800 * (1 - EulerGamma)
-                        + x * (18900 * ((PI * PI) - 6)
+                        + x * (18900 * ((Pi * Pi) - 6)
                         + x * (75600 * (1 - Zeta3)
-                        + x * (630 * (Pow(PI, 4) - 90)
+                        + x * (630 * (Pow(Pi, 4) - 90)
                         + x * (45360 * (1 - Zeta5)
-                        + x * (40 * (Pow(PI, 6) - 945)
+                        + x * (40 * (Pow(Pi, 6) - 945)
                         + x * (32400 * (1 - Zeta7)
-                        + x * (3 * (Pow(PI, 8) - 9450))))))))) / 226800;
+                        + x * (3 * (Pow(Pi, 8) - 9450))))))))) / 226800;
             }
 
             if (x < Consts.Gamma.Threshold) {
@@ -249,7 +249,7 @@ namespace MultiPrecision {
                             _ => throw new ArgumentOutOfRangeException(nameof(Length)),
                         };
                         logbias = MultiPrecision<SterlingExpand<N>>.Log(
-                            MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.PI * 2)
+                            MultiPrecision<SterlingExpand<N>>.Sqrt(MultiPrecision<SterlingExpand<N>>.Pi * 2)
                         );
 
                         coef = new MultiPrecision<SterlingExpand<N>>[terms];

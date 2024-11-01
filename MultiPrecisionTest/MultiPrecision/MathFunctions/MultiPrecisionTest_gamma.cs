@@ -135,28 +135,28 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI)).Convert<Pow2.N8>(),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.Pi)).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(0.5),
                     1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) / 2).Convert<Pow2.N8>(),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.Pi) / 2).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(1.5),
                     1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) * 3 / 4).Convert<Pow2.N8>(),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.Pi) * 3 / 4).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(2.5),
                     1
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.PI) * 15 / 8).Convert<Pow2.N8>(),
+                    MultiPrecision<Plus1<Pow2.N8>>.Log(MultiPrecision<Plus1<Pow2.N8>>.Sqrt(MultiPrecision<Plus1<Pow2.N8>>.Pi) * 15 / 8).Convert<Pow2.N8>(),
                     MultiPrecision<Pow2.N8>.LogGamma(3.5),
                     1
                 ));
@@ -186,42 +186,42 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 4 / 3,
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi) * 4 / 3,
                     MultiPrecision<Pow2.N8>.Gamma(-1.5),
                     2
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * -2,
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi) * -2,
                     MultiPrecision<Pow2.N8>.Gamma(-0.5),
                     2
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI),
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi),
                     MultiPrecision<Pow2.N8>.Gamma(0.5),
                     2
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) / 2,
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi) / 2,
                     MultiPrecision<Pow2.N8>.Gamma(1.5),
                     2
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 3 / 4,
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi) * 3 / 4,
                     MultiPrecision<Pow2.N8>.Gamma(2.5),
                     2
                 ));
 
             Assert.IsTrue(
                 MultiPrecision<Pow2.N8>.NearlyEqualBits(
-                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.PI) * 15 / 8,
+                    MultiPrecision<Pow2.N8>.Sqrt(MultiPrecision<Pow2.N8>.Pi) * 15 / 8,
                     MultiPrecision<Pow2.N8>.Gamma(3.5),
                     2
                 ));

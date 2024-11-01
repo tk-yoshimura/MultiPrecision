@@ -10,7 +10,7 @@ namespace MultiPrecision {
             }
 
             if (IsZero(m)) {
-                return PI / 2;
+                return Pi / 2;
             }
 
             if (m == One) {
@@ -33,7 +33,7 @@ namespace MultiPrecision {
             }
 
             if (IsZero(m)) {
-                return PI / 2;
+                return Pi / 2;
             }
 
             if (m == One) {
@@ -59,7 +59,7 @@ namespace MultiPrecision {
             }
 
             if (IsZero(m)) {
-                return PI / (2 * Sqrt(1 - n));
+                return Pi / (2 * Sqrt(1 - n));
             }
 
             if (m == One) {
@@ -94,7 +94,7 @@ namespace MultiPrecision {
                     w *= m;
                 }
 
-                y = x * PI / 2;
+                y = x * Pi / 2;
             }
 
             return y;
@@ -118,7 +118,7 @@ namespace MultiPrecision {
                 (a, b, c) = (a_next, b_next, c_next);
             }
 
-            MultiPrecision<N> y = q * PI / Ldexp(a, 1);
+            MultiPrecision<N> y = q * Pi / Ldexp(a, 1);
 
             return y;
         }

@@ -17,8 +17,8 @@
             }
 
             if (x.Exponent <= -Bits / 4) {
-                MultiPrecision<N> w = PI * x * x;
-                MultiPrecision<N> t = Sqrt(PI) * ((40320 + w * (3360 + w * (588 + w * 127))) / 80640);
+                MultiPrecision<N> w = Pi * x * x;
+                MultiPrecision<N> t = Sqrt(Pi) * ((40320 + w * (3360 + w * (588 + w * 127))) / 80640);
 
                 return x * t;
             }
@@ -48,7 +48,7 @@
         }
 
         private static MultiPrecision<N> InverseErfRootFinding(MultiPrecision<N> x) {
-            MultiPrecision<N> s = 2 / Sqrt(PI);
+            MultiPrecision<N> s = 2 / Sqrt(Pi);
 
             MultiPrecision<N> z0;
             if (Length <= 4) {
@@ -56,7 +56,7 @@
 
                 MultiPrecision<Pow2.N4> xl4 = x.Convert<Pow2.N4>();
                 MultiPrecision<Pow2.N4> lg = MultiPrecision<Pow2.N4>.Log(1 - xl4 * xl4);
-                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.PI * a) + lg / 2;
+                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.Pi * a) + lg / 2;
 
                 z0 = MultiPrecision<Pow2.N4>.Sqrt(MultiPrecision<Pow2.N4>.Sqrt(lga * lga - lg / a) - lga).Convert<N>();
             }
@@ -80,7 +80,7 @@
         }
 
         private static MultiPrecision<N> InverseErfcRootFinding(MultiPrecision<N> x) {
-            MultiPrecision<N> s = 2 / Sqrt(PI);
+            MultiPrecision<N> s = 2 / Sqrt(Pi);
 
             MultiPrecision<N> z0;
             if (Length <= 4) {
@@ -88,7 +88,7 @@
 
                 MultiPrecision<Pow2.N4> xl4 = x.Convert<Pow2.N4>();
                 MultiPrecision<Pow2.N4> lg = MultiPrecision<Pow2.N4>.Log((2 - xl4) * xl4);
-                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.PI * a) + lg / 2;
+                MultiPrecision<Pow2.N4> lga = 2 / (MultiPrecision<Pow2.N4>.Pi * a) + lg / 2;
 
                 z0 = MultiPrecision<Pow2.N4>.Sqrt(MultiPrecision<Pow2.N4>.Sqrt(lga * lga - lg / a) - lga).Convert<N>();
             }

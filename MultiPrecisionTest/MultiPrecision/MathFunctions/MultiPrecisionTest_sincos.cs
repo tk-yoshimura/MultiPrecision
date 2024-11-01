@@ -6,10 +6,10 @@ using System.Collections.Generic;
 namespace MultiPrecisionTest.Functions {
     public partial class MultiPrecisionTest {
         [TestMethod]
-        public void CosHalfPITest() {
+        public void CosHalfPiTest() {
             foreach (MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) {
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPi(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -18,7 +18,7 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (int x = -31; x <= 31; x += 2) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPi(x);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
                 Assert.AreEqual(Sign.Plus, y.Sign);
@@ -26,34 +26,34 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Sqrt2 / 2,
-                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
+                MultiPrecision<Pow2.N8>.CosHalfPi(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Sqrt(3) / 2,
-                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
+                MultiPrecision<Pow2.N8>.CosHalfPi(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Point5,
-                MultiPrecision<Pow2.N8>.CosHalfPI(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
+                MultiPrecision<Pow2.N8>.CosHalfPi(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Sqrt2 / 2,
-                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
+                MultiPrecision<Pow2.N16>.CosHalfPi(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Sqrt(3) / 2,
-                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
+                MultiPrecision<Pow2.N16>.CosHalfPi(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Point5,
-                MultiPrecision<Pow2.N16>.CosHalfPI(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
+                MultiPrecision<Pow2.N16>.CosHalfPi(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
         }
 
         [TestMethod]
-        public void SinHalfPITest() {
+        public void SinHalfPiTest() {
             foreach (MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) {
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPi(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -62,41 +62,41 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (int x = -32; x <= 32; x += 2) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPi(x);
 
                 Assert.AreEqual(MultiPrecision<Pow2.N8>.Zero, y);
             }
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Sqrt2 / 2,
-                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
+                MultiPrecision<Pow2.N8>.SinHalfPi(MultiPrecision<Pow2.N8>.Div(1, 2)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Point5,
-                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
+                MultiPrecision<Pow2.N8>.SinHalfPi(MultiPrecision<Pow2.N8>.Div(1, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.NearlyEqualBits(
                 MultiPrecision<Pow2.N8>.Sqrt(3) / 2,
-                MultiPrecision<Pow2.N8>.SinHalfPI(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
+                MultiPrecision<Pow2.N8>.SinHalfPi(MultiPrecision<Pow2.N8>.Div(2, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Sqrt2 / 2,
-                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
+                MultiPrecision<Pow2.N16>.SinHalfPi(MultiPrecision<Pow2.N16>.Div(1, 2)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Point5,
-                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
+                MultiPrecision<Pow2.N16>.SinHalfPi(MultiPrecision<Pow2.N16>.Div(1, 3)), 1));
 
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Sqrt(3) / 2,
-                MultiPrecision<Pow2.N16>.SinHalfPI(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
+                MultiPrecision<Pow2.N16>.SinHalfPi(MultiPrecision<Pow2.N16>.Div(2, 3)), 1));
         }
 
         [TestMethod]
-        public void CosPITest() {
+        public void CosPiTest() {
             foreach (MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) {
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosPi(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -105,16 +105,16 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (MultiPrecision<Pow2.N8> n = 0; n <= 32; n++) { 
-                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPI(n + 0.5)), "cos intn");
-                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPI(-n - 0.5)), "cos intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPi(n + 0.5)), "cos intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.CosPi(-n - 0.5)), "cos intn");
             }
         }
 
         [TestMethod]
-        public void SinPITest() {
+        public void SinPiTest() {
             foreach (MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) {
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinPi(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -123,19 +123,19 @@ namespace MultiPrecisionTest.Functions {
             }
 
             for (MultiPrecision<Pow2.N8> n = 0; n <= 32; n++) { 
-                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.SinPI(n)), "sin intn");
-                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsMinusZero(MultiPrecision<Pow2.N8>.SinPI(-n)), "sin intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsPlusZero(MultiPrecision<Pow2.N8>.SinPi(n)), "sin intn");
+                Assert.IsTrue(MultiPrecision<Pow2.N8>.IsMinusZero(MultiPrecision<Pow2.N8>.SinPi(-n)), "sin intn");
             }
         }
 
         [TestMethod]
-        public void TanPITest() {
+        public void TanPiTest() {
             foreach (MultiPrecision<Pow2.N8> x in TestTool.ShortRangeSet<Pow2.N8>()) {
                 if (x * 2 == MultiPrecision<Pow2.N8>.Truncate(x * 2)) {
                     continue;
                 }
 
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPI(x);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPi(x);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);
@@ -184,7 +184,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void CosHalfPIBorderTest() {
+        public void CosHalfPiBorderTest() {
             MultiPrecision<Pow2.N8> half_n8 = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders_n8 = [
@@ -197,7 +197,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -239,7 +239,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.CosHalfPI(x);
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.CosHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -271,7 +271,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void CosHalfPILargeValueTest() {
+        public void CosHalfPiLargeValueTest() {
             MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders = [
@@ -283,7 +283,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(x);
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -315,7 +315,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void CosHalfPIUnnormalValueTest() {
+        public void CosHalfPiUnnormalValueTest() {
             MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
@@ -323,14 +323,14 @@ namespace MultiPrecisionTest.Functions {
             ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPI(v);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.CosHalfPi(v);
 
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
         }
 
         [TestMethod]
-        public void SinHalfPIBorderTest() {
+        public void SinHalfPiBorderTest() {
             MultiPrecision<Pow2.N8> half_n8 = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders_n8 = [
@@ -343,7 +343,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -385,7 +385,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N16>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N16> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.SinHalfPI(x);
+                    MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.SinHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -417,7 +417,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void SinHalfPILargeValueTest() {
+        public void SinHalfPiLargeValueTest() {
             MultiPrecision<Pow2.N8> half = MultiPrecision<Pow2.N8>.Point5;
 
             MultiPrecision<Pow2.N8>[] borders = [
@@ -429,7 +429,7 @@ namespace MultiPrecisionTest.Functions {
                 List<MultiPrecision<Pow2.N8>> ys = [];
 
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(x);
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -461,7 +461,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void SinHalfPIUnnormalValueTest() {
+        public void SinHalfPiUnnormalValueTest() {
             MultiPrecision<Pow2.N8>[] vs = [
                 MultiPrecision<Pow2.N8>.NaN,
                 MultiPrecision<Pow2.N8>.PositiveInfinity,
@@ -469,7 +469,7 @@ namespace MultiPrecisionTest.Functions {
             ];
 
             foreach (MultiPrecision<Pow2.N8> v in vs) {
-                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPI(v);
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.SinHalfPi(v);
 
                 Assert.IsTrue(MultiPrecision<Pow2.N8>.IsNaN(y));
             }
@@ -478,14 +478,14 @@ namespace MultiPrecisionTest.Functions {
 
 
         [TestMethod]
-        public void TanPIBorderTest() {
+        public void TanPiBorderTest() {
             MultiPrecision<Pow2.N8>[] borders = [
                 0, -1, 1, 0.25, 0.75, -0.25, -0.75
             ];
 
             foreach (MultiPrecision<Pow2.N8> b in borders) {
                 foreach (MultiPrecision<Pow2.N8> x in TestTool.EnumerateNeighbor(b)) {
-                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPI(x);
+                    MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.TanPi(x);
 
                     Console.WriteLine(x);
                     Console.WriteLine(x.ToHexcode());
@@ -505,7 +505,7 @@ namespace MultiPrecisionTest.Functions {
         }
 
         [TestMethod]
-        public void SinPIMistakeSftValueTest() {
+        public void SinPiMistakeSftValueTest() {
             MultiPrecision<N18>[] borders = [
                 0.4580078125
             ];
@@ -516,7 +516,7 @@ namespace MultiPrecisionTest.Functions {
                 foreach (MultiPrecision<N18> x in TestTool.EnumerateNeighbor(b, 2048)) {
                     Console.WriteLine($"x = {x.ToHexcode()}");
                     try {
-                        _ = MultiPrecision<N18>.SinPI(x);
+                        _ = MultiPrecision<N18>.SinPi(x);
                     }
                     catch (Exception) {
                         Console.WriteLine($"err = {x.ToHexcode()}");

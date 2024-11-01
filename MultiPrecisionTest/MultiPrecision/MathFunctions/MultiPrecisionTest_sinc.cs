@@ -69,7 +69,7 @@ namespace MultiPrecisionTest.Functions {
                 MultiPrecision<Pow2.N4> y_dec = MultiPrecision<Pow2.N4>.Sinc(MultiPrecision<Pow2.N4>.BitDecrement(x), normalized: false);
                 MultiPrecision<Pow2.N4> y_inc = MultiPrecision<Pow2.N4>.Sinc(MultiPrecision<Pow2.N4>.BitIncrement(x), normalized: false);
 
-                MultiPrecision<Pow2.N4> y_normed = MultiPrecision<Pow2.N4>.Sinc(x * MultiPrecision<Pow2.N4>.RcpPI, normalized: true);
+                MultiPrecision<Pow2.N4> y_normed = MultiPrecision<Pow2.N4>.Sinc(x * MultiPrecision<Pow2.N4>.RcpPi, normalized: true);
 
                 Console.WriteLine(x);
                 Console.WriteLine(y);

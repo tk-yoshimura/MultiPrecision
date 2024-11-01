@@ -11,7 +11,7 @@ namespace MultiPrecision {
             }
 
             if (!IsFinite(x)) {
-                return x.Sign == Sign.Plus ? PI / 2 : -PI / 2;
+                return x.Sign == Sign.Plus ? Pi / 2 : -Pi / 2;
             }
 
             MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
@@ -32,10 +32,10 @@ namespace MultiPrecision {
                 MultiPrecision<N> w = MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.SquareAsin(z)).Convert<N>();
 
                 if (x.Sign == Sign.Plus) {
-                    return PI / 2 - w;
+                    return Pi / 2 - w;
                 }
                 else {
-                    return w - PI / 2;
+                    return w - Pi / 2;
                 }
             }
         }
@@ -46,10 +46,10 @@ namespace MultiPrecision {
             }
 
             if (x == MinusOne) {
-                return -PI / 2;
+                return -Pi / 2;
             }
             if (x == One) {
-                return PI / 2;
+                return Pi / 2;
             }
 
             if (Abs(x) <= Sqrt2 / 2) {
@@ -73,7 +73,7 @@ namespace MultiPrecision {
         }
 
         public static MultiPrecision<N> Acos(MultiPrecision<N> x) {
-            return PI / 2 - Asin(x);
+            return Pi / 2 - Asin(x);
         }
 
         public static MultiPrecision<N> Atan2(MultiPrecision<N> y, MultiPrecision<N> x) {
@@ -85,11 +85,11 @@ namespace MultiPrecision {
             }
             if (Abs(x) >= Abs(y)) {
                 MultiPrecision<N> yx = y / x;
-                return x.Sign == Sign.Plus ? Atan(yx) : ((y.Sign == Sign.Plus) ? (Atan(yx) + PI) : (Atan(yx) - PI));
+                return x.Sign == Sign.Plus ? Atan(yx) : ((y.Sign == Sign.Plus) ? (Atan(yx) + Pi) : (Atan(yx) - Pi));
             }
             else {
                 MultiPrecision<N> xy = x / y;
-                return y.Sign == Sign.Plus ? (PI / 2 - Atan(xy)) : (-PI / 2 - Atan(xy));
+                return y.Sign == Sign.Plus ? (Pi / 2 - Atan(xy)) : (-Pi / 2 - Atan(xy));
             }
         }
 

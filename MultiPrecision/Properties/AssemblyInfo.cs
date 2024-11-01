@@ -18,7 +18,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 
-[assembly: AssemblyVersion("6.3.4.*")]
+[assembly: AssemblyVersion("6.4.0.*")]
 
 [assembly: InternalsVisibleTo("MultiPrecisionTest")]
 [assembly: InternalsVisibleTo("MultiPrecisionBesselTest")]

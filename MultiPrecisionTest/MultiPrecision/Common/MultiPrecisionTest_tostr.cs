@@ -99,7 +99,7 @@ namespace MultiPrecisionTest.Common {
             }
 
             {
-                MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.PI;
+                MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Pi;
 
                 (Sign sign, Int64 exponent_dec, BigUInt<Pow2.N8> mantissa_dec) = v.ToStringCore(MultiPrecision<Pow2.N8>.DecimalDigits);
 
@@ -133,7 +133,7 @@ namespace MultiPrecisionTest.Common {
 
         [TestMethod]
         public void ToStringFormatTest() {
-            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.PI;
+            MultiPrecision<Pow2.N8> v = MultiPrecision<Pow2.N8>.Pi;
 
             Console.WriteLine(v.ToString());
             Console.WriteLine($"{v:E10}");
