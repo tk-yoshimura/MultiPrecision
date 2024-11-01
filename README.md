@@ -64,9 +64,9 @@ MaxValue: &plusmn;8.808065x10^646456992
 |MultiPrecision&lt;*N*&gt;.Acos(x)|&#91;-1,1&#93;|2|Accuracy deteriorates near x=-1,1.|
 |MultiPrecision&lt;*N*&gt;.Atan(x)|&#40;-inf,+inf&#41;|2||
 |MultiPrecision&lt;*N*&gt;.Atan2(y, x)|&#40;-inf,+inf&#41;|2||
-|MultiPrecision&lt;*N*&gt;.Arsinh(x)|&#40;-inf,+inf&#41;|2||
-|MultiPrecision&lt;*N*&gt;.Arcosh(x)|&#91;1,+inf&#41;|2||
-|MultiPrecision&lt;*N*&gt;.Artanh(x)|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|
+|MultiPrecision&lt;*N*&gt;.Asinh(x)|&#40;-inf,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Acosh(x)|&#91;1,+inf&#41;|2||
+|MultiPrecision&lt;*N*&gt;.Atanh(x)|&#40;-1,1&#41;|4|Accuracy deteriorates near x=-1,1.|
 |MultiPrecision&lt;*N*&gt;.Sinc(x, normalized)|&#40;-inf,+inf&#41;|2|normalized: x -> &pi;x|
 |MultiPrecision&lt;*N*&gt;.Sinhc(x)|&#40;-inf,+inf&#41;|3||
 |MultiPrecision&lt;*N*&gt;.Erf(x)|&#40;-1,1&#41;|2|*Length* &leq; 256|

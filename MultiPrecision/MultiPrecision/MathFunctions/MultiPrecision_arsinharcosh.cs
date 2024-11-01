@@ -2,9 +2,9 @@
 
     public sealed partial class MultiPrecision<N> {
 
-        public static MultiPrecision<N> Arsinh(MultiPrecision<N> x) {
+        public static MultiPrecision<N> Asinh(MultiPrecision<N> x) {
             if (x.Sign == Sign.Minus) {
-                return -Arsinh(Abs(x));
+                return -Asinh(Abs(x));
             }
 
             MultiPrecision<N> y = Log1p(x + (Sqrt(x * x + 1) - 1));
@@ -12,7 +12,7 @@
             return y;
         }
 
-        public static MultiPrecision<N> Arcosh(MultiPrecision<N> x) {
+        public static MultiPrecision<N> Acosh(MultiPrecision<N> x) {
             if (x == One) {
                 return Zero;
             }
@@ -22,7 +22,7 @@
             return y;
         }
 
-        public static MultiPrecision<N> Artanh(MultiPrecision<N> x) {
+        public static MultiPrecision<N> Atanh(MultiPrecision<N> x) {
             if (IsNaN(x) || x.Exponent > 1 || x < MinusOne || x > One) {
                 return NaN;
             }
