@@ -12,7 +12,7 @@ AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 [Download Nuget](https://www.nuget.org/packages/tyoshimura.multiprecision/)
 
 ## More Functions ?
-[DoubleDouble (30-31 digits)](https://github.com/tk-yoshimura/DoubleDouble)  
+[DoubleDouble (31-32 digits)](https://github.com/tk-yoshimura/DoubleDouble)  
 
 ## Spec
 
