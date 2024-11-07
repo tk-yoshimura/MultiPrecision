@@ -86,7 +86,7 @@
             }
 
             if (IsZero(a)) {
-                return b;
+                return !IsZero(b) ? b : (a.Sign == b.Sign) ? a : Zero;
             }
             if (IsZero(b)) {
                 return a;

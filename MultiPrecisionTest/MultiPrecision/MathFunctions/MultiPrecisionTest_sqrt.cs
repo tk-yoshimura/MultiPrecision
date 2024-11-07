@@ -24,6 +24,8 @@ namespace MultiPrecisionTest.Functions {
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Sqrt2,
                 MultiPrecision<Pow2.N16>.Sqrt(2), 1));
+
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.IsMinusZero(MultiPrecision<Pow2.N16>.Sqrt(MultiPrecision<Pow2.N16>.MinusZero)));
         }
 
         [TestMethod]

@@ -564,6 +564,10 @@ namespace MultiPrecisionTest.Arithmetics {
     public class MultiPrecisionTest {
         [TestMethod]
         public void AddTest() {
+            Assert.AreEqual(double.CopySign(1, 0d + double.NegativeZero), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.PlusZero + MultiPrecision<N4>.MinusZero));
+            Assert.AreEqual(double.CopySign(1, double.NegativeZero + 0d), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.MinusZero + MultiPrecision<N4>.PlusZero));
+            Assert.AreEqual(double.CopySign(1, double.NegativeZero + double.NegativeZero), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.MinusZero + MultiPrecision<N4>.MinusZero));
+
             MultiPrecisionTest<N4>.AddTest();
             MultiPrecisionTest<N8>.AddTest();
             MultiPrecisionTest<N9>.AddTest();
@@ -576,6 +580,10 @@ namespace MultiPrecisionTest.Arithmetics {
 
         [TestMethod]
         public void SubTest() {
+            Assert.AreEqual(double.CopySign(1, 0d - double.NegativeZero), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.PlusZero - MultiPrecision<N4>.MinusZero));
+            Assert.AreEqual(double.CopySign(1, double.NegativeZero - 0d), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.MinusZero - MultiPrecision<N4>.PlusZero));
+            Assert.AreEqual(double.CopySign(1, double.NegativeZero - double.NegativeZero), MultiPrecision<N4>.CopySign(1, MultiPrecision<N4>.MinusZero - MultiPrecision<N4>.MinusZero));
+
             MultiPrecisionTest<N4>.SubTest();
             MultiPrecisionTest<N8>.SubTest();
             MultiPrecisionTest<N9>.SubTest();

@@ -3,14 +3,14 @@
     public sealed partial class MultiPrecision<N> {
 
         public static MultiPrecision<N> Sqrt(MultiPrecision<N> x) {
+            if (IsZero(x)) {
+                return x;
+            }
             if (x.Sign == Sign.Minus || IsNaN(x)) {
                 return NaN;
             }
             if (!IsFinite(x)) {
                 return PositiveInfinity;
-            }
-            if (IsZero(x)) {
-                return Zero;
             }
 
             MultiPrecision<Plus1<N>> x_expand = x.Convert<Plus1<N>>();
