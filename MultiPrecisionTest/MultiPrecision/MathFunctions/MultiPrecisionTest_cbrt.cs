@@ -105,7 +105,7 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.AreEqual(MultiPrecision<Pow2.N8>.NegativeInfinity, minf);
 
-            Assert.IsTrue(MultiPrecision<Pow2.N16>.IsMinusZero(MultiPrecision<Pow2.N16>.Sqrt(MultiPrecision<Pow2.N16>.MinusZero)));
+            Assert.IsTrue(MultiPrecision<Pow2.N16>.IsMinusZero(MultiPrecision<Pow2.N16>.Cbrt(MultiPrecision<Pow2.N16>.MinusZero)));
         }
     }
 }
