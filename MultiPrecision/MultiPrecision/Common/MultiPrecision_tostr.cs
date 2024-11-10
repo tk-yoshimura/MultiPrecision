@@ -91,7 +91,7 @@ namespace MultiPrecision {
         }
 
         internal (Sign sign, Int64 exponent_dec, BigUInt<N> n) ToStringCore(int digits) {
-            const int presicion = 2;
+            const int precision = 2;
 
             ArgumentOutOfRangeException.ThrowIfGreaterThan(digits, DecimalDigits);
 
@@ -119,7 +119,7 @@ namespace MultiPrecision {
 #endif
 
             n = BigUInt<Double<N>>.RightRoundShift(
-                BigUInt<N>.Mul<Double<N>>(n, BigUInt<N>.Decimal(digits + presicion)),
+                BigUInt<N>.Mul<Double<N>>(n, BigUInt<N>.Decimal(digits + precision)),
                 Bits - 1, enable_clone: false).Convert<N>(check_overflow);
 
             n = BigUInt<Double<N>>.RightRoundShift(
@@ -130,7 +130,7 @@ namespace MultiPrecision {
 
             if (n_length > (digits + 1)) {
                 int trunc_digits = n_length - (digits + 1);
-                exponent_dec = checked(exponent_dec + trunc_digits - presicion);
+                exponent_dec = checked(exponent_dec + trunc_digits - precision);
                 n = BigUInt<N>.RoundDiv(n, BigUInt<N>.Decimal(trunc_digits));
             }
             if (n == BigUInt<N>.Decimal(digits + 1)) {
