@@ -24,13 +24,15 @@
                         return a_table[n];
                     }
 
-                    for (int k = a_table.Count; k <= n; k++) {
-                        MultiPrecision<Plus1<N>> a = a_last + (MultiPrecision<Plus1<N>>.One / k);
-                        a_table.Add(a.Convert<N>());
-                        a_last = a;
-                    }
+                    lock (a_table) {
+                        for (int k = a_table.Count; k <= n; k++) {
+                            MultiPrecision<Plus1<N>> a = a_last + (MultiPrecision<Plus1<N>>.One / k);
+                            a_table.Add(a.Convert<N>());
+                            a_last = a;
+                        }
 
-                    return a_table[n];
+                        return a_table[n];
+                    }
                 }
             }
         }

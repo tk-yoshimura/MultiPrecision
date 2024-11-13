@@ -162,13 +162,19 @@ namespace MultiPrecision {
                 }
 
                 public static MultiPrecision<N> KTable(int n) {
-                    for (int i = k_table.Count; i <= n; i++) {
-                        MultiPrecision<N> k = k_table.Last() * checked(4 * i * (i - 1) + 1) / checked(4 * i * i);
-
-                        k_table.Add(k);
+                    if (n < k_table.Count) { 
+                        return k_table[n];
                     }
 
-                    return k_table[n];
+                    lock (k_table) {
+                        for (int i = k_table.Count; i <= n; i++) {
+                            MultiPrecision<N> k = k_table.Last() * checked(4 * i * (i - 1) + 1) / checked(4 * i * i);
+
+                            k_table.Add(k);
+                        }
+
+                        return k_table[n];
+                    }
                 }
             }
         }

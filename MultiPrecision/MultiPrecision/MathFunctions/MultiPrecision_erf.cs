@@ -168,19 +168,21 @@ namespace MultiPrecision {
                 return coefs[n];
             }
 
-            for (int k = factorials.Count; k <= n; k++) {
-                BigInteger fact = factorials[k - 1] * k;
-                BigInteger coef = fact * checked(2 * k + 1);
+            lock (coefs) {
+                for (int k = factorials.Count; k <= n; k++) {
+                    BigInteger fact = factorials[k - 1] * k;
+                    BigInteger coef = fact * checked(2 * k + 1);
 
-                if (k % 2 == 1) {
-                    coef = -coef;
+                    if (k % 2 == 1) {
+                        coef = -coef;
+                    }
+
+                    factorials.Add(fact);
+                    coefs.Add(coef);
                 }
 
-                factorials.Add(fact);
-                coefs.Add(coef);
+                return coefs[n];
             }
-
-            return coefs[n];
         }
     }
 

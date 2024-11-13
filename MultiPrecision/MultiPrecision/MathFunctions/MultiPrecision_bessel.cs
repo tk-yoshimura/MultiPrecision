@@ -854,14 +854,18 @@ namespace MultiPrecision {
                         return c_table[n];
                     }
 
-                    for (long k = c_table.Count; k <= n; k++) {
-                        MultiPrecision<Double<N>> a = a_table.Last() * (checked(4 * k) * (nu + k));
+                    lock (c_table) {
+                        lock (a_table) {
+                            for (long k = c_table.Count; k <= n; k++) {
+                                MultiPrecision<Double<N>> a = a_table.Last() * (checked(4 * k) * (nu + k));
 
-                        a_table.Add(a);
-                        c_table.Add(1 / a);
+                                a_table.Add(a);
+                                c_table.Add(1 / a);
+                            }
+
+                            return c_table[n];
+                        }
                     }
-
-                    return c_table[n];
                 }
             }
 
@@ -885,14 +889,16 @@ namespace MultiPrecision {
                         return a_table[n];
                     }
 
-                    for (long k = a_table.Count; k <= n; k++) {
-                        MultiPrecision<Plus4<N>> a =
-                            a_table.Last() * MultiPrecision<Plus4<N>>.Div(squa_nu4 - checked((2 * k - 1) * (2 * k - 1)), checked(k * 8));
+                    lock (a_table) {
+                        for (long k = a_table.Count; k <= n; k++) {
+                            MultiPrecision<Plus4<N>> a =
+                                a_table.Last() * MultiPrecision<Plus4<N>>.Div(squa_nu4 - checked((2 * k - 1) * (2 * k - 1)), checked(k * 8));
 
-                        a_table.Add(a);
+                            a_table.Add(a);
+                        }
+
+                        return a_table[n];
                     }
-
-                    return a_table[n];
                 }
             }
 
@@ -957,17 +963,19 @@ namespace MultiPrecision {
                         return a_table[k];
                     }
 
-                    for (long i = a_table.Count; i <= k; i++) {
-                        r *= checked(4 * i * (n + i));
+                    lock (a_table) {
+                        for (long i = a_table.Count; i <= k; i++) {
+                            r *= checked(4 * i * (n + i));
 
-                        MultiPrecision<Double<N>> a =
-                            (MultiPrecision<Double<N>>.HarmonicNumber(checked((int)i))
-                            + MultiPrecision<Double<N>>.HarmonicNumber(checked((int)(n + i))) - b) / r;
+                            MultiPrecision<Double<N>> a =
+                                (MultiPrecision<Double<N>>.HarmonicNumber(checked((int)i))
+                                + MultiPrecision<Double<N>>.HarmonicNumber(checked((int)(n + i))) - b) / r;
 
-                        a_table.Add(a);
+                            a_table.Add(a);
+                        }
+
+                        return a_table[k];
                     }
-
-                    return a_table[k];
                 }
             }
         }
