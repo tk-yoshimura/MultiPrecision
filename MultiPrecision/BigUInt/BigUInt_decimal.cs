@@ -1,14 +1,15 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace MultiPrecision {
     internal sealed partial class BigUInt<N> {
         [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        private static readonly Dictionary<int, BigUInt<N>> decimals = [];
+        private static readonly ConcurrentDictionary<int, BigUInt<N>> decimals = [];
 
         public static BigUInt<N> Decimal(int digits) {
             if (!decimals.TryGetValue(digits, out BigUInt<N> value)) {
                 value = GenerateDecimal(digits);
-                decimals.Add(digits, value);
+                decimals[digits] = value;
             }
 
             return value;

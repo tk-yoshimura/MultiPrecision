@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.Collections.Concurrent;
+using System.Numerics;
 
 namespace MultiPrecision {
 
@@ -10,18 +11,16 @@ namespace MultiPrecision {
     }
 
     static class Chebyshev {
-        private static readonly Dictionary<(int m, int n), BigInteger> table;
+        private static readonly ConcurrentDictionary<(int m, int n), BigInteger> table = [];
 
         static Chebyshev() {
-            table = new Dictionary<(int n, int m), BigInteger> {
-                { (1, 1), 1 },
-                { (2, 2), 1 }
-            };
+            table[(1, 1)] = 1;
+            table[(2, 2)] = 1;
         }
 
         public static BigInteger Table(int n, int m) {
             if (n < 1 || m < 1 || n < m) {
-                throw new ArgumentOutOfRangeException($"{nameof(n)}>={nameof(m)}>=1");
+                throw new ArgumentOutOfRangeException($"{nameof(n)},{nameof(m)}", $"{nameof(n)}>={nameof(m)}>=1");
             }
 
             if ((checked(m + n) & 1) == 1) {
@@ -34,12 +33,10 @@ namespace MultiPrecision {
                 return (n >= 2) ? (BigInteger.One << (n - 2)) : 1;
             }
 
-            if (table.ContainsKey((n, m))) {
-                return table[(n, m)];
+            if (!table.TryGetValue((n, m), out BigInteger v)) {
+                v = Table(n - 1, m - 1) * 2 - Table(n - 2, m);
+                table[(n, m)] = v;
             }
-
-            BigInteger v = Table(n - 1, m - 1) * 2 - Table(n - 2, m);
-            table.Add((n, m), v);
 
             return v;
         }

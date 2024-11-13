@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Concurrent;
+using System.Diagnostics;
 
 namespace MultiPrecision {
 
@@ -764,72 +765,57 @@ namespace MultiPrecision {
             }
 
             public static class Bessel {
-                private static readonly Dictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = [];
-                private static readonly Dictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = [];
+                private static readonly ConcurrentDictionary<MultiPrecision<N>, BesselNearZeroCoef> nearzero_table = [];
+                private static readonly ConcurrentDictionary<MultiPrecision<N>, BesselLimitCoef> limit_table = [];
 
-                private static readonly Dictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = [];
-                private static readonly Dictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = [];
+                private static readonly ConcurrentDictionary<int, BesselIntegerFiniteTermCoef> integer_finite_table = [];
+                private static readonly ConcurrentDictionary<int, BesselIntegerConvergenceTermCoef> interger_convergence_table = [];
 
-                private static readonly Dictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = [];
+                private static readonly ConcurrentDictionary<MultiPrecision<N>, (MultiPrecision<N> sin, MultiPrecision<N> cos)> sincos_table = [];
 
                 public static BesselNearZeroCoef NearZeroCoef(MultiPrecision<N> nu) {
-                    BesselNearZeroCoef table;
-                    if (nearzero_table.ContainsKey(nu)) {
-                        table = nearzero_table[nu];
-                    }
-                    else {
+                    if (!nearzero_table.TryGetValue(nu, out BesselNearZeroCoef table)) {
                         table = new BesselNearZeroCoef(nu);
-                        nearzero_table.Add(nu, table);
+                        nearzero_table[nu] = table;
                     }
 
                     return table;
                 }
 
                 public static BesselLimitCoef LimitCoef(MultiPrecision<N> nu) {
-                    BesselLimitCoef table;
-                    if (limit_table.ContainsKey(nu)) {
-                        table = limit_table[nu];
-                    }
-                    else {
+                    if (!limit_table.TryGetValue(nu, out BesselLimitCoef table)) {
                         table = new BesselLimitCoef(nu);
-                        limit_table.Add(nu, table);
+                        limit_table[nu] = table;
                     }
 
                     return table;
                 }
 
                 public static BesselIntegerFiniteTermCoef IntegerFiniteTermCoef(int n) {
-                    BesselIntegerFiniteTermCoef table;
-                    if (integer_finite_table.ContainsKey(n)) {
-                        table = integer_finite_table[n];
-                    }
-                    else {
+                    if (!integer_finite_table.TryGetValue(n, out BesselIntegerFiniteTermCoef table)) {
                         table = new BesselIntegerFiniteTermCoef(n);
-                        integer_finite_table.Add(n, table);
+                        integer_finite_table[n] = table;
                     }
 
                     return table;
                 }
 
                 public static BesselIntegerConvergenceTermCoef IntegerConvergenceTermCoef(int n) {
-                    BesselIntegerConvergenceTermCoef table;
-                    if (interger_convergence_table.ContainsKey(n)) {
-                        table = interger_convergence_table[n];
-                    }
-                    else {
+                    if (!interger_convergence_table.TryGetValue(n, out BesselIntegerConvergenceTermCoef table)) {
                         table = new BesselIntegerConvergenceTermCoef(n);
-                        interger_convergence_table.Add(n, table);
+                        interger_convergence_table[n] = table;
                     }
 
                     return table;
                 }
 
                 public static (MultiPrecision<N> sin, MultiPrecision<N> cos) SinCos(MultiPrecision<N> nu) {
-                    if (!sincos_table.ContainsKey(nu)) {
-                        sincos_table.Add(nu, (SinPi(nu), CosPi(nu)));
+                    if (!sincos_table.TryGetValue(nu, out (MultiPrecision<N> sin, MultiPrecision<N> cos) sincos)) {
+                        sincos = (SinPi(nu), CosPi(nu));
+                        sincos_table[nu] = sincos;
                     }
 
-                    return sincos_table[nu];
+                    return sincos;
                 }
             }
 
