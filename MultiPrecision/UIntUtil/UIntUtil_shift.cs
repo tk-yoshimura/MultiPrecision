@@ -5,7 +5,7 @@ using static System.Runtime.Intrinsics.X86.Avx2;
 
 namespace MultiPrecision {
     internal static partial class UIntUtil {
-        
+
 #pragma warning disable CA1857
 
         /// <summary>Shift uint32 array v &lt;&lt;= sft</summary>

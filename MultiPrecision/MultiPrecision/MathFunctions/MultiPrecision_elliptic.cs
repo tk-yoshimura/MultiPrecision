@@ -162,7 +162,7 @@ namespace MultiPrecision {
                 }
 
                 public static MultiPrecision<N> KTable(int n) {
-                    if (n < k_table.Count) { 
+                    if (n < k_table.Count) {
                         return k_table[n];
                     }
 

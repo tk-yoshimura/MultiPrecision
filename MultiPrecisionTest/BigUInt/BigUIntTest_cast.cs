@@ -1,6 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MultiPrecision;
-using System;
 using System.Numerics;
 
 namespace MultiPrecisionTest.BigUInt {
