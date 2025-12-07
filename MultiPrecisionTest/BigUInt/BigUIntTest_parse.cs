@@ -61,15 +61,15 @@ namespace MultiPrecisionTest.BigUInt {
 
         [TestMethod]
         public void ParseOverflowTest() {
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 BigUInt<Pow2.N16> v = BigUInt<Pow2.N16>.Full;
                 BigUInt<Pow2.N16> v2 = new(v.ToString()[..^1] + '9');
             });
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 BigUInt<Pow2.N32> v = BigUInt<Pow2.N32>.Full;
                 BigUInt<Pow2.N32> v2 = new(v.ToString()[..^1] + '9');
             });
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 BigUInt<Pow2.N64> v = BigUInt<Pow2.N64>.Full;
                 BigUInt<Pow2.N64> v2 = new(v.ToString()[..^1] + '9');
             });

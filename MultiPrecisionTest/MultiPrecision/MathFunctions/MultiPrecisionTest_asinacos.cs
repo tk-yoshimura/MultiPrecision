@@ -25,6 +25,10 @@ namespace MultiPrecisionTest.Functions {
             Assert.IsTrue(MultiPrecision<Pow2.N16>.NearlyEqualBits(
                 MultiPrecision<Pow2.N16>.Pi / 4,
                 MultiPrecision<Pow2.N16>.Atan(1), 1));
+
+            MultiPrecision<Pow2.N8> c = MultiPrecision<Pow2.N8>.Atan(1d / 256);
+
+            Console.WriteLine(c);
         }
 
         [TestMethod]

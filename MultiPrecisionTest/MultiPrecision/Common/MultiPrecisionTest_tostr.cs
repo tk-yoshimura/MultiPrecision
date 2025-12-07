@@ -143,19 +143,19 @@ namespace MultiPrecisionTest.Common {
             Console.WriteLine(v.ToString("e10 "));
             Console.WriteLine(v.ToString("e" + MultiPrecision<Pow2.N8>.DecimalDigits));
 
-            Assert.ThrowsException<FormatException>(() => {
+            Assert.ThrowsExactly<FormatException>(() => {
                 Console.WriteLine($"{v:E-1}");
             });
 
-            Assert.ThrowsException<FormatException>(() => {
+            Assert.ThrowsExactly<FormatException>(() => {
                 Console.WriteLine($"{v:E0}");
             });
 
-            Assert.ThrowsException<FormatException>(() => {
+            Assert.ThrowsExactly<FormatException>(() => {
                 Console.WriteLine($"{v:F10}");
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 Console.WriteLine(v.ToString("e" + MultiPrecision<Pow2.N8>.DecimalDigits + 1));
             });
         }

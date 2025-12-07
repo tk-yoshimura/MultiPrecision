@@ -545,7 +545,7 @@ namespace MultiPrecisionTest.BigUInt {
                     = BigUInt<Pow2.N32>.DivRem(v1, v2);
                 BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
-                Assert.IsTrue(vrem < v2);
+                Assert.IsLessThan(v2, vrem);
 
                 Assert.AreEqual(birem, vrem, "rem");
                 Assert.AreEqual(bidiv, vdiv, "div");
@@ -569,7 +569,7 @@ namespace MultiPrecisionTest.BigUInt {
                         = BigUInt<Pow2.N8>.DivRem(v1, v2);
                     BigInteger bidiv = bi1 / bi2, birem = bi1 - bi2 * bidiv;
 
-                    Assert.IsTrue(vrem < v2);
+                    Assert.IsLessThan(v2, vrem);
 
                     Assert.AreEqual(birem, vrem, "rem");
                     Assert.AreEqual(bidiv, vdiv, "div");

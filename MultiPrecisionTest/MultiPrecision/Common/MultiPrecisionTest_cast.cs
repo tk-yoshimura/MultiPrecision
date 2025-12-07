@@ -38,11 +38,11 @@ namespace MultiPrecisionTest.Common {
                 Assert.AreEqual(i, (Int64)m);
             }
 
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 Int64 v = (Int64)(min_value - 1);
             });
 
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 Int64 v = (Int64)(max_value + 1);
             });
         }

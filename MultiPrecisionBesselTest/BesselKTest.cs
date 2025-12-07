@@ -162,8 +162,8 @@ namespace MultiPrecisionBesselTest {
                 return;
             }
 
-            Assert.IsTrue(t.Sign == Sign.Plus);
-            Assert.IsTrue(s.Sign == Sign.Plus);
+            Assert.AreEqual(Sign.Plus, t.Sign);
+            Assert.AreEqual(Sign.Plus, s.Sign);
 
             sw.Flush();
             Assert.IsTrue(MultiPrecision<N>.NearlyEqualBits(t, s.Convert<N>(), 1));

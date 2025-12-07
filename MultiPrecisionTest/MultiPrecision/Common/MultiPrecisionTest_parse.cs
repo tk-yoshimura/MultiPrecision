@@ -718,7 +718,7 @@ namespace MultiPrecisionTest.Common {
             ];
 
             foreach (string v in vs) {
-                Assert.ThrowsException<FormatException>(() => {
+                Assert.ThrowsExactly<FormatException>(() => {
                     MultiPrecision<Pow2.N8> u = v;
                     Console.WriteLine(u);
                 }, v);

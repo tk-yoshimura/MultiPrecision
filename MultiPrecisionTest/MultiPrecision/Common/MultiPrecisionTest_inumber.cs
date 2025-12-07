@@ -208,13 +208,13 @@ namespace MultiPrecisionTest.Common {
         public void TryConvertToChecked() {
             Assert.IsTrue(MultiPrecision<Pow2.N8>.TryConvertToChecked(3, out int v1));
             Assert.AreEqual((int)3, v1);
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 _ = MultiPrecision<Pow2.N8>.TryConvertToChecked(MultiPrecision<Pow2.N8>.MaxValue, out int _);
             });
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.TryConvertToChecked(3, out long v2));
             Assert.AreEqual((long)3, v2);
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 _ = MultiPrecision<Pow2.N8>.TryConvertToChecked(MultiPrecision<Pow2.N8>.MaxValue, out long _);
             });
 
@@ -230,7 +230,7 @@ namespace MultiPrecisionTest.Common {
 
             Assert.IsTrue(MultiPrecision<Pow2.N8>.TryConvertToChecked(3, out decimal v5));
             Assert.AreEqual((decimal)3, v5);
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 _ = MultiPrecision<Pow2.N8>.TryConvertToChecked(MultiPrecision<Pow2.N8>.MaxValue, out decimal _);
             });
         }

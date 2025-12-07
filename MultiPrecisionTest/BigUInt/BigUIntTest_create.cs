@@ -67,31 +67,31 @@ namespace MultiPrecisionTest.BigUInt {
             UInt32[] value2 = [0x3478u, 0xFEDCu, 0x2341u, 0x6785u, 0xABC9u, 0xEF0Du];
             UInt32[] value_full = [~0u, ~0u, ~0u, ~0u];
 
-            Assert.ThrowsException<OverflowException>(() => {
+            Assert.ThrowsExactly<OverflowException>(() => {
                 BigUInt<Pow2.N4> n = new(Array.AsReadOnly(value_full), 0, carry: true);
             });
 
-            Assert.ThrowsException<ArgumentException>(() => {
+            Assert.ThrowsExactly<ArgumentException>(() => {
                 BigUInt<Pow2.N4> n = new(value1, enable_clone: true);
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new(value2, -1);
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new(value2, 0);
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new(value2, 1);
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new(value1, 2);
             });
 
-            Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => {
                 BigUInt<Pow2.N4> n = new(Array.AsReadOnly(value_full), 1, carry: true);
             });
         }

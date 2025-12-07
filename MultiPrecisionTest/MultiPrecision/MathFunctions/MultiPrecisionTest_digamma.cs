@@ -140,7 +140,7 @@ namespace MultiPrecisionTest.Functions {
                   "0107060169497854579337655771161136468526538644077372589890682262958196750529119944311972207258664056" +
                   "4820749522728080666492780264672546913947612363653574355170333094944302512419288581347767763803726821";
 
-            Assert.IsTrue(MultiPrecision<Pow2.N8>.Digamma(zeropoint).Exponent < -256);
+            Assert.IsLessThan(-256, MultiPrecision<Pow2.N8>.Digamma(zeropoint).Exponent);
 
             MultiPrecision<Pow2.N8> y8 = MultiPrecision<Pow2.N8>.Digamma(zeropoint);
             MultiPrecision<Pow2.N16> y16 = MultiPrecision<Pow2.N16>.Digamma(zeropoint);

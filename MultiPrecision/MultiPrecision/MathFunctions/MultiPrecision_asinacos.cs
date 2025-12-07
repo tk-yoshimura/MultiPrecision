@@ -16,7 +16,7 @@ namespace MultiPrecision {
 
             MultiPrecision<Plus1<N>> x_ex = x.Convert<Plus1<N>>();
 
-            if (x <= One && x >= MinusOne) {
+            if (x.Exponent < 0) {
                 MultiPrecision<Plus1<N>> z = MultiPrecision<Plus1<N>>.Abs(x_ex) / MultiPrecision<Plus1<N>>.Sqrt(x_ex * x_ex + 1);
                 MultiPrecision<N> w = MultiPrecision<Plus1<N>>.Sqrt(MultiPrecision<Plus1<N>>.SquareAsin(z)).Convert<N>();
 
@@ -33,7 +33,7 @@ namespace MultiPrecision {
 
                 if (x.Sign == Sign.Plus) {
                     return Pi / 2 - w;
-                }
+                    }
                 else {
                     return w - Pi / 2;
                 }

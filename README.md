@@ -2,7 +2,7 @@
  MultiPrecision Arithmetic Implements 
 
 ## Requirement
-.NET 8.0
+.NET 10.0
 
 AVX2 suppoted CPU. (Intel:Haswell(2013)-, AMD:Excavator(2015)-)
 
