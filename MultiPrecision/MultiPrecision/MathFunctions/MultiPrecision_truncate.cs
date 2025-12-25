@@ -49,10 +49,36 @@
 
         public static MultiPrecision<N> Round(MultiPrecision<N> x) {
             if (x.Sign == Sign.Minus) {
-                return Floor(x + Point5);
+                MultiPrecision<N> n = Ceiling(x);
+                MultiPrecision<N> f = n - x;
+
+                if (f > Point5) {
+                    return n - 1;
+                }
+                if (f < Point5) {
+                    return n;
+                }
+
+                MultiPrecision<N> n_half = Ldexp(n, -1);
+                bool is_odd = n_half != Truncate(n_half);
+
+                return is_odd ? n - 1 : n;
             }
             else {
-                return Floor(TruncateMantissa(x, 1) + Point5);
+                MultiPrecision<N> n = Floor(x);
+                MultiPrecision<N> f = x - n;
+
+                if (f > Point5) {
+                    return n + 1;
+                }
+                if (f < Point5) {
+                    return n;
+                }
+
+                MultiPrecision<N> n_half = Ldexp(n, -1);
+                bool is_odd = n_half != Truncate(n_half);
+
+                return is_odd ? n + 1 : n;
             }
         }
 

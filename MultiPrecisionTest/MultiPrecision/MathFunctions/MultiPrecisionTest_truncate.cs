@@ -45,22 +45,57 @@ namespace MultiPrecisionTest.Functions {
 
         [TestMethod]
         public void RoundTest() {
-            for (int i = -10; i <= 10; i++) {
+            for (MultiPrecision<Pow2.N8> x = -32; x <= 32; x += 0.25) {
+                MultiPrecision<Pow2.N8> y = MultiPrecision<Pow2.N8>.Round(x);
+                double z = double.Round((double)x);
 
-                MultiPrecision<Pow2.N4> x1 = i - MultiPrecision<Pow2.N4>.Point5;
-                MultiPrecision<Pow2.N4> x2 = MultiPrecision<Pow2.N4>.BitDecrement(x1);
-                MultiPrecision<Pow2.N4> x3 = i + MultiPrecision<Pow2.N4>.Point5;
-                MultiPrecision<Pow2.N4> x4 = MultiPrecision<Pow2.N4>.BitDecrement(x3);
+                Assert.AreEqual((MultiPrecision<Pow2.N8>)z, y);
+            }
 
-                Console.WriteLine(x1.ToHexcode());
-                Console.WriteLine(x2.ToHexcode());
-                Console.WriteLine(x3.ToHexcode());
-                Console.WriteLine(x4.ToHexcode());
+            for (int n = -16; n <= 16; n++) {
+                Assert.AreEqual((MultiPrecision<Pow2.N8>)(n), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitDecrement(n)));
+                Assert.AreEqual((MultiPrecision<Pow2.N8>)(n), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitIncrement(n)));
+            }
 
-                Assert.AreEqual(i, MultiPrecision<Pow2.N4>.Round(x1));
-                Assert.AreEqual(i - 1, MultiPrecision<Pow2.N4>.Round(x2));
-                Assert.AreEqual(i + 1, MultiPrecision<Pow2.N4>.Round(x3));
-                Assert.AreEqual(i, MultiPrecision<Pow2.N4>.Round(x4));
+            for (int n = -16; n <= 16; n++) {
+                Assert.AreEqual((MultiPrecision<Pow2.N8>)(n), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitDecrement(n + 0.5)));
+                Assert.AreEqual((MultiPrecision<Pow2.N8>)(n + 1), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitIncrement(n + 0.5)));
+            }
+
+            for (int exp = 4; exp <= 100; exp++) {
+                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(1, exp);
+
+                Assert.AreEqual(x, MultiPrecision<Pow2.N8>.Round(x));
+                Assert.AreEqual(x, MultiPrecision<Pow2.N8>.Round(x + 0.5));
+                Assert.AreEqual(x + 2, MultiPrecision<Pow2.N8>.Round(x + 1.5));
+
+                Assert.AreEqual((-x), MultiPrecision<Pow2.N8>.Round(-x));
+                Assert.AreEqual((-x), MultiPrecision<Pow2.N8>.Round(-x - 0.5));
+                Assert.AreEqual((-x - 2), MultiPrecision<Pow2.N8>.Round(-x - 1.5));
+            }
+
+            for (int exp = 4; exp <= 100; exp++) {
+                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(1, exp);
+
+                Assert.AreEqual(x, MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitDecrement(x)));
+                Assert.AreEqual(x, MultiPrecision<Pow2.N8>.Round(x + 0.4));
+                Assert.AreEqual(x + 1, MultiPrecision<Pow2.N8>.Round(x + 1.4));
+
+                Assert.AreEqual((-x), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitIncrement(-x)));
+                Assert.AreEqual((-x), MultiPrecision<Pow2.N8>.Round(-x - 0.4));
+                Assert.AreEqual((-x - 1), MultiPrecision<Pow2.N8>.Round(-x - 1.4));
+            }
+
+            for (int exp = 4; exp <= 100; exp++) {
+                MultiPrecision<Pow2.N8> x = MultiPrecision<Pow2.N8>.Ldexp(1, exp);
+
+                Assert.AreEqual(x, MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitDecrement(x)));
+                Assert.AreEqual(x + 1, MultiPrecision<Pow2.N8>.Round(x + 0.6));
+                Assert.AreEqual(x + 2, MultiPrecision<Pow2.N8>.Round(x + 1.6));
+
+                Assert.AreEqual((-x), MultiPrecision<Pow2.N8>.Round(MultiPrecision<Pow2.N8>.BitIncrement(-x)));
+                Assert.AreEqual((-x - 1), MultiPrecision<Pow2.N8>.Round(-x - 0.6));
+                Assert.AreEqual((-x - 2), MultiPrecision<Pow2.N8>.Round(-x - 1.6));
             }
         }
 
