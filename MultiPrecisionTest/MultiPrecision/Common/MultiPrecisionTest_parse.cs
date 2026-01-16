@@ -653,12 +653,14 @@ namespace MultiPrecisionTest.Common {
 
                 MultiPrecision<Pow2.N8> v8 = "-0";
                 Assert.AreEqual(-0, (double)v8);
+                Assert.AreEqual(Sign.Minus, v8.Sign);
 
                 MultiPrecision<Pow2.N8> v9 = "+0.0";
                 Assert.AreEqual(0, (double)v9);
 
                 MultiPrecision<Pow2.N8> v10 = "-0.0";
                 Assert.AreEqual(0, (double)v10);
+                Assert.AreEqual(Sign.Minus, v10.Sign);
             }
         }
 
@@ -682,11 +684,37 @@ namespace MultiPrecisionTest.Common {
             MultiPrecision<Pow2.N4> v3 = "0.0000";
             MultiPrecision<Pow2.N4> v4 = "0";
             MultiPrecision<Pow2.N4> v5 = "0.0";
+            MultiPrecision<Pow2.N4> v6 = "-0";
+            MultiPrecision<Pow2.N4> v7 = "-0.0";
+            MultiPrecision<Pow2.N4> v8 = "0e1";
+            MultiPrecision<Pow2.N4> v9 = "0.0e1";
+            MultiPrecision<Pow2.N4> v10 = "-0e1";
+            MultiPrecision<Pow2.N4> v11 = "-0.0e1";
+            MultiPrecision<Pow2.N4> v12 = "0e-1";
+            MultiPrecision<Pow2.N4> v13 = "0.0e-1";
+            MultiPrecision<Pow2.N4> v14 = "-0e-1";
+            MultiPrecision<Pow2.N4> v15 = "-0.0e-1";
 
             Assert.AreEqual(0, v2);
             Assert.AreEqual(0, v3);
             Assert.AreEqual(0, v4);
             Assert.AreEqual(0, v5);
+            Assert.AreEqual(0, v6);
+            Assert.AreEqual(0, v7);
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v6));
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v7));
+            Assert.AreEqual(0, v8);
+            Assert.AreEqual(0, v9);
+            Assert.AreEqual(0, v10);
+            Assert.AreEqual(0, v11);
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v10));
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v11));
+            Assert.AreEqual(0, v12);
+            Assert.AreEqual(0, v13);
+            Assert.AreEqual(0, v14);
+            Assert.AreEqual(0, v15);
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v14));
+            Assert.IsTrue(MultiPrecision<Pow2.N4>.IsNegative(v15));
         }
 
         [TestMethod]
