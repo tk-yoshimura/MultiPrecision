@@ -17,6 +17,9 @@ namespace MultiPrecisionTest.Functions {
 
                 TestTool.Tolerance(Math.Tanh((double)x), y, ignore_sign: true);
             }
+
+            Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Tanh(MultiPrecision<Pow2.N8>.NegativeInfinity));
+            Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Tanh(MultiPrecision<Pow2.N8>.PositiveInfinity));
         }
 
         [TestMethod]
