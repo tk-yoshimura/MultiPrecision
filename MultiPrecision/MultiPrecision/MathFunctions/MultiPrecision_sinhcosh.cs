@@ -27,7 +27,7 @@
                 return x2_expm1 / x2_expp1;
             }
             else {
-                return 1;
+                return x.Sign == Sign.Plus ? One : MinusOne;
             }
         }
     }
