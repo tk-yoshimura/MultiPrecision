@@ -20,6 +20,15 @@ namespace MultiPrecisionTest.Functions {
 
             Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Tanh(MultiPrecision<Pow2.N8>.NegativeInfinity));
             Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Tanh(MultiPrecision<Pow2.N8>.PositiveInfinity));
+
+            Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Tanh("-1e+1000"));
+            Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Tanh("1e+1000"));
+
+            Assert.AreEqual(-1, MultiPrecision<Pow2.N8>.Tanh("-45"));
+            Assert.AreEqual(1, MultiPrecision<Pow2.N8>.Tanh("45"));
+
+            Assert.IsTrue(-1 < MultiPrecision<Pow2.N8>.Tanh("-44"));
+            Assert.IsTrue(1 > MultiPrecision<Pow2.N8>.Tanh("44"));
         }
 
         [TestMethod]

@@ -20,10 +20,12 @@
                 return NaN;
             }
 
-            MultiPrecision<N> x2 = 2 * x;
-            MultiPrecision<N> x2_expm1 = Expm1(x2), x2_expp1 = Exp(x2) + 1;
+            int x_thr = (int)double.Ceiling(0.17328679514 * (Bits + 1)); // = log(2) / 4 * (Bits + 1)
 
-            if (IsFinite(x2_expm1) && IsFinite(x2_expp1)) {
+            if (Abs(x) < x_thr) {
+                MultiPrecision<N> x2 = 2 * x;
+                MultiPrecision<N> x2_expm1 = Expm1(x2), x2_expp1 = Exp(x2) + 1;
+                
                 return x2_expm1 / x2_expp1;
             }
             else {
